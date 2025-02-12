@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask + PyTorch Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Flask + PyTorch App</h1>
+        <p>Enter your input data (ten numbers) below to get predictions from the PyTorch model.</p>
+
+        <form id="prediction-form" action="/predict" method="POST">
+            <label for="input_data">Input Data (comma-separated values):</label>
+            <input type="text" id="input_data" name="input_data" placeholder="e.g., 1.5, 2.3, 3.7" required>
+            <button type="submit">Get Prediction</button>
+        </form>
+
+        <div id="result">
+            {% if prediction %}
+                <h3>Prediction Result:</h3>
+                <p>{{ prediction }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</body>
+</html>
