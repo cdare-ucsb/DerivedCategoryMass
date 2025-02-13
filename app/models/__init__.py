@@ -1,24 +1,36 @@
 import torch
-from app.models.model import SimpleModel
+from app.models.model import SimpleModel, AdvancedModel
 import os
 
 # Global variable to store the loaded model
 model = None
 
-def load_model(model_path=None):
+def load_simple_model(model_path=None):
     """
     Loads the PyTorch model from the specified path.
     If no path is provided, it uses the default from the config.
     """
     global model
     if model is None:
-        model_path = model_path or os.environ.get('MODEL_PATH', 'app/models/trained_model.pth')
+        model_path = model_path or os.environ.get('MODEL_PATH', 'app/models/trained_simple_model.pth')
         print(f"Loading model from: {model_path}")
         
         # Initialize and load the model
         model = SimpleModel()  # Replace SimpleModel with your actual model class
         model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
         model.eval()  # Set model to evaluation mode
+    return model
+
+def load_advanced_model(model_path=None):  
+
+    global model
+    if model is None:
+        model_path = model_path or os.environ.get('MODEL_PATH', 'app/models/trained_advanced_model.pth')
+        print(f"Loading model from: {model_path}")
+        
+        model = AdvancedModel(input_size=10, hidden_sizes=[64, 128, 64], output_size=1)
+        model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
+        model.eval()
     return model
 
 

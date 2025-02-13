@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, render_template
 import torch
-from  app.models import load_model, preprocess_input, predict
+from  app.models import load_simple_model, load_advanced_model, preprocess_input, predict
 
 bp = Blueprint('routes', __name__)
 
@@ -17,7 +17,7 @@ def predict_route():
     if not input_data:
         return jsonify({"error": "No input data provided"}), 400
 
-    model = load_model('app/models/trained_model.pth')
+    model = load_simple_model('app/models/trained_model.pth')
     processed_input = preprocess_input(input_data)
     prediction = predict(model, processed_input)
 
@@ -31,7 +31,7 @@ def index():
     if request.method == 'POST':
         input_data = request.form['input_data']
         input_list = [float(x) for x in input_data.split(',')]
-        model = load_model()
+        model = load_simple_model()
         processed_input = preprocess_input(input_list)
         prediction = predict(model, processed_input).item()  # Convert prediction to scalar value
 
