@@ -43,6 +43,8 @@ def parse_file(filename):
 
 
 
+
+
 if __name__ == "__main__":
     filename = 'data/cicylist.txt'
     df = parse_file(filename)
