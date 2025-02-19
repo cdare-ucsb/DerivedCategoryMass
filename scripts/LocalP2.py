@@ -1,4 +1,5 @@
 import math
+import cmath
 import re
 
 
@@ -348,6 +349,72 @@ class CoherentSheaf():
             A string representation of the coherent sheaf
         """
         return f'CoherentSheaf of rank {self.c0}, degree {self.c1}, and c2 {self.c2}'
+    
+    def central_charge(self, s, q):
+        """
+        Method to compute the central charge of the coherent sheaf. The central charge is a complex-valued
+        homomorphism on the Grothendieck group of coherent sheaves, and is defined for local P2 via
+
+        Z(s, q) = -ch2 + q * ch0 + i(ch1 - s * ch0)
+
+        where s and q are real numbers (c.f. Chunyi Li, The Space of Stability Conditions on the Projective
+        Plane). The central charge is used to compute the phase of the central charge, which is used to
+        determine the stability of the sheaf.
+
+        Parameters:
+        ----------
+        s : float
+            The parameter controlling the imaginary part of the central charge
+        q : float
+            The parameter controlling the real part of the central charge
+
+        Returns:
+        -------
+        complex
+            The central charge of the coherent sheaf as a complex number
+
+        Raises:
+        -------
+        TypeError
+            If s or q are not floating-point decimals
+
+        """
+        
+        if not isinstance(s, float) or not isinstance(q, float):
+            raise TypeError("s and q must be floating-point decimals.")
+    
+        chern_char = self.chernCharacter()
+        return complex(-chern_char.ch2 + q * chern_char.ch0, chern_char.ch1 - s * chern_char.ch0)
+
+    def phase(self, s, q):
+        """
+        The phase, in terms of stability conditions, is actually considered as the argument
+        divided by pi. This is used to determine the stability of the sheaf with regard to its 
+        subobjects
+
+        Parameters:
+        ----------
+        s : float
+            The parameter controlling the imaginary part of the central charge
+        q : float
+            The parameter controlling the real part of the central charge
+
+        Returns:
+        -------
+        float
+            The phase of the central charge, divided by pi
+
+        Raises:
+        -------
+        TypeError
+            If s or q are not floating-point
+        """
+
+
+        if not isinstance(s, float) or not isinstance(q, float):
+            raise TypeError("s and q must be floating-point decimals.")
+        
+        return cmath.phase(self.central_charge(s, q)) / math.pi
     
 
 
@@ -742,8 +809,9 @@ class ChainComplex(DerivedCategoryObject):
 
     def __init__(self, sheaf_vector, shift_vector, dimension_vector = None):
         """
-        Initialize an instance of ChainComplex with the specified sheaf vector and shift vector.
-        The initialization performs several checks to ensure that the input is valid.
+        Initialize an instance of ChainComplex with the specified sheaf vector, shift vector,
+        and potentially a dimension vector. If a dimension vector is not provided, it must 
+        consist of non-negative integer values
 
         Parameters:
         ----------
@@ -843,7 +911,7 @@ class ChainComplex(DerivedCategoryObject):
         the complex. Since the Chern character is additive, we may multiply the Chern Characters by
         the dimension of the sheaf to represent direct sums of sheaves.
         """
-        cherns = [sheaf.chernClass() for sheaf in self.sheaf_vector]
+        cherns = [sheaf.chernCharacter() for sheaf in self.sheaf_vector]
 
         ch0 = 0
         ch1 = 0
@@ -898,6 +966,38 @@ class ChainComplex(DerivedCategoryObject):
                 del self.sheaf_vector[i]
                 del self.shift_vector[i]
                 del self.dimension_vector[i]
+
+    def central_charge(self, s, q):
+        """
+        Method to compute the central charge of the chain complex. The central charge of a chain complex
+        is the alternating sum of the central charges of the individual sheaves in the complex. Since the
+        central charge is additive, we may multiply the central charges by the dimension of the sheaf to
+        represent direct sums of sheaves.
+
+        Parameters:
+        ----------
+        s : float
+            The parameter controlling the imaginary part of the central charge
+        q : float
+            The parameter controlling the real part of the central charge
+
+        Returns:
+        -------
+        complex
+            The central charge of the chain complex as a complex number
+
+        Raises:
+        -------
+        TypeError
+            If s or q are not floating-point decimals
+
+        """
+        
+        if not isinstance(s, float) or not isinstance(q, float):
+            raise TypeError("s and q must be floating-point decimals.")
+    
+        chern_char = self.chernCharacter()
+        return complex(-chern_char.ch2 + q * chern_char.ch0, chern_char.ch1 - s * chern_char.ch0)
                 
 
 
@@ -1095,8 +1195,6 @@ class DistinguishedTriangle():
 ###############################################################################      
 
 
-
-
 class Node:
     def __init__(self, key):
         self.key = key
@@ -1131,38 +1229,95 @@ class BinaryFiltrationTree:
 
 
 
-    
-
-class SphericalTwistComposition():
-
-    def __init__(self, integer_array):
-
-        if not integer_array:
-            raise ValueError("Array is empty")
-        
-        self.integer_array = integer_array
-            
-        self.base_bundle = LineBundle(integer_array[0])
-        self.defining_triangle_tree = None
-
-        if len(integer_array) > 1:
-            line_bundle_2 = LineBundle(integer_array[1])
-
-            first_twist = self.__sph_twist_LineBundles(line_bundle_2, self.base_bundle)
-            shifted_twist = first_twist.shiftLeft()
-            print(shifted_twist)
-            root_node = Node(first_twist)
-            self.defining_triangle_tree = BinaryFiltrationTree(root_node=root_node)
 
 
-    
+
+class SphericalTwist():
+
+    def __init__(self, line_bundle_1, line_bundle_2):
+        """
+        Initialize an instance of SphericalTwist with the specified line bundles. The spherical twist
+        is defined as the cone of the evaluation morphism 
+
+                Hom(i*O(a), i*O(b)) ⊗ i*O(a) ---->  i*O(b) ----> Tw_a O(b)
+
+        where i*O(a) is the pushforward of the line bundle O(a) and Tw_a O(b) is the spherical twist. 
+        The spherical twist is represented as a distinguished triangle in the derived category of coherent
+        sheaves on local P^2. 
+
+        Several helper methods are used to compute the dimensions of the Hom spaces between the pushforwards
+        of the line bundles, and then to construct the distinguished triangle.
+
+        """
+
+
+        if not isinstance(line_bundle_1, LineBundle):
+            raise TypeError("line_bundle_1 must be an instance of LineBundle.")
+        if not isinstance(line_bundle_2, LineBundle):
+            raise TypeError("line_bundle_2 must be an instance of LineBundle.")
+
+        self.line_bundle_1 = line_bundle_1
+        self.line_bundle_2 = line_bundle_2
+        self.defining_triangle = self._sph_twist_LineBundles(line_bundle_1, line_bundle_2)
+
+
+    def __str__(self):
+        """
+        Returns a string representation of the spherical twist by printing the defining triangle
+
+        Returns:
+        -------
+        str
+            A string representation of the spherical twist
+        """
+        return str(self.defining_triangle)
+
+
+
     def _dimHom_LineBundles(self, line_bundle_1, line_bundle_2):
-        degree_dif = line_bundle_2.deg - line_bundle_1.deg
+        """
+        Helper method which computes the dimension of the hom spaces between the pushforwards of the
+        line bundles O(a) and O(b). The dimensions of the pushforwards are computed using the triangle
+
+        i^* i_* E -> E -> E x O(-3)[2]
+
+        and applying Hom(-, O(b)) to obtain a long-exact sequence. Using the standard dimensions of
+        the Hom spaces between line bundles on P^2, the computation reduces to a case-by-case
+        combinatorial problem. Since the homological index of the hom-space on P^2 is bounded between
+        0 and 2, the hom-space for local P2 is concentrated between degrees 0 and 3. Thus, we return
+        a tuple of the form (a,b,c,d)
+
+        Parameters:
+        ----------
+        line_bundle_1 : LineBundle
+            The first line bundle in the Hom space
+        line_bundle_2 : LineBundle
+            The second line bundle in the Hom space
+
+        Returns:
+        -------
+        tuple
+            A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
+
+        Raises:
+        -------
+        TypeError
+            If line_bundle_1 is not an instance of LineBundle
+            If line_bundle_2 is not an instance of LineBundle
+        """
+
+        if not isinstance(line_bundle_1, LineBundle):
+            raise TypeError("line_bundle_1 must be an instance of LineBundle.")
+        if not isinstance(line_bundle_2, LineBundle):
+            raise TypeError("line_bundle_2 must be an instance of LineBundle.")
+
+
+        degree_dif = line_bundle_2.c1 - line_bundle_1.c1
 
         if degree_dif == 0:
             return (1, 0, 0, 1)
         elif degree_dif > -3 and degree_dif < 0:
-            rank3 = math.comb(line_bundle_1.deg - line_bundle_2.deg + 2, 2)
+            rank3 = math.comb(line_bundle_1.c1 - line_bundle_2.c1 + 2, 2)
             return (0, 0, 0, rank3)
         elif degree_dif > 0 and degree_dif < 3:
             rank0 = math.comb(degree_dif + 2, 2)
@@ -1172,34 +1327,171 @@ class SphericalTwistComposition():
             rank1 = math.comb(degree_dif - 1, 2)
             return (rank0, rank1, 0, 0)
         else:
-            rank2 = math.comb(line_bundle_1.deg - line_bundle_2.deg -1, 2)
-            rank3 = math.comb(line_bundle_1.deg - line_bundle_2.deg + 2, 2)    
+            rank2 = math.comb(line_bundle_1.c1 - line_bundle_2.c1 -1, 2)
+            rank3 = math.comb(line_bundle_1.c1 - line_bundle_2.c1 + 2, 2)    
             return (0, 0, rank2, rank3)
+        
+
+    def _sph_twist_LineBundles(self, line_bundle_1, line_bundle_2):
+        """
+        Helper function which uses the above method to turn the tuple of dimensions of
+        a hom-space into a defining triangle. Specifically, the method first takes the 
+        tuple representing the dimension of the hom spaces and then constructs a
+        ChainComplex object for the first object in the distinguished triangle. The second
+        object is a ChainComplex object with a single copy of the second line bundle, and
+        the third object is a DerivedCategoryObject representing the spherical twist.
 
 
+        Parameters:
+        ----------
+        line_bundle_1 : LineBundle
+            The first line bundle in the Hom space
+        line_bundle_2 : LineBundle
+            The second line bundle in the Hom space
 
-    def __sph_twist_LineBundles(self, line_bundle_1, line_bundle_2):
-        '''
-        use triangle  i^* i_* E -> E -> E x O(-3)[2]
-        '''
+        Returns:
+        -------
+        DistinguishedTriangle
+            The distinguished triangle representing the spherical twist
+
+        Raises:
+        -------
+        TypeError
+            If line_bundle_1 is not an instance of LineBundle
+            If line_bundle_2 is not an instance of LineBundle
+        """
+
+        if not isinstance(line_bundle_1, LineBundle):
+            raise TypeError("line_bundle_1 must be an instance of LineBundle.")
+        if not isinstance(line_bundle_2, LineBundle):
+            raise TypeError("line_bundle_2 must be an instance of LineBundle.")
 
         homDims = self._dimHom_LineBundles(line_bundle_1, line_bundle_2)
 
+        bundle_vector = []
         dimension_vector = [] 
         shift_vector = []
 
+        # create the necessary lists for the ChainComplex constructor 
         for i in range(len(homDims)):
-            
             if homDims[i] == 0:
                 continue
             dimension_vector.append(homDims[i])
             shift_vector.append(-1*i)
+            bundle_vector.append(LineBundle(line_bundle_1.c1))
 
-        object1 = ChainComplex([line_bundle_1, line_bundle_1], dimension_vector, shift_vector)
-        object2 = ChainComplex([line_bundle_2], [1], [0])
-        object3 = DerivedCategoryObject(string=f"Tw_{line_bundle_1.deg} O({line_bundle_2.deg})")
+
+        object1 = ChainComplex(sheaf_vector=bundle_vector, shift_vector=shift_vector, dimension_vector=dimension_vector)
+        object2 = ChainComplex(sheaf_vector=[LineBundle(line_bundle_2.c1)], shift_vector=[0], dimension_vector=[1])
+        object3 = DerivedCategoryObject(string=f"Tw_{line_bundle_1.c1} O({line_bundle_2.c1})")
+
 
         return DistinguishedTriangle(object1, object2, object3)
+    
+
+    def chernCharacter(self):
+        """
+        Method to compute the Chern Character of the spherical twist. The Chern Character of the
+        spherical twist is the Chern Character of the third object in the distinguished triangle.
+
+        Returns:
+        -------
+        ChernCharacter
+            The Chern Character of the spherical twist
+        """
+
+        return self.defining_triangle.object3.chernCharacter()
+
+    def is_stable(self):
+        """
+        Method to check if the spherical twist is stable. A spherical twist is stable if the
+        Chern Character of the third object in the distinguished triangle is (0,0,0). This is
+        equivalent to the condition that the Chern Character of the first object is equal to
+        the Chern Character of the second object.
+
+        Returns:
+        -------
+        bool
+            True if the spherical twist is stable, False otherwise
+        """
+
+        
+
+
+
+
+    
+
+# class SphericalTwistComposition():
+
+#     def __init__(self, integer_array):
+
+#         if not integer_array:
+#             raise ValueError("Array is empty")
+        
+#         self.integer_array = integer_array
+            
+#         self.base_bundle = LineBundle(integer_array[0])
+#         self.defining_triangle_tree = None
+
+#         if len(integer_array) > 1:
+#             line_bundle_2 = LineBundle(integer_array[1])
+
+#             first_twist = self._sph_twist_LineBundles(line_bundle_2, self.base_bundle)
+#             print(first_twist)
+#             root_node = Node(first_twist)
+#             self.defining_triangle_tree = BinaryFiltrationTree(root_node=root_node)
+
+
+    
+#     def _dimHom_LineBundles(self, line_bundle_1, line_bundle_2):
+#         degree_dif = line_bundle_2.c1 - line_bundle_1.c1
+
+#         if degree_dif == 0:
+#             return (1, 0, 0, 1)
+#         elif degree_dif > -3 and degree_dif < 0:
+#             rank3 = math.comb(line_bundle_1.c1 - line_bundle_2.c1 + 2, 2)
+#             return (0, 0, 0, rank3)
+#         elif degree_dif > 0 and degree_dif < 3:
+#             rank0 = math.comb(degree_dif + 2, 2)
+#             return (rank0, 0, 0, 0)
+#         elif degree_dif >= 3:
+#             rank0 = math.comb(degree_dif + 2, 2)
+#             rank1 = math.comb(degree_dif - 1, 2)
+#             return (rank0, rank1, 0, 0)
+#         else:
+#             rank2 = math.comb(line_bundle_1.c1 - line_bundle_2.c1 -1, 2)
+#             rank3 = math.comb(line_bundle_1.c1 - line_bundle_2.c1 + 2, 2)    
+#             return (0, 0, rank2, rank3)
+
+
+
+#     def _sph_twist_LineBundles(self, line_bundle_1, line_bundle_2):
+#         '''
+#         use triangle  i^* i_* E -> E -> E x O(-3)[2]
+#         '''
+
+#         homDims = self._dimHom_LineBundles(line_bundle_1, line_bundle_2)
+
+#         bundle_vector = []
+#         dimension_vector = [] 
+#         shift_vector = []
+
+#         for i in range(len(homDims)):
+            
+#             if homDims[i] == 0:
+#                 continue
+#             dimension_vector.append(homDims[i])
+#             shift_vector.append(-1*i)
+#             bundle_vector.append(LineBundle(line_bundle_1.c1))
+
+
+#         object1 = ChainComplex(sheaf_vector=bundle_vector, shift_vector=shift_vector, dimension_vector=dimension_vector)
+#         object2 = ChainComplex(sheaf_vector=[LineBundle(line_bundle_2.c1)], shift_vector=[0], dimension_vector=[1])
+#         object3 = DerivedCategoryObject(string=f"Tw_{line_bundle_1.c1} O({line_bundle_2.c1})")
+
+
+#         return DistinguishedTriangle(object1, object2, object3)
 
 
 
@@ -1214,18 +1506,18 @@ if __name__ == "__main__":
     linebundle5 = LineBundle(1)
 
 
-    cot = CotangentBundle(0)
-    print(cot)
-    print(cot.chernCharacter())
-    print(cot.isCotangentBundleSum())
+    print(linebundle1.central_charge(0.5, 0.9))
+    print(linebundle2.central_charge(0.5, 0.9))
 
-    chern1 = cot.chernCharacter() + linebundle4.chernCharacter() 
-    chern2 = 3 * linebundle3.chernCharacter()
+    mycomplex = ChainComplex([linebundle1, linebundle2], shift_vector=[1,2])
+    print(mycomplex.central_charge(0.5, 0.9))
 
-    print("Chern 1: {}".format(chern1))
-    print("Chern 2: {}".format(chern2))
+    print(linebundle1.central_charge(0.5, 0.9) == complex(-3.6, -3.5))
 
-    print("Chern1 == chern2: {}".format(chern1 == chern2))
+    print("\n")
+
+    sph_twist = SphericalTwist(LineBundle(-3), LineBundle(-4))
+    print(sph_twist.chernCharacter())
 
 
 
