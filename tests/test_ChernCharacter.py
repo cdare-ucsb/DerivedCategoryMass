@@ -2,9 +2,10 @@ import pytest
 import os
 import sys
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from src import ChernCharacter, CoherentSheaf, LineBundle, ChainComplex
+from src import LineBundle, ChainComplex
+
 
 
 
@@ -39,3 +40,24 @@ def test_chern_character():
     assert chern.ch2 == -2.5
     assert chern.ch1 == -5.0
     assert chern.ch0 == -1.0
+
+
+def test_adding_characters():
+
+    linebundle1 = LineBundle(3)
+    linebundle2 = LineBundle(-2)
+
+    chern1 = linebundle1.chernCharacter()
+    chern2 = linebundle2.chernCharacter()
+
+    chern = chern1 + chern2
+
+    assert chern.ch2 == 6.5
+    assert chern.ch1 == 1
+    assert chern.ch0 == 2
+
+    chern = chern1 - chern2
+
+    assert chern.ch2 == 2.5
+    assert chern.ch1 == 5
+    assert chern.ch0 == 0

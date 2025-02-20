@@ -5,13 +5,157 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive 3D Plot</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+    <!-- Load MathJax v3 with AMS package -->
+    <script>
+        window.MathJax = {
+            loader: {load: ['[tex]/amscd']},
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],  // Allow inline LaTeX
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],  // Allow display LaTeX
+                packages: {'[+]': ['amscd']}
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+
+    <script type="text/javascript" async 
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+
+
+
+
+
+    <style>
+        /* Style for the return button */
+        .return-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            z-index: 1000;  /* Ensure it's on top */
+            display: block;  /* Ensure it's not hidden */
+        }
+        .return-button:hover {
+            background-color: #0056b3;
+        }
+        /* LaTeX equation container */
+        .latex-container {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Interactive 3D Plot (y > x²)</h1>
+    <!-- Return Home Button -->
+    <a href="/" class="return-button">Return Home</a>
+
+    <!--plotly object-->
     <div id="plot"></div>
+
+    <p>
+        Up to the $\mathbb{C}$-action, every geometric stability condition is of the form $\sigma_{s,q} = (\operatorname{Coh}^{\sharp s}( \mathcal{D}_{0, \mathbb{P}^2} ), Z_{s,q} )$
+        with $(s,q) \in \mathbb{R}^2$ sitting above the Drézet-Le Potier curve (c.f. J.M. Drezet and J. Le Potier, <em>Fibrés stables et fibrés exceptionnels sur $\mathbb{P}^2$</em>) and
+    </p>
+    <p>
+        $$
+        Z_{s, q}(i_{\ast} \mathcal{E}) := -\operatorname{ch}_{2}(\mathcal{E}) + q \operatorname{ch}_{0}(\mathcal{E}) + i( \operatorname{ch}_{1}(\mathcal{E}) - s \operatorname{ch}_{0}(\mathcal{E}) )
+        $$
+    </p>
+    <p>
+        In this case, $\operatorname{Coh}^{\sharp s}( \mathcal{D}_{0, \mathbb{P}^2} )$ is the standard tilt $\langle \operatorname{Coh}_{0, \mathbb{P}^2}^{\leq s}[1], \operatorname{Coh}_{0, \mathbb{P}^2}^{> s} \rangle$, where $\operatorname{Coh}_{0, \mathbb{P}^2}^{> s}$ is generated (by extensions) by semi-stable sheaves supported on the zero locus $\mathbb{P}^2$ of slope $> s$ (and similar for $ \operatorname{Coh}_{0, \mathbb{P}^2}^{\leq s}[1]$ ).
+    </p>
+
+    <p id="exposition-1">
+        The mass of the spherical twist $\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( line\_bundle\_1\_deg )}  i_{\\ast} \\mathcal{O}( line\_bundle\_2\_deg )$, as shown in the above figure, is the sum of the masses of its Harder-Narasimhan factors. For a single twist, we may simply use the defining triangle
+    </p>
+
+    <!-- LaTeX Equation Section -->
+    <div class="latex-container">
+        <p id="commutative-diagram">
+            $$ 
+            \\begin{CD}
+                i_{\\ast} \\mathcal{O}( line\_bundle\_1\_deg )^{\\oplus line\_bundle\_1\_dim} @>>> i_{\\ast} \\mathcal{O}( line\_bundle\_2\_deg ) @>>> \\operatorname{Tw}_{ line\_bundle\_1\_deg } i_{\\ast} \\mathcal{O}( line\_bundle\_2\_deg )
+            \\end{CD}
+            $$
+        </p>
+    </div>
+
     <script>
         var plot_data = {{ plot_json | safe }};
         Plotly.newPlot('plot', plot_data.data, plot_data.layout);
+
+        // Convert ChainComplex JSON into a JavaScript object
+        var chainComplex = JSON.parse({{ chain_complex | tojson | safe }});
+        console.log("Chain Complex Data:", chainComplex);
+
+        var shift_vector = chainComplex["object1"]["shift_vector"];
+        var dimension_vector = chainComplex["object1"]["dimension_vector"];
+        var lb_1_deg = chainComplex["object1"]["sheaf_vector"][0];
+        var lb_2_deg = chainComplex["object2"]["sheaf_vector"][0];
+
+        if (shift_vector.length == 1 && shift_vector[0] == 0) {
+
+            // Update the TikZ diagram dynamically
+            document.getElementById("commutative-diagram").innerHTML = `$$ 
+                    \\begin{CD}
+                        i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}} @>>> i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>>  \\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} )
+                    \\end{CD}
+                    $$`;
+            
+        } else if (shift_vector.length == 1) {
+
+            // Update the TikZ diagram dynamically
+            document.getElementById("commutative-diagram").innerHTML = `$$ 
+                    \\begin{CD}
+                        i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}}[ ${shift_vector[0]} ] @>>> i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> \\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} )
+                    \\end{CD}
+                    $$`;
+            
+        } else {
+            
+            if (shift_vector[0] == 0) {
+                
+                // Update the TikZ diagram dynamically
+                document.getElementById("commutative-diagram").innerHTML = `$$ 
+                        \\begin{CD}
+                            i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}} \\oplus i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[1]}}[ ${shift_vector[1]} ]  @>>> i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> \\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} )
+                        \\end{CD}
+                        $$`;
+
+            } else if (shift_vector[1] == 0) {
+                // Update the TikZ diagram dynamically
+                document.getElementById("commutative-diagram").innerHTML = `$$ 
+                                        \\begin{CD}
+                                            i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}}[ ${shift_vector[0]} ] \\oplus i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[1]}}  @>>> i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> \\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} )
+                                        \\end{CD}
+                                        $$`;
+            } else {
+                // Update the TikZ diagram dynamically
+                document.getElementById("commutative-diagram").innerHTML = `$$ 
+                        \\begin{CD}
+                            i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}}[ ${shift_vector[0]} ] \\oplus i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[1]}}[ ${shift_vector[1]} ]  @>>> i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> \\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} )
+                        \\end{CD}
+                        $$`;
+            }
+        }
+
+    document.getElementById("exposition-1").innerHTML = `The mass of the spherical twist $\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} )$, as shown in the above figure, is the sum of the masses of its Harder-Narasimhan factors. For a single twist, we may simply use the defining triangle`;
+
     </script>
+
+     
 </body>
 </html>

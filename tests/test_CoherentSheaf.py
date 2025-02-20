@@ -4,7 +4,9 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src import ChernCharacter, CotangentBundle, LineBundle, ChainComplex
+from src.ChernCharacter import ChernCharacter
+from src.CoherentSheaf import CotangentBundle, LineBundle
+from src.DerivedCategoryObject import ChainComplex
 
 
 def test_is_cotangent_bundle_sum():

@@ -7,16 +7,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+
+
     <div class="container">
         <h1>Welcome to Flask + PyTorch App</h1>
-        <p>Enter your input data (ten numbers) below to get predictions from the PyTorch model.</p>
 
-        <form id="prediction-form" action="/predict" method="POST">
-            <label for="input_data">Input Data (comma-separated values):</label>
-            <input type="text" id="input_data" name="input_data" placeholder="e.g., 1.5, 2.3, 3.7" required>
-            <button type="submit">Get Prediction</button>
-        </form>
-
+        
         <p>Alternatively, enter two integers which will be used as input for plotting the mass of a twist</p>
         <form id="sph-twist-form" action="/plot_sph_twist" method="POST">
             <label for="line_bundle_1">First line bundle degree (integer):</label>

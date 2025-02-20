@@ -1,6 +1,6 @@
-from CoherentSheaf import LineBundle, VectorBundle, CoherentSheaf
-from ChernCharacter import ChernCharacter
-from DerivedCategoryObject import DerivedCategoryObject, ChainComplex, DistinguishedTriangle
+from .CoherentSheaf import LineBundle
+from .ChernCharacter import ChernCharacter
+from .DerivedCategoryObject import DerivedCategoryObject, ChainComplex, DistinguishedTriangle
 import math
 
 

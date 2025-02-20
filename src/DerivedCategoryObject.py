@@ -1,5 +1,5 @@
-from CoherentSheaf import CoherentSheaf
-from ChernCharacter import ChernCharacter
+from .CoherentSheaf import CoherentSheaf
+from .ChernCharacter import ChernCharacter
 import re
 import math
 
