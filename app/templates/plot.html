@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive 3D Plot</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Interactive 3D Plot (y > x²)</h1>
+    <div id="plot"></div>
+    <script>
+        var plot_data = {{ plot_json | safe }};
+        Plotly.newPlot('plot', plot_data.data, plot_data.layout);
+    </script>
+</body>
+</html>
