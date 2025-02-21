@@ -372,7 +372,13 @@ class CotangentBundle(VectorBundle):
     def chernCharacter(self):
         """
         Method which returns a Chern Characteristic class of the cotangent bundle. The chern
-        Character of the cotangent bundle is always of the form (2, 2d - 3, d^2 - 3d + 3/2).
+        Character of the cotangent bundle is always of the form (2, 2d - 3, d^2 - 3d + 3).
+
+        Returns:
+        -------
+
+        ChernCharacter
+            The Chern character of the cotangent bundle
         """
         ch2 = float(self.c1**2 - 2 * self.c2) / 2
         return ChernCharacter(self.c0, self.c1, ch2)

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, render_template
 from  app.models import load_simple_model,  preprocess_input, predict
-from src import LineBundle, SphericalTwist
+from src import LineBundle, SphericalTwist, LePotier
 import plotly.graph_objects as go
 import plotly.utils
 import numpy as np
@@ -67,7 +67,7 @@ def plot_sph_twist():
     except ValueError:
         return jsonify({"error": "Invalid input data"}), 400
     
-    
+  
 
 
 def compute_plot_data(line_bundle_1, line_bundle_2):
@@ -77,33 +77,57 @@ def compute_plot_data(line_bundle_1, line_bundle_2):
 
     sph = SphericalTwist(LineBundle(line_bundle_1), LineBundle(line_bundle_2))
 
+    DLP = LePotier(width=5, granularity=3)
+    
+
     # Define x values (spread around a region)
-    x_vals = np.linspace(-5, 5, 100)  # X values from -2 to 2
+    x_vals = np.linspace(-5, 5, 200)  # X values from -2 to 2
 
     # Generate y values satisfying y > x^2
     y_vals = []
     for x in x_vals:
-        y_min = x**2 -0.4  # Slightly above x^2
+        y_min = float(DLP.curve_estimate(x)) # Slightly above x^2
         y_max = 25  # Arbitrary upper bound
-        y_range = np.linspace(y_min, y_max, 50)  # 50 points per x value
+        y_range = np.linspace(y_min, y_max, 160)  # 50 points per x value
         y_vals.append(y_range)
 
     # Convert to numpy array
     y_vals = np.array(y_vals).flatten()  # Flatten the y array
 
     # Repeat x values to match the shape of y
-    x_vals = np.repeat(x_vals, 50)  # Each x value repeats 10 times
+    x_vals = np.repeat(x_vals, 160)  # Each x value repeats 10 times
 
     masses = np.array([sph.mass(x, y) for x, y in zip(x_vals, y_vals)])
 
     # Plot the surface
     fig = go.Figure(data=[go.Scatter3d(z=masses, x=x_vals, y=y_vals,
-                                    mode='markers', marker=dict(size=4, color=masses, colorscale='viridis'))])
+                                    mode='markers', marker=dict(size=3, color=masses, colorscale='viridis'))])
 
     fig.update_layout(
         title="",
         autosize=True,
-        margin=dict(l=0, r=0, b=0, t=30)
+        margin=dict(l=0, r=0, b=0, t=30),
+        scene=dict(
+            
+            bgcolor="white",  # Changes the 3D plot background,
+
+            xaxis = dict(
+                backgroundcolor="white",
+                gridcolor="white",
+                showbackground=True,
+                zerolinecolor="white",),
+            yaxis = dict(
+                backgroundcolor="white",
+                gridcolor="white",
+                showbackground=True,
+                zerolinecolor="white"),
+            zaxis = dict(
+                backgroundcolor="white",
+                gridcolor="white",
+                showbackground=True,
+                zerolinecolor="white"
+            )
+        )
     )
 
     return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)

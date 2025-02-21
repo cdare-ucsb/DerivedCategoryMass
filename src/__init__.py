@@ -16,6 +16,7 @@ from .ChernCharacter import *
 from .CoherentSheaf import *
 from .DerivedCategoryObject import *
 from .SphericalTwistComposition import *
+from .LocalP2 import *
 
 __all__ = ['ChernCharacter', 'CoherentSheaf', 'DerivedCategoryObject',
-           'SphericalTwistComposition', 'train', 'cicy_train', 'binarytree']
+           'SphericalTwistComposition', 'train', 'cicy_train', 'binarytree', 'LocalP2']

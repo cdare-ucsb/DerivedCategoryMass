@@ -112,7 +112,7 @@ class SphericalTwist():
         Helper method which computes the dimension of the hom spaces between the pushforwards of the
         line bundles O(a) and O(b). The dimensions of the pushforwards are computed using the triangle
 
-        i^* i_* E -> E -> E x O(-3)[2]
+        i^* i_* E -> E -> E x O(3)[2]
 
         and applying Hom(-, O(b)) to obtain a long-exact sequence. Using the standard dimensions of
         the Hom spaces between line bundles on P^2, the computation reduces to a case-by-case
@@ -273,12 +273,14 @@ class SphericalTwist():
             True if the spherical twist is stable, False otherwise
         """
 
+        # Write triangle as A -> Tw -> B + B[shift]
         modified_defining_triangle = self.defining_triangle.shiftLeft()
         subobject = modified_defining_triangle.object1.sheaf_vector[0]
+
+        # phase(A)
         left_side_phase = subobject.phase(s,q)
+
         
-
-
         quotient_complex = modified_defining_triangle.object3 
 
         right_side_phase = 0
@@ -293,11 +295,12 @@ class SphericalTwist():
             # We may assume / Know that for spherical twists, the two line bundles
             # will be the same.
 
-            right_side_shift = 0
+            right_side_shift = 0 # should be minimum shift
+            # Get minimum shift
             if quotient_complex.dimension_vector[0] > quotient_complex.dimension_vector[1]:
-                right_side_shift = quotient_complex.shift_vector[0]
-            else:
                 right_side_shift = quotient_complex.shift_vector[1]
+            else:
+                right_side_shift = quotient_complex.shift_vector[0]
 
             right_side_phase = right_lb_base_phase + right_side_shift
         else:
@@ -307,21 +310,72 @@ class SphericalTwist():
         return left_side_phase <= right_side_phase
 
 
+
+
     def mass(self, s, q):
 
         if self.is_semistable(s,q):
             return abs(self.central_charge(s,q))
-        else:
+        
+        elif self.defining_triangle.object1.dimension_vector[0] == 1:
+
+            # Write triangle as O(a) -> Tw -> O(b)[shift]
             modified_defining_triangle = self.defining_triangle.shiftLeft()
             subobject = modified_defining_triangle.object1.sheaf_vector[0]
-            mass = abs(subobject.central_charge(s,q))
+            mass = 0        
 
             quotient_complex = modified_defining_triangle.object3
-            for i in range(len(quotient_complex.sheaf_vector)):
-                dim = quotient_complex.dimension_vector[i]
-                mass += dim * abs(quotient_complex.sheaf_vector[i].central_charge(s,q))
+            mass = abs(subobject.central_charge(s,q))
+            mass += quotient_complex.dimension_vector[0] * abs(quotient_complex.sheaf_vector[0].central_charge(s,q))
             
             return mass
+            
+        else:
+            # Write triangle as A -> Tw -> B + B[shift]
+            modified_defining_triangle = self.defining_triangle.shiftLeft()
+            subobject = modified_defining_triangle.object1.sheaf_vector[0]
+            mass = 0
+
+
+            quotient_complex = modified_defining_triangle.object3
+            phase0 = quotient_complex.sheaf_vector[0].phase(s,q) + quotient_complex.shift_vector[0]
+            phase1 = quotient_complex.sheaf_vector[1].phase(s,q) + quotient_complex.shift_vector[1]
+
+            largest_phase = max(phase0, phase1)
+
+            # CASE 1: phi(subobj) > largest phase(quotient)
+            if subobject.phase(s,q) > largest_phase:
+                mass = abs(subobject.central_charge(s,q))
+                # By BDL we have that the mass is the sum of masses of two objects
+                for i in range(len(quotient_complex.sheaf_vector)):
+                    dim = quotient_complex.dimension_vector[i]
+                    mass += dim * abs(quotient_complex.sheaf_vector[i].central_charge(s,q))
+                
+                return mass
+            # CASE 2: smallest phase(Quotient) < phi(subobj) < largest phase(quotient)
+            else:
+                if largest_phase == phase0:
+                    # smallest phase object first
+                    mass = abs(quotient_complex.sheaf_vector[1].central_charge(s,q))
+                    # isolate single element of larger shift in the quotient object
+                    new_complex = ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[0]],
+                                                shift_vector=[quotient_complex.shift_vector[0]],
+                                                dimension_vector=[quotient_complex.dimension_vector[0]])
+                    mass += abs(subobject.central_charge(s,q) + new_complex.central_charge(s,q))
+
+                    return mass
+
+                else:
+                    # smallest phase object first
+                    mass = abs(quotient_complex.sheaf_vector[0].central_charge(s,q))
+                    # isolate single element of larger shift in the quotient object
+                    new_complex = ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[1]],
+                                                shift_vector=[quotient_complex.shift_vector[1]],
+                                                dimension_vector=[quotient_complex.dimension_vector[1]])
+                    mass += abs(subobject.central_charge(s,q) + new_complex.central_charge(s,q))
+
+                    return mass
+
             
 
 
