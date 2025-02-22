@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flask + PyTorch Prediction</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
+    <!--plotly object-->
+    <div id="plot"></div>
 
     <div class="container">
-        <h1>Welcome to Flask + PyTorch App</h1>
+        <h1>Single Spherical Twist Computation</h1>
 
         
         <p>Alternatively, enter two integers which will be used as input for plotting the mass of a twist</p>
@@ -30,6 +34,11 @@
             {% endif %}
         </div>
     </div>
+
+    <script>
+        var plot_data = {{ plot_json | safe }};
+        Plotly.newPlot('plot', plot_data.data, plot_data.layout, {'scrollZoom': true});
+    </script>
 
     <style>
         body {

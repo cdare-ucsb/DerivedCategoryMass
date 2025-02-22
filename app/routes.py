@@ -35,15 +35,11 @@ def predict_route():
 
 @bp.route('/', methods=['GET', 'POST'])
 def index():
-    prediction = None
-    if request.method == 'POST':
-        input_data = request.form['input_data']
-        input_list = [float(x) for x in input_data.split(',')]
-        model = load_simple_model()
-        processed_input = preprocess_input(input_list)
-        prediction = predict(model, processed_input).item()  # Convert prediction to scalar value
+    
+    DLP = LePotier(width=5, granularity=4)
+    plot_json = DLP.plot_drezet_le_potier(return_json=True)
 
-    return render_template('index.html', prediction=prediction)
+    return render_template('index.html', plot_json = plot_json)
     # return render_template('index.html')
 
 
@@ -166,3 +162,6 @@ def compute_chain_complex_data(line_bundle_1, line_bundle_2):
     }
 
     return json.dumps(chain_complex_data)
+
+
+    
