@@ -36,10 +36,11 @@ def predict_route():
 @bp.route('/', methods=['GET', 'POST'])
 def index():
     
-    DLP = LePotier(width=5, granularity=4)
-    plot_json = DLP.plot_drezet_le_potier(return_json=True)
+    DLP = LePotier(width=5, granularity=5)
+    DLP_2d_json = DLP.plot_drezet_le_potier(return_json=True, show_walls=True)
+    chamber_struct = DLP.plot_continuing_chamber(return_json=True)
 
-    return render_template('index.html', plot_json = plot_json)
+    return render_template('index.html', DLP_2d_json = DLP_2d_json, chamber_struct = chamber_struct)
     # return render_template('index.html')
 
 

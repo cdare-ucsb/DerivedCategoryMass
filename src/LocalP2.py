@@ -1,63 +1,44 @@
-from ChernCharacter import ChernCharacter
+from .ChernCharacter import ChernCharacter
 import matplotlib.pyplot as plt
 import math
 import numpy as np
 import plotly.graph_objects as go
+from plotly.graph_objs import *
 import plotly.utils
 import json
-
-
-
-# class StabilityCondition():
-
-#     def __init__(self, s, q):
-#         self.s = s
-#         self.q = q
-
-
-#     def plot_central_charge(self, objects, labels=None):
-#         """
-#         Plots the central charge on the complex plane and draws a line from the origin (0,0) to each complex number.
-
-#         Args:
-#             central_charges (list of complex): A list of complex numbers to plot.
-#             labels (list of str, optional): Labels corresponding to each complex number.
-#         """
-
-#         central_charges = [obj.central_charge(self.s, self.q) for obj in objects]
-
-#         plt.figure(figsize=(6, 6))
-        
-#         for i, z in enumerate(central_charges):
-
-#             stab_color = 'blue' if objects[i].is_semistable(self.s, self.q) else 'red'
-#             line_color = 'cyan' if objects[i].is_semistable(self.s, self.q) else 'red'
-
-#             # Plot point
-#             plt.scatter(z.real, z.imag, color=stab_color, marker='o')
-            
-#             # Draw line from (0,0) to the complex number
-#             plt.plot([0, z.real], [0, z.imag], linestyle='-', color=line_color, alpha=0.7)
-
-#             # Add labels if provided
-#             if labels and i < len(labels):
-#                 plt.text(z.real, z.imag, f" {labels[i]}", fontsize=12, verticalalignment='bottom')
-
-#         # Draw x-axis and y-axis
-#         plt.axhline(0, color='black', linewidth=1)
-#         plt.axvline(0, color='black', linewidth=1)
-#         plt.grid(True, linestyle="--", alpha=0.6)
-
-#         plt.xlabel("Real")
-#         plt.ylabel("Imaginary")
-#         plt.title("Central Charge on Complex Plane")
-
-#         plt.show()
+import cmath
+from mpl_toolkits.mplot3d import Axes3D  
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+from matplotlib import cm
 
 
 class LePotier():
+    """
+    Class which encodes a significant porition of the mathematical information about the Drézet-Le Potier
+    curve embedded in the ch1/ch0, ch2/ch0 plane. An algorithmic description of how to obtain the 
+    coordinates of exceptional vector bundles is described in 
+
+    https://link.springer.com/article/10.1007/s00029-017-0352-4
+
+    Attributes:
+    ----------------
+    granularity (int): The number of bits of precision to use in the calculation of the curve
+    width (int): The width of the curve in terms of the number of dyadic characters
+    boundary_points (list): A list of tuples containing the coordinates of the boundary points of the curve
+
+    """
 
     def __init__(self, granularity=5, width=5):
+        """
+        Constructor for the LePotier class. Initializes the curve with the given granularity
+        and width.
+
+        Args:
+        ----------------
+        granularity (int): The number of bits of precision to use in the calculation of the curve
+        width (int): The width of the curve in terms of the number of dyadic characters
+        """
         self.granularity = granularity
         self.width = width
 
@@ -77,6 +58,22 @@ class LePotier():
 
 
     def _get_dyadic_character(self, p, m):
+        """
+        Helper function to calculate the chern characer corresponding to a dyadic number p/2^m
+        
+        Args:
+        ----------------
+        p (int): The index of the dyadic character
+        m (int): the exponent of the denominator of the dyadic character, e.g. p/2^m
+
+        Returns:
+        ----------------
+        ChernCharacter: The Chern character of the dyadic character
+
+        Raises:
+        ----------------
+        ValueError: If the input data is not valid
+        """
 
         if not isinstance(p, int) or not isinstance(m, int) or not m >= 0:
             raise ValueError("Input data must be integers, with m >= 0")
@@ -97,18 +94,59 @@ class LePotier():
             return self._get_dyadic_character(new_p, m-2)
         
     def _e_reg(self, p, m):
+        """
+        Helper function to calculate the regular part of the exceptional vector bundle
+
+        Args:
+        ----------------
+        p (int): The index of the dyadic character
+        m (int): the exponent of the denominator of the dyadic character, e.g. p/2^m
+
+        Returns:
+        ----------------
+        tuple: A tuple containing the coordinates of the regular part of the exceptional vector bundle
+        """
         chern = self._get_dyadic_character(p, m)
         return ( float(chern.ch1) / chern.ch0, chern.ch2 / chern.ch0 )
         
     def _e_plus(self, p, m):
+        """
+        Helper function to calculate the right-side part of the exceptional vector bundle
+
+        Args:
+        ----------------
+        p (int): The index of the dyadic character
+        m (int): the exponent of the denominator of the dyadic character, e.g. p/2^m
+
+        Returns:
+        ----------------
+        tuple: A tuple containing the coordinates of the right-side part of the exceptional vector bundle
+
+        
+        """
         chern = self._get_dyadic_character(p, m)
         return ( float(chern.ch1) / chern.ch0, chern.ch2 / chern.ch0 - float(1 / (chern.ch0)**2) )
     
     def _e_left(self, p, m):
+        """
+        
+        Helper function to calculate the left-side part of the exceptional vector bundle
+
+        Args:
+        ----------------
+        p (int): The index of the dyadic character
+        m (int): the exponent of the denominator of the dyadic character, e.g. p/2^m
+
+        Returns:
+        ----------------
+
+        tuple: A tuple containing the coordinates of the left-side part of the exceptional vector bundle
+
+        """
         x_1, y_1 = self._e_plus(p, m)
         x_2, y_2 = self._e_reg(p-1, m)
 
-        m = float(y_2 - y_1) / (x_2 - x_1)
+        m = float(y_2 - y_1) / (x_2 - x_1) #slope 
 
         x_3 = m + math.sqrt( m**2 - 2*m*x_1 + 2*y_1 + 1 )
         if x_1 <= x_3 <= x_2 or x_2 <= x_3 <= x_1:
@@ -120,6 +158,21 @@ class LePotier():
             return (x_3, y_3)
     
     def _e_right(self, p, m):
+        """
+
+        Helper function to calculate the right-side part of the exceptional vector bundle
+
+        Args:
+        ----------------
+        p (int): The index of the dyadic character
+        m (int): the exponent of the denominator of the dyadic character, e.g. p/2^m
+
+        Returns:
+        ----------------
+        tuple: A tuple containing the coordinates of the right-side part of the exceptional vector bundle
+
+        """
+
         x_1, y_1 = self._e_plus(p, m)
         x_2, y_2 = self._e_reg(p+1, m)
 
@@ -137,9 +190,34 @@ class LePotier():
 
 
     def is_above_curve(self, x, y):
+        """
+        Function which indicates whether a coordinate (s,q) is above the set of (ch1/ch0, ch2/ch0) for which vector bundles of given charge are stable
+
+        Args:
+        ----------------
+        x (float): The x-coordinate of the point
+        y (float): The y-coordinate of the point
+
+        Returns:
+        ----------------
+        bool: True if the point is above the curve, False otherwise
+        """
         return y > self.curve_estimate(x)
     
     def curve_estimate(self, x):
+
+        """
+        Function which estimates the value of y for a given x using linear interpolation between the boundary points
+
+        Args:
+        ----------------
+        x (float): The x-coordinate of the point
+
+        Returns:
+        ----------------
+        float: The estimated y-coordinate of the point
+        """
+
         x_values = [p[0] for p in self.boundary_points]
 
         # Check if x is within the range of the curve
@@ -162,6 +240,27 @@ class LePotier():
 
         
     def plot_drezet_le_potier(self, plot_3d=False, return_json=False, show_walls=False):
+        """
+        Utility function to plot the Drézet-Le Potier curve in the ch1/ch0, ch2/ch0 plane
+
+        Args:
+        ----------------
+        plot_3d (bool): Whether to plot the curve in 3D
+        return_json (bool): Whether to return the plot as a JSON string
+        show_walls (bool): Whether to show the walls of the chambers
+
+        Returns:
+        ----------------
+        str: A JSON string containing the plot
+
+        Or
+
+        None: If return_json is False
+
+
+        
+
+        """
 
         lower_bound = -1*self.width * 2**self.granularity
         upper_bound = self.width * 2**(self.granularity ) + 1
@@ -280,7 +379,7 @@ class LePotier():
         # Generate y values satisfying y > x^2
         y_vals = []
         for x in x_vals:
-            y_min = float(DLP.curve_estimate(x)) # Slightly above x^2
+            y_min = float(self.curve_estimate(x)) # Slightly above x^2
             y_max = 11.5  # Arbitrary upper bound
             y_range = np.linspace(y_min, y_max, 150)  # 50 points per x value
             y_vals.append(y_range)
@@ -333,7 +432,7 @@ class LePotier():
                 # Generate y values satisfying y > x^2
                 y_vals = []
                 for z in z_vals:
-                    y_min = float(DLP.curve_estimate(z)) # Slightly above x^2
+                    y_min = float(self.curve_estimate(z)) # Slightly above x^2
                     y_max = 11.5  # Arbitrary upper bound
                     y_range = np.linspace(y_min, y_max, 150)  # 50 points per x value
                     y_vals.append(y_range)
@@ -345,7 +444,7 @@ class LePotier():
                 z_vals = z_vals / 2
                 y_vals = y_vals / 2
 
-                y_vals = y_vals + (1.5 * float(DLP.curve_estimate(x1)) + y2 -y1)
+                y_vals = y_vals + (1.5 * float(self.curve_estimate(x1)) + y2 -y1)
 
                 # Repeat x values to match the shape of y
                 z_vals = np.repeat(z_vals, 150)  # Each x value repeats 10 times
@@ -370,7 +469,7 @@ class LePotier():
 
 
 
-    def plot_continuing_chamber(self, plot_walls=False):
+    def plot_continuing_chamber(self, plot_walls=False, return_json=False):
 
 
         #################################################
@@ -383,7 +482,7 @@ class LePotier():
         # Generate y values satisfying y > x^2
         y_vals = []
         for x in x_vals:
-            y_min = float(DLP.curve_estimate(x)) # Slightly above x^2
+            y_min = float(self.curve_estimate(x)) # Slightly above x^2
             y_max = 11.5  # Arbitrary upper bound
             y_range = np.linspace(y_min, y_max, 150)  # 50 points per x value
             y_vals.append(y_range)
@@ -436,7 +535,7 @@ class LePotier():
         # Generate y values satisfying y > x^2
         y_vals = []
         for z in z_vals:
-            y_min = float(DLP.curve_estimate(z)) # Slightly above x^2
+            y_min = float(self.curve_estimate(z)) # Slightly above x^2
             y_max = 11.5  # Arbitrary upper bound
             y_range = np.linspace(y_min, y_max, 130)  # 50 points per x value
             y_vals.append(y_range)
@@ -448,7 +547,7 @@ class LePotier():
         z_vals = z_vals / 2
         y_vals = y_vals / 2
 
-        y_vals = y_vals + (1.5 * float(DLP.curve_estimate(x1)) + y2 -y1)
+        y_vals = y_vals + (1.5 * float(self.curve_estimate(x1)) + y2 -y1)
 
         # Repeat x values to match the shape of y
         z_vals = np.repeat(z_vals, 130)  # Each x value repeats 10 times
@@ -473,7 +572,7 @@ class LePotier():
         # Generate y values satisfying y > x^2
         y_vals = []
         for x in x_vals:
-            y_min = float(DLP.curve_estimate(x)) # Slightly above x^2
+            y_min = float(self.curve_estimate(x)) # Slightly above x^2
             y_max = 11.5  # Arbitrary upper bound
             y_range = np.linspace(y_min, y_max, 110)  # 50 points per x value
             y_vals.append(y_range)
@@ -512,7 +611,7 @@ class LePotier():
         # Generate y values satisfying y > x^2
         y_vals = []
         for z in z_vals:
-            y_min = float(DLP.curve_estimate(z)) # Slightly above x^2
+            y_min = float(self.curve_estimate(z)) # Slightly above x^2
             y_max = 11.5  # Arbitrary upper bound
             y_range = np.linspace(y_min, y_max, 70)  # 50 points per x value
             y_vals.append(y_range)
@@ -552,7 +651,7 @@ class LePotier():
         # Generate y values satisfying y > x^2
         y_vals = []
         for x in x_vals:
-            y_min = float(DLP.curve_estimate(x)) # Slightly above x^2
+            y_min = float(self.curve_estimate(x)) # Slightly above x^2
             y_max = 11.5  # Arbitrary upper bound
             y_range = np.linspace(y_min, y_max, 50)  # 50 points per x value
             y_vals.append(y_range)
@@ -590,7 +689,7 @@ class LePotier():
         # Generate y values satisfying y > x^2
         y_vals = []
         for z in z_vals:
-            y_min = float(DLP.curve_estimate(z)) # Slightly above x^2
+            y_min = float(self.curve_estimate(z)) # Slightly above x^2
             y_max = 11.5  # Arbitrary upper bound
             y_range = np.linspace(y_min, y_max, 50)  # 50 points per x value
             y_vals.append(y_range)
@@ -631,7 +730,7 @@ class LePotier():
         # Generate y values satisfying y > x^2
         y_vals = []
         for x in x_vals:
-            y_min = float(DLP.curve_estimate(x)) # Slightly above x^2
+            y_min = float(self.curve_estimate(x)) # Slightly above x^2
             y_max = 11.5  # Arbitrary upper bound
             y_range = np.linspace(y_min, y_max, 40)  # 50 points per x value
             y_vals.append(y_range)
@@ -670,7 +769,7 @@ class LePotier():
         # Generate y values satisfying y > x^2
         y_vals = []
         for z in z_vals:
-            y_min = float(DLP.curve_estimate(z)) # Slightly above x^2
+            y_min = float(self.curve_estimate(z)) # Slightly above x^2
             y_max = 11.5  # Arbitrary upper bound
             y_range = np.linspace(y_min, y_max, 40)  # 50 points per x value
             y_vals.append(y_range)
@@ -709,7 +808,7 @@ class LePotier():
         # Generate y values satisfying y > x^2
         y_vals = []
         for x in x_vals:
-            y_min = float(DLP.curve_estimate(x)) # Slightly above x^2
+            y_min = float(self.curve_estimate(x)) # Slightly above x^2
             y_max = 11.5  # Arbitrary upper bound
             y_range = np.linspace(y_min, y_max, 40)  # 50 points per x value
             y_vals.append(y_range)
@@ -756,23 +855,227 @@ class LePotier():
                         marker=dict(size=3, color='blue'),
                         showlegend=False  # Hide legend for individual line segments
                     ))
+                
+        fig.update_layout(showlegend=False)
+
+
+        if not return_json:
+            fig.show()
+        else:
+            return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
 
 
-        fig.show()
 
 
+def calcZ1(x, y, k, n):
+    return cmath.exp(1j*(2*cmath.pi*k/n)) * (cmath.cos(x+y*1j)**(2/n))
 
+def calcZ2(x, y, k, n):
+    return cmath.exp(1j*(2*cmath.pi*k/n)) * (cmath.sin(x+y*1j)**(2/n))
 
+def calcZ1Real(x, y, k, n):
+    return (calcZ1(x, y, k, n)).real
+
+def calcZ2Real(x, y, k, n):
+    return (calcZ2(x, y, k, n)).real
+
+def calcZ(x, y, k1_, k2_, n, a_):
+    z1 = calcZ1(x, y, k1_, n)
+    z2 = calcZ2(x, y, k2_, n)
+    return z1.imag * math.cos(a_) + z2.imag*math.sin(a_)
          
         
 
 
 if __name__ == "__main__":
-    DLP = LePotier(width=5, granularity=3)
+
+    n=3
+    a = 0.4
+    row, col = 30, 30
+
+
+    # set param range
+    x = np.linspace(0, math.pi/2, col)
+    y = np.linspace(-math.pi/2, math.pi/2, row)
+    x, y = np.meshgrid(x, y)
+
+    fig = plt.figure(dpi=100)
+
+    ax = fig.add_subplot(projection='3d')
     
 
-    DLP.plot_continuing_chamber(plot_walls=True)
+
+
+    # frames = []
+
+    # fig = go.Figure()
+
+
+
+
+
+    def update(t):
+        ax.cla()
+
+        X1 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 0, 3).astype('float32')
+        Y1 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 0, 3).astype('float32')
+        Z1 = np.frompyfunc(calcZ, 6, 1)(x, y, 0, 0, 3, math.exp(t)).astype('float32')
+
+        X2 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 0, 3).astype('float32')
+        Y2 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 1, 3).astype('float32')
+        Z2 = np.frompyfunc(calcZ, 6, 1)(x, y, 0, 1, 3, math.exp(t)).astype('float32')
+
+        X3 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 0, 3).astype('float32')
+        Y3 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 2, 3).astype('float32')
+        Z3 = np.frompyfunc(calcZ, 6, 1)(x, y, 0, 2, 3, math.exp(t)).astype('float32')
+        
+        X4 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 1, 3).astype('float32')
+        Y4 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 0, 3).astype('float32')
+        Z4 = np.frompyfunc(calcZ, 6, 1)(x, y, 1, 0, 3, math.exp(t)).astype('float32')
+
+        X5 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 1, 3).astype('float32')
+        Y5 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 1, 3).astype('float32')
+        Z5 = np.frompyfunc(calcZ, 6, 1)(x, y, 1, 1, 3, math.exp(t)).astype('float32')
+
+        X6 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 1, 3).astype('float32')
+        Y6 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 2, 3).astype('float32')
+        Z6 = np.frompyfunc(calcZ, 6, 1)(x, y, 1, 2, 3, math.exp(t)).astype('float32')
+        
+        X7 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 2, 3).astype('float32')
+        Y7 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 0, 3).astype('float32')
+        Z7 = np.frompyfunc(calcZ, 6, 1)(x, y, 2, 0, 3, math.exp(t)).astype('float32')
+
+        X8 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 2, 3).astype('float32')
+        Y8 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 1, 3).astype('float32')
+        Z8 = np.frompyfunc(calcZ, 6, 1)(x, y, 2, 1, 3, math.exp(t)).astype('float32')
+
+        X9 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 2, 3).astype('float32')
+        Y9 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 2, 3).astype('float32')
+        Z9 = np.frompyfunc(calcZ, 6, 1)(x, y, 2, 2, 3, math.exp(t)).astype('float32')
+
+        ax.plot_surface(X1, Y1, Z1, alpha=0.8, cmap=cm.afmhot)
+        ax.plot_surface(X2, Y2, Z2, alpha=0.8, cmap=cm.afmhot)
+        ax.plot_surface(X3, Y3, Z3, alpha=0.8, cmap=cm.afmhot)
+        ax.plot_surface(X4, Y4, Z4, alpha=0.8, cmap=cm.afmhot)
+        ax.plot_surface(X5, Y5, Z5, alpha=0.8, cmap=cm.afmhot)
+        ax.plot_surface(X6, Y6, Z6, alpha=0.8, cmap=cm.afmhot)
+        ax.plot_surface(X7, Y7, Z7, alpha=0.8, cmap=cm.afmhot)
+        ax.plot_surface(X8, Y8, Z8, alpha=0.8, cmap=cm.afmhot)
+        ax.plot_surface(X9, Y9, Z9, alpha=0.8, cmap=cm.afmhot)
+
+        ax.set_xlim(-2, 2)
+        ax.set_ylim(-2, 2)
+        ax.set_zlim(-2, 2)
+
+
+
+
+    ani = FuncAnimation(fig = fig, func = update, frames = 100, interval = 175)
+    
+    
+    with open("myvideo.html", "w") as f:
+        print(ani.to_html5_video(), file=f)
+
+
+
+
+    # fig.add_trace(go.Surface(x=X1, y=Y1, z=Z1))
+    # fig.add_trace(go.Surface(x=X2, y=Y2, z=Z2))
+    # fig.add_trace(go.Surface(x=X3, y=Y3, z=Z3))
+    # fig.add_trace(go.Surface(x=X4, y=Y4, z=Z4))
+    # fig.add_trace(go.Surface(x=X5, y=Y5, z=Z5))
+    # fig.add_trace(go.Surface(x=X6, y=Y6, z=Z6))
+    # fig.add_trace(go.Surface(x=X7, y=Y7, z=Z7))
+    # fig.add_trace(go.Surface(x=X8, y=Y8, z=Z8))
+    # fig.add_trace(go.Surface(x=X9, y=Y9, z=Z9))
+
+
+    # for alpha in range(1, 50):
+    #     X1 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 0, 3).astype('float32')
+    #     Y1 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 0, 3).astype('float32')
+    #     Z1 = np.frompyfunc(calcZ, 6, 1)(x, y, 0, 0, 3, alpha).astype('float32')
+
+    #     X2 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 0, 3).astype('float32')
+    #     Y2 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 1, 3).astype('float32')
+    #     Z2 = np.frompyfunc(calcZ, 6, 1)(x, y, 0, 1, 3, alpha).astype('float32')
+
+    #     X3 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 0, 3).astype('float32')
+    #     Y3 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 2, 3).astype('float32')
+    #     Z3 = np.frompyfunc(calcZ, 6, 1)(x, y, 0, 2, 3, alpha).astype('float32')
+        
+    #     X4 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 1, 3).astype('float32')
+    #     Y4 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 0, 3).astype('float32')
+    #     Z4 = np.frompyfunc(calcZ, 6, 1)(x, y, 1, 0, 3, alpha).astype('float32')
+
+    #     X5 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 1, 3).astype('float32')
+    #     Y5 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 1, 3).astype('float32')
+    #     Z5 = np.frompyfunc(calcZ, 6, 1)(x, y, 1, 1, 3, alpha).astype('float32')
+
+    #     X6 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 1, 3).astype('float32')
+    #     Y6 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 2, 3).astype('float32')
+    #     Z6 = np.frompyfunc(calcZ, 6, 1)(x, y, 1, 2, 3, alpha).astype('float32')
+        
+    #     X7 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 2, 3).astype('float32')
+    #     Y7 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 0, 3).astype('float32')
+    #     Z7 = np.frompyfunc(calcZ, 6, 1)(x, y, 2, 0, 3, alpha).astype('float32')
+
+    #     X8 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 2, 3).astype('float32')
+    #     Y8 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 1, 3).astype('float32')
+    #     Z8 = np.frompyfunc(calcZ, 6, 1)(x, y, 2, 1, 3, alpha).astype('float32')
+
+    #     X9 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 2, 3).astype('float32')
+    #     Y9 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 2, 3).astype('float32')
+    #     Z9 = np.frompyfunc(calcZ, 6, 1)(x, y, 2, 2, 3, alpha).astype('float32')
+
+        
+
+    #     frame = go.Frame(data =[go.Surface(x=X1, y=Y1, z=Z1),
+    #                             go.Surface(x=X2, y=Y2, z=Z2),
+    #                             go.Surface(x=X3, y=Y3, z=Z3),
+    #                             go.Surface(x=X4, y=Y4, z=Z4),
+    #                             go.Surface(x=X5, y=Y5, z=Z5),
+    #                             go.Surface(x=X6, y=Y6, z=Z6),
+    #                             go.Surface(x=X7, y=Y7, z=Z7),
+    #                             go.Surface(x=X8, y=Y8, z=Z8),
+    #                             go.Surface(x=X9, y=Y9, z=Z9)
+    #                             ])
+    #     frames.append(frame)
+
+
+    # fig.update(frames=frames)
+    # fig.update_layout(
+    #     updatemenus=[dict(
+    #         type="buttons",
+    #         showactive=False,
+    #         buttons=[dict(label="Play",
+    #                       method="animate",
+    #                       args=[None, dict(frame=dict(duration=20, redraw=True),
+    #                                         fromcurrent=True)]),
+
+    #                 dict(label="Pause",
+    #                       method="animate",
+    #                         args=[[None],
+    #                                dict(frame=dict(duration=0, redraw=False),
+    #                                      mode="immediate",
+    #                                      transition=dict(duration=0))])]
+    #     )]
+    # )
+
+    # fig.update_layout(showlegend=False)
+
+    # fig.show()
+
+
+
+
+
+
+    
+
+    
+    
+
 
 
 

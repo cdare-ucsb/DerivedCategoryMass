@@ -317,27 +317,27 @@ class SphericalTwist():
         if self.is_semistable(s,q):
             return abs(self.central_charge(s,q))
         
-        elif self.defining_triangle.object1.dimension_vector[0] == 1:
+        modified_defining_triangle = self.defining_triangle.shiftLeft()
+        subobject = modified_defining_triangle.object1.sheaf_vector[0]
+
+        quotient_complex = modified_defining_triangle.object3
+
+        mass = 0
+        
+        if len(quotient_complex.dimension_vector) == 1:
 
             # Write triangle as O(a) -> Tw -> O(b)[shift]
-            modified_defining_triangle = self.defining_triangle.shiftLeft()
-            subobject = modified_defining_triangle.object1.sheaf_vector[0]
-            mass = 0        
-
-            quotient_complex = modified_defining_triangle.object3
+            
             mass = abs(subobject.central_charge(s,q))
             mass += quotient_complex.dimension_vector[0] * abs(quotient_complex.sheaf_vector[0].central_charge(s,q))
             
             return mass
             
         else:
-            # Write triangle as A -> Tw -> B + B[shift]
-            modified_defining_triangle = self.defining_triangle.shiftLeft()
-            subobject = modified_defining_triangle.object1.sheaf_vector[0]
-            mass = 0
-
-
-            quotient_complex = modified_defining_triangle.object3
+            
+            if len(quotient_complex.dimension_vector) != 2:
+                raise ValueError("The Hom object is not concentrated in 1 or 2 degrees")
+            
             phase0 = quotient_complex.sheaf_vector[0].phase(s,q) + quotient_complex.shift_vector[0]
             phase1 = quotient_complex.sheaf_vector[1].phase(s,q) + quotient_complex.shift_vector[1]
 
