@@ -1,16 +1,12 @@
-from .ChernCharacter import ChernCharacter
-import matplotlib.pyplot as plt
+from .ChernCharacter import ChernCharacterP2
+
 import math
 import numpy as np
 import plotly.graph_objects as go
 from plotly.graph_objs import *
 import plotly.utils
 import json
-import cmath
-from mpl_toolkits.mplot3d import Axes3D  
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
-from matplotlib import cm
+
 
 
 class LePotier():
@@ -81,7 +77,7 @@ class LePotier():
         
         if p % int(2**m) == 0:
             d = p // int(2**m)
-            return ChernCharacter(1, int(d), float( d**2 ) / 2)
+            return ChernCharacterP2(1, int(d), float( d**2 ) / 2)
         elif p % 4 == 3:
             return 3 * self._get_dyadic_character(p+1, m).ch0 * self._get_dyadic_character(p-1, m) - self._get_dyadic_character(p-3, m)
         elif p % 4 == 1:
@@ -868,208 +864,13 @@ class LePotier():
 
 
 
-def calcZ1(x, y, k, n):
-    return cmath.exp(1j*(2*cmath.pi*k/n)) * (cmath.cos(x+y*1j)**(2/n))
-
-def calcZ2(x, y, k, n):
-    return cmath.exp(1j*(2*cmath.pi*k/n)) * (cmath.sin(x+y*1j)**(2/n))
-
-def calcZ1Real(x, y, k, n):
-    return (calcZ1(x, y, k, n)).real
-
-def calcZ2Real(x, y, k, n):
-    return (calcZ2(x, y, k, n)).real
-
-def calcZ(x, y, k1_, k2_, n, a_):
-    z1 = calcZ1(x, y, k1_, n)
-    z2 = calcZ2(x, y, k2_, n)
-    return z1.imag * math.cos(a_) + z2.imag*math.sin(a_)
          
         
 
 
 if __name__ == "__main__":
 
-    n=3
-    a = 0.4
-    row, col = 30, 30
-
-
-    # set param range
-    x = np.linspace(0, math.pi/2, col)
-    y = np.linspace(-math.pi/2, math.pi/2, row)
-    x, y = np.meshgrid(x, y)
-
-    fig = plt.figure(dpi=100)
-
-    ax = fig.add_subplot(projection='3d')
-    
-
-
-
-    # frames = []
-
-    # fig = go.Figure()
-
-
-
-
-
-    def update(t):
-        ax.cla()
-
-        X1 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 0, 3).astype('float32')
-        Y1 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 0, 3).astype('float32')
-        Z1 = np.frompyfunc(calcZ, 6, 1)(x, y, 0, 0, 3, math.exp(t)).astype('float32')
-
-        X2 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 0, 3).astype('float32')
-        Y2 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 1, 3).astype('float32')
-        Z2 = np.frompyfunc(calcZ, 6, 1)(x, y, 0, 1, 3, math.exp(t)).astype('float32')
-
-        X3 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 0, 3).astype('float32')
-        Y3 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 2, 3).astype('float32')
-        Z3 = np.frompyfunc(calcZ, 6, 1)(x, y, 0, 2, 3, math.exp(t)).astype('float32')
-        
-        X4 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 1, 3).astype('float32')
-        Y4 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 0, 3).astype('float32')
-        Z4 = np.frompyfunc(calcZ, 6, 1)(x, y, 1, 0, 3, math.exp(t)).astype('float32')
-
-        X5 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 1, 3).astype('float32')
-        Y5 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 1, 3).astype('float32')
-        Z5 = np.frompyfunc(calcZ, 6, 1)(x, y, 1, 1, 3, math.exp(t)).astype('float32')
-
-        X6 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 1, 3).astype('float32')
-        Y6 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 2, 3).astype('float32')
-        Z6 = np.frompyfunc(calcZ, 6, 1)(x, y, 1, 2, 3, math.exp(t)).astype('float32')
-        
-        X7 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 2, 3).astype('float32')
-        Y7 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 0, 3).astype('float32')
-        Z7 = np.frompyfunc(calcZ, 6, 1)(x, y, 2, 0, 3, math.exp(t)).astype('float32')
-
-        X8 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 2, 3).astype('float32')
-        Y8 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 1, 3).astype('float32')
-        Z8 = np.frompyfunc(calcZ, 6, 1)(x, y, 2, 1, 3, math.exp(t)).astype('float32')
-
-        X9 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 2, 3).astype('float32')
-        Y9 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 2, 3).astype('float32')
-        Z9 = np.frompyfunc(calcZ, 6, 1)(x, y, 2, 2, 3, math.exp(t)).astype('float32')
-
-        ax.plot_surface(X1, Y1, Z1, alpha=0.8, cmap=cm.afmhot)
-        ax.plot_surface(X2, Y2, Z2, alpha=0.8, cmap=cm.afmhot)
-        ax.plot_surface(X3, Y3, Z3, alpha=0.8, cmap=cm.afmhot)
-        ax.plot_surface(X4, Y4, Z4, alpha=0.8, cmap=cm.afmhot)
-        ax.plot_surface(X5, Y5, Z5, alpha=0.8, cmap=cm.afmhot)
-        ax.plot_surface(X6, Y6, Z6, alpha=0.8, cmap=cm.afmhot)
-        ax.plot_surface(X7, Y7, Z7, alpha=0.8, cmap=cm.afmhot)
-        ax.plot_surface(X8, Y8, Z8, alpha=0.8, cmap=cm.afmhot)
-        ax.plot_surface(X9, Y9, Z9, alpha=0.8, cmap=cm.afmhot)
-
-        ax.set_xlim(-2, 2)
-        ax.set_ylim(-2, 2)
-        ax.set_zlim(-2, 2)
-
-
-
-
-    ani = FuncAnimation(fig = fig, func = update, frames = 100, interval = 175)
-    
-    
-    with open("myvideo.html", "w") as f:
-        print(ani.to_html5_video(), file=f)
-
-
-
-
-    # fig.add_trace(go.Surface(x=X1, y=Y1, z=Z1))
-    # fig.add_trace(go.Surface(x=X2, y=Y2, z=Z2))
-    # fig.add_trace(go.Surface(x=X3, y=Y3, z=Z3))
-    # fig.add_trace(go.Surface(x=X4, y=Y4, z=Z4))
-    # fig.add_trace(go.Surface(x=X5, y=Y5, z=Z5))
-    # fig.add_trace(go.Surface(x=X6, y=Y6, z=Z6))
-    # fig.add_trace(go.Surface(x=X7, y=Y7, z=Z7))
-    # fig.add_trace(go.Surface(x=X8, y=Y8, z=Z8))
-    # fig.add_trace(go.Surface(x=X9, y=Y9, z=Z9))
-
-
-    # for alpha in range(1, 50):
-    #     X1 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 0, 3).astype('float32')
-    #     Y1 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 0, 3).astype('float32')
-    #     Z1 = np.frompyfunc(calcZ, 6, 1)(x, y, 0, 0, 3, alpha).astype('float32')
-
-    #     X2 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 0, 3).astype('float32')
-    #     Y2 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 1, 3).astype('float32')
-    #     Z2 = np.frompyfunc(calcZ, 6, 1)(x, y, 0, 1, 3, alpha).astype('float32')
-
-    #     X3 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 0, 3).astype('float32')
-    #     Y3 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 2, 3).astype('float32')
-    #     Z3 = np.frompyfunc(calcZ, 6, 1)(x, y, 0, 2, 3, alpha).astype('float32')
-        
-    #     X4 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 1, 3).astype('float32')
-    #     Y4 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 0, 3).astype('float32')
-    #     Z4 = np.frompyfunc(calcZ, 6, 1)(x, y, 1, 0, 3, alpha).astype('float32')
-
-    #     X5 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 1, 3).astype('float32')
-    #     Y5 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 1, 3).astype('float32')
-    #     Z5 = np.frompyfunc(calcZ, 6, 1)(x, y, 1, 1, 3, alpha).astype('float32')
-
-    #     X6 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 1, 3).astype('float32')
-    #     Y6 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 2, 3).astype('float32')
-    #     Z6 = np.frompyfunc(calcZ, 6, 1)(x, y, 1, 2, 3, alpha).astype('float32')
-        
-    #     X7 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 2, 3).astype('float32')
-    #     Y7 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 0, 3).astype('float32')
-    #     Z7 = np.frompyfunc(calcZ, 6, 1)(x, y, 2, 0, 3, alpha).astype('float32')
-
-    #     X8 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 2, 3).astype('float32')
-    #     Y8 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 1, 3).astype('float32')
-    #     Z8 = np.frompyfunc(calcZ, 6, 1)(x, y, 2, 1, 3, alpha).astype('float32')
-
-    #     X9 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 2, 3).astype('float32')
-    #     Y9 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 2, 3).astype('float32')
-    #     Z9 = np.frompyfunc(calcZ, 6, 1)(x, y, 2, 2, 3, alpha).astype('float32')
-
-        
-
-    #     frame = go.Frame(data =[go.Surface(x=X1, y=Y1, z=Z1),
-    #                             go.Surface(x=X2, y=Y2, z=Z2),
-    #                             go.Surface(x=X3, y=Y3, z=Z3),
-    #                             go.Surface(x=X4, y=Y4, z=Z4),
-    #                             go.Surface(x=X5, y=Y5, z=Z5),
-    #                             go.Surface(x=X6, y=Y6, z=Z6),
-    #                             go.Surface(x=X7, y=Y7, z=Z7),
-    #                             go.Surface(x=X8, y=Y8, z=Z8),
-    #                             go.Surface(x=X9, y=Y9, z=Z9)
-    #                             ])
-    #     frames.append(frame)
-
-
-    # fig.update(frames=frames)
-    # fig.update_layout(
-    #     updatemenus=[dict(
-    #         type="buttons",
-    #         showactive=False,
-    #         buttons=[dict(label="Play",
-    #                       method="animate",
-    #                       args=[None, dict(frame=dict(duration=20, redraw=True),
-    #                                         fromcurrent=True)]),
-
-    #                 dict(label="Pause",
-    #                       method="animate",
-    #                         args=[[None],
-    #                                dict(frame=dict(duration=0, redraw=False),
-    #                                      mode="immediate",
-    #                                      transition=dict(duration=0))])]
-    #     )]
-    # )
-
-    # fig.update_layout(showlegend=False)
-
-    # fig.show()
-
-
-
-
-
+    pass
 
     
 

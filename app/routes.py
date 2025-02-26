@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, render_template
 from  app.models import load_simple_model,  preprocess_input, predict
-from src import LineBundle, SphericalTwist, LePotier
+from src import LineBundleP2, SphericalTwistP2, LePotier
 import plotly.graph_objects as go
 import plotly.utils
 import numpy as np
@@ -72,7 +72,7 @@ def compute_plot_data(line_bundle_1, line_bundle_2):
     if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
         raise ValueError("Input data must be integers")
 
-    sph = SphericalTwist(LineBundle(line_bundle_1), LineBundle(line_bundle_2))
+    sph = SphericalTwist(LineBundleP2(line_bundle_1), LineBundleP2(line_bundle_2))
 
     DLP = LePotier(width=5, granularity=3)
     
@@ -136,7 +136,7 @@ def compute_chain_complex_data(line_bundle_1, line_bundle_2):
     if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
         raise ValueError("Input data must be integers")
 
-    sph = SphericalTwist(LineBundle(line_bundle_1), LineBundle(line_bundle_2))
+    sph = SphericalTwist(LineBundleP2(line_bundle_1), LineBundleP2(line_bundle_2))
     first_sheaf_vector = []
 
     if len(sph.defining_triangle.object1.sheaf_vector) == 1:

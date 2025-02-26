@@ -15,8 +15,11 @@ from .binarytree import *
 from .ChernCharacter import *
 from .CoherentSheaf import *
 from .DerivedCategoryObject import *
-from .SphericalTwistComposition import *
+from .SphericalTwist import *
 from .LocalP2 import *
+from .DistinguishedTriangle import *
+from .ChainComplex import *
 
-__all__ = ['ChernCharacter', 'CoherentSheaf', 'DerivedCategoryObject',
-           'SphericalTwistComposition', 'train', 'cicy_train', 'binarytree', 'LocalP2']
+__all__ = ['ChernCharacterP2', 'CoherentSheaf', 'DerivedCategoryObject',
+           'SphericalTwist', 'train', 'cicy_train', 'binarytree', 'LocalP2',
+             'DistinguishedTriangle', 'ChainComplex']

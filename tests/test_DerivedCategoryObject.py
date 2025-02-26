@@ -4,8 +4,8 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.ChernCharacter import ChernCharacter
-from src.CoherentSheaf import CotangentBundle, LineBundle 
+from src.ChernCharacter import ChernCharacterP2
+from src.CoherentSheaf import CotangentBundleP2, LineBundle 
 from src.DerivedCategoryObject import DerivedCategoryObject, ChainComplex
 
 

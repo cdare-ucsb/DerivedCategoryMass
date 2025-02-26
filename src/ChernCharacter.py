@@ -9,7 +9,160 @@
 ###############################################################################
 
 
+
+############################
+#  Generic Parent Class    #
+############################
+
+
 class ChernCharacter():
+    """
+    Generic parent class for the chern character. Chern characters should operate like
+    lists of floating point numbers, since they are graded objects concentrated in degrees 
+    going from 0 to the dimension of the variety. 
+    """
+
+    def __init__(self):
+        pass
+
+
+
+
+############################
+#     P1 Implementation    #
+############################
+
+class ChernCharacterP1(ChernCharacter):
+
+    def __init__(self, ch0, ch1):
+        self.ch0 = ch0
+        self.ch1 = ch1
+
+    def __str__(self):
+        """
+        String representation of the Chern Character class
+
+        Returns:
+        -------
+        str
+            A string representation of the Chern Character
+        """
+        return f'<{self.ch0}, {self.ch1}>'
+    
+    def __add__(self, other):
+        """
+        Method to add two Chern Characters together. This is done by adding the corresponding
+        components of the Chern Character.
+
+        Parameters:
+        ----------
+        other : ChernCharacterP1
+            The Chern Character to add to the current Chern Character
+
+        Returns:
+        -------
+        ChernCharacterP1
+            The sum of the two Chern Characters
+        """
+
+        if not isinstance(other, ChernCharacterP1):
+            raise TypeError("Can only add ChernCharacterP1 objects together.")
+
+        return ChernCharacterP2(self.ch0 + other.ch0, self.ch1 + other.ch1)
+    
+
+    def __sub__(self, other):
+        """
+        Method to subtract two Chern Characters. This is done by subtracting the corresponding
+        components of the Chern Character.
+
+        Parameters:
+        ----------
+        other : ChernCharacterP1
+            The Chern Character to subtract from the current Chern Character
+        
+        Returns:
+        -------
+        ChernCharacterP1
+            The difference of the two Chern Characters
+        """
+
+        if not isinstance(other, ChernCharacterP1):
+            raise TypeError("Can only subtract ChernCharacterP1 objects together.")
+
+        return ChernCharacterP2(self.ch0 - other.ch0, self.ch1 - other.ch1)
+    
+    def __mul__(self, scalar):
+        """
+        Method to multiply a Chern Character by a scalar. This is done by multiplying each
+        component of the Chern Character by the scalar.
+
+        Parameters:
+        ----------
+        scalar : int
+            The scalar to multiply the Chern Character by
+
+        Returns:
+        -------
+        ChernCharacterP1
+            The Chern Character multiplied by the scalar
+        """
+
+        if not isinstance(scalar, int):
+            raise TypeError("Can only multiply ChernCharacterP1 objects by integers.")
+
+        return ChernCharacterP2(self.ch0 * scalar, self.ch1 * scalar)
+    
+    def __rmul__(self, scalar):
+        """
+        Method to multiply a Chern Character by a scalar. This is done by multiplying each
+        component of the Chern Character by the scalar.
+
+        Parameters:
+        ----------
+        scalar : int
+            The scalar to multiply the Chern Character by
+
+        Returns:
+        -------
+        ChernCharacterP1
+            The Chern Character multiplied by the scalar
+        """
+
+        if not isinstance(scalar, int):
+            raise TypeError("Can only multiply ChernCharacterP1 objects by integers.")
+
+        return ChernCharacterP2(self.ch0 * scalar, self.ch1 * scalar)
+    
+    def __eq__(self, other):
+        """
+        Method to determine if two Chern Characters are equal. This is done by checking if
+        the corresponding components of the Chern Character are equal.
+
+        Parameters:
+        ----------
+        other : ChernCharacterP1
+            The Chern Character to compare to the current Chern Character
+
+        Returns:
+        -------
+        bool
+            True if the two Chern Characters are equal, False otherwise
+        """
+
+        if not isinstance(other, ChernCharacterP1):
+            return False
+
+        return self.ch0 == other.ch0 and self.ch1 == other.ch1
+    
+
+
+
+############################
+#     P2 Implementation    #
+############################
+
+class ChernCharacterP2(ChernCharacter):
     """
     The Chern character is a topological invariant that will heavily be used for computing
     homological information about the coherent sheaves, mainly due to theoretical 
@@ -36,7 +189,7 @@ class ChernCharacter():
     """
     def __init__(self, ch0, ch1, ch2): 
         '''
-        Initialize an instance of ChernCharacter with the specified characteristic classes
+        Initialize an instance of ChernCharacterP2 with the specified characteristic classes
         Notice that ch0 is the same as the rank and ch1 is the same as the degree. However,
         it is not true that ch2 = c2
 
@@ -72,19 +225,19 @@ class ChernCharacter():
 
         Parameters:
         ----------
-        other : ChernCharacter
+        other : ChernCharacterP2
             The Chern Character to add to the current Chern Character
 
         Returns:
         -------
-        ChernCharacter
+        ChernCharacterP2
             The sum of the two Chern Characters
         """
 
-        if not isinstance(other, ChernCharacter):
-            raise TypeError("Can only add ChernCharacter objects together.")
+        if not isinstance(other, ChernCharacterP2):
+            raise TypeError("Can only add ChernCharacterP2 objects together.")
 
-        return ChernCharacter(self.ch0 + other.ch0, self.ch1 + other.ch1, self.ch2 + other.ch2)
+        return ChernCharacterP2(self.ch0 + other.ch0, self.ch1 + other.ch1, self.ch2 + other.ch2)
     
     def __sub__(self, other):
         """
@@ -93,19 +246,19 @@ class ChernCharacter():
 
         Parameters:
         ----------
-        other : ChernCharacter
+        other : ChernCharacterP2
             The Chern Character to subtract from the current Chern Character
         
         Returns:
         -------
-        ChernCharacter
+        ChernCharacterP2
             The difference of the two Chern Characters
         """
 
-        if not isinstance(other, ChernCharacter):
-            raise TypeError("Can only subtract ChernCharacter objects together.")
+        if not isinstance(other, ChernCharacterP2):
+            raise TypeError("Can only subtract ChernCharacterP2 objects together.")
 
-        return ChernCharacter(self.ch0 - other.ch0, self.ch1 - other.ch1, self.ch2 - other.ch2)
+        return ChernCharacterP2(self.ch0 - other.ch0, self.ch1 - other.ch1, self.ch2 - other.ch2)
     
     def __mul__(self, scalar):
         """
@@ -119,14 +272,14 @@ class ChernCharacter():
 
         Returns:
         -------
-        ChernCharacter
+        ChernCharacterP2
             The Chern Character multiplied by the scalar
         """
 
         if not isinstance(scalar, int):
-            raise TypeError("Can only multiply ChernCharacter objects by integers.")
+            raise TypeError("Can only multiply ChernCharacterP2 objects by integers.")
 
-        return ChernCharacter(self.ch0 * scalar, self.ch1 * scalar, self.ch2 * scalar)
+        return ChernCharacterP2(self.ch0 * scalar, self.ch1 * scalar, self.ch2 * scalar)
     
     def __rmul__(self, scalar):
         """
@@ -140,14 +293,14 @@ class ChernCharacter():
 
         Returns:
         -------
-        ChernCharacter
+        ChernCharacterP2
             The Chern Character multiplied by the scalar
         """
 
         if not isinstance(scalar, int):
-            raise TypeError("Can only multiply ChernCharacter objects by integers.")
+            raise TypeError("Can only multiply ChernCharacterP2 objects by integers.")
 
-        return ChernCharacter(self.ch0 * scalar, self.ch1 * scalar, self.ch2 * scalar)
+        return ChernCharacterP2(self.ch0 * scalar, self.ch1 * scalar, self.ch2 * scalar)
     
     def __eq__(self, other):
         """
@@ -156,7 +309,7 @@ class ChernCharacter():
 
         Parameters:
         ----------
-        other : ChernCharacter
+        other : ChernCharacterP2
             The Chern Character to compare to the current Chern Character
 
         Returns:
@@ -165,12 +318,12 @@ class ChernCharacter():
             True if the two Chern Characters are equal, False otherwise
         """
 
-        if not isinstance(other, ChernCharacter):
-            raise TypeError("Can only compare ChernCharacter objects.")
+        if not isinstance(other, ChernCharacterP2):
+            return False
 
         return self.ch0 == other.ch0 and self.ch1 == other.ch1 and self.ch2 == other.ch2
     
-    def isLineBundleSum(self):
+    def isLineBundleP2Sum(self):
         """
         Method to determine if the Chern Character is the same as a certain sum of line bundles,
         up to a shift. The Chern Character of a line bundle is given by (1, deg, deg^2 / 2); since
@@ -198,7 +351,7 @@ class ChernCharacter():
         # check if the second Chern class is of the correct format 
         return self.ch2 == self.ch0 * float(possible_deg**2) / 2
     
-    def isCotangentBundleSum(self):
+    def isCotangentBundleP2Sum(self):
         """
         Method to determine if the Chern Character is the same of a certain sum of cotangent bundles.
         of a FIXED DEGREE. Using the Euler exact sequence
@@ -237,18 +390,18 @@ class ChernCharacter():
         # we may in fact use the additivity of the Chern Character on exact sequences
         # as well as the Euler exact sequence above to reduce this problem to making sure
         # the middle term is indeed of the form O(d-1)^3.
-        new_bundle = ChernCharacter(self.ch0 + num_copies,
+        new_bundle = ChernCharacterP2(self.ch0 + num_copies,
                                 self.ch1 + num_copies * original_deg,
                                   self.ch2 + (num_copies * original_deg**2 / 2))
         # Account for possible shift which makes everything negative
-        shifted_bundle = ChernCharacter(-self.ch0 - num_copies, 
+        shifted_bundle = ChernCharacterP2(-self.ch0 - num_copies, 
                                     -self.ch1 - num_copies * original_deg,
                                     -self.ch2 - (num_copies * original_deg**2 / 2))    
 
         
         
-        new_bundle_is_cot =  (new_bundle.isLineBundleSum() and new_bundle.ch0 % 3 == 0)
-        shifted_bundle_is_cot = (shifted_bundle.isLineBundleSum() and shifted_bundle.ch0 % 3 == 0)
+        new_bundle_is_cot =  (new_bundle.isLineBundleP2Sum() and new_bundle.ch0 % 3 == 0)
+        shifted_bundle_is_cot = (shifted_bundle.isLineBundleP2Sum() and shifted_bundle.ch0 % 3 == 0)
         return new_bundle_is_cot or shifted_bundle_is_cot
     
 

@@ -4,21 +4,21 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.ChernCharacter import ChernCharacter
-from src.CoherentSheaf import CotangentBundle, LineBundle
+from src.ChernCharacter import ChernCharacterP2
+from src.CoherentSheaf import CotangentBundleP2, LineBundle
 from src.DerivedCategoryObject import ChainComplex
 
 
 def test_is_cotangent_bundle_sum():
 
-    cot = CotangentBundle(0)
+    cot = CotangentBundleP2(0)
     assert cot.isCotangentBundleSum() == True
-    assert cot.chernCharacter() == ChernCharacter(2, -3, 1.5)
+    assert cot.chernCharacter() == ChernCharacterP2(2, -3, 1.5)
 
 
-    cot1 = CotangentBundle(1)
+    cot1 = CotangentBundleP2(1)
     assert cot1.isCotangentBundleSum() == True
-    assert cot1.chernCharacter() == ChernCharacter(2, -1, -0.5)
+    assert cot1.chernCharacter() == ChernCharacterP2(2, -1, -0.5)
 
     # Show that the Euler sequence holds
     O0 = LineBundle(0)

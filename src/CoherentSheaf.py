@@ -1,4 +1,4 @@
-from .ChernCharacter import ChernCharacter
+from ChernCharacter import ChernCharacterP2, ChernCharacterP1
 import math
 import cmath
 
@@ -10,13 +10,192 @@ import cmath
 #  These objects are used to represent coherent sheaves, vector bundles, and  #
 #  line bundles. Line bundles (i.e. vector bundles of rank 1) will be our     #
 #  building blocks for the sake of this project, since every coherent sheaf   #
-#  on P^2 has a resolution by line bundles. Moreover, all spherical twists    #         
-#  that we will consider can be represented as a composition of twists around #
-#  (the pushforward of) line bundles.                                         #    
+#  in projective space  has a resolution by line bundles. Moreover, all       #         
+#  spherical twists that we will consider can be represented as a composition #
+#  of twists around (the pushforward of) line bundles.                        #    
 #                                                                             #
 ###############################################################################
 
+
+
+
+
+####################################
+#      Generic Parent Classes      #
+####################################
+
 class CoherentSheaf():
+    
+    def __init__(self):
+        pass
+
+    def chernCharacter(self):
+        pass
+
+
+class VectorBundle(CoherentSheaf):
+
+    def __init__(self):
+        pass
+
+
+class LineBundle(VectorBundle):
+
+    def __init__(self):
+        pass
+
+
+
+
+
+class CoherentSheafP1(CoherentSheaf):
+    """
+    This class represents a general coherent sheaf on the projective line. 
+    Coherent sheaves are generalizations of vector bundles since they can have torsion.
+    Since we will assume that the base field is the complex numbers, we can assume that
+    all coherent sheaves are simple represented by C[x,y]-modules that are localized in
+    the sense that they agree on the overlap of the distinguished affine open sets (e.g.
+    U_x = {x != 0}, U_y = {y != 0})
+
+    While coherent sheaves are not uniquely determined by their characteristic classes, 
+    we will use Chern classes as the minimal amount of information to represent a coherent sheaf.
+
+
+    """
+
+    def __init__(self, rank, c1):
+        self.c0 = int(rank)
+        self.c1 = int(c1)
+
+    def chernCharacter(self):
+        return ChernCharacterP1(self.c0, self.c1)
+    
+    def __str__(self):
+        """
+        String representation of the coherent sheaf class
+
+        Returns:
+        -------
+        str
+            A string representation of the coherent sheaf
+        """
+        return f'CoherentSheaf of rank {self.c0} and degree {self.c1}'
+    
+    def central_charge(self, w):
+        """
+        Method to compute the central charge of the coherent sheaf. The central charge is a complex-valued
+        homomorphism on the Grothendieck group of coherent sheaves, and is defined for local P1 via
+
+        Zw = -ch1 + w ch0
+
+        The central charge is used to compute the phase of the central charge, which is used to
+        determine the stability of the sheaf.
+
+        Parameters:
+        ----------
+        w : complex
+            The complex number parameterizing the central charge
+
+        Returns:
+        -------
+        complex
+            The central charge of the coherent sheaf as a complex number
+
+        Raises:
+        -------
+        TypeError
+            If w is not a complex number
+
+        """
+        
+        if not isinstance(w, complex):
+            raise TypeError("w must be a complex number")
+    
+
+        return -1*self.c1 + w*self.c0
+    
+    def phase(self, w):
+        """
+        The phase, in terms of stability conditions, is actually considered as the argument
+        divided by pi. This is used to determine the stability of the sheaf with regard to its 
+        subobjects
+
+        Parameters:
+        ----------
+        w : complex
+            The complex parameter for the central charge
+        
+
+        Returns:
+        -------
+        float
+            The phase of the central charge, divided by pi
+
+        Raises:
+        -------
+        TypeError
+            If w is not a complex number
+        """
+
+
+        if not isinstance(w, complex):
+            raise TypeError("w must be a complex number")
+        
+        return cmath.phase(self.central_charge(w)) / math.pi
+
+
+class VectorBundleP1(VectorBundle, CoherentSheafP1):
+
+    def __init__(self, rank, deg):
+        self.c0 = int(rank)
+        self.c1 = int(deg)
+    
+    def chernCharacter(self):
+        return ChernCharacterP1(self.c0, self.c1)
+
+    def __str__(self):
+        """
+        String representation of the vector bundle class
+
+        Returns:
+        -------
+        str
+            A string representation of the vector bundle
+        """
+        return f'VectorBundle of rank {self.c0} and degree {self.c1}'
+    
+
+
+
+class LineBundleP1(LineBundle, CoherentSheafP1):
+
+    def __init__(self, deg):
+        self.c0 = 1
+        self.c1 = deg
+
+
+    def chernCharacter(self):
+        return ChernCharacterP1(self.c0, self.c1)
+    
+    def __str__(self):
+        """
+        String representation of the line bundle class; the standard notation of a line bundle
+        of degree d is O(d), since every line bundle is a twist of the structure sheaf.
+
+        Returns:
+        -------
+        str
+            A string representation of the line bundle
+        """
+        return f'O({self.c1})'
+
+    
+
+
+
+
+
+class CoherentSheafP2(CoherentSheaf):
     '''
     This class represents a general coherent sheaf on a projective plane. 
     Coherent sheaves are generalizations of vector bundles since they can have torsion.
@@ -33,7 +212,7 @@ class CoherentSheaf():
     ----------
     rank : int
         The rank of the coherent sheaf
-    deg : int
+    c1 : int
         The degree of the coherent sheaf
     c2 : float
         The second Chern class of the coherent sheaf
@@ -48,7 +227,7 @@ class CoherentSheaf():
         ----------
         rank : int
             The rank of the coherent sheaf
-        deg : int
+        c1 : int
             The degree of the coherent sheaf
         c2 : float
             The second Chern class of the coherent sheaf
@@ -78,7 +257,7 @@ class CoherentSheaf():
         
         """
         ch2 = float( self.c1**2 - 2 * self.c2 ) / 2 # The second Chern class of the sheaf
-        return ChernCharacter(self.c0, self.c1, ch2)
+        return ChernCharacterP2(self.c0, self.c1, ch2)
 
     def __str__(self):
         """
@@ -159,7 +338,7 @@ class CoherentSheaf():
     
 
 
-class VectorBundle(CoherentSheaf):
+class VectorBundleP2(CoherentSheafP2, VectorBundle):
     """
     A vector bundle is a special type of coherent sheaf; in particular, it is a locally free
     sheaf of finite rank. These will ultimately be better generalizations of line bundles, and
@@ -206,7 +385,7 @@ class VectorBundle(CoherentSheaf):
         str
             A string representation of the vector bundle
         """
-        return f'<{self.rank},{self.deg},{self.c2}>'
+        return f'VectorBundle of rank {self.c0}, degree {self.c1}, and c2 {self.c2}'
     
     def chernCharacter(self):
         """
@@ -230,7 +409,7 @@ class VectorBundle(CoherentSheaf):
         """
         return super().chernCharacter()
     
-    def isLineBundleSum(self):
+    def isLineBundleP2Sum(self):
         """
         Helper function to determine if the vector bundle is a sum of line bundles. The function 
         simpily calls the isLineBundleSum() method of the Chern Character class.
@@ -240,10 +419,10 @@ class VectorBundle(CoherentSheaf):
         bool
             True if the vector bundle is a sum of line bundles, False otherwise
         """
-        return self.chernCharacter().isLineBundleSum()
+        return self.chernCharacter().isLineBundleP2Sum()
     
 
-    def isCotangentBundleSum(self):
+    def isCotangentBundleP2Sum(self):
         """
         Helper function to determine if the vector bundle is a sum of cotangent bundles. The function
         simply calls the isCotangentBundleSum() method of the Chern Character class.
@@ -253,11 +432,11 @@ class VectorBundle(CoherentSheaf):
         bool
             True if the vector bundle is a sum of cotangent bundles, False otherwise
         """
-        return self.chernCharacter().isCotangentBundleSum()
+        return self.chernCharacter().isCotangentBundleP2Sum()
 
 
 
-class LineBundle(VectorBundle):
+class LineBundleP2(VectorBundleP2, LineBundle):
     """
     A line bundle is a special type of vector bundle; in particular, it is a rank 1 vector bundle.
     These will ultimately be our building blocks for the sake of this project, since every coherent
@@ -322,7 +501,7 @@ class LineBundle(VectorBundle):
 
 
     
-class CotangentBundle(VectorBundle):
+class CotangentBundleP2(VectorBundleP2):
     """
     An implementation of the canonical bundle of the complex projective plane. The canonical bundle
     is a rank 2 vector bundle, and is the dual of the tangent bundle; it is generated by the
@@ -381,5 +560,5 @@ class CotangentBundle(VectorBundle):
             The Chern character of the cotangent bundle
         """
         ch2 = float(self.c1**2 - 2 * self.c2) / 2
-        return ChernCharacter(self.c0, self.c1, ch2)
+        return ChernCharacterP2(self.c0, self.c1, ch2)
 
