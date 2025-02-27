@@ -17,32 +17,75 @@ import cmath
 ###############################################################################
 
 
+__implemented_catagories = ['P1', 'P2']
 
 
-
-####################################
-#      Generic Parent Classes      #
-####################################
 
 class CoherentSheaf():
     
-    def __init__(self):
-        pass
+    def __init__(self, chern_character, catagory):
+        if catagory not in __implemented_catagories:
+            raise ValueError(f"Catagory {catagory} is not implemented.")
+        
+        if catagory == 'P1' and len(chern_character) != 2:
+            raise ValueError("P1 objects should have a Chern Character of length 2")
+        if catagory == 'P2' and len(chern_character) != 3:
+            raise ValueError("P2 objects should have a Chern Character of length 3")
+
+        self.catagory = catagory
+        self.chern_character = chern_character
+
+        
 
     def chernCharacter(self):
+        return self.chern_character
+
+    def phase(self, *args):
+        return cmath.phase(self.central_charge(args)) / math.pi
+
+    def central_charge(self, *args):
+
+        if self.catagory == 'P1':
+
+            # check that args is a single complex number
+            if len(args) != 1:
+                raise ValueError("Central charge of P1 requires single complex number parameter")
+            if not isinstance(args[0], complex):
+                raise TypeError("P1 objects should have a single complex parameter")
+
+            return -1*self.chern_character[1] + args[0]*self.chern_character[0]
+        
+        elif self.catagory == 'P2':
+
+            if len(args) != 2:
+                raise ValueError("Central charge of P2 requires two real number parameters")
+            if not all(isinstance(x, (float, int)) for x in args):
+                raise TypeError("P2 objects should have two real number parameters")
+
+            return complex(-1*self.chern_character[2] + args[1] * self.chern_character[0], self.chern_character[1] - args[0] * self.chern_character[0])
+    
+        else:
+            # Catagory is not currently implemented
+            raise NotImplementedError("Only P1 and P2 catagories are implemented")
+
+    def __str__(self):
+        return f'CoherentSheaf with Chern Character {self.chern_character}'
+
+
+    def is_semistable(self, *args):
         pass
 
 
-class VectorBundle(CoherentSheaf):
+
+
+class LineBundle(CoherentSheaf):
 
     def __init__(self):
         pass
 
-
-class LineBundle(VectorBundle):
-
-    def __init__(self):
-        pass
+    def is_semistable(self, *args):
+        if self.catagory in __implemented_catagories
+            return True
 
 
 
@@ -304,7 +347,7 @@ class CoherentSheafP2(CoherentSheaf):
             raise TypeError("s and q must be floating-point decimals.")
     
         chern_char = self.chernCharacter()
-        return complex(-chern_char.ch2 + q * chern_char.ch0, chern_char.ch1 - s * chern_char.ch0)
+        
 
     def phase(self, s, q):
         """
