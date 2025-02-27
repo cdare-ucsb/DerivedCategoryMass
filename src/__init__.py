@@ -19,7 +19,8 @@ from .SphericalTwist import *
 from .LocalP2 import *
 from .DistinguishedTriangle import *
 from .ChainComplex import *
+from .CY3Fold import *
 
 __all__ = ['ChernCharacterP2', 'CoherentSheaf', 'DerivedCategoryObject',
            'SphericalTwist', 'train', 'cicy_train', 'binarytree', 'LocalP2',
-             'DistinguishedTriangle', 'ChainComplex']
+             'DistinguishedTriangle', 'ChainComplex', 'CY3Fold']

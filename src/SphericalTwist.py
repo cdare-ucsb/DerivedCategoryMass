@@ -114,10 +114,10 @@ class SphericalTwistP1():
                 continue
             dimension_vector.append(homDims[i])
             shift_vector.append(-1*i)
-            bundle_vector.append(LineBundleP2(line_bundle_1.c1))
+            bundle_vector.append(LineBundleP1(line_bundle_1.c1))
 
         object1 = ChainComplexP1(sheaf_vector=bundle_vector, shift_vector=shift_vector, dimension_vector=dimension_vector)
-        object2 = ChainComplexP1(sheaf_vector=[LineBundleP2(line_bundle_2.c1)], shift_vector=[0], dimension_vector=[1])
+        object2 = ChainComplexP1(sheaf_vector=[LineBundleP1(line_bundle_2.c1)], shift_vector=[0], dimension_vector=[1])
         object3 = DerivedCategoryObjectP1(string=f"Tw_{line_bundle_1.c1} O({line_bundle_2.c1})")
 
         return DistinguishedTriangle(object1, object2, object3)
@@ -260,7 +260,7 @@ class SphericalTwistP1():
                     # smallest phase object first
                     mass = abs(quotient_complex.sheaf_vector[1].central_charge(w))
                     # isolate single element of larger shift in the quotient object
-                    new_complex = ChainComplexP2(sheaf_vector=[quotient_complex.sheaf_vector[0]],
+                    new_complex = ChainComplexP1(sheaf_vector=[quotient_complex.sheaf_vector[0]],
                                                 shift_vector=[quotient_complex.shift_vector[0]],
                                                 dimension_vector=[quotient_complex.dimension_vector[0]])
                     mass += abs(subobject.central_charge(w) + new_complex.central_charge(w))
@@ -271,12 +271,17 @@ class SphericalTwistP1():
                     # smallest phase object first
                     mass = abs(quotient_complex.sheaf_vector[0].central_charge(w))
                     # isolate single element of larger shift in the quotient object
-                    new_complex = ChainComplexP2(sheaf_vector=[quotient_complex.sheaf_vector[1]],
+                    new_complex = ChainComplexP1(sheaf_vector=[quotient_complex.sheaf_vector[1]],
                                                 shift_vector=[quotient_complex.shift_vector[1]],
                                                 dimension_vector=[quotient_complex.dimension_vector[1]])
                     mass += abs(subobject.central_charge(w) + new_complex.central_charge(w))
 
                     return mass
+
+
+
+
+
 
 
 

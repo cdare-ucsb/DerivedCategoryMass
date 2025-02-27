@@ -40,7 +40,7 @@ def check_dependencies():
 
     if missing_dependencies:
         print("\nTo install the correct dependencies, run:\n")
-        print(f"\t\033[1;92m pip install requirements.txt \033[0m")
+        print(f"\t\033[1;92m pip install -r requirements.txt \033[0m")
         sys.exit(1)
 
 

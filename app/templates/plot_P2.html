@@ -57,17 +57,30 @@
             margin-top: 20px;
         }
 
+        .form_wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
         .container {
             margin: 0 auto;
             max-width: calc(100% - 2in); /* Ensures 1-inch margin on both sides */
             padding: 20px;
         }
+
+        form {
+            display: inline;
+        }
     </style>
 </head>
 <body>
-    <!-- Return Home Button -->
-    <a href="/" class="return-button">Return Home</a>
+     <!-- Return Home Button -->
+      <div id="form_wrapper">
+        <form action="/local-P2" method="POST">
+            <button type="submit" class="return-button">Go Back</a>
+        </form>
+    </div>
 
 
     <div class="container">

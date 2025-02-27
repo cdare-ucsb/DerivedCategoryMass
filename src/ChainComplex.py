@@ -178,6 +178,9 @@ class ChainComplex(DerivedCategoryObject):
 class ChainComplexP1(ChainComplex, DerivedCategoryObjectP1):
 
     def __init__(self, sheaf_vector, shift_vector, dimension_vector = None):    
+        if not all(isinstance(obj, CoherentSheafP1) for obj in sheaf_vector):
+            raise TypeError("All elements of complex_vector must be instances of CoherentSheafP1.")
+
         super().__init__(sheaf_vector, shift_vector, dimension_vector)
 
     def __str__(self):
@@ -274,7 +277,9 @@ class ChainComplexP1(ChainComplex, DerivedCategoryObjectP1):
 
 class ChainComplexP2(ChainComplex, DerivedCategoryObjectP2):
 
-    def __init__(self, sheaf_vector, shift_vector, dimension_vector = None):    
+    def __init__(self, sheaf_vector, shift_vector, dimension_vector = None):  
+        if not all(isinstance(obj, CoherentSheafP2) for obj in sheaf_vector):
+            raise TypeError("All elements of complex_vector must be instances of CoherentSheafP2.")  
         super().__init__(sheaf_vector, shift_vector, dimension_vector)
 
     def __str__(self):

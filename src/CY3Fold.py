@@ -7,6 +7,8 @@ from matplotlib import cm
 import cmath
 import plotly.graph_objects as go
 from plotly.graph_objs import *
+import plotly.utils
+import json
 
 
 
@@ -27,10 +29,17 @@ def calcZ(x, y, k1_, k2_, n, a_):
     z2 = calcZ2(x, y, k2_, n)
     return z1.imag * math.cos(a_) + z2.imag*math.sin(a_)
 
+def calcZ_alt(x,y,k1_, k2_, n, a_):
+    z1 = calcZ1(x, y, k1_, n)
+    z2 = calcZ2(x, y, k2_, n)
+    return z1.imag * math.sin(a_) - z2.imag*math.cos(a_)
+
 
 
 def generate_matplot_animation_1(filename, row=30, col=30, nframes=100, t_interval=175):
     
+    n = 5
+
     # set param range
     x = np.linspace(0, math.pi/2, col)
     y = np.linspace(-math.pi/2, math.pi/2, row)
@@ -43,51 +52,16 @@ def generate_matplot_animation_1(filename, row=30, col=30, nframes=100, t_interv
     def update(t):
         ax.cla()
 
-        X1 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 0, 3).astype('float32')
-        Y1 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 0, 3).astype('float32')
-        Z1 = np.frompyfunc(calcZ, 6, 1)(x, y, 0, 0, 3, t/20).astype('float32')
+        for k1 in range(n):
+            for k2 in range(n):
 
-        X2 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 0, 3).astype('float32')
-        Y2 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 1, 3).astype('float32')
-        Z2 = np.frompyfunc(calcZ, 6, 1)(x, y, 0, 1, 3, t/20).astype('float32')
+                    X = np.frompyfunc(calcZ1Real, 4, 1)(x, y, k1, n).astype('float32')
+                    Y = np.frompyfunc(calcZ2Real, 4, 1)(x, y, k2, n).astype('float32')
+                    Z1 = np.frompyfunc(calcZ, 6, 1)(x, y, k1, k2, n, t/10).astype('float32')
+                    Z2 = np.frompyfunc(calcZ_alt, 6, 1)(x, y, k1, k2, n, t/10).astype('float32')
 
-        X3 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 0, 3).astype('float32')
-        Y3 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 2, 3).astype('float32')
-        Z3 = np.frompyfunc(calcZ, 6, 1)(x, y, 0, 2, 3, t/20).astype('float32')
+                    ax.plot_surface(X, Y, Z2, alpha=0.8, cmap=cm.afmhot)
         
-        X4 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 1, 3).astype('float32')
-        Y4 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 0, 3).astype('float32')
-        Z4 = np.frompyfunc(calcZ, 6, 1)(x, y, 1, 0, 3, t/20).astype('float32')
-
-        X5 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 1, 3).astype('float32')
-        Y5 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 1, 3).astype('float32')
-        Z5 = np.frompyfunc(calcZ, 6, 1)(x, y, 1, 1, 3, t/20).astype('float32')
-
-        X6 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 1, 3).astype('float32')
-        Y6 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 2, 3).astype('float32')
-        Z6 = np.frompyfunc(calcZ, 6, 1)(x, y, 1, 2, 3, t/20).astype('float32')
-        
-        X7 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 2, 3).astype('float32')
-        Y7 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 0, 3).astype('float32')
-        Z7 = np.frompyfunc(calcZ, 6, 1)(x, y, 2, 0, 3, t/20).astype('float32')
-
-        X8 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 2, 3).astype('float32')
-        Y8 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 1, 3).astype('float32')
-        Z8 = np.frompyfunc(calcZ, 6, 1)(x, y, 2, 1, 3, t/20).astype('float32')
-
-        X9 = np.frompyfunc(calcZ1Real, 4, 1)(x, y, 2, 3).astype('float32')
-        Y9 = np.frompyfunc(calcZ2Real, 4, 1)(x, y, 2, 3).astype('float32')
-        Z9 = np.frompyfunc(calcZ, 6, 1)(x, y, 2, 2, 3, t/20).astype('float32')
-
-        ax.plot_surface(X1, Y1, Z1, alpha=0.8, cmap=cm.afmhot)
-        ax.plot_surface(X2, Y2, Z2, alpha=0.8, cmap=cm.afmhot)
-        ax.plot_surface(X3, Y3, Z3, alpha=0.8, cmap=cm.afmhot)
-        ax.plot_surface(X4, Y4, Z4, alpha=0.8, cmap=cm.afmhot)
-        ax.plot_surface(X5, Y5, Z5, alpha=0.8, cmap=cm.afmhot)
-        ax.plot_surface(X6, Y6, Z6, alpha=0.8, cmap=cm.afmhot)
-        ax.plot_surface(X7, Y7, Z7, alpha=0.8, cmap=cm.afmhot)
-        ax.plot_surface(X8, Y8, Z8, alpha=0.8, cmap=cm.afmhot)
-        ax.plot_surface(X9, Y9, Z9, alpha=0.8, cmap=cm.afmhot)
 
         ax.set_xlim(-2, 2)
         ax.set_ylim(-2, 2)
@@ -240,8 +214,36 @@ def generate_plotly_animation_1(row=30, col = 30):
     fig.show()
 
 
+def generate_plotly_graph_1(row=30, col=30, return_json=False):
+    n=4
+
+    x = np.linspace(0, math.pi/2, col)
+    y = np.linspace(-math.pi/2, math.pi/2, row)
+    x, y = np.meshgrid(x, y)
+
+    fig = go.Figure()
+
+    for k1 in range(n):
+        for k2 in range(n):
+            
+            X = np.frompyfunc(calcZ1Real, 4, 1)(x, y, k1, n).astype('float32')
+            Y = np.frompyfunc(calcZ2Real, 4, 1)(x, y, k2, n).astype('float32')
+            Z1 = np.frompyfunc(calcZ, 6, 1)(x, y, k1, k2, n, 0).astype('float32')
+            Z2 = np.frompyfunc(calcZ_alt, 6, 1)(x, y, k1, k2, n, 0).astype('float32')
+
+            fig.add_trace(go.Surface(x=X, y=Y, z=Z1, showscale=False, colorscale='blues'))
+
+    if not return_json:
+        fig.show()
+    else:
+        return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    
+
+
 
 def generate_plotly_sliders_1(row=30, col=30):
+
+    n = 4
 
     fig = go.Figure()
 
@@ -358,5 +360,5 @@ def generate_plotly_sliders_1(row=30, col=30):
 
 if __name__ == "__main__":
     
-    generate_matplot_animation_1("output.html", row=30, col=30, nframes=100, t_interval=175)
+    generate_plotly_graph_1(row=30, col=30)
     # generate_plotly_sliders_1(row=30, col = 30)
