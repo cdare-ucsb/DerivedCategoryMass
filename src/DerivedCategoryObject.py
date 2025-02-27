@@ -1,4 +1,4 @@
-from ChernCharacter import ChernCharacterP2, ChernCharacterP1, ChernCharacter
+from .ChernCharacter import ChernCharacterP2, ChernCharacterP1, ChernCharacter
 import re
 
 
@@ -166,7 +166,7 @@ class DerivedCategoryObjectP1():
         if not isinstance(w, complex):
             raise TypeError("w must be a complex number.")
         
-        if self.chern_character:
+        if self.chern_character is None:
             raise ValueError("DerivedCategoryObject not initialized, cannot compute central charge.")
     
         return complex(-self.chern_character.ch1 + w * self.chern_character.ch0)
@@ -269,7 +269,7 @@ class DerivedCategoryObjectP2():
         if not isinstance(s, float) or not isinstance(q, float):
             raise TypeError("s and q must be floating-point decimals.")
         
-        if self.chern_character:
+        if self.chern_character is None:
             raise ValueError("DerivedCategoryObject not initialized, cannot compute central charge.")
     
         return complex(-self.chern_character.ch2 + q * self.chern_character.ch0, self.chern_character.ch1 - s * self.chern_character.ch0)

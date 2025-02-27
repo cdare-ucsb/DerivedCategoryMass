@@ -1,4 +1,4 @@
-from ChernCharacter import ChernCharacterP2, ChernCharacterP1
+from .ChernCharacter import ChernCharacterP2, ChernCharacterP1
 import math
 import cmath
 

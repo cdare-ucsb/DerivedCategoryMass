@@ -68,7 +68,7 @@ class ChernCharacterP1(ChernCharacter):
         if not isinstance(other, ChernCharacterP1):
             raise TypeError("Can only add ChernCharacterP1 objects together.")
 
-        return ChernCharacterP2(self.ch0 + other.ch0, self.ch1 + other.ch1)
+        return ChernCharacterP1(self.ch0 + other.ch0, self.ch1 + other.ch1)
     
 
     def __sub__(self, other):
@@ -90,7 +90,7 @@ class ChernCharacterP1(ChernCharacter):
         if not isinstance(other, ChernCharacterP1):
             raise TypeError("Can only subtract ChernCharacterP1 objects together.")
 
-        return ChernCharacterP2(self.ch0 - other.ch0, self.ch1 - other.ch1)
+        return ChernCharacterP1(self.ch0 - other.ch0, self.ch1 - other.ch1)
     
     def __mul__(self, scalar):
         """
@@ -111,7 +111,7 @@ class ChernCharacterP1(ChernCharacter):
         if not isinstance(scalar, int):
             raise TypeError("Can only multiply ChernCharacterP1 objects by integers.")
 
-        return ChernCharacterP2(self.ch0 * scalar, self.ch1 * scalar)
+        return ChernCharacterP1(self.ch0 * scalar, self.ch1 * scalar)
     
     def __rmul__(self, scalar):
         """
@@ -132,7 +132,7 @@ class ChernCharacterP1(ChernCharacter):
         if not isinstance(scalar, int):
             raise TypeError("Can only multiply ChernCharacterP1 objects by integers.")
 
-        return ChernCharacterP2(self.ch0 * scalar, self.ch1 * scalar)
+        return ChernCharacterP1(self.ch0 * scalar, self.ch1 * scalar)
     
     def __eq__(self, other):
         """

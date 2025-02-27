@@ -1,6 +1,6 @@
-from DerivedCategoryObject import DerivedCategoryObject, DerivedCategoryObjectP1, DerivedCategoryObjectP2
-from CoherentSheaf import CoherentSheafP1, CoherentSheafP2
-from ChernCharacter import ChernCharacterP2, ChernCharacterP1, ChernCharacter
+from .DerivedCategoryObject import DerivedCategoryObject, DerivedCategoryObjectP1, DerivedCategoryObjectP2
+from .CoherentSheaf import CoherentSheafP1, CoherentSheafP2
+from .ChernCharacter import ChernCharacterP2, ChernCharacterP1, ChernCharacter
 import math
 
 

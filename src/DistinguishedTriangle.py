@@ -1,4 +1,4 @@
-from DerivedCategoryObject import DerivedCategoryObjectP2, DerivedCategoryObjectP1
+from .DerivedCategoryObject import DerivedCategoryObjectP2, DerivedCategoryObjectP1
 
 
 
