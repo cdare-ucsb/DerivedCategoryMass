@@ -1,7 +1,10 @@
-from .DerivedCategoryObject import DerivedCategoryObject, DerivedCategoryObjectP1, DerivedCategoryObjectP2
-from .CoherentSheaf import CoherentSheafP1, CoherentSheafP2
-from .ChernCharacter import ChernCharacterP2, ChernCharacterP1, ChernCharacter
+from .DerivedCategoryObject import DerivedCategoryObject
+from .CoherentSheaf import CoherentSheaf
+from .ChernCharacter import ChernCharacter
 import math
+
+
+IMPLEMENTED_CATAGORIES = ['P1', 'P2']
 
 
 class ChainComplex(DerivedCategoryObject):
@@ -56,31 +59,51 @@ class ChainComplex(DerivedCategoryObject):
             If any element of the shift vector is not an integer
         """
 
+
+        ##### 
+        # Check that sheaf vector is valid and contains object of only a single catagory
+        #####
+
         if not sheaf_vector:
             raise ValueError("sheaf_vector cannot be empty.")
 
-        if not all(isinstance(obj, CoherentSheafP1) for obj in sheaf_vector) and not all(isinstance(obj, CoherentSheafP2) for obj in sheaf_vector):
+        if not all(isinstance(obj, CoherentSheaf) for obj in sheaf_vector) :
             raise TypeError("All elements of complex_vector must be instances of CoherentSheaf (of the same projective space).")
 
+        sheaf_catagory = sheaf_vector[0].catagory
+        if sheaf_catagory not in IMPLEMENTED_CATAGORIES:
+            raise ValueError(f"Catagory {sheaf_catagory} is not implemented.")
+
+        if not all(obj.catagory == sheaf_catagory for obj in sheaf_vector):
+            raise ValueError("All elements of sheaf_vector must be sheaves over the same base space.")
+
+        #####
+        # Check that shift vector is valid
+        #####
         if not all(isinstance(shift, int) for shift in shift_vector):
             raise TypeError("All elements of shift_vector must be integers.")
 
         if len(sheaf_vector) != len(shift_vector):
             raise ValueError("sheaf_vector and shift_vector must have the same length.") 
 
+        #####
+        # Check that dimension vector is valid
+        #####
         if dimension_vector is None:
             dimension_vector = [1] * len(sheaf_vector)
-        elif not all(isinstance(dim, int) for dim in dimension_vector):
+        if not all(isinstance(dim, int) for dim in dimension_vector):
             raise TypeError("All elements of dimension_vector must be integers.")
-        elif len(sheaf_vector) != len(dimension_vector):
+        if len(sheaf_vector) != len(dimension_vector):
             raise ValueError("sheaf_vector and dimension_vector must have the same length.")
-        # Dimension cannot be non-negative
-        elif not all(dim >= 0 for dim in dimension_vector):
+        if not all(dim >= 0 for dim in dimension_vector):
+            # Dimension cannot be non-negative
             raise ValueError("All elements of dimension_vector must be non-negative integers.") 
         
         self.sheaf_vector = sheaf_vector
         self.dimension_vector = dimension_vector
         self.shift_vector = shift_vector
+
+        self.catagory = sheaf_catagory
 
         # If an element of the complex has dimension 0, we can get rid of it using helper method
         self._remove_zeros_from_dimension_vector()
@@ -128,7 +151,51 @@ class ChainComplex(DerivedCategoryObject):
     
 
     def chernCharacter(self):
-        return ChernCharacter()
+        """
+        Helper function to compute the Chern Character of the chain complex. The Chern Character of
+        a chain complex is the alternating sum of the Chern Characters of the individual sheaves in
+        the complex. Since the Chern character is additive, we may multiply the Chern Characters by
+        the dimension of the sheaf to represent direct sums of sheaves.
+        """
+        cherns = [sheaf.chernCharacter() for sheaf in self.sheaf_vector]
+
+        rank_grothendieck_group = len(self.sheaf_vector[0].chernCharacter())
+        chain_complex_chern = []
+
+        for graded_piece in range(rank_grothendieck_group):
+
+            chern_piece = 0
+            for i in range(len(cherns)):
+                chern_piece += (-1)**(self.shift_vector[i]) * self.dimension_vector[i] * cherns[i][graded_piece]
+            chain_complex_chern.append(chern_piece)
+
+
+        return ChernCharacter(chain_complex_chern)
+
+    def central_charge(self, *args):
+
+        if self.catagory == 'P1':
+            if len(args) != 1:
+                raise ValueError("Central charge for P1 requires exactly one argument.")
+            if not isinstance(args[0], complex):
+                raise TypeError("Central charge for P1 requires a complex number as an argument.")
+
+            chern_char = self.chernCharacter()
+            return complex(-1*chern_char[1] + args[0] * chern_char[0])
+
+
+        elif self.catagory == 'P2':
+            if len(args) != 2:
+                raise ValueError("Central charge for P2 requires exactly two arguments.")
+            if not all(isinstance(arg, (float,int)) for arg in args):
+                raise TypeError("Central charge for P2 requires two floating-point numbers as arguments.")
+            
+            chern_char = self.chernCharacter()
+            return complex(-chern_char[2] + args[1] * chern_char[0],
+                            chern_char[1] - args[0] * chern_char[0])
+
+        else:
+            raise NotImplementedError("Central charge not implemented for this variety.")
 
 
     
@@ -159,7 +226,7 @@ class ChainComplex(DerivedCategoryObject):
         bool
             True if the complex is a shift of a single sheaf, False otherwise
         """
-        return len(self.complex) == 1
+        return len(self.sheaf_vector) == 1
 
 
     def _remove_zeros_from_dimension_vector(self):
@@ -173,69 +240,22 @@ class ChainComplex(DerivedCategoryObject):
                 del self.shift_vector[i]
                 del self.dimension_vector[i]
 
-    
-
-class ChainComplexP1(ChainComplex, DerivedCategoryObjectP1):
-
-    def __init__(self, sheaf_vector, shift_vector, dimension_vector = None):    
-        if not all(isinstance(obj, CoherentSheafP1) for obj in sheaf_vector):
-            raise TypeError("All elements of complex_vector must be instances of CoherentSheafP1.")
-
-        super().__init__(sheaf_vector, shift_vector, dimension_vector)
-
-    def __str__(self):
-        return super().__str__()
-    
-    def chernCharacter(self):
-        """
-        Helper function to compute the Chern Character of the chain complex. The Chern Character of
-        a chain complex is the alternating sum of the Chern Characters of the individual sheaves in
-        the complex. Since the Chern character is additive, we may multiply the Chern Characters by
-        the dimension of the sheaf to represent direct sums of sheaves.
-        """
-        cherns = [sheaf.chernCharacter() for sheaf in self.sheaf_vector]
-
-        ch0 = 0
-        ch1 = 0
-
-        for i in range(len(cherns)):
-            ch0 += (-1)**(self.shift_vector[i]) * self.dimension_vector[i] * cherns[i].ch0
-            ch1 += (-1)**(self.shift_vector[i]) * self.dimension_vector[i] * cherns[i].ch1
-
-        return ChernCharacterP1(ch0, ch1)
-    
-    def central_charge(self, w):
-        """
-        Method to compute the central charge of the chain complex. The central charge of a chain complex
-        is the alternating sum of the central charges of the individual sheaves in the complex. Since the
-        central charge is additive, we may multiply the central charges by the dimension of the sheaf to
-        represent direct sums of sheaves.
-
-        Parameters:
-        ----------
-        w : complex
-            The complex parameter for a geometric stability condition in P1
         
-
-        Returns:
-        -------
-        complex
-            The central charge of the chain complex as a complex number
-
-        Raises:
-        -------
-        TypeError
-            If w is not a complex number
-
-        """
-        
-        if not isinstance(w, complex):
-            raise TypeError("w must be a complex number.")
     
-        chern_char = self.chernCharacter()
-        return complex(-chern_char.ch1 + w * chern_char.ch0)
-    
-    def get_smallest_phase(self, w):
+    def get_smallest_phase(self, *args):
+
+        if self.catagory == 'P1':
+            if len(args) != 1:
+                raise ValueError("Phase of P1 requires exactly one argument.")
+            if not isinstance(args[0], complex):
+                raise TypeError("Phase of P1 requires a complex number as an argument.")
+        elif self.catagory == 'P2':
+            if len(args) != 2:
+                raise ValueError("Phase of P2 requires exactly two arguments.")
+            if not all(isinstance(arg, (float,int)) for arg in args):
+                raise TypeError("Phase of P2 requires two floating-point numbers as arguments.")
+        else:
+            raise NotImplementedError("Phase not implemented for this variety.")
 
          # Zip the three lists together and sort by descending shift
         min_shift = min(self.shift_vector)
@@ -246,12 +266,25 @@ class ChainComplexP1(ChainComplex, DerivedCategoryObjectP1):
         min_phase = math.inf
 
         for sheaf, dim, shift in bundles_min_shift:
-            if sheaf.phase(w) + shift < min_phase:
-                min_phase = sheaf.phase(w) + shift
+            if sheaf.phase(*args) + shift < min_phase:
+                min_phase = sheaf.phase(*args) + shift
 
         return min_phase
     
-    def get_largest_phase(self, w):
+    def get_largest_phase(self, args):
+            
+            if self.catagory == 'P1':
+                if len(args) != 1:
+                    raise ValueError("Phase of P1 requires exactly one argument.")
+                if not isinstance(args[0], complex):
+                    raise TypeError("Phase of P1 requires a complex number as an argument.")
+            elif self.catagory == 'P2':
+                if len(args) != 2:
+                    raise ValueError("Phase of P2 requires exactly two arguments.")
+                if not all(isinstance(arg, (float,int)) for arg in args):
+                    raise TypeError("Phase of P2 requires two floating-point numbers as arguments.")
+            else:
+                raise NotImplementedError("Phase not implemented for this variety.")
 
             # Zip the three lists together and sort by descending shift
             max_shift = max(self.shift_vector)
@@ -262,119 +295,31 @@ class ChainComplexP1(ChainComplex, DerivedCategoryObjectP1):
             max_phase = -math.inf
     
             for sheaf, dim, shift in bundles_max_shift:
-                if sheaf.phase(w) + shift > max_phase:
-                    max_phase = sheaf.phase(w) + shift
+                if sheaf.phase(*args) + shift > max_phase:
+                    max_phase = sheaf.phase(*args) + shift
     
             return max_phase
     
-    def is_semistable(self, w):
 
-        return self.get_largest_phase(w) == self.get_smallest_phase(w)
+
+
+    def is_semistable(self, *args):
+
+        if self.catagory == 'P1':
+            if len(args) != 1:
+                raise ValueError("Phase of P1 requires exactly one argument.")
+            if not isinstance(args[0], complex):
+                raise TypeError("Phase of P1 requires a complex number as an argument.")
+        elif self.catagory == 'P2':
+            if len(args) != 2:
+                raise ValueError("Phase of P2 requires exactly two arguments.")
+            if not all(isinstance(arg, (float,int)) for arg in args):
+                raise TypeError("Phase of P2 requires two floating-point numbers as arguments.")
+        else:
+            raise NotImplementedError("Phase not implemented for this variety.")
+
+        return self.get_largest_phase(*args) == self.get_smallest_phase(*args)
 
 
 
             
-
-class ChainComplexP2(ChainComplex, DerivedCategoryObjectP2):
-
-    def __init__(self, sheaf_vector, shift_vector, dimension_vector = None):  
-        if not all(isinstance(obj, CoherentSheafP2) for obj in sheaf_vector):
-            raise TypeError("All elements of complex_vector must be instances of CoherentSheafP2.")  
-        super().__init__(sheaf_vector, shift_vector, dimension_vector)
-
-    def __str__(self):
-        return super().__str__()
-    
-    def chernCharacter(self):
-        """
-        Helper function to compute the Chern Character of the chain complex. The Chern Character of
-        a chain complex is the alternating sum of the Chern Characters of the individual sheaves in
-        the complex. Since the Chern character is additive, we may multiply the Chern Characters by
-        the dimension of the sheaf to represent direct sums of sheaves.
-        """
-        cherns = [sheaf.chernCharacter() for sheaf in self.sheaf_vector]
-
-        ch0 = 0
-        ch1 = 0
-        ch2 = 0
-
-        for i in range(len(cherns)):
-            ch0 += (-1)**(self.shift_vector[i]) * self.dimension_vector[i] * cherns[i].ch0
-            ch1 += (-1)**(self.shift_vector[i]) * self.dimension_vector[i] * cherns[i].ch1
-            ch2 += (-1)**(self.shift_vector[i]) * self.dimension_vector[i] * cherns[i].ch2
-
-        return ChernCharacterP2(ch0, ch1, ch2)
-    
-
-
-    
-    def central_charge(self, s, q):
-        """
-        Method to compute the central charge of the chain complex. The central charge of a chain complex
-        is the alternating sum of the central charges of the individual sheaves in the complex. Since the
-        central charge is additive, we may multiply the central charges by the dimension of the sheaf to
-        represent direct sums of sheaves.
-
-        Parameters:
-        ----------
-        s : float
-            The parameter controlling the imaginary part of the central charge
-        q : float
-            The parameter controlling the real part of the central charge
-
-        Returns:
-        -------
-        complex
-            The central charge of the chain complex as a complex number
-
-        Raises:
-        -------
-        TypeError
-            If s or q are not floating-point decimals
-
-        """
-        
-        if not isinstance(s, float) or not isinstance(q, float):
-            raise TypeError("s and q must be floating-point decimals.")
-    
-        chern_char = self.chernCharacter()
-        return complex(-chern_char.ch2 + q * chern_char.ch0, chern_char.ch1 - s * chern_char.ch0)
-                
-    def get_smallest_phase(self, s, q):
-
-         # Zip the three lists together and sort by descending shift
-        min_shift = min(self.shift_vector)
-
-        bundles = list(zip(self.sheaf_vector, self.dimension_vector, self.shift_vector))
-        bundles_min_shift = filter(lambda x: x[2] == min_shift or x[2] == min_shift + 1 , bundles)
-
-        min_phase = math.inf
-
-        for sheaf, dim, shift in bundles_min_shift:
-            if sheaf.phase(s, q) + shift < min_phase:
-                min_phase = sheaf.phase(s, q) + shift
-
-        return min_phase
-    
-    def get_largest_phase(self, s, q):
-
-            # Zip the three lists together and sort by descending shift
-            max_shift = max(self.shift_vector)
-    
-            bundles = list(zip(self.sheaf_vector, self.dimension_vector, self.shift_vector))
-            bundles_max_shift = filter(lambda x: x[2] == max_shift or x[2] == max_shift - 1, bundles)
-    
-            max_phase = -math.inf
-    
-            for sheaf, dim, shift in bundles_max_shift:
-                if sheaf.phase(s, q) + shift > max_phase:
-                    max_phase = sheaf.phase(s, q) + shift
-    
-            return max_phase
-    
-    def is_semistable(self, s, q):
-
-        return self.get_largest_phase(s,q) == self.get_smallest_phase(s,q)
-
-
-

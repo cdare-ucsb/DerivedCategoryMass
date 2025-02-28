@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, render_template
 from src.CY3Fold import generate_plotly_graph_1  # Import the function if it's defined in app.utils
 from  app.models import load_simple_model,  preprocess_input, predict
-from src import LineBundleP2, LineBundleP1, SphericalTwistP2, SphericalTwistP1, LePotier
+from src import LineBundle, SphericalTwist, LePotier
 import plotly.graph_objects as go
 import plotly.utils
 import numpy as np
@@ -87,7 +87,8 @@ def compute_plot_data_P2(line_bundle_1, line_bundle_2):
     if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
         raise ValueError("Input data must be integers")
 
-    sph = SphericalTwistP2(LineBundleP2(line_bundle_1), LineBundleP2(line_bundle_2))
+    sph = SphericalTwist(LineBundle(line_bundle_1, catagory='P2'),
+                          LineBundle(line_bundle_2, catagory='P2'))
 
     DLP = LePotier(width=5, granularity=3)
     
@@ -151,7 +152,8 @@ def compute_chain_complex_data_P2(line_bundle_1, line_bundle_2):
     if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
         raise ValueError("Input data must be integers")
 
-    sph = SphericalTwistP2(LineBundleP2(line_bundle_1), LineBundleP2(line_bundle_2))
+    sph = SphericalTwist(LineBundle(line_bundle_1, catagory='P2'),
+                          LineBundle(line_bundle_2, catagory='P2'))
     first_sheaf_vector = []
 
     if len(sph.defining_triangle.object1.sheaf_vector) == 1:
@@ -208,7 +210,8 @@ def compute_chain_complex_data_P1(line_bundle_1, line_bundle_2):
     if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
         raise ValueError("Input data must be integers")
 
-    sph = SphericalTwistP1(LineBundleP1(line_bundle_1), LineBundleP1(line_bundle_2))
+    sph = SphericalTwist(LineBundle(line_bundle_1, catagory='P1'),
+                          LineBundle(line_bundle_2, catagory='P1'))
     first_sheaf_vector = []
 
     if len(sph.defining_triangle.object1.sheaf_vector) == 1:
@@ -242,7 +245,8 @@ def compute_plot_data_P1(line_bundle_1, line_bundle_2):
     if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
         raise ValueError("Input data must be integers")
 
-    sph = SphericalTwistP1(LineBundleP1(line_bundle_1), LineBundleP1(line_bundle_2))
+    sph = SphericalTwist(LineBundle(line_bundle_1, catagory='P1'),
+                          LineBundle(line_bundle_2, catagory='P1'))
 
 
     # Define x values (spread around a region)

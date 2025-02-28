@@ -1,4 +1,4 @@
-from .ChernCharacter import ChernCharacterP2, ChernCharacterP1, ChernCharacter
+from .ChernCharacter import ChernCharacter
 import re
 
 
@@ -25,12 +25,22 @@ import re
 ###############################################################################
 
 
+IMPLEMENTED_CATAGORIES = ['P1', 'P2']
+
+
+
 class DerivedCategoryObject():
-    def __init__(self, string = "0", chern_character = None):
-        self.string = string
+    def __init__(self, catagory, string = "0", chern_character = None):
+        
+        if catagory not in IMPLEMENTED_CATAGORIES:    
+            raise ValueError(f"Catagory {catagory} is not implemented.")
+
         if chern_character and not isinstance(chern_character, ChernCharacter):
             raise TypeError("chern_character must be an instance of ChernCharacterP1 or ChernCharacterP2.")
+        
+        self.catagory = catagory
         self.chern_character = chern_character
+        self.string = string
 
     def __str__(self):
         """
@@ -81,64 +91,8 @@ class DerivedCategoryObject():
     
 
 
-
-class DerivedCategoryObjectP1():
-
-    def __init__(self, string = "0", chern_character = None):
-        self.string = string
-        if chern_character and not isinstance(chern_character, ChernCharacterP1):
-            raise TypeError("chern_character must be an instance of ChernCharacterP1.")
-        self.chern_character = chern_character
-
-    def __str__(self):
-        """
-        String representation of the derived category object
-
-        Returns:
-        -------
-        str
-            A string representation of the derived category
-        """
-        if self.string is not None:
-            return self.string
-        else:
-            return "0"
-        
-    def chernCharacter(self):
-        """
-        Method to return the Chern Character of the derived category object
-
-        Returns:
-        -------
-        ChernCharacterP1
-            The Chern Character of the derived category object
-        """
-        return self.chern_character
     
-
-    def shiftObject(self, shift):
-        """
-        Method to shift the derived category object by a given homological shift
-
-        Parameters:
-        ----------
-        shift : int
-            The homological shift to apply to the derived category object
-
-        Returns:
-        -------
-        DerivedCategoryObjectP1
-            The derived category object shifted by the homological shift
-        """
-        new_string = _update_string_by_shift(self.string, shift)
-        if self.chern_character:
-            new_chern = int((-1)**shift) * self.chern_character 
-        else:
-            new_chern = None
-
-        return DerivedCategoryObjectP1(new_string, new_chern)
-    
-    def central_charge(self, w):
+    def central_charge(self, *args):
         """
         Method to compute the central charge of the chain complex. The central charge of a chain complex
         is the alternating sum of the central charges of the individual sheaves in the complex. Since the
@@ -162,140 +116,29 @@ class DerivedCategoryObjectP1():
             If w is not a complex number
 
         """
-        
-        if not isinstance(w, complex):
-            raise TypeError("w must be a complex number.")
-        
+
         if self.chern_character is None:
             raise ValueError("DerivedCategoryObject not initialized, cannot compute central charge.")
-    
-        return complex(-self.chern_character.ch1 + w * self.chern_character.ch0)
-
-
-
-
-class DerivedCategoryObjectP2():
-    """
-    General parent class for both ChainComplex and LineBundleComplex objects. This class
-    is used to represent objects in the derived category of coherent sheaves on P^2. Since
-    objects in the derived category are technically equivalence classes of complexes of
-    coherent sheaves (up to quasi-isomorphism), we will use an abstract parent class to 
-    capture only string information and numerical information.
-
-    Attributes:
-    ----------
-    string : str
-        A string representation of the derived category
-    chern_character : ChernCharacterP2
-        The Chern Character of the derived category object
-    """
-
-
-    def __init__(self, string = "0", chern_character = None):
-        """
-        Initialize an instance of DerivedCategoryObject with the specified string and Chern Character.
-
-        Parameters:
-        ----------
-        string : str
-            The string representation of the derived category object
-        chern_character : ChernCharacterP2
-            The Chern Character of the derived category object
-
-        Raises:
-        -------
-        TypeError
-            If chern_character is not an instance of ChernCharacterP2
-        """
-        self.string = string
-
-        if chern_character and not isinstance(chern_character, ChernCharacterP2):
-            raise TypeError("chern_character must be an instance of ChernCharacterP2.")
-        self.chern_character = chern_character
-    
-    def __str__(self):
-        """
-        String representation of the derived category object
-
-        Returns:
-        -------
-        str
-            A string representation of the derived category
-        """
-        if self.string is not None:
-            return self.string
-        else:
-            return "0"
-
-
-    def chernCharacter(self):
-        """
-        Method to return the Chern Character of the derived category object
-
-        Returns:
-        -------
-        ChernCharacterP2
-            The Chern Character of the derived category object
-        """
-        return self.chern_character
-    
-
-    def central_charge(self, s, q):
-        """
-        Method to compute the central charge of the chain complex. The central charge of a chain complex
-        is the alternating sum of the central charges of the individual sheaves in the complex. Since the
-        central charge is additive, we may multiply the central charges by the dimension of the sheaf to
-        represent direct sums of sheaves.
-
-        Parameters:
-        ----------
-        s : float
-            The parameter controlling the imaginary part of the central charge
-        q : float
-            The parameter controlling the real part of the central charge
-
-        Returns:
-        -------
-        complex
-            The central charge of the chain complex as a complex number
-
-        Raises:
-        -------
-        TypeError
-            If s or q are not floating-point decimals
-
-        """
         
-        if not isinstance(s, float) or not isinstance(q, float):
-            raise TypeError("s and q must be floating-point decimals.")
-        
-        if self.chern_character is None:
-            raise ValueError("DerivedCategoryObject not initialized, cannot compute central charge.")
-    
-        return complex(-self.chern_character.ch2 + q * self.chern_character.ch0, self.chern_character.ch1 - s * self.chern_character.ch0)
-
-
-    def shiftObject(self, shift):
-        """
-        Method to shift the derived category object by a given homological shift
-
-        Parameters:
-        ----------
-        shift : int
-            The homological shift to apply to the derived category object
-
-        Returns:
-        -------
-        DerivedCategoryObject
-            The derived category object shifted by the homological shift
-        """
-        new_string = _update_string_by_shift(self.string, shift)
-        if self.chern_character:
-            new_chern = int((-1)**shift) * self.chern_character 
+        if self.catagory == 'P1':
+            if len(args) != 1:
+                raise ValueError("Central charge of P1 requires single complex number parameter")
+            if not isinstance(args[0], complex):
+                raise TypeError("w must be a complex number.")
+            
+            chern_char = self.chern_character
+            return complex(-chern_char[1] + args[0]*chern_char[0])
+        elif self.catagory == 'P2':
+            if len(args) != 2:
+                raise ValueError("Central charge of P2 requires two real number parameters")
+            if not all(isinstance(x, (float, int)) for x in args):
+                raise TypeError("s and q must be floating-point decimals.")
+            
+            chern_char = self.chern_character
+            return complex(-chern_char[2] + args[1] * chern_char[0], chern_char[1] - args[0] * chern_char[0])
         else:
-            new_chern = None
-
-        return DerivedCategoryObjectP2(new_string, new_chern)
+            raise NotImplementedError("Only P1 and P2 catagories are implemented")
+        
 
 
 

@@ -1,4 +1,4 @@
-from .DerivedCategoryObject import DerivedCategoryObjectP2, DerivedCategoryObjectP1
+from .DerivedCategoryObject import DerivedCategoryObject
 
 
 
@@ -46,15 +46,18 @@ class DistinguishedTriangle():
         
         """
 
-        is_local_p1 = isinstance(derived_object1, DerivedCategoryObjectP1) or isinstance(derived_object2, DerivedCategoryObjectP1) or isinstance(derived_object3, DerivedCategoryObjectP1)
-        is_local_p2 = isinstance(derived_object1, DerivedCategoryObjectP2) or isinstance(derived_object2, DerivedCategoryObjectP2) or isinstance(derived_object3, DerivedCategoryObjectP2)
+        if not all(isinstance(obj, DerivedCategoryObject) for obj in [derived_object1, derived_object2, derived_object3]):
+            raise TypeError("All objects in the distinguished triangle must be instances of DerivedCategoryObject")
 
-        if not is_local_p1 and not is_local_p2:
+        first_catagory = derived_object1.catagory
+        if not all( obj.catagory == first_catagory for obj in [derived_object2, derived_object3]):
             raise TypeError("All objects in the distinguished triangle must be instances of DerivedCategoryObject, from the same underlying category")
 
         self.object1 = derived_object1
         self.object2 = derived_object2
         self.object3 = derived_object3
+
+        self.catagory = first_catagory
 
         # call on helper method to potentially update chern characters of any
         # DerivedCategoryObjects that have chern character (0,0,0)

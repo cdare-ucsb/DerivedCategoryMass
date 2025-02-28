@@ -1,6 +1,6 @@
-from .ChernCharacter import ChernCharacterP2
-from .SphericalTwist import SphericalTwistP2
-from .CoherentSheaf import LineBundleP2
+from .ChernCharacter import ChernCharacter
+from .SphericalTwist import SphericalTwist
+from .CoherentSheaf import LineBundle
 
 import math
 import numpy as np
@@ -79,11 +79,11 @@ class LePotier():
         
         if p % int(2**m) == 0:
             d = p // int(2**m)
-            return ChernCharacterP2(1, int(d), float( d**2 ) / 2)
+            return ChernCharacter( [1, int(d), float( d**2 ) / 2 ] )
         elif p % 4 == 3:
-            return 3 * self._get_dyadic_character(p+1, m).ch0 * self._get_dyadic_character(p-1, m) - self._get_dyadic_character(p-3, m)
+            return 3 * self._get_dyadic_character(p+1, m)[0] * self._get_dyadic_character(p-1, m) - self._get_dyadic_character(p-3, m)
         elif p % 4 == 1:
-            return 3 * self._get_dyadic_character(p-1, m).ch0 * self._get_dyadic_character(p+1, m) - self._get_dyadic_character(p+3, m)
+            return 3 * self._get_dyadic_character(p-1, m)[0] * self._get_dyadic_character(p+1, m) - self._get_dyadic_character(p+3, m)
         elif p % 4 == 2:
             new_p = p // 2
             return self._get_dyadic_character(new_p, m-1)
@@ -105,7 +105,7 @@ class LePotier():
         tuple: A tuple containing the coordinates of the regular part of the exceptional vector bundle
         """
         chern = self._get_dyadic_character(p, m)
-        return ( float(chern.ch1) / chern.ch0, chern.ch2 / chern.ch0 )
+        return ( float(chern[1]) / chern[0], chern[2] / chern[0] )
         
     def _e_plus(self, p, m):
         """
@@ -123,7 +123,7 @@ class LePotier():
         
         """
         chern = self._get_dyadic_character(p, m)
-        return ( float(chern.ch1) / chern.ch0, chern.ch2 / chern.ch0 - float(1 / (chern.ch0)**2) )
+        return ( float(chern[1]) / chern[0], chern[2] / chern[0] - float(1 / (chern[0])**2) )
     
     def _e_left(self, p, m):
         """
@@ -155,6 +155,8 @@ class LePotier():
             y_3 = m * x_3 + (y_1 - m * x_1)
             return (x_3, y_3)
     
+
+
     def _e_right(self, p, m):
         """
 
@@ -875,7 +877,7 @@ if __name__ == "__main__":
     line_bundle_1 = 1
     line_bundle_2 = 5
 
-    sph = SphericalTwistP2(LineBundleP2(line_bundle_1), LineBundleP2(line_bundle_2))
+    sph = SphericalTwist(LineBundle(line_bundle_1, catagory='P2'), LineBundle(line_bundle_2, catagory='P2'))
 
     DLP = LePotier(width=5, granularity=3)
     
