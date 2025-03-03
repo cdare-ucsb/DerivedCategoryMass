@@ -1,4 +1,4 @@
-from .ChernCharacter import ChernCharacter
+from ChernCharacter import ChernCharacter
 import math
 import cmath
 
@@ -17,7 +17,7 @@ import cmath
 ###############################################################################
 
 
-IMPLEMENTED_CATAGORIES = ['P1', 'P2']
+IMPLEMENTED_CATAGORIES = ['P1', 'P2', 'K3']
 
 
 
@@ -31,6 +31,8 @@ class CoherentSheaf():
             raise ValueError("P1 objects should have a Chern Character of length 2")
         if catagory == 'P2' and len(chern_character) != 3:
             raise ValueError("P2 objects should have a Chern Character of length 3")
+        if catagory == 'K3' and len(chern_character) != 3:
+            raise ValueError("K3 objects should have a Chern Character of length 3")
         
         if not isinstance(chern_character, ChernCharacter):
             raise TypeError("Chern Character must be a ChernCharacter object")
@@ -55,24 +57,40 @@ class CoherentSheaf():
             if len(args) != 1:
                 raise ValueError("Central charge of P1 requires single complex number parameter")
             if not isinstance(args[0], complex):
-                raise TypeError("P1 objects should have a single complex parameter")
+                raise TypeError("P1 central charges should have a single complex parameter")
 
-            return -1*self.chern_character.graded_element[1] + args[0]*self.chern_character.graded_element[0]
+            return -1*self.chern_character[1] + args[0]*self.chern_character[0]
         
         elif self.catagory == 'P2':
 
             if len(args) != 2:
                 raise ValueError("Central charge of P2 requires two real number parameters")
             if not all(isinstance(x, (float, int)) for x in args):
-                raise TypeError("P2 objects should have two real number parameters")
+                raise TypeError("P2 central charges should have two real number parameters")
 
-            return complex(-1*self.chern_character.graded_element[2] +
-                            args[1] * self.chern_character.graded_element[0],
-                              self.chern_character.graded_element[1] - args[0] * self.chern_character.graded_element[0])
+            return complex(-1*self.chern_character[2] +
+                            args[1] * self.chern_character[0],
+                              self.chern_character[1] - args[0] * self.chern_character[0])
+    
+        elif self.catagory == 'K3':
+
+            if len(args) != 3:
+                raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
+            if not all(isinstance(x, (float, int)) for x in args):
+                raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
+            if not isinstance(args[2], int):
+                raise TypeError("The degree of the K3 surface must be an integer")
+
+            alpha = args[0]
+            beta = args[1]
+            d = args[2]
+            
+            return complex(2*d*alpha * self.chern_character[1] - self.chern_character[2] - self.chern_character[0] + (beta**2 - alpha**2)*d*self.chern_character[0], 
+                           2*d*self.chern_character[1] - 2*d*alpha*beta*self.chern_character[0])
     
         else:
             # Catagory is not currently implemented
-            raise NotImplementedError("Only P1 and P2 catagories are implemented")
+            raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
 
     def __str__(self):
         return f'CoherentSheaf with Chern Character {self.chern_character}'
@@ -80,6 +98,9 @@ class CoherentSheaf():
 
     def is_semistable(self, *args):
         pass
+
+    def __hash__(self):
+        return hash(self.chern_character)
 
 
 
@@ -89,9 +110,16 @@ class LineBundle(CoherentSheaf):
     def __init__(self, degree, catagory):
         if catagory not in IMPLEMENTED_CATAGORIES:
             raise ValueError(f"Catagory {catagory} is not implemented.")
+        if not isinstance(degree, int):
+            raise ValueError(f"degree must be an integer: currently passed {type(degree)}")
+        
         self.degree = degree
         self.catagory = catagory
-        self.chern_character = ChernCharacter([1, self.degree, float(self.degree**2)/2])
+        if self.catagory == 'K3' or self.catagory == 'P2':
+            self.chern_character = ChernCharacter([1, self.degree, float(self.degree**2)/2])
+        elif self.catagory == 'P1':
+            self.chern_character = ChernCharacter([1, self.degree])
+        
 
 
     def is_semistable(self, *args):
@@ -100,4 +128,12 @@ class LineBundle(CoherentSheaf):
 
     def __str__(self):
         return f'O({self.degree})'
+    
+    def __eq__(self, other):
+        if not isinstance(other, LineBundle):
+            return False
+        return self.degree == other.degree
+    
+    def __hash__(self):
+        return hash(self.degree)
 

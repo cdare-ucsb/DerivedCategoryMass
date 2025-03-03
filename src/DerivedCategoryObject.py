@@ -1,4 +1,4 @@
-from .ChernCharacter import ChernCharacter
+from ChernCharacter import ChernCharacter
 import re
 
 
@@ -25,7 +25,7 @@ import re
 ###############################################################################
 
 
-IMPLEMENTED_CATAGORIES = ['P1', 'P2']
+IMPLEMENTED_CATAGORIES = ['P1', 'P2', 'K3']
 
 
 
@@ -67,7 +67,7 @@ class DerivedCategoryObject():
         """
         return self.chern_character
     
-    def shiftObject(self, shift):
+    def shift(self, shift):
         """
         Method to shift the derived category object by a given homological shift
 
@@ -87,7 +87,7 @@ class DerivedCategoryObject():
         else:
             new_chern = None
 
-        return DerivedCategoryObject(new_string, new_chern)
+        return DerivedCategoryObject(catagory=self.catagory, string=new_string, chern_character=new_chern)
     
 
 
@@ -136,8 +136,26 @@ class DerivedCategoryObject():
             
             chern_char = self.chern_character
             return complex(-chern_char[2] + args[1] * chern_char[0], chern_char[1] - args[0] * chern_char[0])
+        elif self.catagory == 'K3':
+
+            if len(args) != 3:
+                raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
+            if not all(isinstance(x, (float, int)) for x in args):
+                raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
+            if not isinstance(args[2], int):
+                raise TypeError("The degree of the K3 surface must be an integer")
+
+            alpha = args[0]
+            beta = args[1]
+            d = args[2]
+            
+            return complex(2*d*alpha * self.chern_character[1] - self.chern_character[2] - self.chern_character[0] + (beta**2 - alpha**2)*d*self.chern_character[0], 
+                           2*d*self.chern_character[1] - 2*d*alpha*beta*self.chern_character[0])
         else:
-            raise NotImplementedError("Only P1 and P2 catagories are implemented")
+            raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
+        
+    def is_semistable(self, *args):
+        pass
         
 
 

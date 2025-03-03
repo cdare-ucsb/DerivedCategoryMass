@@ -235,6 +235,7 @@ def generate_plotly_graph_1(row=30, col=30, return_json=False):
 
     if not return_json:
         fig.show()
+        fig.write_html('k3_surface.html', full_html=False)
     else:
         return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     

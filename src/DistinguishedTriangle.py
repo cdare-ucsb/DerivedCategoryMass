@@ -1,4 +1,4 @@
-from .DerivedCategoryObject import DerivedCategoryObject
+from DerivedCategoryObject import DerivedCategoryObject
 
 
 
@@ -93,7 +93,7 @@ class DistinguishedTriangle():
         return ret_str
 
     
-    def shiftRight(self):
+    def rotateRight(self):
         """
         Method to shift the distinguished triangle to the right. This is done by wrapping the last
         object in the previous triangle around to the first object in the new triangle (homologically 
@@ -105,8 +105,8 @@ class DistinguishedTriangle():
         DistinguishedTriangle
             The distinguished triangle shifted to the right
         """
-        return DistinguishedTriangle(self.object3.shiftComplex(-1), self.object1, self.object2)
-    def shiftLeft(self):
+        return DistinguishedTriangle(self.object3.shift(-1), self.object1, self.object2)
+    def rotateLeft(self):
         """
         Method to shift the distinguished triangle to the left. This is done by wrapping the first
         object in the previous triangle around to the last object in the new triangle (homologically
@@ -119,7 +119,7 @@ class DistinguishedTriangle():
             The distinguished triangle shifted to the left
         """
 
-        return DistinguishedTriangle(self.object2, self.object3, self.object1.shiftComplex(1))
+        return DistinguishedTriangle(self.object2, self.object3, self.object1.shift(1))
 
    
 

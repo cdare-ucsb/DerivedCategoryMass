@@ -1,10 +1,10 @@
-from .DerivedCategoryObject import DerivedCategoryObject
-from .CoherentSheaf import CoherentSheaf
-from .ChernCharacter import ChernCharacter
+from DerivedCategoryObject import DerivedCategoryObject
+from CoherentSheaf import CoherentSheaf
+from ChernCharacter import ChernCharacter
 import math
 
 
-IMPLEMENTED_CATAGORIES = ['P1', 'P2']
+IMPLEMENTED_CATAGORIES = ['P1', 'P2', 'K3']
 
 
 class ChainComplex(DerivedCategoryObject):
@@ -107,6 +107,10 @@ class ChainComplex(DerivedCategoryObject):
 
         # If an element of the complex has dimension 0, we can get rid of it using helper method
         self._remove_zeros_from_dimension_vector()
+        self._combine_repeats()
+
+    
+    
 
         
 
@@ -147,6 +151,17 @@ class ChainComplex(DerivedCategoryObject):
         bottom_line = arrow.join(bottom_columns)
         return top_line + "\n" + bottom_line
 
+    def __len__(self):
+        """
+        The length of the chain complex is the number of sheaves in the complex
+
+        Returns:
+        -------
+        int
+            The number of sheaves in the complex
+
+        """
+        return len(self.sheaf_vector)
         
     
 
@@ -168,7 +183,6 @@ class ChainComplex(DerivedCategoryObject):
             for i in range(len(cherns)):
                 chern_piece += (-1)**(self.shift_vector[i]) * self.dimension_vector[i] * cherns[i][graded_piece]
             chain_complex_chern.append(chern_piece)
-
 
         return ChernCharacter(chain_complex_chern)
 
@@ -193,13 +207,28 @@ class ChainComplex(DerivedCategoryObject):
             chern_char = self.chernCharacter()
             return complex(-chern_char[2] + args[1] * chern_char[0],
                             chern_char[1] - args[0] * chern_char[0])
+        
+        elif self.catagory == 'K3':
+            if len(args) != 3:
+                raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
+            if not all(isinstance(x, (float, int)) for x in args):
+                raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
+            if not isinstance(args[2], int):
+                raise TypeError("The degree of the K3 surface must be an integer")
+
+            alpha = args[0]
+            beta = args[1]
+            d = args[2]
+            
+            return complex(2*d*alpha * self.chern_character[1] - self.chern_character[2] - self.chern_character[0] + (beta**2 - alpha**2)*d*self.chern_character[0], 
+                           2*d*self.chern_character[1] - 2*d*alpha*beta*self.chern_character[0])
 
         else:
             raise NotImplementedError("Central charge not implemented for this variety.")
 
 
     
-    def shiftComplex(self, shift):
+    def shift(self, shift):
         """
         Method to shift the chain complex by a given homological shift
 
@@ -235,10 +264,37 @@ class ChainComplex(DerivedCategoryObject):
         is only included 0 times, we may effectively erase it.
         """
         for i in range(len(self.dimension_vector)):
-            if self.dimension_vector[i] == 0:
+            if i < len(self.dimension_vector) and self.dimension_vector[i] == 0:
                 del self.sheaf_vector[i]
                 del self.shift_vector[i]
                 del self.dimension_vector[i]
+
+    def _combine_repeats(self):
+        """
+        Helper function to combine repeated sheaves in the complex. This is useful for simplifying
+        the complex, as we can combine repeated sheaves into a single sheaf with a larger dimension.
+        """
+
+        # Dictionary to hold combined dimensions for each (sheaf, shift) pair
+        combined = {}
+
+        # Iterate over the tuples
+        for sheaf, dim, shift in zip(self.sheaf_vector, self.dimension_vector, self.shift_vector):
+            key = (sheaf, shift)
+            if key in combined:
+                combined[key] += dim
+            else:
+                combined[key] = dim
+
+        # Unpack the combined dictionary back into the class variables
+        self.sheaf_vector = []
+        self.dimension_vector = []
+        self.shift_vector = []
+
+        for (sheaf, shift), dim in combined.items():
+            self.sheaf_vector.append(sheaf)
+            self.dimension_vector.append(dim)
+            self.shift_vector.append(shift)
 
         
     
@@ -254,6 +310,13 @@ class ChainComplex(DerivedCategoryObject):
                 raise ValueError("Phase of P2 requires exactly two arguments.")
             if not all(isinstance(arg, (float,int)) for arg in args):
                 raise TypeError("Phase of P2 requires two floating-point numbers as arguments.")
+        elif self.catagory == 'K3':
+            if len(args) != 3:
+                raise ValueError("Phase of K3 requires exactly three arguments.")
+            if not all(isinstance(arg, (float,int)) for arg in args):
+                raise TypeError("Phase of K3 requires three floating-point numbers as arguments.")
+            if not isinstance(args[2], int):
+                raise TypeError("The degree of the K3 surface must be an integer.")
         else:
             raise NotImplementedError("Phase not implemented for this variety.")
 
@@ -283,8 +346,15 @@ class ChainComplex(DerivedCategoryObject):
                     raise ValueError("Phase of P2 requires exactly two arguments.")
                 if not all(isinstance(arg, (float,int)) for arg in args):
                     raise TypeError("Phase of P2 requires two floating-point numbers as arguments.")
+            elif self.catagory == 'K3':
+                if len(args) != 3:
+                    raise ValueError("Phase of K3 requires exactly three arguments.")
+                if not all(isinstance(arg, (float,int)) for arg in args):
+                    raise TypeError("Phase of K3 requires three floating-point numbers as arguments.")
+                if not isinstance(args[2], int):
+                    raise TypeError("The degree of the K3 surface must be an integer.")
             else:
-                raise NotImplementedError("Phase not implemented for this variety.")
+                raise NotImplementedError("Only local P1, local P2, and K3 catagories are implemented.")
 
             # Zip the three lists together and sort by descending shift
             max_shift = max(self.shift_vector)
@@ -315,8 +385,15 @@ class ChainComplex(DerivedCategoryObject):
                 raise ValueError("Phase of P2 requires exactly two arguments.")
             if not all(isinstance(arg, (float,int)) for arg in args):
                 raise TypeError("Phase of P2 requires two floating-point numbers as arguments.")
+        elif self.catagory == 'K3':
+            if len(args) != 3:
+                raise ValueError("Phase of K3 requires exactly three arguments.")
+            if not all(isinstance(arg, (float,int)) for arg in args):
+                raise TypeError("Phase of K3 requires three floating-point numbers as arguments.")
+            if not isinstance(args[2], int):
+                raise TypeError("The degree of the K3 surface must be an integer.")
         else:
-            raise NotImplementedError("Phase not implemented for this variety.")
+            raise NotImplementedError("Only local P1, local P2, and K3 catagories are implemented.")
 
         return self.get_largest_phase(*args) == self.get_smallest_phase(*args)
 

@@ -1,4 +1,5 @@
 import numpy as np
+import numbers
 
 ###############################################################################
 #                                                                             #
@@ -20,7 +21,7 @@ class ChernCharacter():
 
     def __init__(self, graded_element):
 
-        if not all(isinstance(x, (int,float)) for x in graded_element):
+        if not all(isinstance(x, numbers.Number) for x in graded_element):
             raise TypeError("Chern Character must be initialized with a list of floats or integers")
 
         self.graded_element = np.array(graded_element)
