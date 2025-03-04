@@ -24,6 +24,11 @@ def open_browser():
 
 
 def check_dependencies():
+    """
+    Helper function to check if the required dependencies are installed and up-to-date.
+    If not all of the required dependencies are installed, the function will print a warning
+    message and exit the program.
+    """
     missing_dependencies = []
     for package, required_version in REQUIRED_DEPENDENCIES.items():
         try:
