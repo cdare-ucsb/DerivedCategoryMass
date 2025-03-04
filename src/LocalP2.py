@@ -239,7 +239,30 @@ class LePotier():
 
 
         
-    def plot_region(self, plot_3d=False, return_json=False, show_walls=False, boundary_color='blue', wall_color='gray'):
+    def plot_region(self, plot_3d=False, return_json=False,
+                    show_walls=False, boundary_color='blue',
+                    wall_color='gray'):
+        """
+        Method to plot the region of the ch1/ch0, ch2/ch0 plane above the Drezet-Le Potier curve.
+        The plot can be displayed in the browser or returned as a JSON string, and can be in 2D or 3D.
+        Additionally, the plot can include the walls of the chambers and the colors of the boundary and walls
+        can be customized.
+
+        Args:
+        ----------------
+        plot_3d (bool): A flag to indicate whether the plot should be in 3D. Default is False.
+        return_json (bool): A flag to indicate whether the plot should be returned as a JSON string. Default is False.
+        show_walls (bool): A flag to indicate whether the walls of the chambers should be shown. Default is False.
+        boundary_color (str): The color of the boundary of the curve. Default is 'blue'.
+        wall_color (str): The color of the walls of the chambers. Default is 'gray'.
+
+
+        Returns:
+        ----------------
+        str: A JSON string representation of the plot if return_json is True
+
+
+        """
         
 
         lower_bound = -1*self.width * 2**self.granularity
@@ -350,6 +373,20 @@ class LePotier():
 
 
 def plot_multiple_neighbors_ex1(width=5, granularity=3, return_json=False):
+    """
+    Example implementation to plot multiple neighboring chambers to the geometric chamber
+    for Local P2 at once. The plot can be displayed in the browser or returned as a JSON string.
+
+
+    Args:
+    ----------------
+    width (int): The width of the curve in terms of the number of dyadic characters
+    granularity (int): The number of bits of precision to use in the calculation of the curve
+
+    Returns:
+    ----------------
+    str: A JSON string representation of the plot if return
+    """
 
     DLP= LePotier(width, granularity)
 
@@ -380,9 +417,6 @@ def plot_multiple_neighbors_ex1(width=5, granularity=3, return_json=False):
     # Plot the surface
     fig = go.Figure(data=[go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
                                     mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis'))])
-    
-
-
     
 
     lower_bound = -1*DLP.width * 2**granularity
@@ -457,7 +491,20 @@ def plot_multiple_neighbors_ex1(width=5, granularity=3, return_json=False):
 
 
 def plot_successive_neighbors_ex1(width=5, granularity=3, plot_walls=False, return_json=False):
+    """
+    Example implementation to plot 9 successive chambers to the geometric chamber for Local P2.
+    The plot can be displayed in the browser or returned as a JSON string.
 
+    Args:
+    ----------------
+    width (int): The width of the curve in terms of the number of dyadic characters
+    granularity (int): The number of bits of precision to use in the calculation of the curve
+    plot_walls (bool): A flag to indicate whether the walls of the chambers should be shown. Default is False.
+
+    Returns:
+    ----------------
+    str: A JSON string representation of the plot if return
+    """
     DLP = LePotier(width, granularity)
 
 
@@ -928,6 +975,20 @@ def ints_to_mass_plot_P2_sing_twist(line_bundle_1, line_bundle_2, return_json=Fa
 
 
 def twist_triangle_to_json_P2(line_bundle_1, line_bundle_2):
+    """
+    Helper function to convert the data of a spherical twist triangle to a JSON string. The data includes the
+     sheaf vectors, shift vectors, and dimension vectors of the objects in the triangle. This is primarily used
+     for the front-end visualization of the spherical twist triangle in a Flask application.
+
+    Args:
+    ----------------
+    line_bundle_1 (int): The line bundle of the first object in the spherical twist triangle
+    line_bundle_2 (int): The line bundle of the second object in the spherical twist triangle
+
+    Returns:
+    ----------------
+    str: A JSON string representation of the spherical twist triangle data
+    """
     
     if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
         raise ValueError("Input data must be integers")

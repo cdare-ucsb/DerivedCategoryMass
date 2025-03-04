@@ -13,6 +13,7 @@ import json
 
 
 class K3Surface:
+    
 
     def __init__(self, degree):
         self.degree = degree

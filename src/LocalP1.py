@@ -7,6 +7,26 @@ import plotly.utils
 
 
 def ints_to_mass_plot_P1_sing_twist(line_bundle_1, line_bundle_2, return_json = False):
+    """
+    Method which takes in two integers and returns a plot of the mass of the spherical twist
+    of the two line bundles. This is used in the Flask app implementation to generate plots
+    based on user form data.
+
+    Parameters
+    ----------
+    line_bundle_1 : int
+        The first line bundle degree in the spherical twist
+    line_bundle_2 : int
+        The second line bundle degree in the spherical twist
+    return_json : bool
+        A flag to indicate whether the plot should be returned as a JSON string or displayed
+        in the browser. When passed to a Flask app, this should be True. Default is False.
+
+    Returns
+    -------
+    str
+        A JSON string representation of the plotly plot if return_json is True
+    """
 
     if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
         raise ValueError("Input data must be integers")
@@ -72,6 +92,28 @@ def ints_to_mass_plot_P1_sing_twist(line_bundle_1, line_bundle_2, return_json = 
 
 
 def twist_triangle_to_json_P1(line_bundle_1, line_bundle_2):
+    """
+    Helper function to convert the data of a spherical twist of two line bundles to a JSON string
+    for use in the Flask app. This is used to display the chain complex data of the spherical twist
+    in the browser.
+
+    Parameters
+    ----------
+    line_bundle_1 : int
+        The first line bundle degree in the spherical twist
+    line_bundle_2 : int
+        The second line bundle degree in the spherical twist
+
+    Returns
+    -------
+    str
+        A JSON string representation of the chain complex
+
+    Raises
+    ------
+    ValueError
+        If the input data is not an integer
+    """
     
     if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
         raise ValueError("Input data must be integers")
@@ -107,4 +149,4 @@ def twist_triangle_to_json_P1(line_bundle_1, line_bundle_2):
 
 
 if __name__ == "__main__":
-    compute_single_twist_plot_data_from_ints_P1(1, 2, return_json=False)
+    ints_to_mass_plot_P1_sing_twist(1, 2, return_json=False)
