@@ -194,8 +194,8 @@ class ChainComplex(DerivedCategoryObject):
             if not isinstance(args[0], complex):
                 raise TypeError("Central charge for P1 requires a complex number as an argument.")
 
-            chern_char = self.chernCharacter()
-            return complex(-1*chern_char[1] + args[0] * chern_char[0])
+            ch = self.chernCharacter()
+            return complex(-1*ch[1] + args[0] * ch[0])
 
 
         elif self.catagory == 'P2':
@@ -204,9 +204,9 @@ class ChainComplex(DerivedCategoryObject):
             if not all(isinstance(arg, (float,int)) for arg in args):
                 raise TypeError("Central charge for P2 requires two floating-point numbers as arguments.")
             
-            chern_char = self.chernCharacter()
-            return complex(-chern_char[2] + args[1] * chern_char[0],
-                            chern_char[1] - args[0] * chern_char[0])
+            ch = self.chernCharacter()
+            return complex(-1*ch[2] + args[1] * ch[0],
+                            ch[1] - args[0] * ch[0])
         
         elif self.catagory == 'K3':
             if len(args) != 3:
@@ -219,9 +219,10 @@ class ChainComplex(DerivedCategoryObject):
             alpha = args[0]
             beta = args[1]
             d = args[2]
+            ch = self.chernCharacter()
             
-            return complex(2*d*alpha * self.chern_character[1] - self.chern_character[2] - self.chern_character[0] + (beta**2 - alpha**2)*d*self.chern_character[0], 
-                           2*d*self.chern_character[1] - 2*d*alpha*beta*self.chern_character[0])
+            return complex(2*d*alpha * ch[1] - ch[2] - ch[0] + (beta**2 - alpha**2)*d*ch[0], 
+                           2*d*ch[1] - 2*d*alpha*beta*ch[0])
 
         else:
             raise NotImplementedError("Central charge not implemented for this variety.")
@@ -334,7 +335,7 @@ class ChainComplex(DerivedCategoryObject):
 
         return min_phase
     
-    def get_largest_phase(self, args):
+    def get_largest_phase(self, *args):
             
             if self.catagory == 'P1':
                 if len(args) != 1:

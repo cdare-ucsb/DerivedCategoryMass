@@ -5,6 +5,11 @@ from ChainComplex import ChainComplex
 from ChernCharacter import ChernCharacter
 import math
 import cmath
+import numpy as np
+
+import plotly.graph_objects as go
+from plotly.graph_objs import *
+
 
 
 
@@ -167,8 +172,8 @@ class SphericalTwist(DerivedCategoryObject):
 
         Parameters:
         ----------
-        w : complex
-            The complex parameter for the stability condition on local P1
+        args : tuple
+            The parameters for the stability condition. The number of parameters depends on the catagory of the object
 
         Returns:
         -------
@@ -224,23 +229,21 @@ class SphericalTwist(DerivedCategoryObject):
         else:
             raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
 
-        return self.defining_triangle.object3.central_charge(*args)
+        
     
 
 
     
     def is_semistable(self, *args):
         """
-        Method to check if the spherical twist is stable. A spherical twist is stable if the
-        Chern Character of the third object in the distinguished triangle is (0,0,0). This is
-        equivalent to the condition that the Chern Character of the first object is equal to
-        the Chern Character of the second object.
+        Method to check if the spherical twist is stable. The spherical twist is stable if the Harder-Narasimhan
+        filtration is trivial, i.e. just the object itself.
 
 
         Parameters:
         -------
-        w : complex
-            The complex parameter for the stability condition on local P1
+        args : tuple
+            The parameters for the stability condition. The number of parameters depends on the catagory of the object
 
 
         Returns:
@@ -271,41 +274,7 @@ class SphericalTwist(DerivedCategoryObject):
             raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
 
 
-        # Write triangle as A -> Tw -> B + B[shift]
-        modified_defining_triangle = self.defining_triangle.rotateLeft()
-        subobject = modified_defining_triangle.object1.sheaf_vector[0]
-
-        # phase(A)
-        left_side_phase = subobject.phase(*args)
-
-        
-        quotient_complex = modified_defining_triangle.object3 
-
-        # right_side_phase = 0
-        # right_lb_base_phase = quotient_complex.sheaf_vector[0].phase(*args)
-
-
-        # if len(quotient_complex.shift_vector) == 1:
-        #     right_side_shift = quotient_complex.shift_vector[0]
-            
-        #     right_side_phase = right_lb_base_phase + right_side_shift
-        # elif len(quotient_complex.shift_vector) == 2:
-        #     # We may assume / Know that for spherical twists, the two line bundles
-        #     # will be the same.w
-
-        #     right_side_shift = 0 # should be minimum shift
-        #     # Get minimum shift
-        #     if quotient_complex.dimension_vector[0] > quotient_complex.dimension_vector[1]:
-        #         right_side_shift = quotient_complex.shift_vector[1]
-        #     else:
-        #         right_side_shift = quotient_complex.shift_vector[0]
-
-        #     right_side_phase = right_lb_base_phase + right_side_shift
-        # else:
-        #     raise ValueError("For a single spherical twist the Hom object should not be concentrated in more than a single degree")
-        
-
-        return left_side_phase <= quotient_complex.get_smallest_phase(*args)
+        return len(self.get_HN_factors(*args)) == 1
     
 
 
@@ -336,28 +305,61 @@ class SphericalTwist(DerivedCategoryObject):
             raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
         
 
+        HN_filtration = self.get_HN_factors(*args)
 
-        if self.is_semistable(*args):
-            return abs(self.central_charge(*args))
+        mass = 0
+        for (derived_cat_obj, _) in HN_filtration:
+            mass += abs(derived_cat_obj.central_charge(*args))
+
+        return mass
+
+
+
+                
+    def get_HN_factors(self, *args):
+        if self.catagory == 'P1':
+            if len(args) != 1:
+                raise ValueError("Central charge of P1 requires single complex number parameter")
+            if not isinstance(args[0], complex):
+                raise TypeError("P1 objects should have a single complex parameter")
+        elif self.catagory == 'P2':
+            if len(args) != 2:
+                raise ValueError("Central charge of P2 requires two real number parameters")
+            if not all(isinstance(x, (float, int)) for x in args):
+                raise TypeError("P2 objects should have two real number parameters")
+        elif self.catagory == 'K3':
+            if len(args) != 3:
+                raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
+            if not all(isinstance(x, (float, int)) for x in args):
+                raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
+            if not isinstance(args[2], int):
+                raise TypeError("The degree of the K3 surface must be an integer")
+        else:
+            raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
+        
         
         modified_defining_triangle = self.defining_triangle.rotateLeft()
         subobject = modified_defining_triangle.object1.sheaf_vector[0]
 
         quotient_complex = modified_defining_triangle.object3
 
-        mass = 0
-        
+        if subobject.phase(*args) <= quotient_complex.get_smallest_phase(*args):
+            potential_phase = cmath.phase(self.central_charge(*args)) / math.pi
+
+            for n in range(-2,2):
+                if subobject.phase(*args) <= potential_phase + n and potential_phase + n <= quotient_complex.get_largest_phase(*args):
+                    return [(self, potential_phase + n)]
+
+
         if len(quotient_complex.dimension_vector) == 1:
 
             # Write triangle as O(a) -> Tw -> O(b)[shift]
             
-            mass = abs(subobject.central_charge(*args))
-            mass += quotient_complex.dimension_vector[0] * abs(quotient_complex.sheaf_vector[0].central_charge(*args))
-            
-            return mass
+            return [(modified_defining_triangle.object1, subobject.phase(*args)),
+                     (quotient_complex, quotient_complex.get_smallest_phase(*args))]
             
         else:
-            
+            # Twist is unstable and the hom space is concentrated in more than one degree
             if len(quotient_complex.dimension_vector) != 2:
                 raise ValueError("The Hom object is not concentrated in 1 or 2 degrees")
             
@@ -368,37 +370,60 @@ class SphericalTwist(DerivedCategoryObject):
 
             # CASE 1: phi(subobj) > largest phase(quotient)
             if subobject.phase(*args) > largest_phase:
-                mass = abs(subobject.central_charge(*args))
-                # By BDL we have that the mass is the sum of masses of two objects
-                for i in range(len(quotient_complex.sheaf_vector)):
-                    dim = quotient_complex.dimension_vector[i]
-                    mass += dim * abs(quotient_complex.sheaf_vector[i].central_charge(*args))
-                
-                return mass
+                # By BDL20, the HN factors of the subobject and quotient concatenate to make 
+                # the HN factors of the twist
+                if largest_phase == phase0:
+                    return [(modified_defining_triangle.object1, subobject.phase(*args)), 
+                            (ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[0]], shift_vector=[quotient_complex.shift_vector[0]], dimension_vector=[quotient_complex.dimension_vector[0]]), phase0),
+                            (ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[1]], shift_vector=[quotient_complex.shift_vector[1]], dimension_vector=[quotient_complex.dimension_vector[1]]), phase1)]
+                else:
+                    return [(modified_defining_triangle.object1, subobject.phase(*args)), 
+                            (ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[1]], shift_vector=[quotient_complex.shift_vector[1]], dimension_vector=[quotient_complex.dimension_vector[1]]), phase1),
+                            (ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[0]], shift_vector=[quotient_complex.shift_vector[0]], dimension_vector=[quotient_complex.dimension_vector[0]]), phase0)]
+
             # CASE 2: smallest phase(Quotient) < phi(subobj) < largest phase(quotient)
             else:
                 if largest_phase == phase0:
-                    # smallest phase object first
-                    mass = abs(quotient_complex.sheaf_vector[1].central_charge(*args))
-                    # isolate single element of larger shift in the quotient object
-                    new_complex = ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[0]],
-                                                shift_vector=[quotient_complex.shift_vector[0]],
-                                                dimension_vector=[quotient_complex.dimension_vector[0]])
-                    mass += abs(subobject.central_charge(*args) + new_complex.central_charge(*args))
-
-                    return mass
-
+                    smaller_idx = 1
+                    larger_idx = 0
                 else:
-                    # smallest phase object first
-                    mass = abs(quotient_complex.sheaf_vector[0].central_charge(*args))
-                    # isolate single element of larger shift in the quotient object
-                    new_complex = ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[1]],
-                                                shift_vector=[quotient_complex.shift_vector[1]],
-                                                dimension_vector=[quotient_complex.dimension_vector[1]])
-                    mass += abs(subobject.central_charge(*args) + new_complex.central_charge(*args))
+                    smaller_idx = 0
+                    larger_idx = 1
+                    
+                # isolate single element of larger shift in the quotient object
+                smaller_phase_complex = ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[smaller_idx]],
+                                            shift_vector=[quotient_complex.shift_vector[smaller_idx]],
+                                            dimension_vector=[quotient_complex.dimension_vector[smaller_idx]])
+                larger_phase_complex = ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[larger_idx]],
+                                            shift_vector=[quotient_complex.shift_vector[larger_idx]],
+                                            dimension_vector=[quotient_complex.dimension_vector[larger_idx]])
 
-                    return mass
+                phase_subobject = subobject.phase(*args)
+                phase_leftover_bundle = quotient_complex.sheaf_vector[smaller_idx].phase(*args) + quotient_complex.shift_vector[smaller_idx]
+
+                central_charge_cone = smaller_phase_complex.central_charge(*args) + subobject.central_charge(*args)
+                cone_object = DerivedCategoryObject(string="Cone", catagory=self.catagory, chern_character=None)
+                cone_triangle = DistinguishedTriangle(smaller_phase_complex, cone_object, modified_defining_triangle.object1)
                 
+                # Need to compute phase of cone to make a StableObject
+                phase_cone = cmath.phase(central_charge_cone) / math.pi
+                for n in range(-3,3):
+                    if phase_subobject <= phase_cone + n and phase_cone + n <= phase_leftover_bundle:
+                        phase_cone = phase_cone + n
+                        break
+
+
+                
+
+                
+                return [(larger_phase_complex, largest_phase),
+                         (cone_triangle.object2, phase_cone)]
+            
+
+        
+
+
+
 
 class SphericalTwistSum(DerivedCategoryObject):
 
@@ -497,6 +522,10 @@ class SphericalTwistSum(DerivedCategoryObject):
         
         return result
     
+
+    def __len__(self):
+        return len(self.line_bundle_pairs_vector)
+    
     def chernCharacter(self):
         
         chern_character = ChernCharacter([0, 0, 0])
@@ -523,8 +552,8 @@ class SphericalTwistSum(DerivedCategoryObject):
 
         Parameters:
         ----------
-        w : complex
-            The complex parameter for the stability condition on local P1
+        args : tuple
+            The parameters for the stability condition. The number of parameters depends on the catagory of the
 
         Returns:
         -------
@@ -605,11 +634,42 @@ class SphericalTwistSum(DerivedCategoryObject):
             if not isinstance(args[2], int):
                 raise TypeError("The degree of the K3 surface must be an integer")
             
-            if len(self.dimension_vector) == 1:
-                sph_twist = SphericalTwist(self.line_bundle_pairs_vector[0][0], self.line_bundle_pairs_vector[0][1], self.degree)
-                return sph_twist.is_semistable(*args)
-            else:
-                return False
+            
+        return len(self.get_HN_factors(*args)) == 1 
+            
+    def get_HN_factors_ordered(self, *args):
+
+        if self.catagory == 'K3':
+
+            if len(args) != 3:
+                raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
+            if not all(isinstance(x, (float, int)) for x in args):
+                raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
+            if not isinstance(args[2], int):
+                raise TypeError("The degree of the K3 surface must be an integer")
+        
+
+        HN_factors = []
+        for (lb1, lb2), n, s in zip(self.line_bundle_pairs_vector, self.dimension_vector, self.shift_vector):
+            sph_twist = SphericalTwist(lb1, lb2, self.degree)
+
+            individual_twist_HN_factors = sph_twist.get_HN_factors(*args)
+            for (obj, phase) in individual_twist_HN_factors:
+                if isinstance(obj, ChainComplex):
+                    HN_factors.append((ChainComplex(sheaf_vector=obj.sheaf_vector,
+                                                    shift_vector=[shift + s for shift in obj.shift_vector],
+                                                    dimension_vector=[dim * n for dim in obj.dimension_vector]),
+                                                    phase + s))
+                else:
+                    new_chern = obj.chernCharacter() * int(n * (-1)**s)
+                    HN_factors.append((DerivedCategoryObject(string=obj.update_string_by_shift(str(obj), s),
+                                                            catagory=self.catagory,
+                                                            chern_character=new_chern),
+                                                                phase + s))
+                    
+
+        return sorted(HN_factors, key=lambda x: x[1], reverse=True)
+
             
     def _remove_zeros_from_dimension_vector(self):
         """
@@ -742,6 +802,10 @@ class DoubleSphericalTwist(DerivedCategoryObject):
 
         return DistinguishedTriangle(object1, object2, object3)
     
+    def chernCharacter(self):
+
+        return self.defining_triangle.object3.chernCharacter()
+    
     def central_charge(self, *args):
         """
         Method to compute the central charge of the spherical twist. The central charge of the spherical
@@ -749,8 +813,8 @@ class DoubleSphericalTwist(DerivedCategoryObject):
 
         Parameters:
         ----------
-        w : complex
-            The complex parameter for the stability condition on local P1
+        args : tuple
+            The parameters for the stability condition. The number of parameters depends on the catagory of the object
 
         Returns:
         -------
@@ -810,8 +874,7 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         """
         # Get the object Tw_a O(c)
         object2 = SphericalTwistSum([(self.line_bundle_1, self.line_bundle_3)], dimension_vector=[1], shift_vector=[0], degree=self.degree)
-        
-
+    
         object3 = self.defining_triangle.object3
 
         single_twist_original = SphericalTwist(self.line_bundle_2, self.line_bundle_3, self.degree)
@@ -835,12 +898,56 @@ class DoubleSphericalTwist(DerivedCategoryObject):
             
 
         
+    def is_semistable(self, *args):
 
+        if self.catagory == 'K3':
+
+            if len(args) != 3:
+                raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
+            if not all(isinstance(x, (float, int)) for x in args):
+                raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
+            if not isinstance(args[2], int):
+                raise TypeError("The degree of the K3 surface must be an integer")
+            
+        else:
+            raise NotImplementedError("Only K3 catagories are implemented")
+        
+        HN_factors = self.get_HN_factors(*args)
+        if HN_factors == None:
+            raise NotImplementedError("The HN factors of the double spherical twist are not implemented")
+
+        return len(HN_factors) == 1
+    
+    def mass(self, *args):
+
+        if self.catagory == 'K3':
+
+            if len(args) != 3:
+                raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
+            if not all(isinstance(x, (float, int)) for x in args):
+                raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
+            if not isinstance(args[2], int):
+                raise TypeError("The degree of the K3 surface must be an integer")
+            
+        else:
+            raise NotImplementedError("Only K3 catagories are implemented")
+        
+        
+        
+        HN_factors = self.get_HN_factors(*args)
+
+        if HN_factors == None:
+            return -1
+
+        mass = 0
+        for (derived_cat_obj, _) in HN_factors:
+            mass += abs(derived_cat_obj.central_charge(*args))
+
+        return mass
         
 
     
-    def is_semistable(self, *args):
-        
+    def get_HN_factors(self, *args):
         
         if self.catagory == 'K3':
 
@@ -851,7 +958,7 @@ class DoubleSphericalTwist(DerivedCategoryObject):
             if not isinstance(args[2], int):
                 raise TypeError("The degree of the K3 surface must be an integer")
         else:
-            raise NotImplementedError("Only P1, P2 and K3 catagories are implemented")
+            raise NotImplementedError("Only K3 catagories are implemented")
 
         
         ###########
@@ -864,39 +971,106 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         modified_defining_triangle = self.defining_triangle.rotateLeft()
         quotient_complex = modified_defining_triangle.object3 
 
-        print("First checking defining triangle:")
-        print("-------------------\n")
-        print(modified_defining_triangle)
 
         if subobject.is_semistable(*args):
-            print(f"{subobject} is semistable")
             # get the phase of the single twist
             left_side_phase = cmath.phase(subobject.central_charge(*args)) / math.pi
             right_side_min_phase = quotient_complex.get_smallest_phase(*args)
             right_side_max_phase = quotient_complex.get_largest_phase(*args)
 
             if left_side_phase <= right_side_min_phase:
-                return True
-            elif left_side_phase > right_side_max_phase:
-                return False
-        else:
-            print(f"{subobject} is not semistable")
+                potential_phase = cmath.phase(self.central_charge(*args))/math.pi
+                for n in range(-3,3):
+                    if left_side_phase <= potential_phase + n and potential_phase + n <= right_side_min_phase:
+                        return [(self, potential_phase + n)]
 
-        # nothing can be gathered from first triangle
+                
+            elif left_side_phase > right_side_max_phase:
+                # By BDL20, the HN factors of the subobject and quotient concatenate to make
+                # the HN factors of the twist
+                if len(quotient_complex.dimension_vector) == 1:
+                    return [(subobject, left_side_phase),
+                             (quotient_complex, right_side_max_phase)]
+                else:
+                    if len(quotient_complex) != 2:
+                        raise ValueError("The Hom object is not concentrated in 1 or 2 degrees")
+
+                    cplx_summand_0 = ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[0]],
+                                                shift_vector=[quotient_complex.shift_vector[0]],
+                                                    dimension_vector=[quotient_complex.dimension_vector[0]])
+                    cplx_summand_1 = ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[1]],
+                                                shift_vector=[quotient_complex.shift_vector[1]],
+                                                    dimension_vector=[quotient_complex.dimension_vector[1]])
+                    if right_side_min_phase == quotient_complex.sheaf_vector[0].phase(*args) + quotient_complex.shift_vector[0]:
+                        return [(subobject, left_side_phase),
+                                (cplx_summand_1, right_side_max_phase),
+                                (cplx_summand_0, right_side_min_phase)]
+                    else:
+                        return [(subobject, left_side_phase),
+                                (cplx_summand_0, right_side_max_phase),
+                                (cplx_summand_1, right_side_min_phase)]
+                
+        else:
+            
+            HN_factors_subobject = subobject.get_HN_factors(*args)
+            right_side_min_phase = quotient_complex.get_smallest_phase(*args)
+            right_side_max_phase = quotient_complex.get_largest_phase(*args)
+
+            if HN_factors_subobject[0][1] <= right_side_min_phase:
+                # largest phase of subobject is less than smallest phase of quotient
+                potential_phase = cmath.phase(self.central_charge(*args))/math.pi
+                for n in range(-3,3):
+                    if HN_factors_subobject[0][1] <= potential_phase + n and potential_phase + n <= right_side_min_phase:
+                        return [(self, potential_phase + n)]
+                    
+            elif HN_factors_subobject[-1][1] > right_side_max_phase:
+                if len(quotient_complex) != 2:
+                        raise ValueError("The Hom object is not concentrated in 1 or 2 degrees")
+
+                cplx_summand_0 = ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[0]],
+                                            shift_vector=[quotient_complex.shift_vector[0]],
+                                                dimension_vector=[quotient_complex.dimension_vector[0]])
+                cplx_summand_1 = ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[1]],
+                                            shift_vector=[quotient_complex.shift_vector[1]],
+                                                dimension_vector=[quotient_complex.dimension_vector[1]])
+                if right_side_min_phase == quotient_complex.sheaf_vector[0].phase(*args) + quotient_complex.shift_vector[0]:
+                    return HN_factors_subobject + [(cplx_summand_1, right_side_max_phase),
+                                                   (cplx_summand_0, right_side_min_phase)]
+                else:
+                    return HN_factors_subobject + [(cplx_summand_0, right_side_max_phase),
+                                                   (cplx_summand_1, right_side_min_phase)]
+
+        
 
         ###########
         # next check secondary canonical triangle
         ###########
 
         secondary_canonical_triangle = self.secondary_canonical_triangle().rotateLeft()
-        print("\n Second checking secondary canonical triangle:")
-        print("-------------------\n")
-        print(secondary_canonical_triangle)
-
         
-            
 
+        first_twist = SphericalTwist(secondary_canonical_triangle.object1.line_bundle_pairs_vector[0][0],
+                                     secondary_canonical_triangle.object1.line_bundle_pairs_vector[0][1], self.degree)
+        
+        HN_factors_first_term = first_twist.get_HN_factors(*args)
+        HN_factors_last_term = secondary_canonical_triangle.object3.get_HN_factors_ordered(*args)
 
+        smallest_HN_phase_first = HN_factors_first_term[-1][1]
+        largest_HN_phase_first = HN_factors_first_term[0][1]
+        smallest_HN_phase_last = HN_factors_last_term[-1][1]
+        largest_HN_phase_last = HN_factors_last_term[0][1]
+
+        if largest_HN_phase_first <= smallest_HN_phase_last:
+            potential_phase = cmath.phase(self.central_charge(*args))/math.pi
+            for n in range(-3,3):
+                if largest_HN_phase_first <= potential_phase + n and potential_phase + n <= right_side_min_phase:
+                    return [(self, potential_phase + n)]
+                
+        elif smallest_HN_phase_first > largest_HN_phase_last:
+            return HN_factors_first_term + HN_factors_last_term
+        
+        return None
+        
 
 
 
@@ -1189,9 +1363,9 @@ if __name__ == "__main__":
     # print(sph2)
 
 
-    lb6 = LineBundle(4, catagory='K3')
-    lb7 = LineBundle(10, catagory='K3')
-    lb8 = LineBundle(7, catagory='K3')
+    lb6 = LineBundle(1, catagory='K3')
+    lb7 = LineBundle(2, catagory='K3')
+    lb8 = LineBundle(3, catagory='K3')
     lb9 = LineBundle(5, catagory='K3')
 
     # sph_sum = SphericalTwistSum([(lb6, lb7), (lb8, lb9), (lb6, lb9), (lb6, lb7)], [1, 5, 0, 10], [-1, 2, -5, -1], degree=1)
@@ -1209,12 +1383,33 @@ if __name__ == "__main__":
     # print(sph3.shift(3))
     # print("Is semistable: ", sph3.is_semistable(1, 2, 1))
 
-    
-
-    sph4 = DoubleSphericalTwist(lb7, lb8, lb6, degree=1)
-
-    sph4.is_semistable(1, 2, 1)
+    K3_deg = 1
 
     
 
-    
+    sph4 = DoubleSphericalTwist(lb6, lb7, lb8, degree=K3_deg)
+
+    print(sph4.mass(2, 3, K3_deg))
+
+    x_vals = np.linspace(-5, 5, 150)  # X values from -2 to 2
+
+    # Generate y values satisfying y > x^2
+    y_vals = []
+    for x in x_vals:
+        y_range = np.linspace(0, 5, 100)  # 50 points per x value
+        y_vals.append(y_range)
+
+    # Convert to numpy array
+    y_vals = np.array(y_vals).flatten()  # Flatten the y array
+
+    # Repeat x values to match the shape of y
+    x_vals = np.repeat(x_vals, 160)  # Each x value repeats 10 times
+
+    masses = np.array([sph4.mass(x, y, K3_deg) for x, y in zip(x_vals, y_vals)])
+
+    # Plot the surface
+    fig = go.Figure(data=[go.Scatter3d(z=masses, x=x_vals, y=y_vals,
+                                    mode='markers', marker=dict(size=3, color=masses, colorscale='viridis'))])
+
+   
+    fig.show()

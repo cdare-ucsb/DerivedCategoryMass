@@ -1,107 +1,110 @@
-import dash
-from dash import dcc, html
-import plotly.graph_objects as go
-from dash.dependencies import Input, Output
+from CoherentSheaf import LineBundle
+from SphericalTwist import SphericalTwist
 import numpy as np
-
-# Initialize Dash app
-dash_app = dash.Dash(
-        __name__,
-        server=flask_app,
-        routes_pathname_prefix='/dashapp/'
-    )
+import json
+import plotly.graph_objects as go
+import plotly.utils
 
 
-# Generate evenly spaced grid data
-grid_size = 100  # Number of points along each axis
-x_values = np.linspace(-5, 5, grid_size)
-y_values = np.linspace(-5, 5, grid_size)
-xx, yy = np.meshgrid(x_values, y_values)
-grid_points = np.column_stack((xx.ravel(), yy.ravel()))
+def ints_to_mass_plot_P1_sing_twist(line_bundle_1, line_bundle_2, return_json = False):
 
-# Function to create the figure with arrows
-def create_figure(target_x=1, target_y=1):
-    fig = go.Figure()
+    if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
+        raise ValueError("Input data must be integers")
 
-    # Add invisible scatter points
-    fig.add_trace(go.Scatter(
-        x=grid_points[:, 0], y=grid_points[:, 1],
-        mode="markers",
-        marker=dict(size=8, color="blue", opacity=0),  # Invisible markers
-        name="Grid Points"
-    ))
+    sph = SphericalTwist(LineBundle(line_bundle_1, catagory='P1'),
+                          LineBundle(line_bundle_2, catagory='P1'), degree=1)
 
-    # Calculate the third line's end point
-    third_line_x = -1 + target_x
-    third_line_y = target_y
 
-    fourth_line_x = -2 + target_x
-    fourth_line_y = target_y
+    # Define x values (spread around a region)
+    x_vals = np.linspace(-5, 5, 200)  # X values from -2 to 2
 
-    fifth_line_x = -3 + target_x
-    fifth_line_y = target_y
+    # Generate y values satisfying y > x^2
+    y_vals = []
+    for x in x_vals:
+        y_range = np.linspace(0.1, 5, 160)  # 50 points per x value
+        y_vals.append(y_range)
 
-    # Define shapes (lines) to be added to the figure
-    shapes = [
-        # First arrow (fixed)
-        dict(type="line", x0=0, y0=0, x1=-1, y1=0,
-             line=dict(color="black", width=3)),
-        # Second arrow (moves on click)
-        dict(type="line", x0=0, y0=0, x1=target_x, y1=target_y,
-             line=dict(color="red", width=3)),
-        # Third line (dynamic based on click)
-        dict(type="line", x0=0, y0=0, x1=third_line_x, y1=third_line_y,
-             line=dict(color="green", width=3)),
-        dict(type="line", x0=0, y0=0, x1=fourth_line_x, y1=fourth_line_y,
-             line=dict(color="blue", width=3)),
-        dict(type="line", x0=0, y0=0, x1=fifth_line_x, y1=fifth_line_y,
-             line=dict(color="purple", width=3)),
-    ]
+    # Convert to numpy array
+    y_vals = np.array(y_vals).flatten()  # Flatten the y array
 
-    # Define annotations (arrowheads) to be added to the figure
-    annotations = [
-        # Arrowhead for first arrow
-        dict(x=-1, y=0, ax=0, ay=0, text="", arrowcolor="red", arrowsize=2, arrowwidth=3, showarrow=True),
-        # Arrowhead for second arrow
-        dict(x=target_x, y=target_y, ax=0, ay=0, text="", arrowcolor="red", arrowsize=2, arrowwidth=3, showarrow=True),
-        # Arrowhead for third line
-        dict(x=third_line_x, y=third_line_y, ax=0, ay=0, text="", arrowcolor="green", arrowsize=2, arrowwidth=3, showarrow=True),
-    ]
+    # Repeat x values to match the shape of y
+    x_vals = np.repeat(x_vals, 160)  # Each x value repeats 10 times
 
-    # Update figure layout with shapes and annotations
+    masses = np.array([sph.mass(complex(x, y)) for x, y in zip(x_vals, y_vals)])
+
+    # Plot the surface
+    fig = go.Figure(data=[go.Scatter3d(z=masses, x=x_vals, y=y_vals,
+                                    mode='markers', marker=dict(size=3, color=masses, colorscale='viridis'))])
+
     fig.update_layout(
-        xaxis=dict(range=[-5, 5], zeroline=True),
-        yaxis=dict(range=[-5, 5], zeroline=True),
-        title="Interactive Arrows with Invisible Grid Points",
-        shapes=shapes,
-        annotations=annotations
+        title="",
+        autosize=True,
+        margin=dict(l=0, r=0, b=0, t=30),
+        scene=dict(
+            
+            bgcolor="white",  # Changes the 3D plot background,
+
+            xaxis = dict(
+                backgroundcolor="white",
+                gridcolor="white",
+                showbackground=True,
+                zerolinecolor="white",),
+            yaxis = dict(
+                backgroundcolor="white",
+                gridcolor="white",
+                showbackground=True,
+                zerolinecolor="white"),
+            zaxis = dict(
+                backgroundcolor="white",
+                gridcolor="white",
+                showbackground=True,
+                zerolinecolor="white"
+            )
+        )
     )
 
-    return fig
+    
 
-# Dash layout
-app.layout = html.Div([
-    html.H3("Click on a grid point to move the second and third arrows"),
-    dcc.Graph(id="interactive-graph", figure=create_figure()),
-])
-
-# Callback to update the arrows' positions
-@app.callback(
-    Output("interactive-graph", "figure"),
-    Input("interactive-graph", "clickData"),
-)
-def update_arrows(click_data):
-    if click_data:
-        # Retrieve the clicked coordinates
-        x_click = click_data["points"][0]["x"]
-        y_click = click_data["points"][0]["y"]
+    if return_json:
+        return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     else:
-        # Default position if no click has occurred
-        x_click, y_click = 1, 1
+        fig.show()
 
-    # Update the figure with the new arrow positions
-    return create_figure(x_click, y_click)
 
-# Run the Dash app
+def twist_triangle_to_json_P1(line_bundle_1, line_bundle_2):
+    
+    if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
+        raise ValueError("Input data must be integers")
+
+    sph = SphericalTwist(LineBundle(line_bundle_1, catagory='P1'),
+                          LineBundle(line_bundle_2, catagory='P1'))
+    first_sheaf_vector = []
+
+    if len(sph.defining_triangle.object1.sheaf_vector) == 1:
+        first_sheaf_vector = [line_bundle_1]
+    else:
+        first_sheaf_vector = [line_bundle_1, line_bundle_1]
+
+
+    object1 = {
+        "sheaf_vector" : first_sheaf_vector,
+        "shift_vector" : sph.defining_triangle.object1.shift_vector,
+        "dimension_vector" : sph.defining_triangle.object1.dimension_vector
+    }
+
+    object2 = {
+        "sheaf_vector" : [line_bundle_2],
+        "shift_vector" : sph.defining_triangle.object2.shift_vector,
+        "dimension_vector" : sph.defining_triangle.object2.dimension_vector
+    }
+
+    chain_complex_data = {
+        "object1" : object1,
+        "object2" : object2
+    }
+
+    return json.dumps(chain_complex_data)
+
+
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    compute_single_twist_plot_data_from_ints_P1(1, 2, return_json=False)

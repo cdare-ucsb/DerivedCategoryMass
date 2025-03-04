@@ -1,5 +1,6 @@
 from ChernCharacter import ChernCharacter
 import re
+import numbers
 
 
 
@@ -36,7 +37,7 @@ class DerivedCategoryObject():
             raise ValueError(f"Catagory {catagory} is not implemented.")
 
         if chern_character and not isinstance(chern_character, ChernCharacter):
-            raise TypeError("chern_character must be an instance of ChernCharacterP1 or ChernCharacterP2.")
+            raise TypeError("chern_character must be an instance of ChernCharacter.")
         
         self.catagory = catagory
         self.chern_character = chern_character
@@ -81,7 +82,7 @@ class DerivedCategoryObject():
         DerivedCategoryObjectP1
             The derived category object shifted by the homological shift
         """
-        new_string = _update_string_by_shift(self.string, shift)
+        new_string = self.update_string_by_shift(self.string, shift)
         if self.chern_character:
             new_chern = int((-1)**shift) * self.chern_character 
         else:
@@ -156,65 +157,66 @@ class DerivedCategoryObject():
         
     def is_semistable(self, *args):
         pass
+
+    
+
+    def update_string_by_shift(self, my_str, n):
+        """
+        Static helper function to update the possible string representations of the abstract
+        DerivedCategoryObject by a homological shift. For example, if an object is called A[3],
+        then a shift of 2 will yield A[5] (as a string). If the object is unshifted to start with,
+        then shifting the object should return A[n] (as a string). The only object that should not
+        be shifted is the zero object, which is represented by the string "0".
+
+        Parameters:
+        ----------
+        my_str : str
+            The string representation of the derived category object
+        n : int
+            The homological shift to apply to the derived category object
+
+        Returns:
+        -------
+        str
+            The string representation of the derived category object shifted by the homological shift
+
+        Raises:
+        -------
+        TypeError
+            If my_str is not a string
+            If n is not an integer
+
+        """
+
+        if not isinstance(my_str, str):
+            raise TypeError("my_str must be a string.")
+        if not isinstance(n, int):
+            raise TypeError("n must be an integer.")
+
+        # If the object is zero, it should remain zero
+        if my_str == "0":
+            return "0"
         
+        # This regex checks for a pattern at the end of the string that looks like "[number]"
+        pattern = r'\[(\d+)\]$'
+        match = re.search(pattern, my_str)
+        
+        if match:
+            # Extract the current number k, add n, and format the new number.
+            k = int(match.group(1))
+            new_k = k + n
+            # Replace the [k] at the end with [new_k]
+            updated_str = re.sub(pattern, f'[{new_k}]', my_str)
+            return updated_str
+        else:
+            # If there's no [number] at the end, append [n]
+            return my_str + f'[{n}]'
+            
 
 
-
-
-
-###############################################################################
-#                         Static Helper Functions                             #
-###############################################################################
     
 
-def _update_string_by_shift(my_str, n):
-    """
-    Static helper function to update the possible string representations of the abstract
-    DerivedCategoryObject by a homological shift. For example, if an object is called A[3],
-    then a shift of 2 will yield A[5] (as a string). If the object is unshifted to start with,
-    then shifting the object should return A[n] (as a string). The only object that should not
-    be shifted is the zero object, which is represented by the string "0".
 
-    Parameters:
-    ----------
-    my_str : str
-        The string representation of the derived category object
-    n : int
-        The homological shift to apply to the derived category object
-
-    Returns:
-    -------
-    str
-        The string representation of the derived category object shifted by the homological shift
-
-    Raises:
-    -------
-    TypeError
-        If my_str is not a string
-        If n is not an integer
-
-    """
-
-    if not isinstance(my_str, str):
-        raise TypeError("my_str must be a string.")
-    if not isinstance(n, int):
-        raise TypeError("n must be an integer.")
-
-    # If the object is zero, it should remain zero
-    if my_str == "0":
-        return "0"
     
-    # This regex checks for a pattern at the end of the string that looks like "[number]"
-    pattern = r'\[(\d+)\]$'
-    match = re.search(pattern, my_str)
+
     
-    if match:
-        # Extract the current number k, add n, and format the new number.
-        k = int(match.group(1))
-        new_k = k + n
-        # Replace the [k] at the end with [new_k]
-        updated_str = re.sub(pattern, f'[{new_k}]', my_str)
-        return updated_str
-    else:
-        # If there's no [number] at the end, append [n]
-        return my_str + f'[{n}]'

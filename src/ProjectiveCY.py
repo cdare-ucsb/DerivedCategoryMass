@@ -1,8 +1,15 @@
 import numpy as np
+import cmath
 import math
-
+import matplotlib.pyplot as plt
+from matplotlib import animation
+from matplotlib import cm
+import cmath
 import plotly.graph_objects as go
 from plotly.graph_objs import *
+import plotly.utils
+import json
+
 
 
 class K3Surface:
@@ -152,20 +159,129 @@ class K3Surface:
         beta = float(1 / r*math.sqrt(self.degree))
 
         return alpha, beta
- 
-    
-if __name__ == "__main__":
 
-    k3 = K3Surface(1)
-    k3.plot_alpha_beta_plane()
 
+
+def _calcZ1(x, y, k, n):
+    return cmath.exp(1j*(2*cmath.pi*k/n)) * (cmath.cos(x+y*1j)**(2/n))
+
+def _calcZ2(x, y, k, n):
+    return cmath.exp(1j*(2*cmath.pi*k/n)) * (cmath.sin(x+y*1j)**(2/n))
+
+def _calcZ1Real(x, y, k, n):
+    return (_calcZ1(x, y, k, n)).real
+
+def _calcZ2Real(x, y, k, n):
+    return (_calcZ2(x, y, k, n)).real
+
+def _calcZ(x, y, k1_, k2_, n, a_):
+    z1 = _calcZ1(x, y, k1_, n)
+    z2 = _calcZ2(x, y, k2_, n)
+    return z1.imag * math.cos(a_) + z2.imag*math.sin(a_)
+
+def _calcZ_alt(x,y,k1_, k2_, n, a_):
+    z1 = _calcZ1(x, y, k1_, n)
+    z2 = _calcZ2(x, y, k2_, n)
+    return z1.imag * math.sin(a_) - z2.imag*math.cos(a_)
+
+
+
+def complex_hypersurface_matplot_animation_ex1(degree, filename='hypersurf',
+                                            to_gif=False, to_html=False,
+                                            y_granularity=30, x_granularity=30,
+                                            nframes=100, t_interval=175):
+    
+    if to_gif and to_html:
+        raise ValueError(f"Cannot make {filename} both a .gif and .html file. One value must be set False.")
     
 
-    
-    
+    # set param range
+    x = np.linspace(0, math.pi/2, x_granularity)
+    y = np.linspace(-math.pi/2, math.pi/2, y_granularity)
+    x, y = np.meshgrid(x, y)
 
+    fig = plt.figure(dpi=100)
+
+    ax = fig.add_subplot(projection='3d')
+
+    def update(t):
+        ax.cla()
+
+        for k1 in range(degree):
+            for k2 in range(degree):
+
+                    X = np.frompyfunc(_calcZ1Real, 4, 1)(x, y, k1, degree).astype('float32')
+                    Y = np.frompyfunc(_calcZ2Real, 4, 1)(x, y, k2, degree).astype('float32')
+                    Z1 = np.frompyfunc(_calcZ, 6, 1)(x, y, k1, k2, degree, t/10).astype('float32')
+                    Z2 = np.frompyfunc(_calcZ_alt, 6, 1)(x, y, k1, k2, degree, t/10).astype('float32')
+
+                    ax.plot_surface(X, Y, Z2, alpha=0.8, cmap=cm.afmhot)
         
 
+        ax.set_xlim(-2, 2)
+        ax.set_ylim(-2, 2)
+        ax.set_zlim(-2, 2)
+
+    ani = animation.FuncAnimation(fig = fig, func = update, frames = nframes, interval = t_interval)
+    
+    if to_gif:
+        writergif = animation.PillowWriter(fps=30) 
+        ani.save(filename, writer=writergif)
+    elif to_html:
+        with open(filename, "w") as f:
+            print(ani.to_html5_video(), file=f)
+    else:
+        plt.show()  
 
 
 
+
+
+
+
+def complex_hypersurface_plotly_ex1(degree, filename="hypersurface.html", 
+                                    to_html=False, return_json=False,
+                                    y_granularity=30, x_granularity=30):
+    
+
+    x = np.linspace(0, math.pi/2, x_granularity)
+    y = np.linspace(-math.pi/2, math.pi/2, y_granularity)
+    x, y = np.meshgrid(x, y)
+
+    fig = go.Figure()
+
+    for k1 in range(degree):
+        for k2 in range(degree):
+            
+            X = np.frompyfunc(_calcZ1Real, 4, 1)(x, y, k1, degree).astype('float32')
+            Y = np.frompyfunc(_calcZ2Real, 4, 1)(x, y, k2, degree).astype('float32')
+            Z1 = np.frompyfunc(_calcZ, 6, 1)(x, y, k1, k2, degree, 0).astype('float32')
+            Z2 = np.frompyfunc(_calcZ_alt, 6, 1)(x, y, k1, k2, degree, 0).astype('float32')
+
+            fig.add_trace(go.Surface(x=X, y=Y, z=Z1, showscale=False, colorscale='blues'))
+
+    if to_html:
+        fig.write_html(filename, full_html=False)
+    if not return_json:
+        fig.show()
+    else:
+        return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == "__main__":
+    
+    # complex_hypersurface_matplot_animation_ex1(degree=4)
+
+    complex_hypersurface_plotly_ex1(degree=4)

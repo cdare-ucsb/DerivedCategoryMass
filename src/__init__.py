@@ -9,18 +9,18 @@ This package includes the following modules:
 """
 
 
-from .train import *
-from .cicy_train import *
-from .binarytree import *
+
+
 from .ChernCharacter import *
 from .CoherentSheaf import *
 from .DerivedCategoryObject import *
 from .SphericalTwist import *
 from .LocalP2 import *
+from .LocalP1 import *
 from .DistinguishedTriangle import *
 from .ChainComplex import *
-from .CY3Fold import *
+from .ProjectiveCY import *
 
 __all__ = ['ChernCharacterP2', 'CoherentSheaf', 'DerivedCategoryObject',
-           'SphericalTwist', 'train', 'cicy_train', 'binarytree', 'LocalP2',
-             'DistinguishedTriangle', 'ChainComplex', 'CY3Fold']
+           'SphericalTwist',  'LocalP2', 'LocalP1', 'DistinguishedTriangle',
+             'ChainComplex', 'ProjectiveCY']

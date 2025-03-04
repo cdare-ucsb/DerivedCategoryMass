@@ -1,6 +1,6 @@
-from .ChernCharacter import ChernCharacter
-from .SphericalTwist import SphericalTwist
-from .CoherentSheaf import LineBundle
+from ChernCharacter import ChernCharacter
+from SphericalTwist import SphericalTwist
+from CoherentSheaf import LineBundle
 
 import math
 import numpy as np
@@ -239,28 +239,8 @@ class LePotier():
 
 
         
-    def plot_drezet_le_potier(self, plot_3d=False, return_json=False, show_walls=False):
-        """
-        Utility function to plot the Drézet-Le Potier curve in the ch1/ch0, ch2/ch0 plane
-
-        Args:
-        ----------------
-        plot_3d (bool): Whether to plot the curve in 3D
-        return_json (bool): Whether to return the plot as a JSON string
-        show_walls (bool): Whether to show the walls of the chambers
-
-        Returns:
-        ----------------
-        str: A JSON string containing the plot
-
-        Or
-
-        None: If return_json is False
-
-
+    def plot_region(self, plot_3d=False, return_json=False, show_walls=False, boundary_color='blue', wall_color='gray'):
         
-
-        """
 
         lower_bound = -1*self.width * 2**self.granularity
         upper_bound = self.width * 2**(self.granularity ) + 1
@@ -279,7 +259,7 @@ class LePotier():
                     y=[y1, y2], 
                     z=[0,0],
                     mode='lines+markers',
-                    line=dict(color='blue', width=5),
+                    line=dict(color=boundary_color, width=5),
                     marker=dict(size=6),
                     showlegend=False  # Hide legend for individual line segments
                 ))
@@ -290,7 +270,7 @@ class LePotier():
                     y=[y1, y3], 
                     z=[0,0],
                     mode='lines+markers',
-                    line=dict(color='blue', width=5),
+                    line=dict(color=boundary_color, width=5),
                     marker=dict(size=6),
                     showlegend=False  # Hide legend for individual line segments
                 ))
@@ -304,7 +284,7 @@ class LePotier():
                         y=[y1, y_4], 
                         z=[0,0],
                         mode='lines+markers',
-                        line=dict(color='gray', width=5),
+                        line=dict(color=wall_color, width=5),
                         marker=dict(size=6, color='black'),
                         showlegend=False  # Hide legend for individual line segments
                     ))
@@ -321,7 +301,7 @@ class LePotier():
                     x=[x1, x2], 
                     y=[y1, y2], 
                     mode='lines+markers',
-                    line=dict(color='blue', width=4),
+                    line=dict(color=boundary_color, width=4),
                     marker=dict(size=6),
                     showlegend=False  # Hide legend for individual line segments
                 ))
@@ -331,7 +311,7 @@ class LePotier():
                     x=[x1, x3], 
                     y=[y1, y3], 
                     mode='lines+markers',
-                    line=dict(color='blue', width=4),
+                    line=dict(color=boundary_color, width=4),
                     marker=dict(size=6),
                     showlegend=False  # Hide legend for individual line segments
                 ))
@@ -345,7 +325,7 @@ class LePotier():
                         x=[x1, x_4], 
                         y=[y1, y_4], 
                         mode='lines+markers',
-                        line=dict(color='gray', width=5),
+                        line=dict(color=wall_color, width=5),
                         marker=dict(size=6, color='black'),
                         showlegend=False  # Hide legend for individual line segments
                     ))
@@ -366,100 +346,107 @@ class LePotier():
 
 
 
-    def plot_stability_chambers(self):
 
 
-        #################################################
-        #             GEOMETRIC CHAMBER                 #
-        #################################################
 
-        # Define x values (spread around a region)
-        x_vals = np.linspace(-5, 5, 200)  # X values from -2 to 2
+def plot_multiple_neighbors_ex1(width=5, granularity=3, return_json=False):
 
-        # Generate y values satisfying y > x^2
-        y_vals = []
-        for x in x_vals:
-            y_min = float(self.curve_estimate(x)) # Slightly above x^2
-            y_max = 11.5  # Arbitrary upper bound
-            y_range = np.linspace(y_min, y_max, 150)  # 50 points per x value
-            y_vals.append(y_range)
-
-        # Convert to numpy array
-        y_vals = np.array(y_vals).flatten()  # Flatten the y array
-
-        # Repeat x values to match the shape of y
-        x_vals = np.repeat(x_vals, 150)  # Each x value repeats 10 times
-
-        z_vals = [0] * len(x_vals)
-
-        # Plot the surface
-        fig = go.Figure(data=[go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
-                                        mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis'))])
-        
+    DLP= LePotier(width, granularity)
 
 
-       
+    #################################################
+    #             GEOMETRIC CHAMBER                 #
+    #################################################
 
-        lower_bound = -1*self.width * 2**self.granularity
-        upper_bound = self.width * 2**(self.granularity ) + 1
+    # Define x values (spread around a region)
+    x_vals = np.linspace(-5, 5, 200)  # X values from -2 to 2
 
-        for i in range(lower_bound,upper_bound):
+    # Generate y values satisfying y > x^2
+    y_vals = []
+    for x in x_vals:
+        y_min = float(DLP.curve_estimate(x)) # Slightly above x^2
+        y_max = 11.5  # Arbitrary upper bound
+        y_range = np.linspace(y_min, y_max, 150)  # 50 points per x value
+        y_vals.append(y_range)
 
-            if i % 11 == 0:
+    # Convert to numpy array
+    y_vals = np.array(y_vals).flatten()  # Flatten the y array
 
-                ##############################
-                #          ADD WALL          #
-                ##############################
-                x1, y1 = self._e_plus(i, self.granularity)
-                x2, y2 = self._e_reg(i, self.granularity)
-                fig.add_trace(go.Scatter3d(
-                    x=[x1, x2], 
-                    y=[y1, y2], 
-                    z=[0,0],
-                    mode='lines+markers',
-                    line=dict(color='blue', width=9),
-                    marker=dict(size=9),
-                    showlegend=False  # Hide legend for individual line segments
-                ))
+    # Repeat x values to match the shape of y
+    x_vals = np.repeat(x_vals, 150)  # Each x value repeats 10 times
 
-                #####################################
-                #          ADD NEW CHAMBER          #
-                #####################################
+    z_vals = [0] * len(x_vals)
 
-                # Define x values (spread around a region)
-                z_vals = np.linspace(-5, 5, 200)  # X values from -2 to 2
-
-                # Generate y values satisfying y > x^2
-                y_vals = []
-                for z in z_vals:
-                    y_min = float(self.curve_estimate(z)) # Slightly above x^2
-                    y_max = 11.5  # Arbitrary upper bound
-                    y_range = np.linspace(y_min, y_max, 150)  # 50 points per x value
-                    y_vals.append(y_range)
-
-                # Convert to numpy array
-                y_vals = np.array(y_vals).flatten()  # Flatten the y array
-                y_vals = -1*y_vals
-
-                z_vals = z_vals / 2
-                y_vals = y_vals / 2
-
-                y_vals = y_vals + (1.5 * float(self.curve_estimate(x1)) + y2 -y1)
-
-                # Repeat x values to match the shape of y
-                z_vals = np.repeat(z_vals, 150)  # Each x value repeats 10 times
-
-                z_vals = z_vals - x1/2
-
-                x_vals = [x1] * len(x_vals)  
+    # Plot the surface
+    fig = go.Figure(data=[go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
+                                    mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis'))])
+    
 
 
-                # Plot the surface
-                fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
-                                                mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
-                
+    
+
+    lower_bound = -1*DLP.width * 2**granularity
+    upper_bound = DLP.width * 2**(granularity ) + 1
+
+    for i in range(lower_bound,upper_bound):
+
+        if i % 11 == 0:
+
+            ##############################
+            #          ADD WALL          #
+            ##############################
+            x1, y1 = DLP._e_plus(i, granularity)
+            x2, y2 = DLP._e_reg(i, granularity)
+            fig.add_trace(go.Scatter3d(
+                x=[x1, x2], 
+                y=[y1, y2], 
+                z=[0,0],
+                mode='lines+markers',
+                line=dict(color='blue', width=9),
+                marker=dict(size=9),
+                showlegend=False  # Hide legend for individual line segments
+            ))
+
+            #####################################
+            #          ADD NEW CHAMBER          #
+            #####################################
+
+            # Define x values (spread around a region)
+            z_vals = np.linspace(-5, 5, 200)  # X values from -2 to 2
+
+            # Generate y values satisfying y > x^2
+            y_vals = []
+            for z in z_vals:
+                y_min = float(DLP.curve_estimate(z)) # Slightly above x^2
+                y_max = 11.5  # Arbitrary upper bound
+                y_range = np.linspace(y_min, y_max, 150)  # 50 points per x value
+                y_vals.append(y_range)
+
+            # Convert to numpy array
+            y_vals = np.array(y_vals).flatten()  # Flatten the y array
+            y_vals = -1*y_vals
+
+            z_vals = z_vals / 2
+            y_vals = y_vals / 2
+
+            y_vals = y_vals + (1.5 * float(DLP.curve_estimate(x1)) + y2 -y1)
+
+            # Repeat x values to match the shape of y
+            z_vals = np.repeat(z_vals, 150)  # Each x value repeats 10 times
+
+            z_vals = z_vals - x1/2
+
+            x_vals = [x1] * len(x_vals)  
 
 
+            # Plot the surface
+            fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
+                                            mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
+            
+
+    if return_json:
+        return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    else:
         fig.show()
 
 
@@ -469,415 +456,415 @@ class LePotier():
 
 
 
-    def plot_continuing_chamber(self, plot_walls=False, return_json=False):
+def plot_successive_neighbors_ex1(width=5, granularity=3, plot_walls=False, return_json=False):
 
+    DLP = LePotier(width, granularity)
 
-        #################################################
-        #             GEOMETRIC CHAMBER                 #
-        #################################################
 
-        # Define x values (spread around a region)
-        x_vals = np.linspace(-5, 5, 200)  # X values from -2 to 2
+    #################################################
+    #             GEOMETRIC CHAMBER                 #
+    #################################################
 
-        # Generate y values satisfying y > x^2
-        y_vals = []
-        for x in x_vals:
-            y_min = float(self.curve_estimate(x)) # Slightly above x^2
-            y_max = 11.5  # Arbitrary upper bound
-            y_range = np.linspace(y_min, y_max, 150)  # 50 points per x value
-            y_vals.append(y_range)
+    # Define x values (spread around a region)
+    x_vals = np.linspace(-5, 5, 200)  # X values from -2 to 2
 
-        # Convert to numpy array
-        y_vals = np.array(y_vals).flatten()  # Flatten the y array
+    # Generate y values satisfying y > x^2
+    y_vals = []
+    for x in x_vals:
+        y_min = float(DLP.curve_estimate(x)) # Slightly above x^2
+        y_max = 11.5  # Arbitrary upper bound
+        y_range = np.linspace(y_min, y_max, 150)  # 50 points per x value
+        y_vals.append(y_range)
 
-        # Repeat x values to match the shape of y
-        x_vals = np.repeat(x_vals, 150)  # Each x value repeats 10 times
+    # Convert to numpy array
+    y_vals = np.array(y_vals).flatten()  # Flatten the y array
 
-        z_vals = [0] * len(x_vals)
+    # Repeat x values to match the shape of y
+    x_vals = np.repeat(x_vals, 150)  # Each x value repeats 10 times
 
-        # Plot the surface
-        fig = go.Figure(data=[go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
-                                        mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis'))])
-        
+    z_vals = [0] * len(x_vals)
 
+    # Plot the surface
+    fig = go.Figure(data=[go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
+                                    mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis'))])
+    
 
-       
 
-        lower_bound = -1*self.width * 2**self.granularity
-        upper_bound = self.width * 2**(self.granularity ) + 1
+    
 
-        i_sp = range(lower_bound,upper_bound)[ len(range(lower_bound,upper_bound)) // 3 ]
+    lower_bound = -1*DLP.width * 2**DLP.granularity
+    upper_bound = DLP.width * 2**(DLP.granularity ) + 1
 
-        
+    i_sp = range(lower_bound,upper_bound)[ len(range(lower_bound,upper_bound)) // 3 ]
 
-        ##############################
-        #          ADD WALL          #
-        ##############################
-        x1, y1 = self._e_plus(i_sp, self.granularity)
-        x2, y2 = self._e_reg(i_sp, self.granularity)
-        fig.add_trace(go.Scatter3d(
-            x=[x1, x2], 
-            y=[y1, y2], 
-            z=[0,0],
-            mode='lines+markers',
-            line=dict(color='blue', width=9),
-            marker=dict(size=9),
-            showlegend=False  # Hide legend for individual line segments
-        ))
+    
 
-        #####################################
-        #          ADD 2nd CHAMBER          #
-        #####################################
+    ##############################
+    #          ADD WALL          #
+    ##############################
+    x1, y1 = DLP._e_plus(i_sp, DLP.granularity)
+    x2, y2 = DLP._e_reg(i_sp, DLP.granularity)
+    fig.add_trace(go.Scatter3d(
+        x=[x1, x2], 
+        y=[y1, y2], 
+        z=[0,0],
+        mode='lines+markers',
+        line=dict(color='blue', width=9),
+        marker=dict(size=9),
+        showlegend=False  # Hide legend for individual line segments
+    ))
 
-        # Define x values (spread around a region)
-        z_vals = np.linspace(-5, 5, 180)  # X values from -2 to 2
+    #####################################
+    #          ADD 2nd CHAMBER          #
+    #####################################
 
-        # Generate y values satisfying y > x^2
-        y_vals = []
-        for z in z_vals:
-            y_min = float(self.curve_estimate(z)) # Slightly above x^2
-            y_max = 11.5  # Arbitrary upper bound
-            y_range = np.linspace(y_min, y_max, 130)  # 50 points per x value
-            y_vals.append(y_range)
+    # Define x values (spread around a region)
+    z_vals = np.linspace(-5, 5, 180)  # X values from -2 to 2
 
-        # Convert to numpy array
-        y_vals = np.array(y_vals).flatten()  # Flatten the y array
-        y_vals = -1*y_vals
+    # Generate y values satisfying y > x^2
+    y_vals = []
+    for z in z_vals:
+        y_min = float(DLP.curve_estimate(z)) # Slightly above x^2
+        y_max = 11.5  # Arbitrary upper bound
+        y_range = np.linspace(y_min, y_max, 130)  # 50 points per x value
+        y_vals.append(y_range)
 
-        z_vals = z_vals / 2
-        y_vals = y_vals / 2
+    # Convert to numpy array
+    y_vals = np.array(y_vals).flatten()  # Flatten the y array
+    y_vals = -1*y_vals
 
-        y_vals = y_vals + (1.5 * float(self.curve_estimate(x1)) + y2 -y1)
+    z_vals = z_vals / 2
+    y_vals = y_vals / 2
 
-        # Repeat x values to match the shape of y
-        z_vals = np.repeat(z_vals, 130)  # Each x value repeats 10 times
+    y_vals = y_vals + (1.5 * float(DLP.curve_estimate(x1)) + y2 -y1)
 
-        z_vals = z_vals - x1/2
+    # Repeat x values to match the shape of y
+    z_vals = np.repeat(z_vals, 130)  # Each x value repeats 10 times
 
-        x_vals = [x1] * len(z_vals)  
+    z_vals = z_vals - x1/2
 
+    x_vals = [x1] * len(z_vals)  
 
-        # Plot the surface
-        fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
-                                        mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
 
+    # Plot the surface
+    fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
+                                    mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
 
-        #####################################
-        #          ADD 3rd CHAMBER          #
-        #####################################
 
-        # Define x values (spread around a region)
-        x_vals = np.linspace(-5, 5, 150)  # X values from -2 to 2
+    #####################################
+    #          ADD 3rd CHAMBER          #
+    #####################################
 
-        # Generate y values satisfying y > x^2
-        y_vals = []
-        for x in x_vals:
-            y_min = float(self.curve_estimate(x)) # Slightly above x^2
-            y_max = 11.5  # Arbitrary upper bound
-            y_range = np.linspace(y_min, y_max, 110)  # 50 points per x value
-            y_vals.append(y_range)
+    # Define x values (spread around a region)
+    x_vals = np.linspace(-5, 5, 150)  # X values from -2 to 2
 
-        # Convert to numpy array
-        y_vals = np.array(y_vals).flatten()  # Flatten the y array
+    # Generate y values satisfying y > x^2
+    y_vals = []
+    for x in x_vals:
+        y_min = float(DLP.curve_estimate(x)) # Slightly above x^2
+        y_max = 11.5  # Arbitrary upper bound
+        y_range = np.linspace(y_min, y_max, 110)  # 50 points per x value
+        y_vals.append(y_range)
 
-        # Repeat x values to match the shape of y
-        x_vals = np.repeat(x_vals, 110)  # Each x value repeats 10 times
+    # Convert to numpy array
+    y_vals = np.array(y_vals).flatten()  # Flatten the y array
 
-        z_vals = np.array([0] * len(x_vals))
+    # Repeat x values to match the shape of y
+    x_vals = np.repeat(x_vals, 110)  # Each x value repeats 10 times
 
-        x_vals = x_vals / 4
-        y_vals = y_vals / 4
+    z_vals = np.array([0] * len(x_vals))
 
-        z_shift = 1.082048
-        y_shift = 1.309
-        x_shift = -1.686207
-
-        z_vals = z_vals + z_shift
-        y_vals = y_vals + y_shift
-        x_vals = x_vals + x_shift
-
-        # Plot the surface
-        fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
-                                        mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
-
-
-        #####################################
-        #          ADD 4th CHAMBER          #
-        #####################################
-        
-        # Define x values (spread around a region)
-        z_vals = np.linspace(-5, 5, 110)  # X values from -2 to 2
+    x_vals = x_vals / 4
+    y_vals = y_vals / 4
 
-        # Generate y values satisfying y > x^2
-        y_vals = []
-        for z in z_vals:
-            y_min = float(self.curve_estimate(z)) # Slightly above x^2
-            y_max = 11.5  # Arbitrary upper bound
-            y_range = np.linspace(y_min, y_max, 70)  # 50 points per x value
-            y_vals.append(y_range)
+    z_shift = 1.082048
+    y_shift = 1.309
+    x_shift = -1.686207
 
-        # Convert to numpy array
-        y_vals = np.array(y_vals).flatten()  # Flatten the y array
-        y_vals = -1*y_vals
+    z_vals = z_vals + z_shift
+    y_vals = y_vals + y_shift
+    x_vals = x_vals + x_shift
 
-        # Repeat x values to match the shape of y
-        z_vals = np.repeat(z_vals, 70)  # Each x value repeats 10 times
+    # Plot the surface
+    fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
+                                    mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
 
-        x_vals = np.array([0] * len(z_vals))
+
+    #####################################
+    #          ADD 4th CHAMBER          #
+    #####################################
+    
+    # Define x values (spread around a region)
+    z_vals = np.linspace(-5, 5, 110)  # X values from -2 to 2
 
-        z_vals = z_vals / 8
-        y_vals = y_vals / 8
+    # Generate y values satisfying y > x^2
+    y_vals = []
+    for z in z_vals:
+        y_min = float(DLP.curve_estimate(z)) # Slightly above x^2
+        y_max = 11.5  # Arbitrary upper bound
+        y_range = np.linspace(y_min, y_max, 70)  # 50 points per x value
+        y_vals.append(y_range)
 
-        z_shift = 1.572048
-        y_shift = 3.869
-        x_shift = -2.646207
+    # Convert to numpy array
+    y_vals = np.array(y_vals).flatten()  # Flatten the y array
+    y_vals = -1*y_vals
 
-        z_vals = z_vals + z_shift
-        y_vals = y_vals + y_shift
-        x_vals = x_vals + x_shift
+    # Repeat x values to match the shape of y
+    z_vals = np.repeat(z_vals, 70)  # Each x value repeats 10 times
 
-        # Plot the surface
-        fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
-                                        mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
+    x_vals = np.array([0] * len(z_vals))
 
+    z_vals = z_vals / 8
+    y_vals = y_vals / 8
 
-        #####################################
-        #          ADD 5th CHAMBER          #
-        #####################################
+    z_shift = 1.572048
+    y_shift = 3.869
+    x_shift = -2.646207
 
-        # Define x values (spread around a region)
-        x_vals = np.linspace(-5, 5, 100)  # X values from -2 to 2
+    z_vals = z_vals + z_shift
+    y_vals = y_vals + y_shift
+    x_vals = x_vals + x_shift
 
-        # Generate y values satisfying y > x^2
-        y_vals = []
-        for x in x_vals:
-            y_min = float(self.curve_estimate(x)) # Slightly above x^2
-            y_max = 11.5  # Arbitrary upper bound
-            y_range = np.linspace(y_min, y_max, 50)  # 50 points per x value
-            y_vals.append(y_range)
+    # Plot the surface
+    fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
+                                    mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
 
-        # Convert to numpy array
-        y_vals = np.array(y_vals).flatten()  # Flatten the y array
 
-        # Repeat x values to match the shape of y
-        x_vals = np.repeat(x_vals, 50)  # Each x value repeats 10 times
+    #####################################
+    #          ADD 5th CHAMBER          #
+    #####################################
 
-        z_vals = np.array([0] * len(x_vals))
+    # Define x values (spread around a region)
+    x_vals = np.linspace(-5, 5, 100)  # X values from -2 to 2
 
-        x_vals = x_vals / 16
-        y_vals = y_vals / 16
+    # Generate y values satisfying y > x^2
+    y_vals = []
+    for x in x_vals:
+        y_min = float(DLP.curve_estimate(x)) # Slightly above x^2
+        y_max = 11.5  # Arbitrary upper bound
+        y_range = np.linspace(y_min, y_max, 50)  # 50 points per x value
+        y_vals.append(y_range)
 
-        z_shift = 1.45
-        y_shift = 3.93
-        x_shift = -2.586207
+    # Convert to numpy array
+    y_vals = np.array(y_vals).flatten()  # Flatten the y array
 
-        z_vals = z_vals + z_shift
-        y_vals = y_vals + y_shift
-        x_vals = x_vals + x_shift
+    # Repeat x values to match the shape of y
+    x_vals = np.repeat(x_vals, 50)  # Each x value repeats 10 times
 
-        # Plot the surface
-        fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
-                                        mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
+    z_vals = np.array([0] * len(x_vals))
 
-        #####################################
-        #          ADD 6th CHAMBER          #
-        #####################################
-        
-        # Define x values (spread around a region)
-        z_vals = np.linspace(-5, 5, 80)  # X values from -2 to 2
+    x_vals = x_vals / 16
+    y_vals = y_vals / 16
 
-        # Generate y values satisfying y > x^2
-        y_vals = []
-        for z in z_vals:
-            y_min = float(self.curve_estimate(z)) # Slightly above x^2
-            y_max = 11.5  # Arbitrary upper bound
-            y_range = np.linspace(y_min, y_max, 50)  # 50 points per x value
-            y_vals.append(y_range)
+    z_shift = 1.45
+    y_shift = 3.93
+    x_shift = -2.586207
 
-        # Convert to numpy array
-        y_vals = np.array(y_vals).flatten()  # Flatten the y array
-        y_vals = -1*y_vals
+    z_vals = z_vals + z_shift
+    y_vals = y_vals + y_shift
+    x_vals = x_vals + x_shift
 
-        # Repeat x values to match the shape of y
-        z_vals = np.repeat(z_vals, 50)  # Each x value repeats 10 times
+    # Plot the surface
+    fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
+                                    mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
 
-        x_vals = np.array([0] * len(z_vals))
+    #####################################
+    #          ADD 6th CHAMBER          #
+    #####################################
+    
+    # Define x values (spread around a region)
+    z_vals = np.linspace(-5, 5, 80)  # X values from -2 to 2
 
-        z_vals = z_vals / 32
-        y_vals = y_vals / 32
+    # Generate y values satisfying y > x^2
+    y_vals = []
+    for z in z_vals:
+        y_min = float(DLP.curve_estimate(z)) # Slightly above x^2
+        y_max = 11.5  # Arbitrary upper bound
+        y_range = np.linspace(y_min, y_max, 50)  # 50 points per x value
+        y_vals.append(y_range)
 
-        z_shift = 1.43
-        y_shift = 3.905
-        x_shift = -2.52
+    # Convert to numpy array
+    y_vals = np.array(y_vals).flatten()  # Flatten the y array
+    y_vals = -1*y_vals
 
-        z_vals = z_vals + z_shift
-        y_vals = y_vals + y_shift
-        x_vals = x_vals + x_shift
+    # Repeat x values to match the shape of y
+    z_vals = np.repeat(z_vals, 50)  # Each x value repeats 10 times
 
-        # Plot the surface
-        fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
-                                        mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
+    x_vals = np.array([0] * len(z_vals))
 
+    z_vals = z_vals / 32
+    y_vals = y_vals / 32
 
+    z_shift = 1.43
+    y_shift = 3.905
+    x_shift = -2.52
 
-        #####################################
-        #          ADD 7th CHAMBER          #
-        #####################################
+    z_vals = z_vals + z_shift
+    y_vals = y_vals + y_shift
+    x_vals = x_vals + x_shift
 
-        # Define x values (spread around a region)
-        x_vals = np.linspace(-5, 5, 70)  # X values from -2 to 2
+    # Plot the surface
+    fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
+                                    mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
 
-        # Generate y values satisfying y > x^2
-        y_vals = []
-        for x in x_vals:
-            y_min = float(self.curve_estimate(x)) # Slightly above x^2
-            y_max = 11.5  # Arbitrary upper bound
-            y_range = np.linspace(y_min, y_max, 40)  # 50 points per x value
-            y_vals.append(y_range)
 
-        # Convert to numpy array
-        y_vals = np.array(y_vals).flatten()  # Flatten the y array
 
-        # Repeat x values to match the shape of y
-        x_vals = np.repeat(x_vals, 40)  # Each x value repeats 10 times
+    #####################################
+    #          ADD 7th CHAMBER          #
+    #####################################
 
-        z_vals = np.array([0] * len(x_vals))
+    # Define x values (spread around a region)
+    x_vals = np.linspace(-5, 5, 70)  # X values from -2 to 2
 
-        x_vals = x_vals / 64
-        y_vals = y_vals / 64
+    # Generate y values satisfying y > x^2
+    y_vals = []
+    for x in x_vals:
+        y_min = float(DLP.curve_estimate(x)) # Slightly above x^2
+        y_max = 11.5  # Arbitrary upper bound
+        y_range = np.linspace(y_min, y_max, 40)  # 50 points per x value
+        y_vals.append(y_range)
 
-        z_shift = 1.399
-        y_shift = 3.91
-        x_shift = -2.502
+    # Convert to numpy array
+    y_vals = np.array(y_vals).flatten()  # Flatten the y array
 
-        z_vals = z_vals + z_shift
-        y_vals = y_vals + y_shift
-        x_vals = x_vals + x_shift
+    # Repeat x values to match the shape of y
+    x_vals = np.repeat(x_vals, 40)  # Each x value repeats 10 times
 
-        # Plot the surface
-        fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
-                                        mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
+    z_vals = np.array([0] * len(x_vals))
 
+    x_vals = x_vals / 64
+    y_vals = y_vals / 64
 
-        #####################################
-        #          ADD 8th CHAMBER          #
-        #####################################
+    z_shift = 1.399
+    y_shift = 3.91
+    x_shift = -2.502
 
-        # Define x values (spread around a region)
-        z_vals = np.linspace(-5, 5, 60)  # X values from -2 to 2
+    z_vals = z_vals + z_shift
+    y_vals = y_vals + y_shift
+    x_vals = x_vals + x_shift
 
-        # Generate y values satisfying y > x^2
-        y_vals = []
-        for z in z_vals:
-            y_min = float(self.curve_estimate(z)) # Slightly above x^2
-            y_max = 11.5  # Arbitrary upper bound
-            y_range = np.linspace(y_min, y_max, 40)  # 50 points per x value
-            y_vals.append(y_range)
+    # Plot the surface
+    fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
+                                    mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
 
-        # Convert to numpy array
-        y_vals = np.array(y_vals).flatten()  # Flatten the y array
-        y_vals = -1*y_vals
 
-        # Repeat x values to match the shape of y
-        z_vals = np.repeat(z_vals, 40)  # Each x value repeats 10 times
+    #####################################
+    #          ADD 8th CHAMBER          #
+    #####################################
 
-        x_vals = np.array([0] * len(z_vals))
+    # Define x values (spread around a region)
+    z_vals = np.linspace(-5, 5, 60)  # X values from -2 to 2
 
-        z_vals = z_vals / 128
-        y_vals = y_vals / 128
+    # Generate y values satisfying y > x^2
+    y_vals = []
+    for z in z_vals:
+        y_min = float(DLP.curve_estimate(z)) # Slightly above x^2
+        y_max = 11.5  # Arbitrary upper bound
+        y_range = np.linspace(y_min, y_max, 40)  # 50 points per x value
+        y_vals.append(y_range)
 
-        z_shift = 1.399
-        y_shift = 3.91
-        x_shift = -2.48
+    # Convert to numpy array
+    y_vals = np.array(y_vals).flatten()  # Flatten the y array
+    y_vals = -1*y_vals
 
-        z_vals = z_vals + z_shift
-        y_vals = y_vals + y_shift
-        x_vals = x_vals + x_shift
+    # Repeat x values to match the shape of y
+    z_vals = np.repeat(z_vals, 40)  # Each x value repeats 10 times
 
-        # Plot the surface
-        fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
-                                        mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
+    x_vals = np.array([0] * len(z_vals))
 
-        #####################################
-        #          ADD 9th CHAMBER          #
-        #####################################
+    z_vals = z_vals / 128
+    y_vals = y_vals / 128
 
-        # Define x values (spread around a region)
-        x_vals = np.linspace(-5, 5, 70)  # X values from -2 to 2
+    z_shift = 1.399
+    y_shift = 3.91
+    x_shift = -2.48
 
-        # Generate y values satisfying y > x^2
-        y_vals = []
-        for x in x_vals:
-            y_min = float(self.curve_estimate(x)) # Slightly above x^2
-            y_max = 11.5  # Arbitrary upper bound
-            y_range = np.linspace(y_min, y_max, 40)  # 50 points per x value
-            y_vals.append(y_range)
+    z_vals = z_vals + z_shift
+    y_vals = y_vals + y_shift
+    x_vals = x_vals + x_shift
 
-        # Convert to numpy array
-        y_vals = np.array(y_vals).flatten()  # Flatten the y array
+    # Plot the surface
+    fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
+                                    mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
 
-        # Repeat x values to match the shape of y
-        x_vals = np.repeat(x_vals, 40)  # Each x value repeats 10 times
+    #####################################
+    #          ADD 9th CHAMBER          #
+    #####################################
 
-        z_vals = np.array([0] * len(x_vals))
+    # Define x values (spread around a region)
+    x_vals = np.linspace(-5, 5, 70)  # X values from -2 to 2
 
-        x_vals = x_vals / 256
-        y_vals = y_vals / 256
+    # Generate y values satisfying y > x^2
+    y_vals = []
+    for x in x_vals:
+        y_min = float(DLP.curve_estimate(x)) # Slightly above x^2
+        y_max = 11.5  # Arbitrary upper bound
+        y_range = np.linspace(y_min, y_max, 40)  # 50 points per x value
+        y_vals.append(y_range)
 
-        z_shift = 1.407
-        y_shift = 3.913
-        x_shift = -2.482
+    # Convert to numpy array
+    y_vals = np.array(y_vals).flatten()  # Flatten the y array
 
-        z_vals = z_vals + z_shift
-        y_vals = y_vals + y_shift
-        x_vals = x_vals + x_shift
+    # Repeat x values to match the shape of y
+    x_vals = np.repeat(x_vals, 40)  # Each x value repeats 10 times
 
-        # Plot the surface
-        fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
-                                        mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
+    z_vals = np.array([0] * len(x_vals))
 
+    x_vals = x_vals / 256
+    y_vals = y_vals / 256
 
-        if plot_walls:
-            lower_bound = -1*self.width * 2**self.granularity
-            upper_bound = self.width * 2**(self.granularity ) + 1
+    z_shift = 1.407
+    y_shift = 3.913
+    x_shift = -2.482
 
-            for i in range(lower_bound+1, upper_bound-1):
-                x1, y1 = self._e_plus(i, self.granularity)
-                x_2, y_2 = self._e_reg(i, self.granularity)
+    z_vals = z_vals + z_shift
+    y_vals = y_vals + y_shift
+    x_vals = x_vals + x_shift
 
-                fig.add_trace(go.Scatter3d
-                    (
-                        x=[x1, x_2], 
-                        y=[y1, y_2], 
-                        z=[0.03,0.03],
-                        mode='lines+markers',
-                        line=dict(color='blue', width=9),
-                        marker=dict(size=3, color='blue'),
-                        showlegend=False  # Hide legend for individual line segments
-                    ))
-                
-        fig.update_layout(showlegend=False)
+    # Plot the surface
+    fig.add_trace(go.Scatter3d(z=z_vals, x=x_vals, y=y_vals,
+                                    mode='markers', marker=dict(size=3, color=y_vals, colorscale='viridis')))
 
 
-        if not return_json:
-            fig.show()
-        else:
-            return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    if plot_walls:
+        lower_bound = -1*DLP.width * 2**DLP.granularity
+        upper_bound = DLP.width * 2**(DLP.granularity ) + 1
 
+        for i in range(lower_bound+1, upper_bound-1):
+            x1, y1 = DLP._e_plus(i, DLP.granularity)
+            x_2, y_2 = DLP._e_reg(i, DLP.granularity)
 
+            fig.add_trace(go.Scatter3d
+                (
+                    x=[x1, x_2], 
+                    y=[y1, y_2], 
+                    z=[0.03,0.03],
+                    mode='lines+markers',
+                    line=dict(color='blue', width=9),
+                    marker=dict(size=3, color='blue'),
+                    showlegend=False  # Hide legend for individual line segments
+                ))
+            
+    fig.update_layout(showlegend=False)
 
 
+    if not return_json:
+        fig.show()
+    else:
+        return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-         
-        
 
 
-if __name__ == "__main__":
 
-    line_bundle_1 = 1
-    line_bundle_2 = 5
 
-    sph = SphericalTwist(LineBundle(line_bundle_1, catagory='P2'), LineBundle(line_bundle_2, catagory='P2'))
+
+def ints_to_mass_plot_P2_sing_twist(line_bundle_1, line_bundle_2, return_json=False):
+
+    if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
+        raise ValueError("Input data must be integers")
+
+    sph = SphericalTwist(LineBundle(line_bundle_1, catagory='P2'),
+                          LineBundle(line_bundle_2, catagory='P2'))
 
     DLP = LePotier(width=5, granularity=3)
     
@@ -932,7 +919,116 @@ if __name__ == "__main__":
         )
     )
 
-    fig.show()
+    if return_json:
+        return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    else:
+        fig.show()
+
+
+
+
+def twist_triangle_to_json_P2(line_bundle_1, line_bundle_2):
+    
+    if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
+        raise ValueError("Input data must be integers")
+
+    sph = SphericalTwist(LineBundle(line_bundle_1, catagory='P2'),
+                          LineBundle(line_bundle_2, catagory='P2'))
+    first_sheaf_vector = []
+
+    if len(sph.defining_triangle.object1.sheaf_vector) == 1:
+        first_sheaf_vector = [line_bundle_1]
+    else:
+        first_sheaf_vector = [line_bundle_1, line_bundle_1]
+
+
+    object1 = {
+        "sheaf_vector" : first_sheaf_vector,
+        "shift_vector" : sph.defining_triangle.object1.shift_vector,
+        "dimension_vector" : sph.defining_triangle.object1.dimension_vector
+    }
+
+    object2 = {
+        "sheaf_vector" : [line_bundle_2],
+        "shift_vector" : sph.defining_triangle.object2.shift_vector,
+        "dimension_vector" : sph.defining_triangle.object2.dimension_vector
+    }
+
+    chain_complex_data = {
+        "object1" : object1,
+        "object2" : object2
+    }
+
+    
+    return json.dumps(chain_complex_data)        
+        
+
+
+
+
+if __name__ == "__main__":
+
+    line_bundle_1 = 1
+    line_bundle_2 = 5
+
+    sph = SphericalTwist(LineBundle(line_bundle_1, catagory='P2'), LineBundle(line_bundle_2, catagory='P2'))
+
+    DLP = LePotier(width=5, granularity=3)
+
+    DLP.plot_stability_chambers()
+    
+
+    # # Define x values (spread around a region)
+    # x_vals = np.linspace(-5, 5, 200)  # X values from -2 to 2
+
+    # # Generate y values satisfying y > x^2
+    # y_vals = []
+    # for x in x_vals:
+    #     y_min = float(DLP.curve_estimate(x)) # Slightly above x^2
+    #     y_max = 25  # Arbitrary upper bound
+    #     y_range = np.linspace(y_min, y_max, 160)  # 50 points per x value
+    #     y_vals.append(y_range)
+
+    # # Convert to numpy array
+    # y_vals = np.array(y_vals).flatten()  # Flatten the y array
+
+    # # Repeat x values to match the shape of y
+    # x_vals = np.repeat(x_vals, 160)  # Each x value repeats 10 times
+
+    # masses = np.array([sph.mass(x, y) for x, y in zip(x_vals, y_vals)])
+
+    # # Plot the surface
+    # fig = go.Figure(data=[go.Scatter3d(z=masses, x=x_vals, y=y_vals,
+    #                                 mode='markers', marker=dict(size=3, color=masses, colorscale='viridis'))])
+
+    # fig.update_layout(
+    #     title="",
+    #     autosize=True,
+    #     margin=dict(l=0, r=0, b=0, t=30),
+    #     scene=dict(
+            
+    #         bgcolor="white",  # Changes the 3D plot background,
+
+    #         xaxis = dict(
+    #             backgroundcolor="white",
+    #             gridcolor="white",
+    #             showbackground=True,
+    #             zerolinecolor="white",),
+    #         yaxis = dict(
+    #             backgroundcolor="white",
+    #             gridcolor="white",
+    #             showbackground=True,
+    #             zerolinecolor="white"),
+    #         zaxis = dict(
+    #             backgroundcolor="white",
+    #             gridcolor="white",
+    #             showbackground=True,
+    #             zerolinecolor="white"
+    #         )
+    #     )
+    # )
+
+    # fig.show()
 
     
 
