@@ -1,4 +1,5 @@
 from ChernCharacter import ChernCharacter
+from DerivedCategoryObject import DerivedCategoryObject
 import math
 import cmath
 
@@ -10,7 +11,7 @@ import cmath
 #  These objects are used to represent coherent sheaves, vector bundles, and  #
 #  line bundles. Line bundles (i.e. vector bundles of rank 1) will be our     #
 #  building blocks for the sake of this project, since every coherent sheaf   #
-#  in projective space  has a resolution by line bundles. Moreover, all       #         
+#  in projective space has a resolution by line bundles. Moreover, all        #         
 #  spherical twists that we will consider can be represented as a composition #
 #  of twists around (the pushforward of) line bundles.                        #    
 #                                                                             #
@@ -21,7 +22,7 @@ IMPLEMENTED_CATAGORIES = ['P1', 'P2', 'K3']
 
 
 
-class CoherentSheaf():
+class CoherentSheaf(DerivedCategoryObject):
     """
     Generic class for coherent sheaves on a projective variety. This class is
     intended to be subclassed by more specific classes like LineBundle, which
@@ -30,6 +31,10 @@ class CoherentSheaf():
     numerical stability conditions technicially only depend on the Chern
     Character. 
 
+    The parent class to this is DerivedCategoryObject, which is a more general
+    class that theoretically does not even require a ChernCharacter --- just
+    a string label.
+
     Attributes:
     ----------
     chern_character : ChernCharacter
@@ -37,7 +42,6 @@ class CoherentSheaf():
     catagory : str
         The catagory of the coherent sheaf. Currently implemented catagories
         are 'P1', 'P2', and 'K3'
-
     
     """
     
@@ -61,6 +65,7 @@ class CoherentSheaf():
         TypeError
             If the Chern Character is not an instance of Chern
         """
+        
         if catagory not in IMPLEMENTED_CATAGORIES:
             raise ValueError(f"Catagory {catagory} is not implemented.")
         
@@ -192,6 +197,29 @@ class CoherentSheaf():
         else:
             # Catagory is not currently implemented
             raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
+        
+    def shift(self, n):
+        """
+        Override of the DerivedChatagoryObject shift method. This method shifts the coherents sheaf,
+        considered as a complex concentrated in degree 0, by n units. The implementation of this 
+        method is crucial to allow including the sheaf in a distinguished triangle, since any triangle
+        can be rotated right or left. Since a Coherent sheaf does not keep track of its cohomological 
+        information, the method must return a ChainComplex concentrated in a single degree.
+
+        Parameters:
+        ----------
+        n : int
+            The number of units to shift the coherent sheaf by
+
+        Returns:
+        -------
+        ChainComplex
+            A ChainComplex concentrated in a single degree, shifted by n units
+        
+        """
+        from ChainComplex import ChainComplex # include in the method to avoid circular import
+        return ChainComplex( sheaf_vector=[self], shift_vector=[n], dimension_vector=[1])
+        
 
     def __str__(self):
         """
@@ -209,23 +237,6 @@ class CoherentSheaf():
             A string representation of the coherent sheaf
         """
         return f'CoherentSheaf with Chern Character {self.chern_character}'
-
-
-    def is_semistable(self, *args):
-        """
-        Method to determine if the coherent sheaf is semistable with respect to the given stability
-        condition. This method is intended to be overridden by subclasses, but is also implemented for
-        more general parent / container classes like ChainComplex and DerivedCategoryObject. Using the
-        same name allows more modularity in the code, and allows for more general functions to be written
-        that can be applied to a variety of objects.
-
-        Returns:
-        -------
-        bool
-            True if the coherent sheaf is semistable, False otherwise
-        """
-
-        pass
 
     def __hash__(self):
         """

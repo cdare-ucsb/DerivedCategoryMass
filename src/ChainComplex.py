@@ -4,6 +4,10 @@ from ChernCharacter import ChernCharacter
 import math
 
 
+
+
+
+
 IMPLEMENTED_CATAGORIES = ['P1', 'P2', 'K3']
 
 
@@ -107,6 +111,7 @@ class ChainComplex(DerivedCategoryObject):
 
         # If an element of the complex has dimension 0, we can get rid of it using helper method
         self._remove_zeros_from_dimension_vector()
+        # Combine repeated sheaves in the complex
         self._combine_repeats()
 
     
@@ -171,6 +176,11 @@ class ChainComplex(DerivedCategoryObject):
         a chain complex is the alternating sum of the Chern Characters of the individual sheaves in
         the complex. Since the Chern character is additive, we may multiply the Chern Characters by
         the dimension of the sheaf to represent direct sums of sheaves.
+
+        Returns:
+        -------
+        ChernCharacter
+            The Chern Character of the chain complex
         """
         cherns = [sheaf.chernCharacter() for sheaf in self.sheaf_vector]
 
@@ -181,12 +191,43 @@ class ChainComplex(DerivedCategoryObject):
 
             chern_piece = 0
             for i in range(len(cherns)):
+                # odd shifts get a negative sign, even shifts get a positive sign
                 chern_piece += (-1)**(self.shift_vector[i]) * self.dimension_vector[i] * cherns[i][graded_piece]
             chain_complex_chern.append(chern_piece)
 
         return ChernCharacter(chain_complex_chern)
 
     def central_charge(self, *args):
+        """
+        Compute the central charge of the chain complex. The central charge of a chain complex is the
+        alternating sum of the central charges of the individual sheaves in the complex. Since the
+        central charge is additive, we may multiply the central charges by the dimension of the sheaf
+        to represent direct sums of sheaves. However, most of this functionality is already defined
+        in the chernCharacter() function, so we will simply call that function and then compute the
+        central charge from the Chern Character.
+
+        Parameters:
+        ----------
+        args : list
+            The arguments required to compute the central charge. The number of arguments and the type
+            of arguments will depend on the catagory of the sheaves in the complex. For P1, the central
+            charge requires a single complex number. For P2, the central charge requires two floating-point
+            numbers. For K3, the central charge requires two floating-point numbers and an integer.
+
+        Returns:
+        -------
+        complex
+            The central charge of the chain complex as a complex number
+
+        Raises:
+        -------
+        ValueError
+            If the number of arguments is incorrect
+        TypeError
+            If the type of the arguments is incorrect
+        NotImplementedError
+            If the catagory of the sheaves in the complex is not implemented
+        """
 
         if self.catagory == 'P1':
             if len(args) != 1:
@@ -274,6 +315,8 @@ class ChainComplex(DerivedCategoryObject):
         """
         Helper function to combine repeated sheaves in the complex. This is useful for simplifying
         the complex, as we can combine repeated sheaves into a single sheaf with a larger dimension.
+        This function specifically requires the __hash__ implementation for the CoherentSheaf and 
+        LineBundle objects.
         """
 
         # Dictionary to hold combined dimensions for each (sheaf, shift) pair
@@ -300,6 +343,28 @@ class ChainComplex(DerivedCategoryObject):
         
     
     def get_smallest_phase(self, *args):
+        """
+        Method to compute the smallest phase of the chain complex. This behaves as a sort of "smallest
+        Harder-Narasimhan factor" for the complex, since Chain complexes will almost never be stable when
+        they have objects in distinct shifts. The phase of an individual element of a chain complex generally
+        requires that object to be stable, so that we typically use LineBundles for our current applications. 
+        By definition of a slicing, the shift of each object in the complex should add to the respective phases;
+        thus, this method computes the smallest sum of the phase of the sheaf and the shift of the sheaf in the
+        complex.
+
+        Parameters:
+        ----------
+        args : list
+            The arguments required to compute the phase. The number of arguments and the type of arguments will
+            depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number.
+            For P2, the phase requires two floating-point numbers. For K3, the phase requires two floating-point
+            numbers and an integer.
+
+        Returns:
+        -------
+        float
+            The smallest phase of the chain complex
+        """
 
         if self.catagory == 'P1':
             if len(args) != 1:
@@ -336,45 +401,92 @@ class ChainComplex(DerivedCategoryObject):
         return min_phase
     
     def get_largest_phase(self, *args):
-            
-            if self.catagory == 'P1':
-                if len(args) != 1:
-                    raise ValueError("Phase of P1 requires exactly one argument.")
-                if not isinstance(args[0], complex):
-                    raise TypeError("Phase of P1 requires a complex number as an argument.")
-            elif self.catagory == 'P2':
-                if len(args) != 2:
-                    raise ValueError("Phase of P2 requires exactly two arguments.")
-                if not all(isinstance(arg, (float,int)) for arg in args):
-                    raise TypeError("Phase of P2 requires two floating-point numbers as arguments.")
-            elif self.catagory == 'K3':
-                if len(args) != 3:
-                    raise ValueError("Phase of K3 requires exactly three arguments.")
-                if not all(isinstance(arg, (float,int)) for arg in args):
-                    raise TypeError("Phase of K3 requires three floating-point numbers as arguments.")
-                if not isinstance(args[2], int):
-                    raise TypeError("The degree of the K3 surface must be an integer.")
-            else:
-                raise NotImplementedError("Only local P1, local P2, and K3 catagories are implemented.")
+        """
+        Method to compute the largest phase of the chain complex. This behaves as a sort of "largest
+        Harder-Narasimhan factor" for the complex, since Chain complexes will almost never be stable when
+        they have objects in distinct shifts. The phase of an individual element of a chain complex generally
+        requires that object to be stable, so that we typically use LineBundles for our current applications.
+        By definition of a slicing, the shift of each object in the complex should add to the respective phases;
+        thus, this method computes the largest sum of the phase of the sheaf and the shift of the sheaf in the
+        complex.
 
-            # Zip the three lists together and sort by descending shift
-            max_shift = max(self.shift_vector)
-    
-            bundles = list(zip(self.sheaf_vector, self.dimension_vector, self.shift_vector))
-            bundles_max_shift = filter(lambda x: x[2] == max_shift or x[2] == max_shift - 1, bundles)
-    
-            max_phase = -math.inf
-    
-            for sheaf, dim, shift in bundles_max_shift:
-                if sheaf.phase(*args) + shift > max_phase:
-                    max_phase = sheaf.phase(*args) + shift
-    
-            return max_phase
+        Parameters:
+        ----------
+        args : list
+            The arguments required to compute the phase. The number of arguments and the type of arguments will
+            depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number.
+            For P2, the phase requires two floating-point numbers. For K3, the phase requires two floating-point
+            numbers and an integer.
+
+        Returns:
+        -------
+        float
+            The largest phase of the chain complex
+        """
+            
+        if self.catagory == 'P1':
+            if len(args) != 1:
+                raise ValueError("Phase of P1 requires exactly one argument.")
+            if not isinstance(args[0], complex):
+                raise TypeError("Phase of P1 requires a complex number as an argument.")
+        elif self.catagory == 'P2':
+            if len(args) != 2:
+                raise ValueError("Phase of P2 requires exactly two arguments.")
+            if not all(isinstance(arg, (float,int)) for arg in args):
+                raise TypeError("Phase of P2 requires two floating-point numbers as arguments.")
+        elif self.catagory == 'K3':
+            if len(args) != 3:
+                raise ValueError("Phase of K3 requires exactly three arguments.")
+            if not all(isinstance(arg, (float,int)) for arg in args):
+                raise TypeError("Phase of K3 requires three floating-point numbers as arguments.")
+            if not isinstance(args[2], int):
+                raise TypeError("The degree of the K3 surface must be an integer.")
+        else:
+            raise NotImplementedError("Only local P1, local P2, and K3 catagories are implemented.")
+
+        # Zip the three lists together and sort by descending shift
+        max_shift = max(self.shift_vector)
+
+        bundles = list(zip(self.sheaf_vector, self.dimension_vector, self.shift_vector))
+        bundles_max_shift = filter(lambda x: x[2] == max_shift or x[2] == max_shift - 1, bundles)
+
+        max_phase = -math.inf
+
+        for sheaf, dim, shift in bundles_max_shift:
+            if sheaf.phase(*args) + shift > max_phase:
+                max_phase = sheaf.phase(*args) + shift
+
+        return max_phase
     
 
 
 
     def is_semistable(self, *args):
+        """
+        Method to compute whether the chain complex is semistable. This almost never occurs, since if
+        the complex contains two or more stable objects of distinct phase, it will never be stable. For
+        example, suppose E2 is a stable subobject of maximum phase and E1 is another stable object with
+        strictly smaller phase. Then
+
+                          E2 ----> Complex ------> Cone
+
+        will destabilize the complex, and Cone will be nontrivial since it has a non-zero map to E1. 
+        The easiest way to check that the complex is concentrated in only a single phase is to compare
+        its largest and smallest phases from the previous methods.
+
+        Parameters:
+        ----------
+        args : list
+            The arguments required to compute the phase. The number of arguments and the type of arguments will
+            depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number.
+            For P2, the phase requires two floating-point numbers. For K3, the phase requires two floating-point
+            numbers and an integer.
+
+        Returns:
+        -------
+        bool
+            True if the chain complex is semistable, False otherwise  
+        """
 
         if self.catagory == 'P1':
             if len(args) != 1:

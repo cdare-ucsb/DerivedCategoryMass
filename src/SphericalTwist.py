@@ -30,9 +30,8 @@ from plotly.graph_objs import *
 #                                                                             #
 #  In order to determine possible Harder-Narasimhan filtrations of the        #
 #  spherical twists, we need to iteratively keep track of previous Harder-    #
-#  Narasimhan filtrations. This is done by expanding the leaves of a binary   #
-#  tree, where each node is a spherical twist, and the children of each node  #
-#  are the spherical twists obtained by applying a successive twist.          #
+#  Narasimhan filtrations. At the moment, this is only computed up to two     #
+#  successive spherical twists.                                               #
 #                                                                             #   
 ###############################################################################      
 
@@ -40,27 +39,69 @@ from plotly.graph_objs import *
 
 
 class SphericalTwist(DerivedCategoryObject):
+    """
+    A spherical twist is a non-standard autoequivalence of the derived category of coherent sheaves, in the 
+    sense that it does not arise from any composition of (1) standard autoequivalences on the variety (2) 
+    tensoring by line bundles and (3) (co)homological shifts. Such autoequivalences typically only arise in the
+    case of Calabi-Yau categories and toric varieties (where (-2)-curves can exist in the Fano setting as well, 
+    e.g. P^2 blown up at 2 points), but often control the structure of the stability manifold. They are also 
+    relevant to homological mirror symmetry since they are the derived equivalent of Dehn twists in the Fukaya
+    category in the symplectic setting. They are explicitly defined as the cone of the derived evaluation morphism
+
+            Hom(A, B) ⊗ A ---->  B ----> Tw_A B
+
+    where A is a spherical object in the sense that RHom(A,A) is isomorphic as a graded-vector space to the 
+    singular cohomology of an n-sphere.
+
+
+    Currently, we only consider spherical twists around line bundles in the derived category of coherent sheaves
+    since they always yield examples of spherical objects for Local P^n and K3 surfaces. On K3 surfaces, it is not
+    true that the spherical twists account for all spherical objects, but they are still provide a rich source of
+    examples to help predict mass growth.
+
+    Attributes:
+    ----------
+    line_bundle_1 : LineBundle
+        The first line bundle in the Hom space
+    line_bundle_2 : LineBundle
+        The second line bundle in the Hom space
+    degree : int
+        An optional argument for the degree of the variety, which is relevant to the dimension of the
+        derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations.
+        Default is 1. 
+
+    """
     
     def __init__(self, line_bundle_1, line_bundle_2, degree=1):
         """
         Initialize an instance of SphericalTwist with the specified line bundles. The spherical twist
         is defined as the cone of the evaluation morphism 
 
-                Hom(i*O(a), i*O(b)) ⊗ i*O(a) ---->  i*O(b) ----> Tw_a O(b)
+                Hom(O(a), O(b)) ⊗ O(a) ---->  O(b) ----> Tw_a O(b)
 
-        where i*O(a) is the pushforward of the line bundle O(a) and Tw_a O(b) is the spherical twist. 
+        where O(a) and O(b) denote either line bundles or pushforwards of line bundles along the inclusion of the zero section. 
         The spherical twist is represented as a distinguished triangle in the derived category of coherent
         sheaves. 
 
         Several helper methods are used to compute the dimensions of the Hom spaces between the pushforwards
         of the line bundles, and then to construct the distinguished triangle.
 
+        Parameters:
+        ----------
+        line_bundle_1 : LineBundle
+            The first line bundle in the Hom space
+        line_bundle_2 : LineBundle
+            The second line bundle in the Hom space
+        degree : int
+            An optional argument for the degree of the variety, which is relevant to the dimension of the
+            derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations.
+            Default is 1.
+
         """
         if not isinstance(line_bundle_1, LineBundle):
-            raise TypeError("line_bundle_1 must be an instance of LineBundleP1.")
+            raise TypeError("line_bundle_1 must be an instance of LineBundle.")
         if not isinstance(line_bundle_2, LineBundle):
-            raise TypeError("line_bundle_2 must be an instance of LineBundleP1.")
-        
+            raise TypeError("line_bundle_2 must be an instance of LineBundle.")
         if line_bundle_1.catagory != line_bundle_2.catagory:
             raise ValueError("Line bundles must be defined on the same variety")
 
@@ -69,6 +110,7 @@ class SphericalTwist(DerivedCategoryObject):
         self.catagory = line_bundle_1.catagory
         self.degree = degree
 
+        # Call helper method to create defining triangle of spherical twist
         self.defining_triangle = self._sph_twist_LineBundles(line_bundle_1, line_bundle_2)
 
 
@@ -113,9 +155,9 @@ class SphericalTwist(DerivedCategoryObject):
         """
 
         if not isinstance(line_bundle_1, LineBundle):
-            raise TypeError("line_bundle_1 must be an instance of LineBundleP1.")
+            raise TypeError("line_bundle_1 must be an instance of LineBundle.")
         if not isinstance(line_bundle_2, LineBundle):
-            raise TypeError("line_bundle_2 must be an instance of LineBundleP1.")
+            raise TypeError("line_bundle_2 must be an instance of LineBundle.")
 
         homDims = _dimHom_LineBundles(line_bundle_1, line_bundle_2, self.degree)
 
@@ -132,9 +174,11 @@ class SphericalTwist(DerivedCategoryObject):
             bundle_vector.append(LineBundle(line_bundle_1.degree, self.catagory))
 
         object1 = ChainComplex(sheaf_vector=bundle_vector, shift_vector=shift_vector, dimension_vector=dimension_vector)
+        # While we technically can simply case object2 = line_bundle_2, we will use the ChainComplex constructor
+        # since several successive methods call sheaf_vector[i] and shift_vector[i]. A significant overhaul would
+        # be needed to change this.
         object2 = ChainComplex(sheaf_vector=[LineBundle(line_bundle_2.degree, self.catagory)], shift_vector=[0], dimension_vector=[1])
         object3 = DerivedCategoryObject(string=f"Tw_{line_bundle_1.degree} O({line_bundle_2.degree})", catagory=self.catagory)
-
 
         return DistinguishedTriangle(object1, object2, object3)
     
@@ -152,15 +196,26 @@ class SphericalTwist(DerivedCategoryObject):
         return self.defining_triangle.object3.chernCharacter()
     
     def shift(self, n):
+        """
+        Method to shift the spherical twist by n units. As a spherical twist is initially only
+        specified as a string until its defining triangle is computed, the shift method simply
+        relies on the implementation in the parent class DerivedCategoryObject.
+
+        Parameters:
+        ----------
+        n : int
+            The number of units to shift the object by
+
+        Returns:
+        -------
+        DerivedCategoryObject
+            The shifted object
+        """
 
         if not isinstance(n, int):
             raise TypeError("Shift must be an integer")
-        
-        new_object1 = self.defining_triangle.object1.shift(n)
-        new_object2 = self.defining_triangle.object2.shift(n)
-        new_object3 = self.defining_triangle.object3.shift(n)
 
-        return DistinguishedTriangle(new_object1, new_object2, new_object3)
+        return self.defining_triangle.object3.shift(n)
     
 
 
@@ -173,7 +228,9 @@ class SphericalTwist(DerivedCategoryObject):
         Parameters:
         ----------
         args : tuple
-            The parameters for the stability condition. The number of parameters depends on the catagory of the object
+            The parameters for the stability condition. The number of parameters depends on the catagory of the object.
+            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers 
+            and an integer representing the degree of the K3 surface.
 
         Returns:
         -------
@@ -183,7 +240,11 @@ class SphericalTwist(DerivedCategoryObject):
         Raises:
         -------
         TypeError
-            If w is not a complex number
+            If the args are not of the correct type
+        ValueError
+            If the number of args is incorrect
+        NotImplementedError
+            If the catagory of the object is not P1, P2, or K3
         """
 
         if self.catagory == 'P1':
@@ -244,6 +305,8 @@ class SphericalTwist(DerivedCategoryObject):
         -------
         args : tuple
             The parameters for the stability condition. The number of parameters depends on the catagory of the object
+            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+            and an integer representing the degree of the K3 surface.
 
 
         Returns:
@@ -281,6 +344,39 @@ class SphericalTwist(DerivedCategoryObject):
 
     
     def mass(self, *args):
+        """
+        Computes the mass of an object in the derived catagory. The mass of a stable object is simply the modulus
+        of its central charge. For a non-stable object, the mass is the sum of the masses of the Harder-Narasimhan
+        factors of the object. The notion of the mass of an object is derived from string theory, where BPS states
+        are characterized as objects which satisfy the BPS bound M = |Z|. For non-BPS states, one simply has 
+        |Z| < M. The mass of a Bridgeland stability condition is given by the sum of its semistable factors, which 
+        corresponds to the decomposition of an object in the derived category into Harder-Narasimhan factors.
+        As a consequence, this method heavily relies on the get_HN_factors method to compute the Harder-Narasimhan
+        factors of the object.
+
+        Parameters:
+        ----------
+        args : tuple
+            The parameters for the stability condition. The number of parameters depends on the catagory of the object
+            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+            and an integer representing the degree of the K3 surface.
+
+        Returns:
+        -------
+        float
+            The mass of the object, as a non-negative real number. Theoretically the mass should always be positive,
+            but the get_HN_factors method does not always give the correct filtration in edge cases.
+
+        Raises:
+        -------
+        TypeError
+            If the args are not of the correct type
+        ValueError
+            If the number of args is incorrect
+        NotImplementedError
+            If the catagory of the object is not P1, P2, or K3
+
+        """
 
 
         if self.catagory == 'P1':
@@ -317,6 +413,54 @@ class SphericalTwist(DerivedCategoryObject):
 
                 
     def get_HN_factors(self, *args):
+        """
+        This method is the main workhorse of the SphericalTwist class. It computes the Harder-Narasimhan factors
+        of the spherical twist object. It is generally assumed that for a single spherical twist, the only way
+        that an object can destabilize is when an element of the last term of the defining triangle
+
+                             O(a) -----> Tw_O(a) O(b) -------->  O(b)[n] ⊕ O(b)[n+1]
+
+        has larger phase than O(a). In this case, the Harder-Narasimhan factors of the spherical twist depend on 
+        which object it is that has larger phase. For example, if the minimum shift has larger phase, then we assume
+        that the object must be strictly stable - THIS IS A CONJECTURE. If the maximum shift has smaller phase, then
+        the triangle above leads to a Harder-Narasimhan filtration, so that the individual line bundle sums are precisely
+        the HN factors; this is a result of Bapat-Deopurkar-Licata (2020).
+         
+        The most difficult case is when the smaller phase O(b)[n] is smaller than O(a) is smaller than O(b)[n+1]. In this 
+        case, some homological algebra is required to show that the cone of the composed map 
+
+                              Tw_O(a) O(b) -------> O(b)[n+1]
+
+        fits into a distinguished triangle O(a) ----> Cone ----> O(b)[n]. 
+
+        Instead of returning the objects alone, the method returns a list of tuples, where the first element is the semistable
+        factor and the second element is the phase of the object. This is done to make computing largest and smallest semistable
+        factors easier in the DoubleSphericalTwist class.
+
+        The list is always returned in reverse order of the phase, so that the smallest phase HN factor is last and the largest
+        is first.
+
+
+
+        * It should be noted that several assumptions in this have not been verified outside of the quiver
+        case
+
+
+        Parameters:
+        ----------
+        args : tuple
+            The parameters for the stability condition. The number of parameters depends on the catagory of the object
+            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+            and an integer representing the degree of the K3 surface.
+
+        Returns:
+        -------
+        list
+            A list of tuples where the first element is a DerivedCategoryObject and the second element is a float
+            representing the phase of the object. The list is always returned in such a way that the largest phase
+            HN factor is first and smallest is last.
+
+        """
         if self.catagory == 'P1':
             if len(args) != 1:
                 raise ValueError("Central charge of P1 requires single complex number parameter")
@@ -344,16 +488,24 @@ class SphericalTwist(DerivedCategoryObject):
         quotient_complex = modified_defining_triangle.object3
 
         if subobject.phase(*args) <= quotient_complex.get_smallest_phase(*args):
+            # The object is (ASSUMED TO BE --- CONJECTURE) stable
             potential_phase = cmath.phase(self.central_charge(*args)) / math.pi
 
-            for n in range(-2,2):
+            # Attempt to find the phase of the object; ideally this value of n should
+            # be unique
+            for n in [-2,0,2]:
                 if subobject.phase(*args) <= potential_phase + n and potential_phase + n <= quotient_complex.get_largest_phase(*args):
                     return [(self, potential_phase + n)]
+            
+            raise ValueError("Could not find phase of object; this should not happen")
 
 
-        if len(quotient_complex.dimension_vector) == 1:
+        elif len(quotient_complex.dimension_vector) == 1:
+            # The quotient object has only one term / is concentrated in a single degree and
+            # its phase is smaller than the subobject.
 
-            # Write triangle as O(a) -> Tw -> O(b)[shift]
+            # The defining triangle O(a) -> Tw -> O(b)[shift] should in fact be the 
+            # Harder-Narasimhan filtration in this case
             
             return [(modified_defining_triangle.object1, subobject.phase(*args)),
                      (quotient_complex, quotient_complex.get_smallest_phase(*args))]
@@ -382,6 +534,8 @@ class SphericalTwist(DerivedCategoryObject):
                             (ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[0]], shift_vector=[quotient_complex.shift_vector[0]], dimension_vector=[quotient_complex.dimension_vector[0]]), phase0)]
 
             # CASE 2: smallest phase(Quotient) < phi(subobj) < largest phase(quotient)
+            #         this is the most difficult case to handle since we must in fact consider
+            #         the cone of the composed map Tw_O(a) O(b) ----> O(b)[shift]
             else:
                 if largest_phase == phase0:
                     smaller_idx = 1
@@ -407,14 +561,13 @@ class SphericalTwist(DerivedCategoryObject):
                 
                 # Need to compute phase of cone to make a StableObject
                 phase_cone = cmath.phase(central_charge_cone) / math.pi
-                for n in range(-3,3):
+                for n in [-4,-2,0,2,4]:
                     if phase_subobject <= phase_cone + n and phase_cone + n <= phase_leftover_bundle:
                         phase_cone = phase_cone + n
                         break
-
-
+                    if n == 4:
+                        raise ValueError("Could not find phase of cone object; this should not happen")
                 
-
                 
                 return [(larger_phase_complex, largest_phase),
                          (cone_triangle.object2, phase_cone)]
@@ -426,6 +579,32 @@ class SphericalTwist(DerivedCategoryObject):
 
 
 class SphericalTwistSum(DerivedCategoryObject):
+    """
+    This class acts similar to the ChainComplex class for CoherentSheaf; specifically, when considering
+    double (or any n>1) spherical twists, there are always triangles that the twist will fit into that are 
+    not necessarily the defining triangle and can be obtained by applying the twist functor to the defining
+    triangle of the individual twists --- such triangles will often involve the sum of shifts of spherical twists,
+    so we need an implementation for keeping track of such objects in a single argument of the DistinguishedTriangle.
+
+    For successive spherical twist applications, this entire procedure will likely need to be generalized since
+    it is inefficient to encode DoubleSphericalTwistSum, TripeSphericalTwistSum, etc. as separate classes.
+
+
+    Attributes:
+    ----------
+    line_bundle_pairs_vector : list
+        A list of tuples where each tuple is a pair of line bundles (lb1, lb2) that the spherical twist is
+        defined around
+    dimension_vector : list
+        A list of non-negative integers representing the number of times each spherical twist is applied
+    shift_vector : list
+        A list of integers representing the shift of each spherical twist
+    degree : int
+        An optional argument for the degree of the variety, which is relevant to the dimension of the
+        derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations.
+        Default is 1.
+
+    """
 
 
     def __init__(self, line_bundle_pairs_vector, dimension_vector, shift_vector, degree=1):
@@ -441,6 +620,33 @@ class SphericalTwistSum(DerivedCategoryObject):
 
         This class is primarily used for DoubleSphericalTwist, since the second canonical triangle
         will often be a sum of spherical twists.
+
+        Parameters:
+        ----------
+        line_bundle_pairs_vector : list
+            A list of tuples where each tuple is a pair of line bundles (lb1, lb2) that the spherical twist is
+            defined around
+        dimension_vector : list
+            A list of non-negative integers representing the number of times each spherical twist is applied
+        shift_vector : list
+            A list of integers representing the shift of each spherical twist
+        degree : int
+            An optional argument for the degree of the variety, which is relevant to the dimension of the
+            derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations.
+            Default is 1.
+
+        Raises:
+        -------
+        TypeError
+            If line_bundle_pairs_vector is not a list of tuples
+            If dimension_vector is not a list of integers
+            If shift_vector is not a list of integers
+        ValueError
+            If line_bundle_pairs_vector is not a list of tuples with exactly two elements
+            If line_bundle_pairs_vector is not a list of tuples where both objects are line bundles
+            If dimension_vector is not a list of non-negative integers
+            If line_bundle_pairs_vector, dimension_vector, and shift_vector do not have the same length
+            If line_bundle_pairs_vector is empty
         """
         if not all(isinstance(x, tuple) for x in line_bundle_pairs_vector):
             raise TypeError("line_bundle_pairs_vector must be a list of tuples")
@@ -477,7 +683,14 @@ class SphericalTwistSum(DerivedCategoryObject):
 
     def __str__(self):
         """
-        Returns a string representation of the spherical twist by printing the defining triangle
+        Returns a string representation of the spherical twist by printing the defining triangle. 
+        The string representation is similar to that of the chain complex, where 2 lines are printed.
+        The first line contains the number of times the spherical twist is applied, and the second line
+        contains the actual twist. For example, the string representation of a spherical twist sum given
+        by the data [(O(1), O(1)), [3], [-2]] would be
+
+                ⊕3
+        Tw_1 O(1)[-2]
 
         Returns:
         -------
@@ -524,9 +737,31 @@ class SphericalTwistSum(DerivedCategoryObject):
     
 
     def __len__(self):
+        """
+        Returns the number of distinct spherical twists in the sum; we should generally expect that 
+        the spherical twists are distinct since the constructor should hypothetically combine like terms.
+
+        This method is primarily used in the DoubleSphericalTwist.get_HN_factors method to help determine
+        edge cases.
+
+        Returns:
+        -------
+        int
+            The number of distinct spherical twists in the sum
+        """
         return len(self.line_bundle_pairs_vector)
     
     def chernCharacter(self):
+        """
+        Similar to the case of ChainComplex, since the Chern character is additive on exact sequences (i.e. factors
+        through the Grothendieck group), we may always find the Chern character of an object obtained by sums and twists
+        of known objects. In this case, we simply rely on the implementation of the above SphericalTwist class.
+
+        Returns:
+        -------
+        ChernCharacter
+            The Chern Character of the spherical twist sum
+        """
         
         chern_character = ChernCharacter([0, 0, 0])
         
@@ -540,6 +775,21 @@ class SphericalTwistSum(DerivedCategoryObject):
 
     
     def shift(self, n):
+        """
+        Cohomological shift of the complex by some fixed amount. This is one of the main methods one wishes
+        to override for the DerivedCategoryObject class, since the shift of a spherical twist sum is simply
+        the sum of the shifts of the individual spherical twists.
+
+        Parameters:
+        ----------
+        n : int
+            The amount to shift the complex by
+
+        Returns:
+        -------
+        SphericalTwistSum
+            The shifted spherical twist sum
+        """
 
         new_shift_vector = [x + n for x in self.shift_vector]
 
@@ -553,7 +803,9 @@ class SphericalTwistSum(DerivedCategoryObject):
         Parameters:
         ----------
         args : tuple
-            The parameters for the stability condition. The number of parameters depends on the catagory of the
+            The parameters for the stability condition. The number of parameters depends on the catagory of the 
+            object. For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two
+            real numbers and an integer representing the degree of the K3 surface.
 
         Returns:
         -------
@@ -563,7 +815,11 @@ class SphericalTwistSum(DerivedCategoryObject):
         Raises:
         -------
         TypeError
-            If w is not a complex number
+            If the args are not of the correct type
+        ValueError
+            If the number of args is incorrect
+        NotImplementedError
+            If the catagory of the object is not P1, P2, or K3
         """
 
         if self.catagory == 'P1':
@@ -596,6 +852,15 @@ class SphericalTwistSum(DerivedCategoryObject):
         return central_charge
     
     def get_lowest_shift_component(self):
+        """
+        Similar to the ChainComplex class, we wish to recover the lowest shift component of the spherical twist sum.
+        This is useful for computing the Harder-Narasimhan factors of the DoubleSphericalTwistSum class.
+
+        Returns:
+        -------
+        SphericalTwistSum
+            The spherical twist sum with the lowest shift
+        """
         
         min_shift = float('inf')
         min_lb_pair = None
@@ -610,6 +875,15 @@ class SphericalTwistSum(DerivedCategoryObject):
         return SphericalTwistSum([min_lb_pair], [min_dimension], [min_shift], self.degree)
             
     def get_highest_shift_component(self):
+        """
+        Similar to the ChainComplex class, we wish to recover the highest shift component of the spherical twist sum.
+        This is useful for computing the Harder-Narasimhan factors of the DoubleSphericalTwistSum class.
+
+        Returns:
+        -------
+        SphericalTwistSum
+            The spherical twist sum with the highest shift
+        """
         
         max_shift = float('-inf')
         max_lb_pair = None
@@ -624,6 +898,37 @@ class SphericalTwistSum(DerivedCategoryObject):
         return SphericalTwistSum([max_lb_pair], [max_dimension], [max_shift], self.degree)
     
     def is_semistable(self, *args):
+        """
+        Method to check if the spherical twist sum is stable. The sum of shifts of distinct objects will generally
+        never be stable unless the objects and shifts are all the same; for example, one can consider the trivial case
+        where E is a stable object, but
+
+        E[1] ---> E[1] ⊕ E ---> E
+
+        destabilizes the direct sum. In general, the spherical twist sum is stable if the Harder-Narasimhan
+        filtration is trivial, i.e. just the object itself. 
+
+        Parameters:
+        -------
+        args : tuple
+            The parameters for the stability condition. The number of parameters depends on the catagory of the object
+            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+            and an integer representing the degree of the K3 surface.
+
+        Returns:
+        -------
+        bool
+            True if the spherical twist sum is stable, False otherwise
+
+        Raises:
+        -------
+        TypeError
+            If the args are not of the correct type
+        ValueError
+            If the number of args is incorrect
+        NotImplementedError
+            If the catagory of the object is not P1, P2, or K3
+        """
 
         if self.catagory == 'K3':
 
@@ -635,9 +940,39 @@ class SphericalTwistSum(DerivedCategoryObject):
                 raise TypeError("The degree of the K3 surface must be an integer")
             
             
-        return len(self.get_HN_factors(*args)) == 1 
+        return len(self.get_HN_factors_ordered(*args)) == 1 
             
     def get_HN_factors_ordered(self, *args):
+        """
+        This is a slightly modified version of the get_HN_factors method, where the Harder-Narasimhan factors
+        are ordered by phase. In particular, this method is a slight misnomer in the sense that it is not actually
+        claiming that the list returned is the HN filtration of the object, but rather a concatenated list of all 
+        the individual semistable factors. This is still nonetheless useful for computing the HN factors of the
+        DoubleSphericalTwistSum class.
+
+        Parameters:
+        ----------
+        args : tuple
+            The parameters for the stability condition. The number of parameters depends on the catagory of the object
+            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+            and an integer representing the degree of the K3 surface.
+
+        Returns:
+        -------
+        list
+            A list of tuples where the first element is a DerivedCategoryObject and the second element is a float
+            representing the phase of the object. The list is always returned in such a way that the largest phase
+            HN factor is first and smallest is last.
+
+        Raises:
+        -------
+        TypeError
+            If the args are not of the correct type
+        ValueError
+            If the number of args is incorrect
+        NotImplementedError
+            If the catagory of the object is not P1, P2, or K3
+        """
 
         if self.catagory == 'K3':
 
@@ -667,7 +1002,7 @@ class SphericalTwistSum(DerivedCategoryObject):
                                                             chern_character=new_chern),
                                                                 phase + s))
                     
-
+        # Return the list in such a way that the highest phase comes first and the lowest phase comes last
         return sorted(HN_factors, key=lambda x: x[1], reverse=True)
 
             
@@ -720,6 +1055,37 @@ class SphericalTwistSum(DerivedCategoryObject):
 
 
 class DoubleSphericalTwist(DerivedCategoryObject):
+    """
+    A class to represent the composition of successive spherical twists applied to a line bundle. The double
+    spherical twist is given as a distinguished triangle similar to the case of the single spherical twist; however,
+    for higher numbers of spherical twists, there are often multiple triangles that the object fits into. The added
+    functionality that this class provides is the ability to account for both triangles when computing the Harder-
+    Narasimhan filtration of the object. Specifically, one must account for the defining triangle
+
+    Hom(O(a), Tw_b O(c)) ⊗ O(a) ---->  Tw_b O(c) ----> Tw_a Tw_b O(c)
+
+    as well as what we refer to as the 'secondary canonical triangle' given by
+
+    Tw_a (Hom(O(b), O(c)) ⊗ O(b)) ----> Tw_a O(c) ----> Tw_a Tw_b O(c)
+
+    The Harder-Narasimhan factors of the double spherical twist are computed by first computing the Harder-Narasimhan
+    factors of the defining triangle, and then the secondary canonical triangle. Unlike the single SphericalTwist class,
+    we do not actually provide the Harder-Narasimhan filtration in all cases; there are edge cases where nothing can 
+    currently be said and we must return an empty list leading to a mass of 0. 
+
+    Attributes:
+    ----------
+    line_bundle_1 : LineBundle
+        The last line bundle twisted around; i.e. O(a) where we are computing Tw_a Tw_b O(c)
+    line_bundle_2 : LineBundle
+        The first line bundle twisted around; i.e. O(b) where we are computing Tw_a Tw_b O(c)
+    line_bundle_3 : LineBundle
+        The line bundle we are applying the spherical twist to; i.e. O(c) where we are computing Tw_a Tw_b O(c)
+    degree : int
+        An optional argument for the degree of the variety, which is relevant to the dimension of the
+        derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations.
+        Default is 1.
+    """
 
     def __init__(self, line_bundle_1, line_bundle_2, line_bundle_3, degree=1):
         """
@@ -746,6 +1112,13 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         degree : int
             Optional argument for degree of K3 surface
 
+        Raises:
+        -------
+        TypeError
+            If line_bundle_1, line_bundle_2, or line_bundle_3 are not instances of LineBundle
+        ValueError
+            If the line bundles are not defined on the same catagory
+
         """
         if not isinstance(line_bundle_1, LineBundle):
             raise TypeError("line_bundle_1 must be an instance of LineBundleP1.")
@@ -770,6 +1143,31 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         
 
     def _sph_twist_DoubleLineBundles(self, line_bundle_1, line_bundle_2, line_bundle_3):
+        """
+        Helper method to compute the distinguished triangle of the double spherical twist. The distinguished triangle
+        is given by the cone of the evaluation morphism 
+
+            Hom(O(a), Tw_b O(c)) ⊗ O(a) ---->  Tw_b O(c) ----> Tw_a Tw_b O(c)
+
+        Parameters:
+        ----------
+        line_bundle_1 : LineBundle
+            The last line bundle twisted around; i.e. O(a) where we are computing Tw_a Tw_b O(c)
+        line_bundle_2 : LineBundle
+            The first line bundle twisted around; i.e. O(b) where we are computing Tw_a Tw_b O(c)
+        line_bundle_3 : LineBundle
+            The line bundle we are applying the spherical twist to; i.e. O(c) where we are computing Tw_a Tw_b O(c)
+
+        Returns:
+        -------
+        DistinguishedTriangle
+            The distinguished triangle of the double spherical twist
+
+        Raises:
+        -------
+        TypeError
+            If line_bundle_1, line_bundle_2, or line_bundle_3 are not instances of LineBundle
+        """
 
         if not isinstance(line_bundle_1, LineBundle):
             raise TypeError("line_bundle_1 must be an instance of LineBundle.")
@@ -803,6 +1201,15 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         return DistinguishedTriangle(object1, object2, object3)
     
     def chernCharacter(self):
+        """
+        Method to compute the Chern character of the double spherical twist. The Chern character of the double
+        spherical twist is the Chern character of the third object in the distinguished triangle.
+
+        Returns:
+        -------
+        ChernCharacter
+            The Chern Character of the double spherical twist
+        """
 
         return self.defining_triangle.object3.chernCharacter()
     
@@ -899,6 +1306,31 @@ class DoubleSphericalTwist(DerivedCategoryObject):
 
         
     def is_semistable(self, *args):
+        """
+        Method to check if the double spherical twist is semistable. The double spherical twist is semistable
+        if the Harder-Narasimhan factorization is trivial.
+
+        Parameters:
+        -------
+        args : tuple
+            The parameters for the stability condition. The number of parameters depends on the catagory of the object
+            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+            and an integer representing the degree of the K3 surface.
+
+        Returns:
+        -------
+        bool
+            True if the double spherical twist is semistable, False otherwise
+
+        Raises:
+        -------
+        TypeError
+            If the args are not of the correct type
+        ValueError
+            If the number of args is incorrect
+        NotImplementedError
+            If the catagory of the object is not P1, P2, or K3
+        """
 
         if self.catagory == 'K3':
 
@@ -919,6 +1351,33 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         return len(HN_factors) == 1
     
     def mass(self, *args):
+        """
+        The mass of the double spherical twist is the sum of the masses of the Harder-Narasimhan factors; the 
+        Harder-Narasimhan factors are assumed to come from either the defining triangle or secondary canonical triangle.
+        The mass of the double spherical twist is computed by first computing the Harder-Narasimhan factors of the
+        defining triangle, and then the secondary canonical triangle.
+
+        Parameters:
+        -------
+        args : tuple
+            The parameters for the stability condition. The number of parameters depends on the catagory of the object
+            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+            and an integer representing the degree of the K3 surface.
+
+        Returns:
+        -------
+        float
+            The mass of the double spherical twist
+
+        Raises:
+        -------
+        TypeError
+            If the args are not of the correct type
+        ValueError
+            If the number of args is incorrect
+        NotImplementedError
+            If the catagory of the object is not P1, P2, or K3
+        """
 
         if self.catagory == 'K3':
 
@@ -948,6 +1407,41 @@ class DoubleSphericalTwist(DerivedCategoryObject):
 
     
     def get_HN_factors(self, *args):
+        """
+        This is the crux of the DoubleSphericalTwist class, where we compute the Harder-Narasimhan factors of the
+        double spherical twist. A signficiant assumption (CONJECTURAL) that we make is that the Harder-Narasimhan filtration
+        must arise from the defining triangle or the secondary canonical triangle. This is not always the case, but we
+        have not yet implemented a general method to compute the HN factors in all cases.
+
+        This method works by first examining the two edge cases for the defining triangle: if the largest phase of the subobject
+        is less than the smallest phase of the quotient, then we assume the object is stable (CONJECTURAL). If the smallest phase
+        of the subobject is larger than the largest phase of the quotient, then we know for a fact (by BDL) that the Harder-Narasimhan
+        filtration can be computed by concatenating the HN factors of the subobject and quotient. If neither of these cases hold, we move
+        on to the second canonical triangle and apply a similar logic.
+
+        Parameters:
+        -------
+        args : tuple
+            The parameters for the stability condition. The number of parameters depends on the catagory of the object
+            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+            and an integer representing the degree of the K3 surface.
+
+        Returns:
+        -------
+        list
+            A list of tuples where the first element is a DerivedCategoryObject and the second element is a float
+            representing the phase of the object. The list is always returned in such a way that the largest phase
+            HN factor is first and smallest is last.
+
+        Raises:
+        -------
+        TypeError
+            If the args are not of the correct type
+        ValueError
+            If the number of args is incorrect
+        NotImplementedError
+            If the catagory of the object is not P1, P2, or K3
+        """
         
         if self.catagory == 'K3':
 
@@ -980,9 +1474,11 @@ class DoubleSphericalTwist(DerivedCategoryObject):
 
             if left_side_phase <= right_side_min_phase:
                 potential_phase = cmath.phase(self.central_charge(*args))/math.pi
-                for n in range(-3,3):
+                for n in [-4,-2,0,2,4,6]:
                     if left_side_phase <= potential_phase + n and potential_phase + n <= right_side_min_phase:
                         return [(self, potential_phase + n)]
+                    if n == 6:
+                        raise ValueError("The phase of the subobject is not in the range of the quotient; this should not happen")
 
                 
             elif left_side_phase > right_side_max_phase:
@@ -1011,6 +1507,8 @@ class DoubleSphericalTwist(DerivedCategoryObject):
                                 (cplx_summand_1, right_side_min_phase)]
                 
         else:
+            # Subobject (i.e. Tw_b O(c)) is not semistable, so we must
+            # first look at its HN filtration to see if anything can be salvaged
             
             HN_factors_subobject = subobject.get_HN_factors(*args)
             right_side_min_phase = quotient_complex.get_smallest_phase(*args)
@@ -1084,6 +1582,37 @@ class DoubleSphericalTwist(DerivedCategoryObject):
 
 
 def _dimHom_LineBundles(line_bundle_1, line_bundle_2, degree_K3 = 1):
+    """
+    General helper method to compute the dimension of the Hom spaces between 
+    two line bundles (or pushforwards of line bundles, in the local Projectiv
+    space case). The method is a wrapper for the specific implementations
+    for P1, P2, and K3 surfaces.
+
+    Parameters:
+    ----------
+    line_bundle_1 : LineBundle
+        The first line bundle in the Hom space
+    line_bundle_2 : LineBundle
+        The second line bundle in the Hom space
+    degree_K3 : int
+        The degree of the K3 surface, as an optional argument. This only affects
+        the K3 implementation. Default is 1.
+
+    Returns:
+    -------
+    tuple
+        A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
+
+    Raises:
+    -------
+    TypeError
+        If line_bundle_1 is not an instance of LineBundle
+        If line_bundle_2 is not an instance of LineBundle
+    ValueError
+        If the line bundles are not defined on the same catagory
+    NotImplementedError
+        If the catagory of the object is not P1, P2, or K3
+    """
 
     if not isinstance(line_bundle_1, LineBundle):
         raise TypeError("line_bundle_1 must be an instance of LineBundle.")
@@ -1208,6 +1737,47 @@ def _dimHom_LineBundlesP2(line_bundle_1, line_bundle_2):
             return (0, 0, rank2, rank3)
         
 def _dimHom_LineBundlesK3(line_bundle_1, line_bundle_2, degree_K3):
+    """
+    Helper method which computes the dimension of the hom spaces between line bundles on a 
+    degree d K3 surface. Since the only K3s we consider are Picard rank 1, if O(a) and O(b) are
+    distinct then either O(b-a) or O(a-b) must be ample; by Serre duality and a result of Huybrechts,
+    one may always argue that Ext1(O(a), O(b)) = 0. In fact, Serre duality implies that the complex must
+    be concentrated in a single degree, which is either 0 or 2 and corresponds to the cases that b > a and
+    a < b, respectively. 
+
+    We return a tuple of the form (n0,n1,n2) indicating the dimension of the graded RHom space. Aside from the
+    instance that a=b, this will only include one nonzero element. Hirzebruch-Riemann-Roch shows that
+
+    dim RHom(O(a), O(b)) = 1 + d(b-a)^2 
+
+    Parameters:
+    ----------
+    line_bundle_1 : LineBundle
+        The first line bundle in the Hom space
+    line_bundle_2 : LineBundle
+        The second line bundle in the Hom space
+    degree_K3 : int
+        The degree of the K3 surface
+
+    Returns:
+    -------
+    tuple
+        A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
+
+    Raises:
+    -------
+    TypeError
+        If line_bundle_1 is not an instance of LineBundle
+        If line_bundle_2 is not an instance of LineBundle
+        If degree_K3 is not an integer
+    """
+
+    if not isinstance(line_bundle_1, LineBundle):
+        raise TypeError("line_bundle_1 must be an instance of LineBundle.")
+    if not isinstance(line_bundle_2, LineBundle):    
+        raise TypeError("line_bundle_2 must be an instance of LineBundle.")
+    if not isinstance(degree_K3, int):
+        raise TypeError("The degree of the K3 surface must be an integer")
 
     degree_dif = line_bundle_2.degree - line_bundle_1.degree
 
@@ -1221,6 +1791,39 @@ def _dimHom_LineBundlesK3(line_bundle_1, line_bundle_2, degree_K3):
         
 
 def _dimHom_Line_and_SingleTwist(line_bundle_1, line_bundle_2, line_bundle_3, degree_K3):
+    """
+    Helper method which computes the dimension of the hom spaces between a line bundle and 
+    a single spherical twist of line bundles. This is a wrapper for the specific implementations
+    for P1, P2, and K3 surfaces.
+
+    Parameters:
+    ----------
+    line_bundle_1 : LineBundle
+        The line bundle to twist around: i.e. O(a) where we are computing Tw_a O(b)
+    line_bundle_2 : LineBundle
+        The line bundle which the spherical twist is being applied to: i.e. O(b) where we are computing Tw_a O(b)
+    line_bundle_3 : LineBundle
+        The line bundle which the spherical twist is being applied to: i.e. O(c) where we are computing Tw_a O(c)
+    degree_K3 : int
+        The degree of the K3 surface, as an optional argument. This only affects
+        the K3 implementation. Default is 1.
+
+    Returns:
+    -------
+    tuple
+        A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
+
+    Raises:
+    -------
+    TypeError
+        If line_bundle_1 is not an instance of LineBundle
+        If line_bundle_2 is not an instance of LineBundle
+        If line_bundle_3 is not an instance of LineBundle
+    ValueError
+        If the line bundles are not defined on the same catagory
+    NotImplementedError
+        If the catagory of the object is not P1, P2, or K3
+    """
     if not isinstance(line_bundle_1, LineBundle):
         raise TypeError("line_bundle_1 must be an instance of LineBundle.")
     if not isinstance(line_bundle_2, LineBundle):
@@ -1241,7 +1844,7 @@ def _dimHom_Line_and_SingleTwist(line_bundle_1, line_bundle_2, line_bundle_3, de
 
 
 
-# TODO: Implement the Hom spaces for the case of a single twist and a line bundle
+
 def _dimHom_Line_and_SingleTwistK3(line_bundle_1, line_bundle_2, line_bundle_3, degree_K3):
     """
     Helper function which computes the dimensions of the derived hom spaces between a line bundle 

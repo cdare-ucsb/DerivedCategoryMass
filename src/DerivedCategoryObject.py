@@ -1,29 +1,6 @@
 from ChernCharacter import ChernCharacter
 import re
-import numbers
 
-
-
-###############################################################################
-#                                                                             #
-#                             Multi-Degree Objects                            #
-# ----------------------------------------------------------------------------#
-#  These objects are used to represent chain complexes over a the category of #              
-#  coherent sheaves; these objects are stored primarily as an array of degree #
-#  , ranks, and homological shifts. Despite the fact that ChainComplexes are  #
-#  partially implemented, LineBundleComplex objects are much more useful for  #
-#  several methods in this project (note in particular that every coherent    #
-#  sheaf on P^2 has a resolution by line bundles). Consequently, it is        #
-#  important to make sure every function in ChainComplex is overridden in     #
-#  LineBundleComplex.                                                         #
-#                                                                             #
-#  The Distinguished triangle further generalizes the notion of ordered       #                                                     #
-#  exact sequences in the Derived category. As our main object of interest,   #
-#  SphericalTwistComposition, exists in the Derived category, it will be      #
-#  crucial to understand the passage from complexes of coherent sheaves to    #
-#  distinguished triangles.                                                   #
-#                                                                             #
-###############################################################################
 
 
 IMPLEMENTED_CATAGORIES = ['P1', 'P2', 'K3']
@@ -31,10 +8,69 @@ IMPLEMENTED_CATAGORIES = ['P1', 'P2', 'K3']
 
 
 class DerivedCategoryObject():
+    """
+    This class acts as a general parent class for objects in the derived category of coherent sheaves.
+    The derived category is a triangulated category (though in many cases is a dg-category) that is
+    constructed over an abelian category --- in geometric contexts, this is usually the category of
+    coherent sheaves on a variety. The derived category is a way to encode the information of the
+    homological data of the abelian category in a more structured way, though it is considerably abstract
+    since an element of the derived complex technically represents all possible resolutions of the object.
+
+    One can typically think of objects in the derived catagory as chain complexes of sheaves; however, it
+    will be true in general that multiple chain complexes of varying lengths can represent the same object
+    in the derived category. For example, one can consider the cotangent bundle Ω^1 on a variety IP^2; there
+    is a minimal resolution of the cotangent bundle by:
+
+                               0 -> O(-3) -> O(-2)^3 -> Ω^1 -> 0
+
+    obtained by replacing the last two terms in the standard Koszul resolution by Ω^1 = ker(O(-1)^3 --> O). It then
+    follows that the derived category object representing Ω^1 is the same as the two-term complex O(-3) -> O(-2)^3. 
+
+
+    As this is the most general class used in the current program, it will assume the least amount of information
+    given since we can only assume the object fits into at least one distinguished triangle which may help
+    determine the objects Chern character / numerical data. Thus, the bare minimum information this
+    should encode is the catagory of the object and a string representation of the object. 
+
+    
+    Attributes:
+    ----------
+    catagory : str
+        The catagory of the derived category object. This should be one of the implemented catagories
+        ['P1', 'P2', 'K3'].
+    string : str
+        A string representation / label of the derived category object.
+    chern_character : ChernCharacter
+        The Chern Character of the derived category object. This is optional and can be set later, especially
+        when the object is put into a distinguished triangle with two objects whose Chern characters are known.
+
+    """
     def __init__(self, catagory, string = "0", chern_character = None):
+        """
+        Initialize an instance of the DerivedCategoryObject with the specified catagory, string representation,
+        and Chern Character. The Chern Character is optional and can be set later. 
+
+        Parameters:
+        ----------
+        catagory : str
+            The catagory of the derived category object. This should be one of the implemented catagories
+            ['P1', 'P2', 'K3'].
+        string : str
+            A string representation / label of the derived category object. Default is "0".
+        chern_character : ChernCharacter
+            The Chern Character of the derived category object. Default is None.
+
+        Raises:
+        -------
+        NotImplementedError
+            If the catagory is not implemented
+        TypeError
+            If the Chern Character is not an instance of Chern
+
+        """
         
         if catagory not in IMPLEMENTED_CATAGORIES:    
-            raise ValueError(f"Catagory {catagory} is not implemented.")
+            raise NotImplementedError(f"Catagory {catagory} is not implemented.")
 
         if chern_character and not isinstance(chern_character, ChernCharacter):
             raise TypeError("chern_character must be an instance of ChernCharacter.")
@@ -156,6 +192,22 @@ class DerivedCategoryObject():
             raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
         
     def is_semistable(self, *args):
+        """
+        Method to determine if the derived category object is semistable with respect to a given stability condition. 
+        This will simply act as a wrapper for the central charge method, which should be implemented in child classes.
+
+        Parameters:
+        ----------
+        *args : list
+            The parameters of the stability condition. The number of parameters will depend on the catagory of the object.
+            For P1, this will be a single complex number. For P2, this will be two real numbers. For K3, this will be
+            two real numbers and one integer.
+
+        Returns:
+        -------
+        bool
+            True if the object is semistable with respect to the stability condition, False otherwise
+        """
         pass
 
     
