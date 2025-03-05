@@ -201,7 +201,7 @@ def complex_hypersurface_matplot_animation_ex1(degree, filename='hypersurf',
     y = np.linspace(-math.pi/2, math.pi/2, y_granularity)
     x, y = np.meshgrid(x, y)
 
-    fig = plt.figure(dpi=100)
+    fig = plt.figure(dpi=100, figsize=(10, 5))
 
     ax = fig.add_subplot(projection='3d')
 
@@ -283,6 +283,6 @@ def complex_hypersurface_plotly_ex1(degree, filename="hypersurface.html",
 
 if __name__ == "__main__":
     
-    # complex_hypersurface_matplot_animation_ex1(degree=4)
+    complex_hypersurface_matplot_animation_ex1(filename='CY3fold.gif', degree=5, to_gif=True)
 
-    complex_hypersurface_plotly_ex1(degree=4)
+    # complex_hypersurface_plotly_ex1(degree=4)

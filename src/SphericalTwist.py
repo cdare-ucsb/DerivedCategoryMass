@@ -1,8 +1,9 @@
-from CoherentSheaf import LineBundle
-from DerivedCategoryObject import DerivedCategoryObject
-from DistinguishedTriangle import DistinguishedTriangle
-from ChainComplex import ChainComplex
-from ChernCharacter import ChernCharacter
+from .CoherentSheaf import LineBundle
+from .DerivedCategoryObject import DerivedCategoryObject
+from .DistinguishedTriangle import DistinguishedTriangle
+from .ChainComplex import ChainComplex
+from .ChernCharacter import ChernCharacter
+
 import math
 import cmath
 import numpy as np
@@ -491,13 +492,22 @@ class SphericalTwist(DerivedCategoryObject):
             # The object is (ASSUMED TO BE --- CONJECTURE) stable
             potential_phase = cmath.phase(self.central_charge(*args)) / math.pi
 
-            # Attempt to find the phase of the object; ideally this value of n should
-            # be unique
-            for n in [-2,0,2]:
+            # Attempt to find the phase of the object; ideally this value of n should be unique
+
+            # TODO: This is a temporary fix to the problem of finding the phase of the spherical twist object
+            #       when the object is stable. We really shouldnt be considering odd dimensional shifts, but
+            #       we run into an error when the phase of the twist is larger than both the subobject an quotient;
+            #       this is a temporary fix to this occurse when the subobject and quotient differ by phase > 1 so 
+            #       that they no longer lie in the same heart. In particular, this causes a discontinuity for the
+            #       algebraic regions of the stability manifold.
+            for n in range(-3,3):
                 if subobject.phase(*args) <= potential_phase + n and potential_phase + n <= quotient_complex.get_largest_phase(*args):
                     return [(self, potential_phase + n)]
             
-            raise ValueError("Could not find phase of object; this should not happen")
+            
+            raise ValueError("Could not find phase of spherical twist object; this should not happen")
+
+            
 
 
         elif len(quotient_complex.dimension_vector) == 1:
@@ -553,24 +563,38 @@ class SphericalTwist(DerivedCategoryObject):
                                             dimension_vector=[quotient_complex.dimension_vector[larger_idx]])
 
                 phase_subobject = subobject.phase(*args)
-                phase_leftover_bundle = quotient_complex.sheaf_vector[smaller_idx].phase(*args) + quotient_complex.shift_vector[smaller_idx]
+                phase_larger_complex = quotient_complex.sheaf_vector[larger_idx].phase(*args) + quotient_complex.shift_vector[larger_idx]
 
-                central_charge_cone = smaller_phase_complex.central_charge(*args) + subobject.central_charge(*args)
+                central_charge_cone = larger_phase_complex.central_charge(*args) + subobject.central_charge(*args)
                 cone_object = DerivedCategoryObject(string="Cone", catagory=self.catagory, chern_character=None)
-                cone_triangle = DistinguishedTriangle(smaller_phase_complex, cone_object, modified_defining_triangle.object1)
+                cone_triangle = DistinguishedTriangle(modified_defining_triangle.object1, cone_object, larger_phase_complex)
                 
                 # Need to compute phase of cone to make a StableObject
                 phase_cone = cmath.phase(central_charge_cone) / math.pi
                 for n in [-4,-2,0,2,4]:
-                    if phase_subobject <= phase_cone + n and phase_cone + n <= phase_leftover_bundle:
-                        phase_cone = phase_cone + n
-                        break
-                    if n == 4:
-                        raise ValueError("Could not find phase of cone object; this should not happen")
+                    if phase_subobject <= phase_cone + n and phase_cone + n <= phase_larger_complex:
+                        return [(cone_triangle.object2, phase_cone + n),
+                                (smaller_phase_complex, smaller_phase_complex.get_smallest_phase(*args))]
+                    
+                # print(modified_defining_triangle)
+                # print("\n\n---------------------\n\n")
+                # print(cone_triangle)
+            
+                # print("\n\n")
+                # print(f"Central Charge of {modified_defining_triangle.object1} = {modified_defining_triangle.object1.central_charge(*args)}")
+                # print(f"Phase of {modified_defining_triangle.object1} = {modified_defining_triangle.object1.get_smallest_phase(*args)}")
+                # print("\n\n")
+                # print(f"Central Charge of {cone_object} = {central_charge_cone}")
+                # print(f"Predicted phase of {cone_object} = {phase_cone}")
+                # print("\n\n")
+                # print(f"Central Charge of {smaller_phase_complex} = {smaller_phase_complex.central_charge(*args)}")
+                # print(f"Phase of {smaller_phase_complex} = {smaller_phase_complex.get_smallest_phase(*args)}")
+
+                # print(f"\n\nPhase 'quotient_complex.smallest': {quotient_complex.get_smallest_phase(*args)}\n\n")
+                # raise ValueError("Could not find phase of cone object; this should not happen")
                 
                 
-                return [(larger_phase_complex, largest_phase),
-                         (cone_triangle.object2, phase_cone)]
+                
             
 
         
@@ -1474,7 +1498,7 @@ class DoubleSphericalTwist(DerivedCategoryObject):
 
             if left_side_phase <= right_side_min_phase:
                 potential_phase = cmath.phase(self.central_charge(*args))/math.pi
-                for n in [-4,-2,0,2,4,6]:
+                for n in range(-4,4):
                     if left_side_phase <= potential_phase + n and potential_phase + n <= right_side_min_phase:
                         return [(self, potential_phase + n)]
                     if n == 6:
@@ -1522,8 +1546,11 @@ class DoubleSphericalTwist(DerivedCategoryObject):
                         return [(self, potential_phase + n)]
                     
             elif HN_factors_subobject[-1][1] > right_side_max_phase:
-                if len(quotient_complex) != 2:
-                        raise ValueError("The Hom object is not concentrated in 1 or 2 degrees")
+                # smallest phase of subobject is greater than largest phase of quotient
+                if len(quotient_complex) == 1:
+                    return HN_factors_subobject + [(quotient_complex, right_side_max_phase)]
+                elif len(quotient_complex) != 2:
+                    raise ValueError(f"The Hom object is not concentrated in 2 degrees; currently\n{quotient_complex}")
 
                 cplx_summand_0 = ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[0]],
                                             shift_vector=[quotient_complex.shift_vector[0]],
@@ -1951,11 +1978,38 @@ def _dimHom_Line_and_SingleTwistK3(line_bundle_1, line_bundle_2, line_bundle_3, 
 if __name__ == "__main__":
     # lb1 = LineBundle(-1, catagory='P2')
     # lb2 = LineBundle(0, catagory='P2')
-    # lb3 = LineBundle(2, catagory='P2')
+    # lb3 = LineBundle(5, catagory='P2')
+
+    # from LocalP2 import LePotier
+    # DLP = LePotier(granularity=3, width=5)
 
     # sph = SphericalTwist(line_bundle_1=lb1, line_bundle_2=lb3)
 
-    # print(sph)
+    # x_vals = np.linspace(-5, 5, 150)  # X values from -2 to 2
+
+    # # Generate y values satisfying y > x^2
+    # y_vals = []
+    # for x in x_vals:
+    #     y_min =DLP.curve_estimate(x)
+    #     y_max = 12
+    #     y_range = np.linspace(y_min, y_max, 100)  # 50 points per x value
+    #     y_vals.append(y_range)
+
+    # # Convert to numpy array
+    # y_vals = np.array(y_vals).flatten()  # Flatten the y array
+
+    # # Repeat x values to match the shape of y
+    # x_vals = np.repeat(x_vals, 160)  # Each x value repeats 10 times
+
+    # masses = np.array([sph.mass(x, y) for x, y in zip(x_vals, y_vals)])
+
+    # # Plot the surface
+    # fig = go.Figure(data=[go.Scatter3d(z=masses, x=x_vals, y=y_vals,
+    #                                 mode='markers', marker=dict(size=3, color=masses, colorscale='viridis'))])
+
+   
+    # fig.show()
+
 
 
     # lb4 = LineBundle(-5, catagory='P1')
@@ -1992,9 +2046,9 @@ if __name__ == "__main__":
 
     sph4 = DoubleSphericalTwist(lb6, lb7, lb8, degree=K3_deg)
 
-    print(sph4.mass(2, 3, K3_deg))
+    # print(sph4.mass(2, 3, K3_deg))
 
-    x_vals = np.linspace(-5, 5, 150)  # X values from -2 to 2
+    x_vals = np.linspace(-5, 11.10, 200)  # X values from -2 to 2
 
     # Generate y values satisfying y > x^2
     y_vals = []
@@ -2014,5 +2068,6 @@ if __name__ == "__main__":
     fig = go.Figure(data=[go.Scatter3d(z=masses, x=x_vals, y=y_vals,
                                     mode='markers', marker=dict(size=3, color=masses, colorscale='viridis'))])
 
+    fig.update_layout(scene = dict(xaxis = dict(nticks=4, range=[-5,5])))
    
     fig.show()

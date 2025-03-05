@@ -53,6 +53,7 @@ def plot_sph_twist_P2():
 
 
     except ValueError:
+        print(traceback.format_exc())
         return jsonify({"error": "Invalid input data"}), 400
     
   

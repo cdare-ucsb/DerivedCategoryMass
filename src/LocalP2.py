@@ -1,6 +1,6 @@
-from ChernCharacter import ChernCharacter
-from SphericalTwist import SphericalTwist
-from CoherentSheaf import LineBundle
+from .ChernCharacter import ChernCharacter
+from .SphericalTwist import SphericalTwist
+from .CoherentSheaf import LineBundle
 
 import math
 import numpy as np
@@ -41,7 +41,7 @@ class LePotier():
         self.width = width
 
         lower_bound = -1*self.width * 2**self.granularity
-        upper_bound = self.width * 2**(self.granularity ) + 1
+        upper_bound = self.width * 2**(self.granularity +1) 
 
         self.boundary_points = []
 
@@ -222,7 +222,7 @@ class LePotier():
 
         # Check if x is within the range of the curve
         if x < x_values[0] or x > x_values[-1]:
-            raise ValueError("x is outside the range of the curve")
+            raise ValueError(f"{x} is outside the range of the curve (currently ({x_values[0]}, {x_values[-1]}))")
 
         # Find the segment containing x
         for i in range(len(self.boundary_points) - 1):
@@ -490,7 +490,7 @@ def plot_multiple_neighbors_ex1(width=5, granularity=3, return_json=False):
 
 
 
-def plot_successive_neighbors_ex1(width=5, granularity=3, plot_walls=False, return_json=False):
+def plot_successive_neighbors_ex1(width=5, granularity=4, plot_walls=False, return_json=False):
     """
     Example implementation to plot 9 successive chambers to the geometric chamber for Local P2.
     The plot can be displayed in the browser or returned as a JSON string.
@@ -505,7 +505,7 @@ def plot_successive_neighbors_ex1(width=5, granularity=3, plot_walls=False, retu
     ----------------
     str: A JSON string representation of the plot if return
     """
-    DLP = LePotier(width, granularity)
+    DLP = LePotier(6, granularity)
 
 
     #################################################
@@ -513,7 +513,7 @@ def plot_successive_neighbors_ex1(width=5, granularity=3, plot_walls=False, retu
     #################################################
 
     # Define x values (spread around a region)
-    x_vals = np.linspace(-5, 5, 200)  # X values from -2 to 2
+    x_vals = np.linspace(-4.9, 4.9, 200)  # X values from -2 to 2
 
     # Generate y values satisfying y > x^2
     y_vals = []
@@ -1036,7 +1036,9 @@ if __name__ == "__main__":
 
     DLP = LePotier(width=5, granularity=3)
 
-    DLP.plot_stability_chambers()
+    # DLP.plot_stability_chambers()
+
+    plot_successive_neighbors_ex1(width=5, granularity=3, plot_walls=True, return_json=False)
     
 
     # # Define x values (spread around a region)
