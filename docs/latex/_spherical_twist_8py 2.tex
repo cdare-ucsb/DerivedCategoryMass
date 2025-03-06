@@ -1,0 +1,62 @@
+\doxysection{src/\+Spherical\+Twist.py File Reference}
+\hypertarget{_spherical_twist_8py}{}\label{_spherical_twist_8py}\index{src/SphericalTwist.py@{src/SphericalTwist.py}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error}{src.\+Spherical\+Twist.\+Harder\+Narasimhan\+Error}}
+\begin{DoxyCompactList}\small\item\em Exception raised when the correct Harder-\/\+Narasimhan filtration cannot be found. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist}{src.\+Spherical\+Twist.\+Spherical\+Twist}}
+\begin{DoxyCompactList}\small\item\em A spherical twist is a non-\/standard autoequivalence of the derived category of coherent sheaves, in the sense that it does not arise from any composition of (1) standard autoequivalences on the variety (2) tensoring by line bundles and (3) (co)homological shifts. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum}{src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum}}
+\begin{DoxyCompactList}\small\item\em This class acts similar to the \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex} class for \doxylink{namespacesrc_1_1_coherent_sheaf}{Coherent\+Sheaf}; specifically, when considering double (or any n\texorpdfstring{$>$}{>}1) spherical twists, there are always triangles that the twist will fit into that are not necessarily the defining triangle and can be obtained by applying the twist functor to the defining triangle of the individual twists --- such triangles will often involve the sum of shifts of spherical twists, so we need an implementation for keeping track of such objects in a single argument of the \doxylink{namespacesrc_1_1_distinguished_triangle}{Distinguished\+Triangle}. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist}{src.\+Spherical\+Twist.\+Double\+Spherical\+Twist}}
+\begin{DoxyCompactList}\small\item\em A class to represent the composition of successive spherical twists applied to a line bundle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacesrc}{src}}
+\item 
+namespace \mbox{\hyperlink{namespacesrc_1_1_spherical_twist}{src.\+Spherical\+Twist}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a1c38ced9519f6b38d31ba2b21e85bf0d}{src.\+Spherical\+Twist.\+\_\+dim\+Hom\+\_\+\+Line\+Bundles}} (\mbox{\hyperlink{namespacesrc_1_1_local_p2_a43573e56e18e52559a2d31128936f558}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{namespacesrc_1_1_local_p2_ae9dd2ce41559bc7d27aeebcd188761d1}{line\+\_\+bundle\+\_\+2}}, degree\+\_\+\+K3=1)
+\begin{DoxyCompactList}\small\item\em General helper method to compute the dimension of the Hom spaces between two line bundles (or pushforwards of line bundles, in the local Projectiv space case). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_adcd60e481039de6c60d8a2d37f5c63c9}{src.\+Spherical\+Twist.\+\_\+dim\+Hom\+\_\+\+Line\+Bundles\+P1}} (\mbox{\hyperlink{namespacesrc_1_1_local_p2_a43573e56e18e52559a2d31128936f558}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{namespacesrc_1_1_local_p2_ae9dd2ce41559bc7d27aeebcd188761d1}{line\+\_\+bundle\+\_\+2}})
+\begin{DoxyCompactList}\small\item\em Helper method which computes the dimension of the hom spaces between the pushforwards of the line bundles O(a) and O(b). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_aff5a06c58e0e3b1d744af87d52053c4f}{src.\+Spherical\+Twist.\+\_\+dim\+Hom\+\_\+\+Line\+Bundles\+P2}} (\mbox{\hyperlink{namespacesrc_1_1_local_p2_a43573e56e18e52559a2d31128936f558}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{namespacesrc_1_1_local_p2_ae9dd2ce41559bc7d27aeebcd188761d1}{line\+\_\+bundle\+\_\+2}})
+\begin{DoxyCompactList}\small\item\em Helper method which computes the dimension of the hom spaces between the pushforwards of the line bundles O(a) and O(b). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_ad116867ac212aa843b4e6d6051436472}{src.\+Spherical\+Twist.\+\_\+dim\+Hom\+\_\+\+Line\+Bundles\+K3}} (\mbox{\hyperlink{namespacesrc_1_1_local_p2_a43573e56e18e52559a2d31128936f558}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{namespacesrc_1_1_local_p2_ae9dd2ce41559bc7d27aeebcd188761d1}{line\+\_\+bundle\+\_\+2}}, degree\+\_\+\+K3)
+\begin{DoxyCompactList}\small\item\em Helper method which computes the dimension of the hom spaces between line bundles on a degree d K3 surface. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a8d4c5f90a3a32982ba929fae740b1736}{src.\+Spherical\+Twist.\+\_\+dim\+Hom\+\_\+\+Line\+\_\+and\+\_\+\+Single\+Twist}} (\mbox{\hyperlink{namespacesrc_1_1_local_p2_a43573e56e18e52559a2d31128936f558}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{namespacesrc_1_1_local_p2_ae9dd2ce41559bc7d27aeebcd188761d1}{line\+\_\+bundle\+\_\+2}}, line\+\_\+bundle\+\_\+3, degree\+\_\+\+K3)
+\begin{DoxyCompactList}\small\item\em Helper method which computes the dimension of the hom spaces between a line bundle and a single spherical twist of line bundles. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_ace1a7dca89c709b900186dca644a49da}{src.\+Spherical\+Twist.\+\_\+dim\+Hom\+\_\+\+Line\+\_\+and\+\_\+\+Single\+Twist\+K3}} (\mbox{\hyperlink{namespacesrc_1_1_local_p2_a43573e56e18e52559a2d31128936f558}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{namespacesrc_1_1_local_p2_ae9dd2ce41559bc7d27aeebcd188761d1}{line\+\_\+bundle\+\_\+2}}, line\+\_\+bundle\+\_\+3, degree\+\_\+\+K3)
+\begin{DoxyCompactList}\small\item\em Helper function which computes the dimensions of the derived hom spaces between a line bundle and a spherical twist of line bundles; that is, this function computes the dimensions of. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+list \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a6adb5f1c02cdb6c62340a1e45e5c1f3c}{src.\+Spherical\+Twist.\+\_\+\+\_\+\+CURRENT\+\_\+\+DOUBLE\+\_\+\+TWIST\+\_\+\+IMPLEMENTED\+\_\+\+\_\+}} = \mbox{[}\textquotesingle{}\mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ae24dbe6f91328befda2836d4a4b311b7}{K3}}\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_ad60fa80652e6ca4ef6c6cb8658f23e19}{src.\+Spherical\+Twist.\+lb6}} = \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}}(1, catagory=\textquotesingle{}\mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ae24dbe6f91328befda2836d4a4b311b7}{K3}}\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a551e481eec0d20b002128676f68ea940}{src.\+Spherical\+Twist.\+lb7}} = \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}}(2, catagory=\textquotesingle{}\mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ae24dbe6f91328befda2836d4a4b311b7}{K3}}\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a55f6d2af3496d6d3f2e1b82dfe628dc2}{src.\+Spherical\+Twist.\+lb8}} = \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}}(4, catagory=\textquotesingle{}\mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ae24dbe6f91328befda2836d4a4b311b7}{K3}}\textquotesingle{})
+\item 
+int \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a057fe29da15b1472a927881b6dbcba3d}{src.\+Spherical\+Twist.\+K3\+\_\+deg}} = 1
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a4c6ca7b43f9daf9a902a7d8cbf03b44e}{src.\+Spherical\+Twist.\+sph4}} = \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist}{Double\+Spherical\+Twist}}(\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_ad60fa80652e6ca4ef6c6cb8658f23e19}{lb6}}, \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a551e481eec0d20b002128676f68ea940}{lb7}}, \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a55f6d2af3496d6d3f2e1b82dfe628dc2}{lb8}}, \mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ada9e2125f4ff45cabe142cf18d906fad}{degree}}=\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a057fe29da15b1472a927881b6dbcba3d}{K3\+\_\+deg}})
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a689a91ee93ec6b6371ea8daacb0bb3ac}{src.\+Spherical\+Twist.\+x\+\_\+vals}} = np.\+linspace(-\/5, 11.\+10, 200)
+\item 
+list \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a711446b175a82fb756eefac305b42428}{src.\+Spherical\+Twist.\+y\+\_\+vals}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_ac2c121df4f006e959c856d7d64130240}{src.\+Spherical\+Twist.\+y\+\_\+range}} = np.\+linspace(0, 5, 100)
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_ad2b4eeebd6eb183d13666ec15fdb6634}{src.\+Spherical\+Twist.\+masses}} = np.\+array(\mbox{[}sph4.\+mass(x, y, \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a057fe29da15b1472a927881b6dbcba3d}{K3\+\_\+deg}}) for x, y in zip(\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a689a91ee93ec6b6371ea8daacb0bb3ac}{x\+\_\+vals}}, \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a711446b175a82fb756eefac305b42428}{y\+\_\+vals}})\mbox{]})
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a0019d0dc829ecd5586a727b073225b34}{src.\+Spherical\+Twist.\+fig}}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a702de543b542d8cbccd91cf7eed902ff}{src.\+Spherical\+Twist.\+scene}}
+\end{DoxyCompactItemize}

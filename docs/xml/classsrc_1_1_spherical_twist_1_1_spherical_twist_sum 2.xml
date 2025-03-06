@@ -1,0 +1,651 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum" kind="class" language="Python" prot="public">
+    <compoundname>src::SphericalTwist::SphericalTwistSum</compoundname>
+    <basecompoundref refid="classsrc_1_1_derived_category_object_1_1_derived_category_object" prot="public" virt="non-virtual">src.DerivedCategoryObject.DerivedCategoryObject</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a61524245ad81c4cb0243879e24c22ba4" prot="public" static="no" mutable="no">
+        <type>list</type>
+        <definition>src.SphericalTwist.SphericalTwistSum::line_bundle_pairs_vector</definition>
+        <argsstring></argsstring>
+        <name>line_bundle_pairs_vector</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwistSum.line_bundle_pairs_vector</qualifiedname>
+        <initializer>=  line_bundle_pairs_vector</initializer>
+        <briefdescription>
+<para>A list of tuples where each tuple is a pair of line bundles (lb1, lb2) that the spherical twist is defined around. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="644" column="1" bodyfile="src/SphericalTwist.py" bodystart="644" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a7535200f2ff52e1d73c6b6e025515efb" prot="public" static="no" mutable="no">
+        <type>list</type>
+        <definition>src.SphericalTwist.SphericalTwistSum::dimension_vector</definition>
+        <argsstring></argsstring>
+        <name>dimension_vector</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwistSum.dimension_vector</qualifiedname>
+        <initializer>=  dimension_vector</initializer>
+        <briefdescription>
+<para>A list of non-negative integers representing the number of times each spherical twist is applied. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="646" column="1" bodyfile="src/SphericalTwist.py" bodystart="646" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1adba9836083c0ee5b2654eeb970065315" prot="public" static="no" mutable="no">
+        <type>list</type>
+        <definition>src.SphericalTwist.SphericalTwistSum::shift_vector</definition>
+        <argsstring></argsstring>
+        <name>shift_vector</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwistSum.shift_vector</qualifiedname>
+        <initializer>=  shift_vector</initializer>
+        <briefdescription>
+<para>A list of integers representing the shift of each spherical twist. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="648" column="1" bodyfile="src/SphericalTwist.py" bodystart="648" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1ab432f436cbc2f95ba86aadfe8dba6a17" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwistSum::degree</definition>
+        <argsstring></argsstring>
+        <name>degree</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwistSum.degree</qualifiedname>
+        <initializer>=  degree</initializer>
+        <briefdescription>
+<para>An optional argument for the degree of the K3 surface, if applicable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="650" column="1" bodyfile="src/SphericalTwist.py" bodystart="650" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1aa25c589a6642867e6a6fd9beed0e0f51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwistSum.__init__</definition>
+        <argsstring>(self, line_bundle_pairs_vector, dimension_vector, shift_vector, degree=1)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwistSum.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a61524245ad81c4cb0243879e24c22ba4" kindref="member">line_bundle_pairs_vector</ref></type>
+          <defname>line_bundle_pairs_vector</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a7535200f2ff52e1d73c6b6e025515efb" kindref="member">dimension_vector</ref></type>
+          <defname>dimension_vector</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1adba9836083c0ee5b2654eeb970065315" kindref="member">shift_vector</ref></type>
+          <defname>shift_vector</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1ab432f436cbc2f95ba86aadfe8dba6a17" kindref="member">degree</ref></type>
+          <defname>degree</defname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>Initialize an instance of <ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum" kindref="compound">SphericalTwistSum</ref> with the specified line bundles. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This class is used to represent objects of the form</para>
+<para>Tw_{a_1} O(b_1)^{n_1}[s_1] ⊕ Tw_{a_2} O(b_2)^{n_2}[s_2]}</para>
+<para>where the spherical twists are defined as the cone of the evaluation morphism <verbatim>Hom(O(a), O(b)) ⊗ O(a) ----&gt;  O(b) ----&gt; Tw_a O(b)
+</verbatim></para>
+<para>This class is primarily used for <ref refid="classsrc_1_1_spherical_twist_1_1_double_spherical_twist" kindref="compound">DoubleSphericalTwist</ref>, since the second canonical triangle will often be a sum of spherical twists.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_pairs_vector: A list of tuples where each tuple is a pair of line bundles (lb1, lb2) that the spherical twist is defined </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimension_vector A list of non-negative integers representing the number of times each spherical twist is applied </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>shift_vector A list of integers representing the shift of each spherical twist </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>degree An optional argument for the degree of the variety, which is relevant to the dimension of the derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations. Default is 1.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_pairs_vector is not a list of tuples </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If dimension_vector is not a list of integers </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If shift_vector is not a list of integers </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_pairs_vector is not a list of tuples with exactly two elements </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_pairs_vector is not a list of tuples where both objects are line bundles </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If dimension_vector is not a list of non-negative integers </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_pairs_vector, dimension_vector, and shift_vector do not have the same length </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_pairs_vector is empty </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="584" column="1" bodyfile="src/SphericalTwist.py" bodystart="584" bodyend="657"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a80aae608c3ab615866e4440c35ed2c27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwistSum.__str__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__str__</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwistSum.__str__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Returns a string representation of the spherical twist by printing the defining triangle. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The string representation is similar to that of the chain complex, where 2 lines are printed. The first line contains the number of times the spherical twist is applied, and the second line contains the actual twist. For example, the string representation of a spherical twist sum given by the data [(O(1), O(1)), [3], [-2]] would be <verbatim>⊕3
+</verbatim> Tw_1 O(1)[-2]</para>
+<para><simplesect kind="return"><para>str A string representation of the spherical twist sum </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="658" column="1" bodyfile="src/SphericalTwist.py" bodystart="658" bodyend="710"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a1e6a63a1cccf6359d289a508ec85d23d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwistSum.__len__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__len__</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwistSum.__len__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Returns the number of distinct spherical twists in the sum; we should generally expect that the spherical twists are distinct since the constructor should hypothetically combine like terms. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This method is primarily used in the <ref refid="classsrc_1_1_spherical_twist_1_1_double_spherical_twist_1ae8b0a91cede767ce6188b18686b431c0" kindref="member">DoubleSphericalTwist.get_HN_factors</ref> method to help determine edge cases.</para>
+<para><simplesect kind="return"><para>int The number of distinct spherical twists in the sum </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="711" column="1" bodyfile="src/SphericalTwist.py" bodystart="711" bodyend="723"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a513a0c494fb9c82fa3545f8c8fdb3587" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwistSum.chernCharacter</definition>
+        <argsstring>(self)</argsstring>
+        <name>chernCharacter</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwistSum.chernCharacter</qualifiedname>
+        <reimplements refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a1f4aac18056360d11918b709dc341937">chernCharacter</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Similar to the case of <ref refid="namespacesrc_1_1_chain_complex" kindref="compound">ChainComplex</ref>, since the Chern character is additive on exact sequences (i.e. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>factors through the Grothendieck group), we may always find the Chern character of an object obtained by sums and twists of known objects. In this case, we simply rely on the implementation of the above <ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist" kindref="compound">SphericalTwist</ref> class.</para>
+<para><simplesect kind="return"><para><ref refid="namespacesrc_1_1_chern_character" kindref="compound">ChernCharacter</ref> The Chern Character of the spherical twist sum </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="724" column="1" bodyfile="src/SphericalTwist.py" bodystart="724" bodyend="743"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1ad3caf5216dee2ed1482c9494632cca7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwistSum.shift</definition>
+        <argsstring>(self, n)</argsstring>
+        <name>shift</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwistSum.shift</qualifiedname>
+        <reimplements refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a6c1dfa5772ffeae4bf5f1e6a7a2de496">shift</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>n</type>
+          <defname>n</defname>
+        </param>
+        <briefdescription>
+<para>Cohomological shift of the complex by some fixed amount. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is one of the main methods one wishes to override for the <ref refid="namespacesrc_1_1_derived_category_object" kindref="compound">DerivedCategoryObject</ref> class, since the shift of a spherical twist sum is simply the sum of the shifts of the individual spherical twists.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>n The amount to shift the complex by <linebreak/>
+</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum" kindref="compound">SphericalTwistSum</ref> The shifted spherical twist sum </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="744" column="1" bodyfile="src/SphericalTwist.py" bodystart="744" bodyend="759"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1ac0d03e78d54ff92408bfc5cd26722e23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwistSum.central_charge</definition>
+        <argsstring>(self, *args)</argsstring>
+        <name>central_charge</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwistSum.central_charge</qualifiedname>
+        <reimplements refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a181bcb14152a914997c7990b33b51c18">central_charge</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+<para>Method to compute the central charge of the spherical twist sum. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Since all stability conditions are numerical for our current implementations, it suffices to compute the central charge of the Chern character</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>complex The central charge of the spherical twist sum as a complex number</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the args are not of the correct type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the number of args is incorrect </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NotImplementedError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the catagory of the object is not P1, P2, or K3 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="760" column="1" bodyfile="src/SphericalTwist.py" bodystart="760" bodyend="804"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a758bd9107244490ffbef06a73a6c6da2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwistSum.get_lowest_shift_component</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_lowest_shift_component</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwistSum.get_lowest_shift_component</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Similar to the <ref refid="namespacesrc_1_1_chain_complex" kindref="compound">ChainComplex</ref> class, we wish to recover the lowest shift component of the spherical twist sum. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is useful for computing the Harder-Narasimhan factors of the DoubleSphericalTwistSum class.</para>
+<para><simplesect kind="return"><para><ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum" kindref="compound">SphericalTwistSum</ref> The spherical twist sum with the lowest shift </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="805" column="1" bodyfile="src/SphericalTwist.py" bodystart="805" bodyend="824"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a01c65f64d5c0c516d01310a1c69b6138" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwistSum.get_highest_shift_component</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_highest_shift_component</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwistSum.get_highest_shift_component</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Similar to the <ref refid="namespacesrc_1_1_chain_complex" kindref="compound">ChainComplex</ref> class, we wish to recover the highest shift component of the spherical twist sum. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is useful for computing the Harder-Narasimhan factors of the DoubleSphericalTwistSum class.</para>
+<para><simplesect kind="return"><para><ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum" kindref="compound">SphericalTwistSum</ref> The spherical twist sum with the highest shift </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="825" column="1" bodyfile="src/SphericalTwist.py" bodystart="825" bodyend="844"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a1e49845a4668418bb7cd17c463709223" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwistSum.is_semistable</definition>
+        <argsstring>(self, *args)</argsstring>
+        <name>is_semistable</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwistSum.is_semistable</qualifiedname>
+        <reimplements refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a95bc29833249e58a920c3454110125d2">is_semistable</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+<para>Method to check if the spherical twist sum is stable. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The sum of shifts of distinct objects will generally never be stable unless the objects and shifts are all the same; for example, one can consider the trivial case where E is a stable object, but</para>
+<para>E[1] ---&gt; E[1] ⊕ E ---&gt; E</para>
+<para>destabilizes the direct sum. In general, the spherical twist sum is stable if the Harder-Narasimhan filtration is trivial, i.e. just the object itself.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>bool True if the spherical twist sum is stable, False otherwise</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the args are not of the correct type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the number of args is incorrect </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NotImplementedError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the catagory of the object is not P1, P2, or K3 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="845" column="1" bodyfile="src/SphericalTwist.py" bodystart="845" bodyend="890"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1abe5b73ad2b84669fc3378f5b5cf9832b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwistSum.get_HN_factors_ordered</definition>
+        <argsstring>(self, *args)</argsstring>
+        <name>get_HN_factors_ordered</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwistSum.get_HN_factors_ordered</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+<para>This is a slightly modified version of the get_HN_factors method, where the Harder-Narasimhan factors are ordered by phase. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>In particular, this method is a slight misnomer in the sense that it is not actually claiming that the list returned is the HN filtration of the object, but rather a concatenated list of all the individual semistable factors. This is still nonetheless useful for computing the HN factors of the DoubleSphericalTwistSum class.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A list of tuples where the first element is a <ref refid="namespacesrc_1_1_derived_category_object" kindref="compound">DerivedCategoryObject</ref> and the second element is a float representing the phase of the object. The list is always returned in such a way that the largest phase HN factor is first and smallest is last.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the args are not of the correct type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the number of args is incorrect </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NotImplementedError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the catagory of the object is not P1, P2, or K3 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="891" column="1" bodyfile="src/SphericalTwist.py" bodystart="891" bodyend="955"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1ab026588657f8e7942142d524f21af97b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwistSum._remove_zeros_from_dimension_vector</definition>
+        <argsstring>(self)</argsstring>
+        <name>_remove_zeros_from_dimension_vector</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwistSum._remove_zeros_from_dimension_vector</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Helper function which iterates through the dimension vector, and if a certain Coherent sheaf is only included 0 times, we may effectively erase it. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="956" column="1" bodyfile="src/SphericalTwist.py" bodystart="956" bodyend="966"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1ac200ed6fbce84c005d2afb81a6e7c1d3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwistSum._combine_repeats</definition>
+        <argsstring>(self)</argsstring>
+        <name>_combine_repeats</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwistSum._combine_repeats</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Helper function to combine repeated sheaves in the complex. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is useful for simplifying the complex, as we can combine repeated sheaves into a single sheaf with a larger dimension. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="967" column="1" bodyfile="src/SphericalTwist.py" bodystart="967" bodyend="1003"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>This class acts similar to the <ref refid="namespacesrc_1_1_chain_complex" kindref="compound">ChainComplex</ref> class for <ref refid="namespacesrc_1_1_coherent_sheaf" kindref="compound">CoherentSheaf</ref>; specifically, when considering double (or any n&gt;1) spherical twists, there are always triangles that the twist will fit into that are not necessarily the defining triangle and can be obtained by applying the twist functor to the defining triangle of the individual twists <mdash/> such triangles will often involve the sum of shifts of spherical twists, so we need an implementation for keeping track of such objects in a single argument of the <ref refid="namespacesrc_1_1_distinguished_triangle" kindref="compound">DistinguishedTriangle</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>For successive spherical twist applications, this entire procedure will likely need to be generalized since it is inefficient to encode DoubleSphericalTwistSum, TripeSphericalTwistSum, etc. as separate classes. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>src.SphericalTwist.SphericalTwistSum</label>
+        <link refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src.DerivedCategoryObject.DerivedCategoryObject</label>
+        <link refid="classsrc_1_1_derived_category_object_1_1_derived_category_object"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>src.SphericalTwist.SphericalTwistSum</label>
+        <link refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src.DerivedCategoryObject.DerivedCategoryObject</label>
+        <link refid="classsrc_1_1_derived_category_object_1_1_derived_category_object"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/SphericalTwist.py" line="570" column="1" bodyfile="src/SphericalTwist.py" bodystart="570" bodyend="1003"/>
+    <listofallmembers>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1aa25c589a6642867e6a6fd9beed0e0f51" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>__init__</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a1e6a63a1cccf6359d289a508ec85d23d" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>__len__</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a80aae608c3ab615866e4440c35ed2c27" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>__str__</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1ac200ed6fbce84c005d2afb81a6e7c1d3" prot="protected" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>_combine_repeats</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1ab026588657f8e7942142d524f21af97b" prot="protected" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>_remove_zeros_from_dimension_vector</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a244258a02691a74e0787cf277c5935c5" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>catagory</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1ac0d03e78d54ff92408bfc5cd26722e23" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>central_charge</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a111bf62635e3a204488ca33689d296e6" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>chern_character</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a513a0c494fb9c82fa3545f8c8fdb3587" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>chernCharacter</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1ab432f436cbc2f95ba86aadfe8dba6a17" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>degree</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a7535200f2ff52e1d73c6b6e025515efb" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>dimension_vector</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a01c65f64d5c0c516d01310a1c69b6138" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>get_highest_shift_component</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1abe5b73ad2b84669fc3378f5b5cf9832b" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>get_HN_factors_ordered</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a758bd9107244490ffbef06a73a6c6da2" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>get_lowest_shift_component</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a1e49845a4668418bb7cd17c463709223" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>is_semistable</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a61524245ad81c4cb0243879e24c22ba4" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>line_bundle_pairs_vector</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1ad3caf5216dee2ed1482c9494632cca7f" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>shift</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1adba9836083c0ee5b2654eeb970065315" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>shift_vector</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1ab7174b1273139ac7d0c2bc6f7c4d1789" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>string</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a9ffd63e97c717dd171b7d1c7ef26e16d" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>update_string_by_shift</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,569 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="classsrc_1_1_chern_character_1_1_chern_character" kind="class" language="Python" prot="public">
+    <compoundname>src::ChernCharacter::ChernCharacter</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classsrc_1_1_chern_character_1_1_chern_character_1a2fc8384e7523d58bfef9daea2663d9d9" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.ChernCharacter.ChernCharacter::graded_element</definition>
+        <argsstring></argsstring>
+        <name>graded_element</name>
+        <qualifiedname>src.ChernCharacter.ChernCharacter.graded_element</qualifiedname>
+        <initializer>=  np.array(graded_element)</initializer>
+        <briefdescription>
+<para>Chern Characters stored as numpy array for quick computations. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChernCharacter.py" line="56" column="1" bodyfile="src/ChernCharacter.py" bodystart="56" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1a21c3d3a3f6bdd7bae5e10d786c67bcc3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChernCharacter.ChernCharacter.__init__</definition>
+        <argsstring>(self, graded_element)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>src.ChernCharacter.ChernCharacter.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_chern_character_1_1_chern_character_1a2fc8384e7523d58bfef9daea2663d9d9" kindref="member">graded_element</ref></type>
+          <defname>graded_element</defname>
+        </param>
+        <briefdescription>
+<para>Initialize a Chern Character object with the specified graded element. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The graded element should be a list of floats or integers, representing the Chern character of a coherent sheaf or vector bundle. Since Chern characters are additive on exact sequences, this allows us to also consider Chern characters of complexes of coherent sheaves.</para>
+<para>In order to allow for quick computations, the graded element is stored as a numpy array.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>graded_element A list of floats or integers representing the Chern character of a coherent sheaf or vector bundle. Theoretically this value should be rational, but this is not enforced in the class due to the additional complexity of enforcing this constraint.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the graded element is not a list of floats or integers </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChernCharacter.py" line="33" column="1" bodyfile="src/ChernCharacter.py" bodystart="33" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1a7d054c5d0019e163f87efe8b8f36d670" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChernCharacter.ChernCharacter.__add__</definition>
+        <argsstring>(self, other)</argsstring>
+        <name>__add__</name>
+        <qualifiedname>src.ChernCharacter.ChernCharacter.__add__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>other</type>
+          <defname>other</defname>
+        </param>
+        <briefdescription>
+<para>Add two Chern Character objects together. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The Chern Character objects must have the same length in order to add them together. Since the addition of numpy vectors is already defined, this method simply calls the addition of the numpy arrays.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_chern_character_1_1_chern_character" kindref="compound">ChernCharacter</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>other The Chern Character object to add to the current Chern Character object</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classsrc_1_1_chern_character_1_1_chern_character" kindref="compound">ChernCharacter</ref> The sum of the two Chern Character objects, which is simply the element-wise sum of the graded elements</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If other is not a <ref refid="classsrc_1_1_chern_character_1_1_chern_character" kindref="compound">ChernCharacter</ref> object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the Chern Character objects do not have the same length </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChernCharacter.py" line="58" column="1" bodyfile="src/ChernCharacter.py" bodystart="58" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1aae8f368443f6dbecc24f447177af0699" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChernCharacter.ChernCharacter.__sub__</definition>
+        <argsstring>(self, other)</argsstring>
+        <name>__sub__</name>
+        <qualifiedname>src.ChernCharacter.ChernCharacter.__sub__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>other</type>
+          <defname>other</defname>
+        </param>
+        <briefdescription>
+<para>Subtract two Chern Character objects together. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The Chern Character objects must have the same length in order to subtract them. Since the subtraction of numpy vectors is already defined, this method simply calls the subtraction of the numpy arrays.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_chern_character_1_1_chern_character" kindref="compound">ChernCharacter</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>other The Chern Character object to subtract from the current Chern Character object</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classsrc_1_1_chern_character_1_1_chern_character" kindref="compound">ChernCharacter</ref> The difference of the two Chern Character objects, which is simply the element-wise difference of the graded elements</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If other is not a <ref refid="classsrc_1_1_chern_character_1_1_chern_character" kindref="compound">ChernCharacter</ref> object</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the Chern Character objects do not have the same length </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChernCharacter.py" line="79" column="1" bodyfile="src/ChernCharacter.py" bodystart="79" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1a27eb6a2909ed50cb45bbbb1baeb34093" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChernCharacter.ChernCharacter.__mul__</definition>
+        <argsstring>(self, scalar)</argsstring>
+        <name>__mul__</name>
+        <qualifiedname>src.ChernCharacter.ChernCharacter.__mul__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>scalar</type>
+          <defname>scalar</defname>
+        </param>
+        <briefdescription>
+<para>Multiply the Chern Character object by a scalar. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The scalar must be an integer, as the Chern Character is a graded object. Since the multiplication of numpy vectors is already defined, this method simply calls the multiplication of the numpy array by the scalar.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>scalar The integer to multiply the Chern Character object by</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classsrc_1_1_chern_character_1_1_chern_character" kindref="compound">ChernCharacter</ref> The Chern Character object multiplied by the scalar. This is simply the element-wise multiplication of the graded element by the scalar</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If scalar is not an integer </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChernCharacter.py" line="101" column="1" bodyfile="src/ChernCharacter.py" bodystart="101" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1a9b357c2038dd0b702e5f4760ec005335" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChernCharacter.ChernCharacter.__rmul__</definition>
+        <argsstring>(self, scalar)</argsstring>
+        <name>__rmul__</name>
+        <qualifiedname>src.ChernCharacter.ChernCharacter.__rmul__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>scalar</type>
+          <defname>scalar</defname>
+        </param>
+        <briefdescription>
+<para>This is effectively the same as the <bold>mul</bold> method, though allows for the scalar to be on the left side of the multiplication. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>scalar The integer to multiply the Chern Character object by</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classsrc_1_1_chern_character_1_1_chern_character" kindref="compound">ChernCharacter</ref> The Chern Character object multiplied by the scalar. This is simply the element-wise multiplication of the graded element by the scalar</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If scalar is not an integer </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChernCharacter.py" line="119" column="1" bodyfile="src/ChernCharacter.py" bodystart="119" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1ab63c86b4f057004e4f6ba4d06c6ec1ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChernCharacter.ChernCharacter.__eq__</definition>
+        <argsstring>(self, other)</argsstring>
+        <name>__eq__</name>
+        <qualifiedname>src.ChernCharacter.ChernCharacter.__eq__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>other</type>
+          <defname>other</defname>
+        </param>
+        <briefdescription>
+<para>Check if two Chern Character objects are equal. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The Chern Character objects are equal if their graded elements are equal.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_chern_character_1_1_chern_character" kindref="compound">ChernCharacter</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>other The Chern Character object to compare to the current Chern Character object</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>bool True if the Chern Character objects are equal, False otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChernCharacter.py" line="137" column="1" bodyfile="src/ChernCharacter.py" bodystart="137" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1a9200a8d0f53ce3cad287ba1f12919a92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChernCharacter.ChernCharacter.__str__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__str__</name>
+        <qualifiedname>src.ChernCharacter.ChernCharacter.__str__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>String representation of the Chern Character object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is simply the string representation of the numpy array, formatted as</para>
+<para>&lt;a_0, a_1, ..., a_n&gt;</para>
+<para>where a_i are the elements of the Chern Character object.</para>
+<para><simplesect kind="return"><para>str A string representation of the Chern Character object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChernCharacter.py" line="155" column="1" bodyfile="src/ChernCharacter.py" bodystart="155" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1a35932f383b0dccdf1bd84046bac2adb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChernCharacter.ChernCharacter.__getitem__</definition>
+        <argsstring>(self, key)</argsstring>
+        <name>__getitem__</name>
+        <qualifiedname>src.ChernCharacter.ChernCharacter.__getitem__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>key</type>
+          <defname>key</defname>
+        </param>
+        <briefdescription>
+<para>Allow for indexing of the Chern Character object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is simply a pass-through to the numpy array.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>key The index of the Chern Character object to retrieve</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>float The value of the Chern Character object at the specified index</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If key is not an integer </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChernCharacter.py" line="171" column="1" bodyfile="src/ChernCharacter.py" bodystart="171" bodyend="186"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1a6b52d37e0c59801236e0d49f5fa8ea03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChernCharacter.ChernCharacter.__len__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__len__</name>
+        <qualifiedname>src.ChernCharacter.ChernCharacter.__len__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Return the length of the Chern Character object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is simply the length of the numpy array.</para>
+<para><simplesect kind="return"><para>int The length of the Chern Character object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChernCharacter.py" line="187" column="1" bodyfile="src/ChernCharacter.py" bodystart="187" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1a73daa8575d8035a236c1d5fdc576465f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChernCharacter.ChernCharacter.__iter__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__iter__</name>
+        <qualifiedname>src.ChernCharacter.ChernCharacter.__iter__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Allow for iteration over the Chern Character object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is simply a pass-through to the numpy array.</para>
+<para><simplesect kind="return"><para>iter An iterator over the Chern Character object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChernCharacter.py" line="196" column="1" bodyfile="src/ChernCharacter.py" bodystart="196" bodyend="203"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1abdf7bff7656f24ffb121a0fc7a39c883" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChernCharacter.ChernCharacter.__reversed__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__reversed__</name>
+        <qualifiedname>src.ChernCharacter.ChernCharacter.__reversed__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Return the reversed Chern Character object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is simply a pass-through to the numpy array.</para>
+<para><simplesect kind="return"><para>reversed The reversed Chern Character object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChernCharacter.py" line="204" column="1" bodyfile="src/ChernCharacter.py" bodystart="204" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1a812cb5e194bb0e1c2d6c91404cc07a0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChernCharacter.ChernCharacter.__contains__</definition>
+        <argsstring>(self, item)</argsstring>
+        <name>__contains__</name>
+        <qualifiedname>src.ChernCharacter.ChernCharacter.__contains__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>item</type>
+          <defname>item</defname>
+        </param>
+        <briefdescription>
+<para>Check if an item is in the Chern Character object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is simply a pass-through to the numpy array.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>item</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>float The item to check if it is in the Chern Character object</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>bool True if the item is in the Chern Character object, False otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChernCharacter.py" line="212" column="1" bodyfile="src/ChernCharacter.py" bodystart="212" bodyend="223"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1ad311df0e62323369f3e7e359e5959fcc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChernCharacter.ChernCharacter.__setitem__</definition>
+        <argsstring>(self, key, value)</argsstring>
+        <name>__setitem__</name>
+        <qualifiedname>src.ChernCharacter.ChernCharacter.__setitem__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>key</type>
+          <defname>key</defname>
+        </param>
+        <param>
+          <type>value</type>
+          <defname>value</defname>
+        </param>
+        <briefdescription>
+<para>Allow for setting the value of an index in the Chern Character object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is simply a pass-through to the numpy array.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>key The index of the Chern Character object to set</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>float</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value The value to set the Chern Character object at the specified index</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If key is not an integer </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If value is not a number </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChernCharacter.py" line="224" column="1" bodyfile="src/ChernCharacter.py" bodystart="224" bodyend="249"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Generic parent class for the chern character. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>                                                                        #
+                      Numerical Characters                              #
+</verbatim> -------------------------------------------------------------------------<mdash/># These objects are used to represent Chern classes of coherent sheaves / # vector bundles / line bundles, as well as more abstract constructions # in the derived category of coherent sheaves on some variety. As most # stability conditions will be numerical stability conditions, they will # only rely on the information of Chern characters as opposed to more # arbitrary geometric data. # #</para>
+<para>Chern characters should operate like lists of floating point numbers, since they are graded objects concentrated in degrees going from 0 to the dimension of the variety.</para>
+<sect1 id="classsrc_1_1_chern_character_1_1_chern_character_1autotoc_md1_1s1"><sect2 id="classsrc_1_1_chern_character_1_1_chern_character_1autotoc_md1">
+<title>Attributes:</title><para><verbatim>graded_element (np.array): The graded element of the Chern Character object. This is a numpy array of floats or integers
+</verbatim> </para>
+</sect2></sect1>
+    </detaileddescription>
+    <location file="src/ChernCharacter.py" line="20" column="1" bodyfile="src/ChernCharacter.py" bodystart="20" bodyend="249"/>
+    <listofallmembers>
+      <member refid="classsrc_1_1_chern_character_1_1_chern_character_1a7d054c5d0019e163f87efe8b8f36d670" prot="public" virt="non-virtual"><scope>src::ChernCharacter::ChernCharacter</scope><name>__add__</name></member>
+      <member refid="classsrc_1_1_chern_character_1_1_chern_character_1a812cb5e194bb0e1c2d6c91404cc07a0b" prot="public" virt="non-virtual"><scope>src::ChernCharacter::ChernCharacter</scope><name>__contains__</name></member>
+      <member refid="classsrc_1_1_chern_character_1_1_chern_character_1ab63c86b4f057004e4f6ba4d06c6ec1ea" prot="public" virt="non-virtual"><scope>src::ChernCharacter::ChernCharacter</scope><name>__eq__</name></member>
+      <member refid="classsrc_1_1_chern_character_1_1_chern_character_1a35932f383b0dccdf1bd84046bac2adb0" prot="public" virt="non-virtual"><scope>src::ChernCharacter::ChernCharacter</scope><name>__getitem__</name></member>
+      <member refid="classsrc_1_1_chern_character_1_1_chern_character_1a21c3d3a3f6bdd7bae5e10d786c67bcc3" prot="public" virt="non-virtual"><scope>src::ChernCharacter::ChernCharacter</scope><name>__init__</name></member>
+      <member refid="classsrc_1_1_chern_character_1_1_chern_character_1a73daa8575d8035a236c1d5fdc576465f" prot="public" virt="non-virtual"><scope>src::ChernCharacter::ChernCharacter</scope><name>__iter__</name></member>
+      <member refid="classsrc_1_1_chern_character_1_1_chern_character_1a6b52d37e0c59801236e0d49f5fa8ea03" prot="public" virt="non-virtual"><scope>src::ChernCharacter::ChernCharacter</scope><name>__len__</name></member>
+      <member refid="classsrc_1_1_chern_character_1_1_chern_character_1a27eb6a2909ed50cb45bbbb1baeb34093" prot="public" virt="non-virtual"><scope>src::ChernCharacter::ChernCharacter</scope><name>__mul__</name></member>
+      <member refid="classsrc_1_1_chern_character_1_1_chern_character_1abdf7bff7656f24ffb121a0fc7a39c883" prot="public" virt="non-virtual"><scope>src::ChernCharacter::ChernCharacter</scope><name>__reversed__</name></member>
+      <member refid="classsrc_1_1_chern_character_1_1_chern_character_1a9b357c2038dd0b702e5f4760ec005335" prot="public" virt="non-virtual"><scope>src::ChernCharacter::ChernCharacter</scope><name>__rmul__</name></member>
+      <member refid="classsrc_1_1_chern_character_1_1_chern_character_1ad311df0e62323369f3e7e359e5959fcc" prot="public" virt="non-virtual"><scope>src::ChernCharacter::ChernCharacter</scope><name>__setitem__</name></member>
+      <member refid="classsrc_1_1_chern_character_1_1_chern_character_1a9200a8d0f53ce3cad287ba1f12919a92" prot="public" virt="non-virtual"><scope>src::ChernCharacter::ChernCharacter</scope><name>__str__</name></member>
+      <member refid="classsrc_1_1_chern_character_1_1_chern_character_1aae8f368443f6dbecc24f447177af0699" prot="public" virt="non-virtual"><scope>src::ChernCharacter::ChernCharacter</scope><name>__sub__</name></member>
+      <member refid="classsrc_1_1_chern_character_1_1_chern_character_1a2fc8384e7523d58bfef9daea2663d9d9" prot="public" virt="non-virtual"><scope>src::ChernCharacter::ChernCharacter</scope><name>graded_element</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

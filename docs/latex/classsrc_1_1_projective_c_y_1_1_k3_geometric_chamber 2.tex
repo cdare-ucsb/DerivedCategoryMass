@@ -1,0 +1,178 @@
+\doxysection{src.\+Projective\+CY.\+K3\+Geometric\+Chamber Class Reference}
+\hypertarget{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber}{}\label{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber}\index{src.ProjectiveCY.K3GeometricChamber@{src.ProjectiveCY.K3GeometricChamber}}
+
+
+This class represents the geometric chamber of a general projective K3 surface of picard rank 1.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_aaad23c5efdf2a72fb851ddba4efde53e}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_a7b4aa8fe6cd0abb1ef8ba1a79b0c464f}{degree}}=1, \mbox{\hyperlink{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_a60be867150a669c555447d3b9f6be07b}{granularity}}=15)
+\begin{DoxyCompactList}\small\item\em Constructor for the \doxylink{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber}{K3\+Geometric\+Chamber} class. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_add32d6d1a97f246e8e6918eb847d6fea}{create\+\_\+mukai\+\_\+vectors}} (self)
+\begin{DoxyCompactList}\small\item\em Method to create the mukai vectors of a spherical vector bundle on a K3 surface of degree d. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_a741e4fb172003d853178d82f95501a54}{plot\+\_\+alpha\+\_\+beta\+\_\+plane}} (self, \mbox{\hyperlink{namespacesrc_1_1_local_p1_a672b2478ed63bd51ebc9acb6569c754b}{return\+\_\+json}}=False)
+\begin{DoxyCompactList}\small\item\em Method to plot the walls of the geometric chamber of a K3 surface in the (α,β) plane. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_a7b4aa8fe6cd0abb1ef8ba1a79b0c464f}{degree}} = degree
+\begin{DoxyCompactList}\small\item\em The degree of the K3 surface. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_a60be867150a669c555447d3b9f6be07b}{granularity}} = granularity
+\begin{DoxyCompactList}\small\item\em The granularity of the walls to be plotted in the the (α,β) plane. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_adcc689c9e14e3e110eeeee6393d03db1}{\+\_\+np\+Divs}} (self, N)
+\begin{DoxyCompactList}\small\item\em Helper method to compute the divisors of a number N. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_a13de70e3968963ac29cc7c07009cf3c3}{\+\_\+convert\+\_\+to\+\_\+alpha\+\_\+beta}} (self, r, l, s)
+\begin{DoxyCompactList}\small\item\em Helper method to compute the coordinates of a hole in the (α,β) plane corresponding to a mukai vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class represents the geometric chamber of a general projective K3 surface of picard rank 1. 
+
+Since the geometric chamber consists of a Cantor-\/set of walls associated to the spherical vector bundles on it, there is no accurate way to simultaneously represent all walls at once. Thus, this class provides a method to plot such walls in the (α,β) plane up to some accuracy (i.\+e. granularity). 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_aaad23c5efdf2a72fb851ddba4efde53e}\index{src.ProjectiveCY.K3GeometricChamber@{src.ProjectiveCY.K3GeometricChamber}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!src.ProjectiveCY.K3GeometricChamber@{src.ProjectiveCY.K3GeometricChamber}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_aaad23c5efdf2a72fb851ddba4efde53e} 
+src.\+Projective\+CY.\+K3\+Geometric\+Chamber.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{degree}{ = {\ttfamily 1}, }\item[{}]{granularity}{ = {\ttfamily 15}}\end{DoxyParamCaption})}
+
+
+
+Constructor for the \doxylink{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber}{K3\+Geometric\+Chamber} class. 
+
+This class represents the geometric chamber of a general projective K3 surface of picard rank 1. Since the geometric chamber consists of a Cantor-\/set of walls associated to the spherical vector bundles on it, there is no accurate way to simultaneously represent all walls at once. Thus, this class provides a method to plot such walls in the (α,β) plane up to some accuracy (i.\+e. granularity).
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & degree The degree of the K3 surface\\
+\hline
+{\em int} & granularity The granularity of the walls to be plotted in the the (α,β) plane\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & If the degree is not a positive integer \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_a13de70e3968963ac29cc7c07009cf3c3}\index{src.ProjectiveCY.K3GeometricChamber@{src.ProjectiveCY.K3GeometricChamber}!\_convert\_to\_alpha\_beta@{\_convert\_to\_alpha\_beta}}
+\index{\_convert\_to\_alpha\_beta@{\_convert\_to\_alpha\_beta}!src.ProjectiveCY.K3GeometricChamber@{src.ProjectiveCY.K3GeometricChamber}}
+\doxysubsubsection{\texorpdfstring{\_convert\_to\_alpha\_beta()}{\_convert\_to\_alpha\_beta()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_a13de70e3968963ac29cc7c07009cf3c3} 
+src.\+Projective\+CY.\+K3\+Geometric\+Chamber.\+\_\+convert\+\_\+to\+\_\+alpha\+\_\+beta (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{r}{, }\item[{}]{l}{, }\item[{}]{s}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Helper method to compute the coordinates of a hole in the (α,β) plane corresponding to a mukai vector. 
+
+Suppose (r, lH, s) is the mukai vector of a spherical vector bundle on a degree d K3 surface (H\texorpdfstring{$^\wedge$}{\string^}2 = 2d). Then \hypertarget{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_autotoc_md2}{}\doxysubsection{\texorpdfstring{dl\texorpdfstring{$^\wedge$}{\string^}2 -\/ rs = -\/1. For a corresponding hole in the (α,β) plane, we must have the real and imaginary part of}{dl\texorpdfstring{$^\wedge$}{\string^}2 -\/ rs = -\/1. For a corresponding hole in the (α,β) plane, we must have the real and imaginary part of}}\label{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_autotoc_md2}
+\hypertarget{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_autotoc_md3}{}\doxysubsection{\texorpdfstring{\texorpdfstring{$<$}{<} exp(αΗ + ι βΗ) , (r, lH, s) \texorpdfstring{$>$}{>} vanish. This gives}{\texorpdfstring{$<$}{<} exp(αΗ + ι βΗ) , (r, lH, s) \texorpdfstring{$>$}{>} vanish. This gives}}\label{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_autotoc_md3}
+0 = \texorpdfstring{$<$}{<}(1, αH, (α\texorpdfstring{$^\wedge$}{\string^}2 -\/ β\texorpdfstring{$^\wedge$}{\string^}2)d), (r, lH, s)\texorpdfstring{$>$}{>} = 2dal -\/ s -\/ rd(α\texorpdfstring{$^\wedge$}{\string^}2 -\/ β\texorpdfstring{$^\wedge$}{\string^}2) 0 = \texorpdfstring{$<$}{<}(0, βΗ, 2αβd), (r, lH, s)\texorpdfstring{$>$}{>} = 2βdl -\/ 2rdαβ = 2dβ(l -\/ rα)
+
+The second equation gives β = 0 or l = rα. Since βΗ is necessarily ample, we must have β \texorpdfstring{$>$}{>} 0. Therefore, l = rα. Substituting into the first equation simplifies to
+
+dl\texorpdfstring{$^\wedge$}{\string^}2 -\/ rs + dr\texorpdfstring{$^\wedge$}{\string^}2 β\texorpdfstring{$^\wedge$}{\string^}2 = 0
+
+Using dl\texorpdfstring{$^\wedge$}{\string^}2 -\/ rs = -\/1, we find that β = 1/r√d.
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & r The first component of the mukai vector \\
+\hline
+{\em int} & l The second component of the mukai vector \\
+\hline
+{\em int} & s The third component of the mukai vector\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+tuple The coordinates of the hole in the (α,β) plane 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_adcc689c9e14e3e110eeeee6393d03db1}\index{src.ProjectiveCY.K3GeometricChamber@{src.ProjectiveCY.K3GeometricChamber}!\_npDivs@{\_npDivs}}
+\index{\_npDivs@{\_npDivs}!src.ProjectiveCY.K3GeometricChamber@{src.ProjectiveCY.K3GeometricChamber}}
+\doxysubsubsection{\texorpdfstring{\_npDivs()}{\_npDivs()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_adcc689c9e14e3e110eeeee6393d03db1} 
+src.\+Projective\+CY.\+K3\+Geometric\+Chamber.\+\_\+np\+Divs (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{N}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Helper method to compute the divisors of a number N. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & N The number whose divisors are to be computed\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+numpy.\+ndarray An array of divisors of N 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_add32d6d1a97f246e8e6918eb847d6fea}\index{src.ProjectiveCY.K3GeometricChamber@{src.ProjectiveCY.K3GeometricChamber}!create\_mukai\_vectors@{create\_mukai\_vectors}}
+\index{create\_mukai\_vectors@{create\_mukai\_vectors}!src.ProjectiveCY.K3GeometricChamber@{src.ProjectiveCY.K3GeometricChamber}}
+\doxysubsubsection{\texorpdfstring{create\_mukai\_vectors()}{create\_mukai\_vectors()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_add32d6d1a97f246e8e6918eb847d6fea} 
+src.\+Projective\+CY.\+K3\+Geometric\+Chamber.\+create\+\_\+mukai\+\_\+vectors (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Method to create the mukai vectors of a spherical vector bundle on a K3 surface of degree d. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & granularity The granularity of the mukai vectors to be computed. This roughly indicates how close the mukai vectors should get to integer points on the real axis\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list A list of tuples representing the mukai vectors of the spherical vector bundles 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_a741e4fb172003d853178d82f95501a54}\index{src.ProjectiveCY.K3GeometricChamber@{src.ProjectiveCY.K3GeometricChamber}!plot\_alpha\_beta\_plane@{plot\_alpha\_beta\_plane}}
+\index{plot\_alpha\_beta\_plane@{plot\_alpha\_beta\_plane}!src.ProjectiveCY.K3GeometricChamber@{src.ProjectiveCY.K3GeometricChamber}}
+\doxysubsubsection{\texorpdfstring{plot\_alpha\_beta\_plane()}{plot\_alpha\_beta\_plane()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_a741e4fb172003d853178d82f95501a54} 
+src.\+Projective\+CY.\+K3\+Geometric\+Chamber.\+plot\+\_\+alpha\+\_\+beta\+\_\+plane (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{return\+\_\+json}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+
+
+Method to plot the walls of the geometric chamber of a K3 surface in the (α,β) plane. 
+
+As this method is quite computationally intensive at the standard granularity of 15, we only plot the walls between -\/1.\+6 and 1.\+6 in the α direction and between 0 and √d in the β direction.
+
+
+\begin{DoxyParams}{Parameters}
+{\em bool} & return\+\_\+json A flag indicating whether the plot should be returned as a JSON string or displayed in the browser \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_a7b4aa8fe6cd0abb1ef8ba1a79b0c464f}\index{src.ProjectiveCY.K3GeometricChamber@{src.ProjectiveCY.K3GeometricChamber}!degree@{degree}}
+\index{degree@{degree}!src.ProjectiveCY.K3GeometricChamber@{src.ProjectiveCY.K3GeometricChamber}}
+\doxysubsubsection{\texorpdfstring{degree}{degree}}
+{\footnotesize\ttfamily \label{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_a7b4aa8fe6cd0abb1ef8ba1a79b0c464f} 
+src.\+Projective\+CY.\+K3\+Geometric\+Chamber.\+degree = degree}
+
+
+
+The degree of the K3 surface. 
+
+\Hypertarget{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_a60be867150a669c555447d3b9f6be07b}\index{src.ProjectiveCY.K3GeometricChamber@{src.ProjectiveCY.K3GeometricChamber}!granularity@{granularity}}
+\index{granularity@{granularity}!src.ProjectiveCY.K3GeometricChamber@{src.ProjectiveCY.K3GeometricChamber}}
+\doxysubsubsection{\texorpdfstring{granularity}{granularity}}
+{\footnotesize\ttfamily \label{classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_a60be867150a669c555447d3b9f6be07b} 
+src.\+Projective\+CY.\+K3\+Geometric\+Chamber.\+granularity = granularity}
+
+
+
+The granularity of the walls to be plotted in the the (α,β) plane. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_projective_c_y_8py}{Projective\+CY.\+py}}\end{DoxyCompactItemize}

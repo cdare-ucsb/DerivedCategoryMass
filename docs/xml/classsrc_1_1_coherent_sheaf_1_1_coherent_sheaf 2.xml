@@ -1,0 +1,291 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf" kind="class" language="Python" prot="public">
+    <compoundname>src::CoherentSheaf::CoherentSheaf</compoundname>
+    <basecompoundref refid="classsrc_1_1_derived_category_object_1_1_derived_category_object" prot="public" virt="non-virtual">src.DerivedCategoryObject.DerivedCategoryObject</basecompoundref>
+    <derivedcompoundref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" prot="public" virt="non-virtual">src.CoherentSheaf.LineBundle</derivedcompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1a92f50dd779ff4c7079311b77c865e9e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.CoherentSheaf.CoherentSheaf.__init__</definition>
+        <argsstring>(self, chern_character, catagory)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>src.CoherentSheaf.CoherentSheaf.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf" kindref="compound">chern_character</ref></type>
+          <defname>chern_character</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf" kindref="compound">catagory</ref></type>
+          <defname>catagory</defname>
+        </param>
+        <briefdescription>
+<para>Initializes an instance of <ref refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf" kindref="compound">CoherentSheaf</ref> with the specified Chern Character and catagory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>chern_character</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="namespacesrc_1_1_chern_character" kindref="compound">ChernCharacter</ref> The Chern Character of the coherent sheaf </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>catagory</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>str The catagory of the coherent sheaf. Currently implemented catagories are &apos;P1&apos;, &apos;P2&apos;, and &apos;K3&apos;</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+\raises ValueError: If the catagory is not implemented, or if the Chern Character is not of the correct length \raises TypeError: If the Chern Character is not an instance of Chern </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CoherentSheaf.py" line="40" column="1" bodyfile="src/CoherentSheaf.py" bodystart="40" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1acd49b46e6580eb9e222dd10e05a55e36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.CoherentSheaf.CoherentSheaf.chernCharacter</definition>
+        <argsstring>(self)</argsstring>
+        <name>chernCharacter</name>
+        <qualifiedname>src.CoherentSheaf.CoherentSheaf.chernCharacter</qualifiedname>
+        <reimplements refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a1f4aac18056360d11918b709dc341937">chernCharacter</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Simply accessor method that is intended to be overridden by subclasses, but is also implemented for more general parent / container classes like <ref refid="namespacesrc_1_1_chain_complex" kindref="compound">ChainComplex</ref> and <ref refid="namespacesrc_1_1_derived_category_object" kindref="compound">DerivedCategoryObject</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Using the same name allows more modularity in the code, and allows for more general functions to be written that can be applied to a variety of objects.</para>
+<para><simplesect kind="return"><para><ref refid="namespacesrc_1_1_chern_character" kindref="compound">ChernCharacter</ref> The Chern Character of the coherent sheaf </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CoherentSheaf.py" line="75" column="1" bodyfile="src/CoherentSheaf.py" bodystart="75" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1a6e3432c06461f7b1bad9c863c5563c4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.CoherentSheaf.CoherentSheaf.phase</definition>
+        <argsstring>(self, *args)</argsstring>
+        <name>phase</name>
+        <qualifiedname>src.CoherentSheaf.CoherentSheaf.phase</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+<para>Computes the phase of the central charge of the coherent sheaf. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The central charge is an element of the dual of the numerical Grothendieck group; in other words, a funtction</para>
+<para>Z : K -&gt; C</para>
+<para>where K is the numerical Grothendieck group, and C is the complex numbers. The phase of the central charge is the argument of this complex number.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>*args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>float or int The parameters of the central charge. The number of parameters should be equal to the number of parameters required by the central charge for the given catagory. For example, a P1 object requires a single complex number parameter, while a P2 object requires two real number parameters.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>float The phase of the central charge of the coherent sheaf, in units of pi </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CoherentSheaf.py" line="88" column="1" bodyfile="src/CoherentSheaf.py" bodystart="88" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1aef4854cd91c31c02d3b227637604cec0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.CoherentSheaf.CoherentSheaf.central_charge</definition>
+        <argsstring>(self, *args)</argsstring>
+        <name>central_charge</name>
+        <qualifiedname>src.CoherentSheaf.CoherentSheaf.central_charge</qualifiedname>
+        <reimplements refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a181bcb14152a914997c7990b33b51c18">central_charge</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+<para>Computes the central charge of the coherent sheaf. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The central charge is a function that takes in the parameters of the stability condition, and returns a complex number. The central charge is a function of the Chern Character of the sheaf that is additive on exact sequences, with coefficients that depend on the stability condition.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tuple</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>args The parameters of the central charge. The number of parameters should be equal to the number of parameters required by the central charge for the given catagory. For example, a P1 object requires a single complex number parameter, while a P2 object requires two real number parameters.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>complex The central charge of the coherent sheaf as a complex number</para>
+</simplesect>
+\raises ValueError If the number of arguments is incorrect \raises TypeError If the arguments are not of the correct type \raises NotImplementedError If the catagory is not implemented </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CoherentSheaf.py" line="110" column="1" bodyfile="src/CoherentSheaf.py" bodystart="110" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1a1bbe30e98a954561f98ea916a6dd5b77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.CoherentSheaf.CoherentSheaf.shift</definition>
+        <argsstring>(self, n)</argsstring>
+        <name>shift</name>
+        <qualifiedname>src.CoherentSheaf.CoherentSheaf.shift</qualifiedname>
+        <reimplements refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a6c1dfa5772ffeae4bf5f1e6a7a2de496">shift</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>n</type>
+          <defname>n</defname>
+        </param>
+        <briefdescription>
+<para>Override of the DerivedChatagoryObject shift method. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This method shifts the coherents sheaf, considered as a complex concentrated in degree 0, by n units. The implementation of this method is crucial to allow including the sheaf in a distinguished triangle, since any triangle can be rotated right or left. Since a Coherent sheaf does not keep track of its cohomological information, the method must return a <ref refid="namespacesrc_1_1_chain_complex" kindref="compound">ChainComplex</ref> concentrated in a single degree.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>n The number of units to shift the coherent sheaf by</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="namespacesrc_1_1_chain_complex" kindref="compound">ChainComplex</ref> A <ref refid="namespacesrc_1_1_chain_complex" kindref="compound">ChainComplex</ref> concentrated in a single degree, shifted by n units </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CoherentSheaf.py" line="171" column="1" bodyfile="src/CoherentSheaf.py" bodystart="171" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1a1479488db4a394bb11701c9ed682335b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.CoherentSheaf.CoherentSheaf.__str__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__str__</name>
+        <qualifiedname>src.CoherentSheaf.CoherentSheaf.__str__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>String representation of the coherent sheaf. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is intended to be overridden by subclasses to provide a more informative string representation. Currently this method only returns the following string:</para>
+<para>&apos;<ref refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf" kindref="compound">CoherentSheaf</ref> with Chern Character &lt;ch0, ch1, ch2&gt;&apos;</para>
+<para>assuming that the Chern character has 3 entries.</para>
+<para><simplesect kind="return"><para>str A string representation of the coherent sheaf </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CoherentSheaf.py" line="189" column="1" bodyfile="src/CoherentSheaf.py" bodystart="189" bodyend="203"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1a188fde81cbaf47916cbca09b67396fd4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.CoherentSheaf.CoherentSheaf.__hash__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__hash__</name>
+        <qualifiedname>src.CoherentSheaf.CoherentSheaf.__hash__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Hash function for the coherent sheaf. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is implemented to allow for the coherent sheaf to be used as a key in a dictionary. This functionality is primarily implemented in the <ref refid="namespacesrc_1_1_chain_complex" kindref="compound">ChainComplex</ref> class, where a dictionary of Coherent sheaves is used to account for duplicate sheaves of the same type.</para>
+<para><simplesect kind="return"><para>int The hash of the coherent sheaf </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CoherentSheaf.py" line="204" column="1" bodyfile="src/CoherentSheaf.py" bodystart="204" bodyend="217"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Generic class for coherent sheaves on a projective variety. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This class is intended to be subclassed by more specific classes like <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref>, which represent line bundles on projective varieties. By itself, it does not encode much more data than the Chern Character of the sheaf, since numerical stability conditions technicially only depend on the Chern Character.</para>
+<para>The parent class to this is <ref refid="namespacesrc_1_1_derived_category_object" kindref="compound">DerivedCategoryObject</ref>, which is a more general class that theoretically does not even require a <ref refid="namespacesrc_1_1_chern_character" kindref="compound">ChernCharacter</ref> <mdash/> just a string label. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>src.CoherentSheaf.CoherentSheaf</label>
+        <link refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>src.CoherentSheaf.LineBundle</label>
+        <link refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src.DerivedCategoryObject.DerivedCategoryObject</label>
+        <link refid="classsrc_1_1_derived_category_object_1_1_derived_category_object"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>src.CoherentSheaf.CoherentSheaf</label>
+        <link refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src.DerivedCategoryObject.DerivedCategoryObject</label>
+        <link refid="classsrc_1_1_derived_category_object_1_1_derived_category_object"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/CoherentSheaf.py" line="25" column="1" bodyfile="src/CoherentSheaf.py" bodystart="25" bodyend="217"/>
+    <listofallmembers>
+      <member refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1a188fde81cbaf47916cbca09b67396fd4" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::CoherentSheaf</scope><name>__hash__</name></member>
+      <member refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1a92f50dd779ff4c7079311b77c865e9e1" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::CoherentSheaf</scope><name>__init__</name></member>
+      <member refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1a1479488db4a394bb11701c9ed682335b" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::CoherentSheaf</scope><name>__str__</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a244258a02691a74e0787cf277c5935c5" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::CoherentSheaf</scope><name>catagory</name></member>
+      <member refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1aef4854cd91c31c02d3b227637604cec0" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::CoherentSheaf</scope><name>central_charge</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a111bf62635e3a204488ca33689d296e6" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::CoherentSheaf</scope><name>chern_character</name></member>
+      <member refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1acd49b46e6580eb9e222dd10e05a55e36" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::CoherentSheaf</scope><name>chernCharacter</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a95bc29833249e58a920c3454110125d2" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::CoherentSheaf</scope><name>is_semistable</name></member>
+      <member refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1a6e3432c06461f7b1bad9c863c5563c4f" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::CoherentSheaf</scope><name>phase</name></member>
+      <member refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1a1bbe30e98a954561f98ea916a6dd5b77" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::CoherentSheaf</scope><name>shift</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1ab7174b1273139ac7d0c2bc6f7c4d1789" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::CoherentSheaf</scope><name>string</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a9ffd63e97c717dd171b7d1c7ef26e16d" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::CoherentSheaf</scope><name>update_string_by_shift</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

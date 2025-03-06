@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="____init_____8py">__init__.py</innerfile>
+    <innerfile refid="_chain_complex_8py">ChainComplex.py</innerfile>
+    <innerfile refid="_chern_character_8py">ChernCharacter.py</innerfile>
+    <innerfile refid="_coherent_sheaf_8py">CoherentSheaf.py</innerfile>
+    <innerfile refid="_derived_category_object_8py">DerivedCategoryObject.py</innerfile>
+    <innerfile refid="_distinguished_triangle_8py">DistinguishedTriangle.py</innerfile>
+    <innerfile refid="_local_p1_8py">LocalP1.py</innerfile>
+    <innerfile refid="_local_p2_8py">LocalP2.py</innerfile>
+    <innerfile refid="_projective_c_y_8py">ProjectiveCY.py</innerfile>
+    <innerfile refid="_spherical_twist_8py">SphericalTwist.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/"/>
+  </compounddef>
+</doxygen>

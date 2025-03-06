@@ -1,0 +1,392 @@
+\doxysection{src.\+Spherical\+Twist.\+Spherical\+Twist Class Reference}
+\hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist}{}\label{classsrc_1_1_spherical_twist_1_1_spherical_twist}\index{src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}}
+
+
+A spherical twist is a non-\/standard autoequivalence of the derived category of coherent sheaves, in the sense that it does not arise from any composition of (1) standard autoequivalences on the variety (2) tensoring by line bundles and (3) (co)homological shifts.  
+
+
+Inheritance diagram for src.\+Spherical\+Twist.\+Spherical\+Twist\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classsrc_1_1_spherical_twist_1_1_spherical_twist}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a9a67efb1d59e905c5e7cfdb7cc309daa}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a16387ebcbf8065fea959f9b1f2c96185}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_ac3e080e6277d060fcc6b56c076461e27}{line\+\_\+bundle\+\_\+2}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_ae2bccb64f12b9d586d8ca3cf4688f157}{degree}}=1)
+\begin{DoxyCompactList}\small\item\em Initialize an instance of \doxylink{classsrc_1_1_spherical_twist_1_1_spherical_twist}{Spherical\+Twist} with the specified line bundles. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a2dbfba1b1b215dfdb4e58bd160819479}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Returns a string representation of the spherical twist by printing the defining triangle. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a183209b78a4202824b036ab2ebe40b91}{chern\+Character}} (self)
+\begin{DoxyCompactList}\small\item\em Method to compute the Chern Character of the spherical twist. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a0cae017d37b0e69454f7d039b77f3a54}{shift}} (self, n)
+\begin{DoxyCompactList}\small\item\em Method to shift the spherical twist by n units. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a3548c15b0993329cebd465170cb78c00}{central\+\_\+charge}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Method to compute the central charge of the spherical twist. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a72577f81014ad8387458603c9fd522f8}{is\+\_\+semistable}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Method to check if the spherical twist is stable. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a729ebfa2e5edd9a786917301cfdaebc1}{mass}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Computes the mass of an object in the derived catagory. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a68f7b3d2761fa842f86e7e6405ce7fb4}{get\+\_\+\+HN\+\_\+factors}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em This method is the main workhorse of the \doxylink{classsrc_1_1_spherical_twist_1_1_spherical_twist}{Spherical\+Twist} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a5b917d2624a9a499671f11e809397d71}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a244258a02691a74e0787cf277c5935c5}{catagory}}, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ab7174b1273139ac7d0c2bc6f7c4d1789}{string}}="{}0"{}, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a111bf62635e3a204488ca33689d296e6}{chern\+\_\+character}}=None)
+\begin{DoxyCompactList}\small\item\em Initialize an instance of the \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} with the specified catagory, string representation, and Chern Character. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ac086dabebbde64c028446348301011f2}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em String representation of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a9ffd63e97c717dd171b7d1c7ef26e16d}{update\+\_\+string\+\_\+by\+\_\+shift}} (self, my\+\_\+str, n)
+\begin{DoxyCompactList}\small\item\em Static helper function to update the possible string representations of the abstract \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} by a homological shift. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a16387ebcbf8065fea959f9b1f2c96185}{line\+\_\+bundle\+\_\+1}} = line\+\_\+bundle\+\_\+1
+\begin{DoxyCompactList}\small\item\em The first line bundle in the Hom space, i.\+e. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_ac3e080e6277d060fcc6b56c076461e27}{line\+\_\+bundle\+\_\+2}} = line\+\_\+bundle\+\_\+2
+\begin{DoxyCompactList}\small\item\em The second line bundle in the Hom space, i.\+e. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_ae2bccb64f12b9d586d8ca3cf4688f157}{degree}} = degree
+\begin{DoxyCompactList}\small\item\em The degree of the K3 surface, if applicable. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a45bab068cfcf3ed76462c137df88cd4b}{defining\+\_\+triangle}} = self.\+\_\+sph\+\_\+twist\+\_\+\+Line\+Bundles(\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a16387ebcbf8065fea959f9b1f2c96185}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_ac3e080e6277d060fcc6b56c076461e27}{line\+\_\+bundle\+\_\+2}})
+\begin{DoxyCompactList}\small\item\em The distinguished triangle representing the spherical twist. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a244258a02691a74e0787cf277c5935c5}{catagory}} = catagory
+\begin{DoxyCompactList}\small\item\em The catagory of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a111bf62635e3a204488ca33689d296e6}{chern\+\_\+character}} = chern\+\_\+character
+\begin{DoxyCompactList}\small\item\em The Chern Character of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ab7174b1273139ac7d0c2bc6f7c4d1789}{string}} = string
+\begin{DoxyCompactList}\small\item\em A string representation / label of the derived category object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_af4a147a84ede8e924aa4b92f98bede80}{\+\_\+sph\+\_\+twist\+\_\+\+Line\+Bundles}} (self, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a16387ebcbf8065fea959f9b1f2c96185}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_ac3e080e6277d060fcc6b56c076461e27}{line\+\_\+bundle\+\_\+2}})
+\begin{DoxyCompactList}\small\item\em Helper function which uses the \+\_\+\+\_\+dim\+Hom\+\_\+\+Line\+Bundles\+P2 method to compute the defining triangle for a single spherical twist of a line bundle around another line bundle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A spherical twist is a non-\/standard autoequivalence of the derived category of coherent sheaves, in the sense that it does not arise from any composition of (1) standard autoequivalences on the variety (2) tensoring by line bundles and (3) (co)homological shifts. 
+
+Such autoequivalences typically only arise in the case of Calabi-\/\+Yau categories and toric varieties (where (-\/2)-\/curves can exist in the Fano setting as well, e.\+g. P\texorpdfstring{$^\wedge$}{\string^}2 blown up at 2 points), but often control the structure of the stability manifold. They are also relevant to homological mirror symmetry since they are the derived equivalent of Dehn twists in the Fukaya category in the symplectic setting. They are explicitly defined as the cone of the derived evaluation morphism \begin{DoxyVerb}    Hom(A, B) ⊗ A ---->  B ----> Tw_A B
+\end{DoxyVerb}
+
+
+where A is a spherical object in the sense that RHom(\+A,\+A) is isomorphic as a graded-\/vector space to the singular cohomology of an n-\/sphere.
+
+Currently, we only consider spherical twists around line bundles in the derived category of coherent sheaves since they always yield examples of spherical objects for Local P\texorpdfstring{$^\wedge$}{\string^}n and K3 surfaces. On K3 surfaces, it is not true that the spherical twists account for all spherical objects, but they are still provide a rich source of examples to help predict mass growth. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_a9a67efb1d59e905c5e7cfdb7cc309daa}\index{src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_a9a67efb1d59e905c5e7cfdb7cc309daa} 
+src.\+Spherical\+Twist.\+Spherical\+Twist.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{line\+\_\+bundle\+\_\+1}{, }\item[{}]{line\+\_\+bundle\+\_\+2}{, }\item[{}]{degree}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+
+
+Initialize an instance of \doxylink{classsrc_1_1_spherical_twist_1_1_spherical_twist}{Spherical\+Twist} with the specified line bundles. 
+
+The spherical twist is defined as the cone of the evaluation morphism \begin{DoxyVerb}Hom(O(a), O(b)) ⊗ O(a) ---->  O(b) ----> Tw_a O(b)
+\end{DoxyVerb}
+
+
+where O(a) and O(b) denote either line bundles or pushforwards of line bundles along the inclusion of the zero section. The spherical twist is represented as a distinguished triangle in the derived category of coherent sheaves.
+
+Several helper methods are used to compute the dimensions of the Hom spaces between the pushforwards of the line bundles, and then to construct the distinguished triangle.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+1 The first line bundle in the Hom space\\
+\hline
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+2\+: The second line bundle in the Hom space\\
+\hline
+{\em int} & degree An optional argument for the degree of the variety, which is relevant to the dimension of the derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations. Default is 1.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+1 is not an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+2 is not an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+{\em Value\+Error} & If the line bundles are not defined on the same variety \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_a2dbfba1b1b215dfdb4e58bd160819479}\index{src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}!\_\_str\_\_@{\_\_str\_\_}}
+\index{\_\_str\_\_@{\_\_str\_\_}!src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{\_\_str\_\_()}{\_\_str\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_a2dbfba1b1b215dfdb4e58bd160819479} 
+src.\+Spherical\+Twist.\+Spherical\+Twist.\+\_\+\+\_\+str\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Returns a string representation of the spherical twist by printing the defining triangle. 
+
+\begin{DoxyReturn}{Returns}
+str A string representation of the spherical twist 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_af4a147a84ede8e924aa4b92f98bede80}\index{src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}!\_sph\_twist\_LineBundles@{\_sph\_twist\_LineBundles}}
+\index{\_sph\_twist\_LineBundles@{\_sph\_twist\_LineBundles}!src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{\_sph\_twist\_LineBundles()}{\_sph\_twist\_LineBundles()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_af4a147a84ede8e924aa4b92f98bede80} 
+src.\+Spherical\+Twist.\+Spherical\+Twist.\+\_\+sph\+\_\+twist\+\_\+\+Line\+Bundles (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{line\+\_\+bundle\+\_\+1}{, }\item[{}]{line\+\_\+bundle\+\_\+2}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Helper function which uses the \+\_\+\+\_\+dim\+Hom\+\_\+\+Line\+Bundles\+P2 method to compute the defining triangle for a single spherical twist of a line bundle around another line bundle. 
+
+The twist is given by
+
+Tw\+\_\+lb1 lb2 = Cone( Hom(lb\+\_\+1, lb\+\_\+2) ⊗ lb\+\_\+1 -\/-\/-\/-\/\texorpdfstring{$>$}{>} lb\+\_\+2 )
+
+
+\begin{DoxyParams}{Parameters}
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+1\+: The first line bundle in the Hom space \\
+\hline
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+2\+: The second line bundle in the Hom space\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{namespacesrc_1_1_distinguished_triangle}{Distinguished\+Triangle} The distinguished triangle representing the spherical twist 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_a3548c15b0993329cebd465170cb78c00}\index{src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}!central\_charge@{central\_charge}}
+\index{central\_charge@{central\_charge}!src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{central\_charge()}{central\_charge()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_a3548c15b0993329cebd465170cb78c00} 
+src.\+Spherical\+Twist.\+Spherical\+Twist.\+central\+\_\+charge (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Method to compute the central charge of the spherical twist. 
+
+The central charge of the spherical twist is the central charge of the third object in the distinguished triangle.
+
+
+\begin{DoxyParams}{Parameters}
+{\em args} & The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The central charge of the spherical twist as a complex number
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If the args are not of the correct type \\
+\hline
+{\em Value\+Error} & If the number of args is incorrect \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the object is not P1, P2, or K3 \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a181bcb14152a914997c7990b33b51c18}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_a183209b78a4202824b036ab2ebe40b91}\index{src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}!chernCharacter@{chernCharacter}}
+\index{chernCharacter@{chernCharacter}!src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{chernCharacter()}{chernCharacter()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_a183209b78a4202824b036ab2ebe40b91} 
+src.\+Spherical\+Twist.\+Spherical\+Twist.\+chern\+Character (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Method to compute the Chern Character of the spherical twist. 
+
+The Chern Character of the spherical twist is the Chern Character of the third object in the distinguished triangle.
+
+\begin{DoxyReturn}{Returns}
+\doxylink{namespacesrc_1_1_chern_character}{Chern\+Character} The Chern Character of the spherical twist 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a1f4aac18056360d11918b709dc341937}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_a68f7b3d2761fa842f86e7e6405ce7fb4}\index{src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}!get\_HN\_factors@{get\_HN\_factors}}
+\index{get\_HN\_factors@{get\_HN\_factors}!src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{get\_HN\_factors()}{get\_HN\_factors()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_a68f7b3d2761fa842f86e7e6405ce7fb4} 
+src.\+Spherical\+Twist.\+Spherical\+Twist.\+get\+\_\+\+HN\+\_\+factors (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+This method is the main workhorse of the \doxylink{classsrc_1_1_spherical_twist_1_1_spherical_twist}{Spherical\+Twist} class. 
+
+It computes the Harder-\/\+Narasimhan factors of the spherical twist object. It is generally assumed that for a single spherical twist, the only way that an object can destabilize is when an element of the last term of the defining triangle \begin{DoxyVerb}                 O(a) -----> Tw_O(a) O(b) -------->  O(b)[n] ⊕ O(b)[n+1]
+\end{DoxyVerb}
+
+
+has larger phase than O(a). In this case, the Harder-\/\+Narasimhan factors of the spherical twist depend on which object it is that has larger phase. For example, if the minimum shift has larger phase, then we assume that the object must be strictly stable -\/ THIS IS A CONJECTURE. If the maximum shift has smaller phase, then the triangle above leads to a Harder-\/\+Narasimhan filtration, so that the individual line bundle sums are precisely the HN factors; this is a result of Bapat-\/\+Deopurkar-\/\+Licata (2020).
+
+The most difficult case is when the smaller phase O(b)\mbox{[}n\mbox{]} is smaller than O(a) is smaller than O(b)\mbox{[}n+1\mbox{]}. In this case, some homological algebra is required to show that the cone of the composed map \begin{DoxyVerb}                  Tw_O(a) O(b) -------> O(b)[n+1]
+\end{DoxyVerb}
+
+
+fits into a distinguished triangle O(a) -\/-\/-\/-\/\texorpdfstring{$>$}{>} Cone -\/-\/-\/-\/\texorpdfstring{$>$}{>} O(b)\mbox{[}n\mbox{]}.
+
+Instead of returning the objects alone, the method returns a list of tuples, where the first element is the semistable factor and the second element is the phase of the object. This is done to make computing largest and smallest semistable factors easier in the \doxylink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist}{Double\+Spherical\+Twist} class.
+
+The list is always returned in reverse order of the phase, so that the smallest phase HN factor is last and the largest is first.
+
+
+\begin{DoxyItemize}
+\item It should be noted that several assumptions in this have not been verified outside of the quiver case
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em args} & The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A list of tuples where the first element is a \doxylink{namespacesrc_1_1_derived_category_object}{Derived\+Category\+Object} and the second element is a float representing the phase of the object. The list is always returned in such a way that the largest phase HN factor is first and smallest is last.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If the args are not of the correct type \\
+\hline
+{\em Value\+Error} & If the number of args is incorrect \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the object is not P1, P2, or K3 \\
+\hline
+{\em \doxylink{classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error}{Harder\+Narasimhan\+Error}} & If the spherical twist is stable but the phase cannot be found \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_a72577f81014ad8387458603c9fd522f8}\index{src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}!is\_semistable@{is\_semistable}}
+\index{is\_semistable@{is\_semistable}!src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{is\_semistable()}{is\_semistable()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_a72577f81014ad8387458603c9fd522f8} 
+src.\+Spherical\+Twist.\+Spherical\+Twist.\+is\+\_\+semistable (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Method to check if the spherical twist is stable. 
+
+The spherical twist is stable if the Harder-\/\+Narasimhan filtration is trivial, i.\+e. just the object itself.
+
+
+\begin{DoxyParams}{Parameters}
+{\em args} & The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the spherical twist is stable, False otherwise
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If the args are not of the correct type \\
+\hline
+{\em Value\+Error} & If the number of args is incorrect \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the object is not P1, P2, or K3 \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a95bc29833249e58a920c3454110125d2}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_a729ebfa2e5edd9a786917301cfdaebc1}\index{src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}!mass@{mass}}
+\index{mass@{mass}!src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{mass()}{mass()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_a729ebfa2e5edd9a786917301cfdaebc1} 
+src.\+Spherical\+Twist.\+Spherical\+Twist.\+mass (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Computes the mass of an object in the derived catagory. 
+
+The mass of a stable object is simply the modulus of its central charge. For a non-\/stable object, the mass is the sum of the masses of the Harder-\/\+Narasimhan factors of the object. The notion of the mass of an object is derived from string theory, where BPS states are characterized as objects which satisfy the BPS bound M = \texorpdfstring{$\vert$}{|}\+Z\texorpdfstring{$\vert$}{|}. For non-\/\+BPS states, one simply has \texorpdfstring{$\vert$}{|}\+Z\texorpdfstring{$\vert$}{|} \texorpdfstring{$<$}{<} M. The mass of a Bridgeland stability condition is given by the sum of its semistable factors, which corresponds to the decomposition of an object in the derived category into Harder-\/\+Narasimhan factors. As a consequence, this method heavily relies on the get\+\_\+\+HN\+\_\+factors method to compute the Harder-\/\+Narasimhan factors of the object.
+
+
+\begin{DoxyParams}{Parameters}
+{\em args} & The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The mass of the object, as a non-\/negative real number
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If the args are not of the correct type \\
+\hline
+{\em Value\+Error} & If the number of args is incorrect \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the object is not P1, P2, or K3 \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_a0cae017d37b0e69454f7d039b77f3a54}\index{src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}!shift@{shift}}
+\index{shift@{shift}!src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{shift()}{shift()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_a0cae017d37b0e69454f7d039b77f3a54} 
+src.\+Spherical\+Twist.\+Spherical\+Twist.\+shift (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{n}{}\end{DoxyParamCaption})}
+
+
+
+Method to shift the spherical twist by n units. 
+
+As a spherical twist is initially only specified as a string until its defining triangle is computed, the shift method simply relies on the implementation in the parent class \doxylink{namespacesrc_1_1_derived_category_object}{Derived\+Category\+Object}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & n\+: The number of units to shift the object by\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{namespacesrc_1_1_derived_category_object}{Derived\+Category\+Object} The shifted object 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a6c1dfa5772ffeae4bf5f1e6a7a2de496}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_a45bab068cfcf3ed76462c137df88cd4b}\index{src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}!defining\_triangle@{defining\_triangle}}
+\index{defining\_triangle@{defining\_triangle}!src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{defining\_triangle}{defining\_triangle}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_a45bab068cfcf3ed76462c137df88cd4b} 
+src.\+Spherical\+Twist.\+Spherical\+Twist.\+defining\+\_\+triangle = self.\+\_\+sph\+\_\+twist\+\_\+\+Line\+Bundles(\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a16387ebcbf8065fea959f9b1f2c96185}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_ac3e080e6277d060fcc6b56c076461e27}{line\+\_\+bundle\+\_\+2}})}
+
+
+
+The distinguished triangle representing the spherical twist. 
+
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_ae2bccb64f12b9d586d8ca3cf4688f157}\index{src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}!degree@{degree}}
+\index{degree@{degree}!src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{degree}{degree}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_ae2bccb64f12b9d586d8ca3cf4688f157} 
+src.\+Spherical\+Twist.\+Spherical\+Twist.\+degree = degree}
+
+
+
+The degree of the K3 surface, if applicable. 
+
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_a16387ebcbf8065fea959f9b1f2c96185}\index{src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}!line\_bundle\_1@{line\_bundle\_1}}
+\index{line\_bundle\_1@{line\_bundle\_1}!src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{line\_bundle\_1}{line\_bundle\_1}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_a16387ebcbf8065fea959f9b1f2c96185} 
+src.\+Spherical\+Twist.\+Spherical\+Twist.\+line\+\_\+bundle\+\_\+1 = line\+\_\+bundle\+\_\+1}
+
+
+
+The first line bundle in the Hom space, i.\+e. 
+
+O(a) in Hom(O(a), O(b)) \Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_ac3e080e6277d060fcc6b56c076461e27}\index{src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}!line\_bundle\_2@{line\_bundle\_2}}
+\index{line\_bundle\_2@{line\_bundle\_2}!src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{line\_bundle\_2}{line\_bundle\_2}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_ac3e080e6277d060fcc6b56c076461e27} 
+src.\+Spherical\+Twist.\+Spherical\+Twist.\+line\+\_\+bundle\+\_\+2 = line\+\_\+bundle\+\_\+2}
+
+
+
+The second line bundle in the Hom space, i.\+e. 
+
+O(b) in Hom(O(a), O(b)) 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_spherical_twist_8py}{Spherical\+Twist.\+py}}\end{DoxyCompactItemize}

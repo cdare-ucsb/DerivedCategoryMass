@@ -1,0 +1,162 @@
+\doxysection{src.\+Coherent\+Sheaf.\+Line\+Bundle Class Reference}
+\hypertarget{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{}\label{classsrc_1_1_coherent_sheaf_1_1_line_bundle}\index{src.CoherentSheaf.LineBundle@{src.CoherentSheaf.LineBundle}}
+
+
+Main class for line bundles on a projective variety.  
+
+
+Inheritance diagram for src.\+Coherent\+Sheaf.\+Line\+Bundle\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classsrc_1_1_coherent_sheaf_1_1_line_bundle}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_line_bundle_a8e95ddcf201c778d56740e0483f8fedd}{is\+\_\+semistable}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em A result of Macrì-\/\+Schmidt (Lectures on Bridgeland Stability, 2016) is that whenever a surface has Picard rank 1, line bundles are stable everywhere. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_line_bundle_a2c2e8cc0d0fe3614eb73642e2da9444c}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em String representation of the line bundle. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_line_bundle_a9d5184ea52c4a3af33dc81ffc090cfba}{\+\_\+\+\_\+eq\+\_\+\+\_\+}} (self, other)
+\begin{DoxyCompactList}\small\item\em Equality comparison for line bundles. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_line_bundle_a7e799278c25e792c35c856c1a1d45ebb}{\+\_\+\+\_\+hash\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Hash function for the line bundle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf}{src.\+Coherent\+Sheaf.\+Coherent\+Sheaf}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a92f50dd779ff4c7079311b77c865e9e1}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf}{chern\+\_\+character}}, \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf}{catagory}})
+\begin{DoxyCompactList}\small\item\em Initializes an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf}{Coherent\+Sheaf} with the specified Chern Character and catagory. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_acd49b46e6580eb9e222dd10e05a55e36}{chern\+Character}} (self)
+\begin{DoxyCompactList}\small\item\em Simply accessor method that is intended to be overridden by subclasses, but is also implemented for more general parent / container classes like \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex} and \doxylink{namespacesrc_1_1_derived_category_object}{Derived\+Category\+Object}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a6e3432c06461f7b1bad9c863c5563c4f}{phase}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Computes the phase of the central charge of the coherent sheaf. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_aef4854cd91c31c02d3b227637604cec0}{central\+\_\+charge}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Computes the central charge of the coherent sheaf. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a1bbe30e98a954561f98ea916a6dd5b77}{shift}} (self, n)
+\begin{DoxyCompactList}\small\item\em Override of the Derived\+Chatagory\+Object shift method. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a1479488db4a394bb11701c9ed682335b}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em String representation of the coherent sheaf. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a188fde81cbaf47916cbca09b67396fd4}{\+\_\+\+\_\+hash\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Hash function for the coherent sheaf. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a5b917d2624a9a499671f11e809397d71}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a244258a02691a74e0787cf277c5935c5}{catagory}}, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ab7174b1273139ac7d0c2bc6f7c4d1789}{string}}="{}0"{}, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a111bf62635e3a204488ca33689d296e6}{chern\+\_\+character}}=None)
+\begin{DoxyCompactList}\small\item\em Initialize an instance of the \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} with the specified catagory, string representation, and Chern Character. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ac086dabebbde64c028446348301011f2}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em String representation of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a9ffd63e97c717dd171b7d1c7ef26e16d}{update\+\_\+string\+\_\+by\+\_\+shift}} (self, my\+\_\+str, n)
+\begin{DoxyCompactList}\small\item\em Static helper function to update the possible string representations of the abstract \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} by a homological shift. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_line_bundle_a8d26ae3adb8a27a586eaf879215d55f9}{degree}} = degree
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a244258a02691a74e0787cf277c5935c5}{catagory}} = catagory
+\begin{DoxyCompactList}\small\item\em The catagory of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a111bf62635e3a204488ca33689d296e6}{chern\+\_\+character}} = chern\+\_\+character
+\begin{DoxyCompactList}\small\item\em The Chern Character of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ab7174b1273139ac7d0c2bc6f7c4d1789}{string}} = string
+\begin{DoxyCompactList}\small\item\em A string representation / label of the derived category object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main class for line bundles on a projective variety. 
+
+Line bundles are specifically locally free sheaves (i.\+e. vector bundles) of rank 1. In the cases of Local P1 and Local P2, the line bundles will serve as the building blocks of the derived category, since every coherent sheaf admits a resolution by line bundles (coming from the `canonical' exceptional collection). However, on K3 surfaces, it is not generally true that even vector bundles can be decomposed into sums of line bundels.
+
+Since Line\+Bundles are specifically rank 1, their second chern class c\+\_\+2(\+L) always vanishes. Since the second Chern Character is (c\+\_\+1\texorpdfstring{$^\wedge$}{\string^}2(E) -\/ c\+\_\+2(\+E))/2, the second Chern Character of a line bundle is simply c\+\_\+1\texorpdfstring{$^\wedge$}{\string^}2(E)/2; therefore, this class will conveniently only store the degree of the line bundle, which is the first Chern Character. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsrc_1_1_coherent_sheaf_1_1_line_bundle_a9d5184ea52c4a3af33dc81ffc090cfba}\index{src.CoherentSheaf.LineBundle@{src.CoherentSheaf.LineBundle}!\_\_eq\_\_@{\_\_eq\_\_}}
+\index{\_\_eq\_\_@{\_\_eq\_\_}!src.CoherentSheaf.LineBundle@{src.CoherentSheaf.LineBundle}}
+\doxysubsubsection{\texorpdfstring{\_\_eq\_\_()}{\_\_eq\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_coherent_sheaf_1_1_line_bundle_a9d5184ea52c4a3af33dc81ffc090cfba} 
+src.\+Coherent\+Sheaf.\+Line\+Bundle.\+\_\+\+\_\+eq\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{}\end{DoxyParamCaption})}
+
+
+
+Equality comparison for line bundles. 
+
+Two line bundles are considered equal if they have the same degree and catagory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & other The line bundle to compare to\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if the line bundles have the same catagory and degree, False otherwise 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_coherent_sheaf_1_1_line_bundle_a7e799278c25e792c35c856c1a1d45ebb}\index{src.CoherentSheaf.LineBundle@{src.CoherentSheaf.LineBundle}!\_\_hash\_\_@{\_\_hash\_\_}}
+\index{\_\_hash\_\_@{\_\_hash\_\_}!src.CoherentSheaf.LineBundle@{src.CoherentSheaf.LineBundle}}
+\doxysubsubsection{\texorpdfstring{\_\_hash\_\_()}{\_\_hash\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_coherent_sheaf_1_1_line_bundle_a7e799278c25e792c35c856c1a1d45ebb} 
+src.\+Coherent\+Sheaf.\+Line\+Bundle.\+\_\+\+\_\+hash\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Hash function for the line bundle. 
+
+This is implemented to allow for the line bundle to be used as a key in a dictionary. This functionality is primarily implemented in the \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex} class, where a dictionary of Coherent sheaves is used to account for duplicate sheaves of the same type.
+
+\begin{DoxyReturn}{Returns}
+int The hash of the line bundle 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_coherent_sheaf_1_1_line_bundle_a2c2e8cc0d0fe3614eb73642e2da9444c}\index{src.CoherentSheaf.LineBundle@{src.CoherentSheaf.LineBundle}!\_\_str\_\_@{\_\_str\_\_}}
+\index{\_\_str\_\_@{\_\_str\_\_}!src.CoherentSheaf.LineBundle@{src.CoherentSheaf.LineBundle}}
+\doxysubsubsection{\texorpdfstring{\_\_str\_\_()}{\_\_str\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_coherent_sheaf_1_1_line_bundle_a2c2e8cc0d0fe3614eb73642e2da9444c} 
+src.\+Coherent\+Sheaf.\+Line\+Bundle.\+\_\+\+\_\+str\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+String representation of the line bundle. 
+
+Since all of our implemented catagories come from objects of Picard Rank 1, the line bundles are all derived from the structure sheaf. In particular, we can represent any line bundle as O(d) for some integer d.
+
+\begin{DoxyReturn}{Returns}
+str A string representation of the line bundle, with the format \textquotesingle{}O(d)\textquotesingle{} 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_coherent_sheaf_1_1_line_bundle_a8e95ddcf201c778d56740e0483f8fedd}\index{src.CoherentSheaf.LineBundle@{src.CoherentSheaf.LineBundle}!is\_semistable@{is\_semistable}}
+\index{is\_semistable@{is\_semistable}!src.CoherentSheaf.LineBundle@{src.CoherentSheaf.LineBundle}}
+\doxysubsubsection{\texorpdfstring{is\_semistable()}{is\_semistable()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_coherent_sheaf_1_1_line_bundle_a8e95ddcf201c778d56740e0483f8fedd} 
+src.\+Coherent\+Sheaf.\+Line\+Bundle.\+is\+\_\+semistable (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+A result of Macrì-\/\+Schmidt (Lectures on Bridgeland Stability, 2016) is that whenever a surface has Picard rank 1, line bundles are stable everywhere. 
+
+This will specifically be used for the case of Local P2 (in which case the pushforward i\+\_\+\texorpdfstring{$\ast$}{*} preserves this fact), and K3 surfaces. For local P1, the line bundles are stable everywhere by definition of the tilt.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tuple} & args The parameters of the stability condition. The number of parameters should be equal to the number of parameters required by the central charge for the given catagory. For example, a P1 object requires a single complex number parameter, while a P2 object requires two real number parameters. These are not in fact used, but included to match the format of other classes.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True since line bundles are stable in our currently implemented examples. 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a95bc29833249e58a920c3454110125d2}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classsrc_1_1_coherent_sheaf_1_1_line_bundle_a8d26ae3adb8a27a586eaf879215d55f9}\index{src.CoherentSheaf.LineBundle@{src.CoherentSheaf.LineBundle}!degree@{degree}}
+\index{degree@{degree}!src.CoherentSheaf.LineBundle@{src.CoherentSheaf.LineBundle}}
+\doxysubsubsection{\texorpdfstring{degree}{degree}}
+{\footnotesize\ttfamily \label{classsrc_1_1_coherent_sheaf_1_1_line_bundle_a8d26ae3adb8a27a586eaf879215d55f9} 
+src.\+Coherent\+Sheaf.\+Line\+Bundle.\+degree = degree}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_coherent_sheaf_8py}{Coherent\+Sheaf.\+py}}\end{DoxyCompactItemize}

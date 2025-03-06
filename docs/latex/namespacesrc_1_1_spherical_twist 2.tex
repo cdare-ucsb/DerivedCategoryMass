@@ -1,0 +1,359 @@
+\doxysection{src.\+Spherical\+Twist Namespace Reference}
+\hypertarget{namespacesrc_1_1_spherical_twist}{}\label{namespacesrc_1_1_spherical_twist}\index{src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist}{Double\+Spherical\+Twist}}
+\begin{DoxyCompactList}\small\item\em A class to represent the composition of successive spherical twists applied to a line bundle. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error}{Harder\+Narasimhan\+Error}}
+\begin{DoxyCompactList}\small\item\em Exception raised when the correct Harder-\/\+Narasimhan filtration cannot be found. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist}{Spherical\+Twist}}
+\begin{DoxyCompactList}\small\item\em A spherical twist is a non-\/standard autoequivalence of the derived category of coherent sheaves, in the sense that it does not arise from any composition of (1) standard autoequivalences on the variety (2) tensoring by line bundles and (3) (co)homological shifts. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum}{Spherical\+Twist\+Sum}}
+\begin{DoxyCompactList}\small\item\em This class acts similar to the \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex} class for \doxylink{namespacesrc_1_1_coherent_sheaf}{Coherent\+Sheaf}; specifically, when considering double (or any n\texorpdfstring{$>$}{>}1) spherical twists, there are always triangles that the twist will fit into that are not necessarily the defining triangle and can be obtained by applying the twist functor to the defining triangle of the individual twists --- such triangles will often involve the sum of shifts of spherical twists, so we need an implementation for keeping track of such objects in a single argument of the \doxylink{namespacesrc_1_1_distinguished_triangle}{Distinguished\+Triangle}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a1c38ced9519f6b38d31ba2b21e85bf0d}{\+\_\+dim\+Hom\+\_\+\+Line\+Bundles}} (\mbox{\hyperlink{namespacesrc_1_1_local_p2_a43573e56e18e52559a2d31128936f558}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{namespacesrc_1_1_local_p2_ae9dd2ce41559bc7d27aeebcd188761d1}{line\+\_\+bundle\+\_\+2}}, degree\+\_\+\+K3=1)
+\begin{DoxyCompactList}\small\item\em General helper method to compute the dimension of the Hom spaces between two line bundles (or pushforwards of line bundles, in the local Projectiv space case). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_adcd60e481039de6c60d8a2d37f5c63c9}{\+\_\+dim\+Hom\+\_\+\+Line\+Bundles\+P1}} (\mbox{\hyperlink{namespacesrc_1_1_local_p2_a43573e56e18e52559a2d31128936f558}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{namespacesrc_1_1_local_p2_ae9dd2ce41559bc7d27aeebcd188761d1}{line\+\_\+bundle\+\_\+2}})
+\begin{DoxyCompactList}\small\item\em Helper method which computes the dimension of the hom spaces between the pushforwards of the line bundles O(a) and O(b). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_aff5a06c58e0e3b1d744af87d52053c4f}{\+\_\+dim\+Hom\+\_\+\+Line\+Bundles\+P2}} (\mbox{\hyperlink{namespacesrc_1_1_local_p2_a43573e56e18e52559a2d31128936f558}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{namespacesrc_1_1_local_p2_ae9dd2ce41559bc7d27aeebcd188761d1}{line\+\_\+bundle\+\_\+2}})
+\begin{DoxyCompactList}\small\item\em Helper method which computes the dimension of the hom spaces between the pushforwards of the line bundles O(a) and O(b). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_ad116867ac212aa843b4e6d6051436472}{\+\_\+dim\+Hom\+\_\+\+Line\+Bundles\+K3}} (\mbox{\hyperlink{namespacesrc_1_1_local_p2_a43573e56e18e52559a2d31128936f558}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{namespacesrc_1_1_local_p2_ae9dd2ce41559bc7d27aeebcd188761d1}{line\+\_\+bundle\+\_\+2}}, degree\+\_\+\+K3)
+\begin{DoxyCompactList}\small\item\em Helper method which computes the dimension of the hom spaces between line bundles on a degree d K3 surface. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a8d4c5f90a3a32982ba929fae740b1736}{\+\_\+dim\+Hom\+\_\+\+Line\+\_\+and\+\_\+\+Single\+Twist}} (\mbox{\hyperlink{namespacesrc_1_1_local_p2_a43573e56e18e52559a2d31128936f558}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{namespacesrc_1_1_local_p2_ae9dd2ce41559bc7d27aeebcd188761d1}{line\+\_\+bundle\+\_\+2}}, line\+\_\+bundle\+\_\+3, degree\+\_\+\+K3)
+\begin{DoxyCompactList}\small\item\em Helper method which computes the dimension of the hom spaces between a line bundle and a single spherical twist of line bundles. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_ace1a7dca89c709b900186dca644a49da}{\+\_\+dim\+Hom\+\_\+\+Line\+\_\+and\+\_\+\+Single\+Twist\+K3}} (\mbox{\hyperlink{namespacesrc_1_1_local_p2_a43573e56e18e52559a2d31128936f558}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{namespacesrc_1_1_local_p2_ae9dd2ce41559bc7d27aeebcd188761d1}{line\+\_\+bundle\+\_\+2}}, line\+\_\+bundle\+\_\+3, degree\+\_\+\+K3)
+\begin{DoxyCompactList}\small\item\em Helper function which computes the dimensions of the derived hom spaces between a line bundle and a spherical twist of line bundles; that is, this function computes the dimensions of. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+list \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a6adb5f1c02cdb6c62340a1e45e5c1f3c}{\+\_\+\+\_\+\+CURRENT\+\_\+\+DOUBLE\+\_\+\+TWIST\+\_\+\+IMPLEMENTED\+\_\+\+\_\+}} = \mbox{[}\textquotesingle{}\mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ae24dbe6f91328befda2836d4a4b311b7}{K3}}\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_ad60fa80652e6ca4ef6c6cb8658f23e19}{lb6}} = \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}}(1, catagory=\textquotesingle{}\mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ae24dbe6f91328befda2836d4a4b311b7}{K3}}\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a551e481eec0d20b002128676f68ea940}{lb7}} = \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}}(2, catagory=\textquotesingle{}\mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ae24dbe6f91328befda2836d4a4b311b7}{K3}}\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a55f6d2af3496d6d3f2e1b82dfe628dc2}{lb8}} = \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}}(4, catagory=\textquotesingle{}\mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ae24dbe6f91328befda2836d4a4b311b7}{K3}}\textquotesingle{})
+\item 
+int \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a057fe29da15b1472a927881b6dbcba3d}{K3\+\_\+deg}} = 1
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a4c6ca7b43f9daf9a902a7d8cbf03b44e}{sph4}} = \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist}{Double\+Spherical\+Twist}}(\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_ad60fa80652e6ca4ef6c6cb8658f23e19}{lb6}}, \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a551e481eec0d20b002128676f68ea940}{lb7}}, \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a55f6d2af3496d6d3f2e1b82dfe628dc2}{lb8}}, \mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ada9e2125f4ff45cabe142cf18d906fad}{degree}}=\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a057fe29da15b1472a927881b6dbcba3d}{K3\+\_\+deg}})
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a689a91ee93ec6b6371ea8daacb0bb3ac}{x\+\_\+vals}} = np.\+linspace(-\/5, 11.\+10, 200)
+\item 
+list \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a711446b175a82fb756eefac305b42428}{y\+\_\+vals}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_ac2c121df4f006e959c856d7d64130240}{y\+\_\+range}} = np.\+linspace(0, 5, 100)
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_ad2b4eeebd6eb183d13666ec15fdb6634}{masses}} = np.\+array(\mbox{[}sph4.\+mass(x, y, \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a057fe29da15b1472a927881b6dbcba3d}{K3\+\_\+deg}}) for x, y in zip(\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a689a91ee93ec6b6371ea8daacb0bb3ac}{x\+\_\+vals}}, \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a711446b175a82fb756eefac305b42428}{y\+\_\+vals}})\mbox{]})
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a0019d0dc829ecd5586a727b073225b34}{fig}}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a702de543b542d8cbccd91cf7eed902ff}{scene}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacesrc_1_1_spherical_twist_a8d4c5f90a3a32982ba929fae740b1736}\index{src.SphericalTwist@{src.SphericalTwist}!\_dimHom\_Line\_and\_SingleTwist@{\_dimHom\_Line\_and\_SingleTwist}}
+\index{\_dimHom\_Line\_and\_SingleTwist@{\_dimHom\_Line\_and\_SingleTwist}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{\_dimHom\_Line\_and\_SingleTwist()}{\_dimHom\_Line\_and\_SingleTwist()}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_a8d4c5f90a3a32982ba929fae740b1736} 
+src.\+Spherical\+Twist.\+\_\+dim\+Hom\+\_\+\+Line\+\_\+and\+\_\+\+Single\+Twist (\begin{DoxyParamCaption}\item[{}]{line\+\_\+bundle\+\_\+1}{, }\item[{}]{line\+\_\+bundle\+\_\+2}{, }\item[{}]{line\+\_\+bundle\+\_\+3}{, }\item[{}]{degree\+\_\+\+K3}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Helper method which computes the dimension of the hom spaces between a line bundle and a single spherical twist of line bundles. 
+
+This is a wrapper for the specific implementations for P1, P2, and K3 surfaces.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+1 The line bundle to twist around\+: i.\+e. O(a) where we are computing Tw\+\_\+a O(b) \\
+\hline
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+2 The line bundle which the spherical twist is being applied to\+: i.\+e. O(b) where we are computing Tw\+\_\+a O(b) \\
+\hline
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+3\+: The line bundle which the spherical twist is being applied to\+: i.\+e. O(c) where we are computing Tw\+\_\+a O(c) \\
+\hline
+{\em int} & degree\+\_\+\+K3\+: The degree of the K3 surface, as an optional argument. This only affects the K3 implementation. Default is 1.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+1 is not an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+2 is not an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+3 is not an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+{\em Value\+Error} & If the line bundles are not defined on the same catagory \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the object is not P1, P2, or K3 \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{namespacesrc_1_1_spherical_twist_ace1a7dca89c709b900186dca644a49da}\index{src.SphericalTwist@{src.SphericalTwist}!\_dimHom\_Line\_and\_SingleTwistK3@{\_dimHom\_Line\_and\_SingleTwistK3}}
+\index{\_dimHom\_Line\_and\_SingleTwistK3@{\_dimHom\_Line\_and\_SingleTwistK3}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{\_dimHom\_Line\_and\_SingleTwistK3()}{\_dimHom\_Line\_and\_SingleTwistK3()}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_ace1a7dca89c709b900186dca644a49da} 
+src.\+Spherical\+Twist.\+\_\+dim\+Hom\+\_\+\+Line\+\_\+and\+\_\+\+Single\+Twist\+K3 (\begin{DoxyParamCaption}\item[{}]{line\+\_\+bundle\+\_\+1}{, }\item[{}]{line\+\_\+bundle\+\_\+2}{, }\item[{}]{line\+\_\+bundle\+\_\+3}{, }\item[{}]{degree\+\_\+\+K3}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Helper function which computes the dimensions of the derived hom spaces between a line bundle and a spherical twist of line bundles; that is, this function computes the dimensions of. 
+
+\begin{DoxyVerb}       RHom(O(a), Tw_{O(b)} O(c))
+\end{DoxyVerb}
+
+
+which is necessarily concentrated in cohomological degrees -\/1 through 3. As a consequence, this function returns a tuple of five integers (hom-\/1, hom0, hom1, hom2, hom3) corresponding to the dimensions of the higher-\/ext groups.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+1 The line bundle to twist around\+: i.\+e. O(a) where we are computing Tw\+\_\+a O(b) \\
+\hline
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+2 The line bundle which the spherical twist is being applied to\+: i.\+e. O(b) where we are computing Tw\+\_\+a O(b) \\
+\hline
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+3 The line bundle which the spherical twist is being applied to\+: i.\+e. O(c) where we are computing Tw\+\_\+a O(c) \\
+\hline
+{\em int} & degree\+\_\+\+K3\+: The degree of the K3 surface, as an optional argument. This only affects the K3 implementation. Default is 1.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+1 is not an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+2 is not an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+3 is not an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+{\em Value\+Error} & If the line bundles are not defined on the same catagory \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the object is not P1, P2, or K3 \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{namespacesrc_1_1_spherical_twist_a1c38ced9519f6b38d31ba2b21e85bf0d}\index{src.SphericalTwist@{src.SphericalTwist}!\_dimHom\_LineBundles@{\_dimHom\_LineBundles}}
+\index{\_dimHom\_LineBundles@{\_dimHom\_LineBundles}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{\_dimHom\_LineBundles()}{\_dimHom\_LineBundles()}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_a1c38ced9519f6b38d31ba2b21e85bf0d} 
+src.\+Spherical\+Twist.\+\_\+dim\+Hom\+\_\+\+Line\+Bundles (\begin{DoxyParamCaption}\item[{}]{line\+\_\+bundle\+\_\+1}{, }\item[{}]{line\+\_\+bundle\+\_\+2}{, }\item[{}]{degree\+\_\+\+K3}{ = {\ttfamily 1}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+General helper method to compute the dimension of the Hom spaces between two line bundles (or pushforwards of line bundles, in the local Projectiv space case). 
+
+The method is a wrapper for the specific implementations for P1, P2, and K3 surfaces.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+1 The first line bundle in the Hom space \\
+\hline
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+2 The second line bundle in the Hom space \\
+\hline
+{\em int} & degree\+\_\+\+K3\+: The degree of the K3 surface, as an optional argument. This only affects the K3 implementation. Default is 1.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+1 is not an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+2 is not an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+{\em Value\+Error} & If the line bundles are not defined on the same catagory \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the object is not P1, P2, or K3 \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{namespacesrc_1_1_spherical_twist_ad116867ac212aa843b4e6d6051436472}\index{src.SphericalTwist@{src.SphericalTwist}!\_dimHom\_LineBundlesK3@{\_dimHom\_LineBundlesK3}}
+\index{\_dimHom\_LineBundlesK3@{\_dimHom\_LineBundlesK3}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{\_dimHom\_LineBundlesK3()}{\_dimHom\_LineBundlesK3()}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_ad116867ac212aa843b4e6d6051436472} 
+src.\+Spherical\+Twist.\+\_\+dim\+Hom\+\_\+\+Line\+Bundles\+K3 (\begin{DoxyParamCaption}\item[{}]{line\+\_\+bundle\+\_\+1}{, }\item[{}]{line\+\_\+bundle\+\_\+2}{, }\item[{}]{degree\+\_\+\+K3}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Helper method which computes the dimension of the hom spaces between line bundles on a degree d K3 surface. 
+
+Since the only K3s we consider are Picard rank 1, if O(a) and O(b) are distinct then either O(b-\/a) or O(a-\/b) must be ample; by Serre duality and a result of Huybrechts, one may always argue that Ext1(O(a), O(b)) = 0. In fact, Serre duality implies that the complex must be concentrated in a single degree, which is either 0 or 2 and corresponds to the cases that b \texorpdfstring{$>$}{>} a and a \texorpdfstring{$<$}{<} b, respectively.
+
+We return a tuple of the form (n0,n1,n2) indicating the dimension of the graded RHom space. Aside from the instance that a=b, this will only include one nonzero element. Hirzebruch-\/\+Riemann-\/\+Roch shows that
+
+dim RHom(O(a), O(b)) = 1 + d(b-\/a)\texorpdfstring{$^\wedge$}{\string^}2
+
+
+\begin{DoxyParams}{Parameters}
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+1 The first line bundle in the Hom space \\
+\hline
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+2 The second line bundle in the Hom space \\
+\hline
+{\em int} & degree\+\_\+\+K3 The degree of the K3 surface\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+1 is not an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+2 is not an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+{\em Type\+Error} & If degree\+\_\+\+K3 is not an integer \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{namespacesrc_1_1_spherical_twist_adcd60e481039de6c60d8a2d37f5c63c9}\index{src.SphericalTwist@{src.SphericalTwist}!\_dimHom\_LineBundlesP1@{\_dimHom\_LineBundlesP1}}
+\index{\_dimHom\_LineBundlesP1@{\_dimHom\_LineBundlesP1}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{\_dimHom\_LineBundlesP1()}{\_dimHom\_LineBundlesP1()}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_adcd60e481039de6c60d8a2d37f5c63c9} 
+src.\+Spherical\+Twist.\+\_\+dim\+Hom\+\_\+\+Line\+Bundles\+P1 (\begin{DoxyParamCaption}\item[{}]{line\+\_\+bundle\+\_\+1}{, }\item[{}]{line\+\_\+bundle\+\_\+2}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Helper method which computes the dimension of the hom spaces between the pushforwards of the line bundles O(a) and O(b). 
+
+The dimensions of the pushforwards are computed using the triangle
+
+i\texorpdfstring{$^\wedge$}{\string^}\texorpdfstring{$\ast$}{*} i\+\_\+\texorpdfstring{$\ast$}{*} E -\/\texorpdfstring{$>$}{>} E -\/\texorpdfstring{$>$}{>} E x O(2)\mbox{[}2\mbox{]}
+
+and applying Hom(-\/, O(b)) to obtain a long-\/exact sequence. Using the standard dimensions of the Hom spaces between line bundles on P1, the computation reduces to a case-\/by-\/case combinatorial problem. Since the homological index of the hom-\/space on P1 is bounded between 0 and 1, the hom-\/space for local P1 is concentrated between degrees 0 and 2. Thus, we return a tuple of the form (a,b,c)
+
+
+\begin{DoxyParams}{Parameters}
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+1 The first line bundle in the Hom space \\
+\hline
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+2 The second line bundle in the Hom space\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+1 is not an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+2 is not an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{namespacesrc_1_1_spherical_twist_aff5a06c58e0e3b1d744af87d52053c4f}\index{src.SphericalTwist@{src.SphericalTwist}!\_dimHom\_LineBundlesP2@{\_dimHom\_LineBundlesP2}}
+\index{\_dimHom\_LineBundlesP2@{\_dimHom\_LineBundlesP2}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{\_dimHom\_LineBundlesP2()}{\_dimHom\_LineBundlesP2()}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_aff5a06c58e0e3b1d744af87d52053c4f} 
+src.\+Spherical\+Twist.\+\_\+dim\+Hom\+\_\+\+Line\+Bundles\+P2 (\begin{DoxyParamCaption}\item[{}]{line\+\_\+bundle\+\_\+1}{, }\item[{}]{line\+\_\+bundle\+\_\+2}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Helper method which computes the dimension of the hom spaces between the pushforwards of the line bundles O(a) and O(b). 
+
+The dimensions of the pushforwards are computed using the triangle
+
+i\texorpdfstring{$^\wedge$}{\string^}\texorpdfstring{$\ast$}{*} i\+\_\+\texorpdfstring{$\ast$}{*} E -\/\texorpdfstring{$>$}{>} E -\/\texorpdfstring{$>$}{>} E x O(3)\mbox{[}2\mbox{]}
+
+and applying Hom(-\/, O(b)) to obtain a long-\/exact sequence. Using the standard dimensions of the Hom spaces between line bundles on P\texorpdfstring{$^\wedge$}{\string^}2, the computation reduces to a case-\/by-\/case combinatorial problem. Since the homological index of the hom-\/space on P\texorpdfstring{$^\wedge$}{\string^}2 is bounded between 0 and 2, the hom-\/space for local P2 is concentrated between degrees 0 and 3. Thus, we return a tuple of the form (a,b,c,d)
+
+
+\begin{DoxyParams}{Parameters}
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+1 The first line bundle in the Hom space \\
+\hline
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+2 The second line bundle in the Hom space\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+1 is not an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+2 is not an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacesrc_1_1_spherical_twist_a6adb5f1c02cdb6c62340a1e45e5c1f3c}\index{src.SphericalTwist@{src.SphericalTwist}!\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_@{\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_}}
+\index{\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_@{\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_}{\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_a6adb5f1c02cdb6c62340a1e45e5c1f3c} 
+list src.\+Spherical\+Twist.\+\_\+\+\_\+\+CURRENT\+\_\+\+DOUBLE\+\_\+\+TWIST\+\_\+\+IMPLEMENTED\+\_\+\+\_\+ = \mbox{[}\textquotesingle{}\mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ae24dbe6f91328befda2836d4a4b311b7}{K3}}\textquotesingle{}\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacesrc_1_1_spherical_twist_a0019d0dc829ecd5586a727b073225b34}\index{src.SphericalTwist@{src.SphericalTwist}!fig@{fig}}
+\index{fig@{fig}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{fig}{fig}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_a0019d0dc829ecd5586a727b073225b34} 
+src.\+Spherical\+Twist.\+fig}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ go.Figure(data=[go.Scatter3d(z=masses,\ x=x\_vals,\ y=y\_vals,}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mode=\textcolor{stringliteral}{'markers'},\ marker=dict(size=3,\ color=masses,\ colorscale=\textcolor{stringliteral}{'viridis'}))])}
+
+\end{DoxyCode}
+\Hypertarget{namespacesrc_1_1_spherical_twist_a057fe29da15b1472a927881b6dbcba3d}\index{src.SphericalTwist@{src.SphericalTwist}!K3\_deg@{K3\_deg}}
+\index{K3\_deg@{K3\_deg}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{K3\_deg}{K3\_deg}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_a057fe29da15b1472a927881b6dbcba3d} 
+int src.\+Spherical\+Twist.\+K3\+\_\+deg = 1}
+
+\Hypertarget{namespacesrc_1_1_spherical_twist_ad60fa80652e6ca4ef6c6cb8658f23e19}\index{src.SphericalTwist@{src.SphericalTwist}!lb6@{lb6}}
+\index{lb6@{lb6}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{lb6}{lb6}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_ad60fa80652e6ca4ef6c6cb8658f23e19} 
+src.\+Spherical\+Twist.\+lb6 = \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}}(1, catagory=\textquotesingle{}\mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ae24dbe6f91328befda2836d4a4b311b7}{K3}}\textquotesingle{})}
+
+\Hypertarget{namespacesrc_1_1_spherical_twist_a551e481eec0d20b002128676f68ea940}\index{src.SphericalTwist@{src.SphericalTwist}!lb7@{lb7}}
+\index{lb7@{lb7}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{lb7}{lb7}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_a551e481eec0d20b002128676f68ea940} 
+src.\+Spherical\+Twist.\+lb7 = \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}}(2, catagory=\textquotesingle{}\mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ae24dbe6f91328befda2836d4a4b311b7}{K3}}\textquotesingle{})}
+
+\Hypertarget{namespacesrc_1_1_spherical_twist_a55f6d2af3496d6d3f2e1b82dfe628dc2}\index{src.SphericalTwist@{src.SphericalTwist}!lb8@{lb8}}
+\index{lb8@{lb8}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{lb8}{lb8}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_a55f6d2af3496d6d3f2e1b82dfe628dc2} 
+src.\+Spherical\+Twist.\+lb8 = \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}}(4, catagory=\textquotesingle{}\mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ae24dbe6f91328befda2836d4a4b311b7}{K3}}\textquotesingle{})}
+
+\Hypertarget{namespacesrc_1_1_spherical_twist_ad2b4eeebd6eb183d13666ec15fdb6634}\index{src.SphericalTwist@{src.SphericalTwist}!masses@{masses}}
+\index{masses@{masses}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{masses}{masses}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_ad2b4eeebd6eb183d13666ec15fdb6634} 
+src.\+Spherical\+Twist.\+masses = np.\+array(\mbox{[}sph4.\+mass(x, y, \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a057fe29da15b1472a927881b6dbcba3d}{K3\+\_\+deg}}) for x, y in zip(\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a689a91ee93ec6b6371ea8daacb0bb3ac}{x\+\_\+vals}}, \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a711446b175a82fb756eefac305b42428}{y\+\_\+vals}})\mbox{]})}
+
+\Hypertarget{namespacesrc_1_1_spherical_twist_a702de543b542d8cbccd91cf7eed902ff}\index{src.SphericalTwist@{src.SphericalTwist}!scene@{scene}}
+\index{scene@{scene}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{scene}{scene}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_a702de543b542d8cbccd91cf7eed902ff} 
+src.\+Spherical\+Twist.\+scene}
+
+\Hypertarget{namespacesrc_1_1_spherical_twist_a4c6ca7b43f9daf9a902a7d8cbf03b44e}\index{src.SphericalTwist@{src.SphericalTwist}!sph4@{sph4}}
+\index{sph4@{sph4}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{sph4}{sph4}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_a4c6ca7b43f9daf9a902a7d8cbf03b44e} 
+src.\+Spherical\+Twist.\+sph4 = \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist}{Double\+Spherical\+Twist}}(\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_ad60fa80652e6ca4ef6c6cb8658f23e19}{lb6}}, \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a551e481eec0d20b002128676f68ea940}{lb7}}, \mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a55f6d2af3496d6d3f2e1b82dfe628dc2}{lb8}}, \mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ada9e2125f4ff45cabe142cf18d906fad}{degree}}=\mbox{\hyperlink{namespacesrc_1_1_spherical_twist_a057fe29da15b1472a927881b6dbcba3d}{K3\+\_\+deg}})}
+
+\Hypertarget{namespacesrc_1_1_spherical_twist_a689a91ee93ec6b6371ea8daacb0bb3ac}\index{src.SphericalTwist@{src.SphericalTwist}!x\_vals@{x\_vals}}
+\index{x\_vals@{x\_vals}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{x\_vals}{x\_vals}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_a689a91ee93ec6b6371ea8daacb0bb3ac} 
+src.\+Spherical\+Twist.\+x\+\_\+vals = np.\+linspace(-\/5, 11.\+10, 200)}
+
+\Hypertarget{namespacesrc_1_1_spherical_twist_ac2c121df4f006e959c856d7d64130240}\index{src.SphericalTwist@{src.SphericalTwist}!y\_range@{y\_range}}
+\index{y\_range@{y\_range}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{y\_range}{y\_range}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_ac2c121df4f006e959c856d7d64130240} 
+src.\+Spherical\+Twist.\+y\+\_\+range = np.\+linspace(0, 5, 100)}
+
+\Hypertarget{namespacesrc_1_1_spherical_twist_a711446b175a82fb756eefac305b42428}\index{src.SphericalTwist@{src.SphericalTwist}!y\_vals@{y\_vals}}
+\index{y\_vals@{y\_vals}!src.SphericalTwist@{src.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{y\_vals}{y\_vals}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_spherical_twist_a711446b175a82fb756eefac305b42428} 
+src.\+Spherical\+Twist.\+y\+\_\+vals = \mbox{[}$\,$\mbox{]}}
+

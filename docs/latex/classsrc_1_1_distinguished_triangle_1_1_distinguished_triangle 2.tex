@@ -1,0 +1,176 @@
+\doxysection{src.\+Distinguished\+Triangle.\+Distinguished\+Triangle Class Reference}
+\hypertarget{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle}{}\label{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle}\index{src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}}
+
+
+A distinguished triangle is a sequence of three objects in the derived category of coherent sheaves (in our case) with morphisms of complexes between them such that the third complex is always quasi-\/isomorphic to the mapping cone of the morphism between the first two complexes.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_aff0cedc882dafb6cc51dea52ab7d6753}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, derived\+\_\+object1, derived\+\_\+object2, derived\+\_\+object3)
+\begin{DoxyCompactList}\small\item\em Initialize an instance of \doxylink{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle}{Distinguished\+Triangle} with the specified objects, and then update the Chern Characters of the objects if they are not already set. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_a1160c1270088f4857de6942dc099d2e2}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em String representation of the distinguished triangle. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_a3a36239e4c076cc5627d95af48d7435f}{rotate\+Right}} (self)
+\begin{DoxyCompactList}\small\item\em Method to shift the distinguished triangle to the right. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_ac401471ba6b81248c7dc5e2cee5c7177}{rotate\+Left}} (self)
+\begin{DoxyCompactList}\small\item\em Method to shift the distinguished triangle to the left. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_ac20ab524d7dfc2f7ed2a7120be3704a1}{object1}} = derived\+\_\+object1
+\begin{DoxyCompactList}\small\item\em The first object in the distinguished triangle. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_aa13d71c36dc8bef4dce189a60f19e61c}{object2}} = derived\+\_\+object2
+\begin{DoxyCompactList}\small\item\em The second object in the distinguished triangle. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_a2cf27f04f3016bf5a94c4c558dd51fb7}{object3}} = derived\+\_\+object3
+\begin{DoxyCompactList}\small\item\em The third object in the distinguished triangle. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_a9349beae6a2f70a9a621b7769c1ebbac}{catagory}} = first\+\_\+catagory
+\begin{DoxyCompactList}\small\item\em The underlying category of the distinguished triangle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_a73195d61b76eebcc4c72e2cfa3e81249}{\+\_\+update\+\_\+chern\+\_\+characters}} (self)
+\begin{DoxyCompactList}\small\item\em Helper function to update the Chern Characters of the objects in the distinguished triangle if they are not already set. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A distinguished triangle is a sequence of three objects in the derived category of coherent sheaves (in our case) with morphisms of complexes between them such that the third complex is always quasi-\/isomorphic to the mapping cone of the morphism between the first two complexes. 
+
+In the derived category, distinguished triangles generalize the notion of exact sequences since they also give rise to long exact sequences on the level of cohomology.
+
+In our implementation, we will use the classes \doxylink{namespacesrc_1_1_derived_category_object}{Derived\+Category\+Object} and \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex} to represent the objects in the distinguished triangle. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_aff0cedc882dafb6cc51dea52ab7d6753}\index{src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_aff0cedc882dafb6cc51dea52ab7d6753} 
+src.\+Distinguished\+Triangle.\+Distinguished\+Triangle.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{derived\+\_\+object1}{, }\item[{}]{derived\+\_\+object2}{, }\item[{}]{derived\+\_\+object3}{}\end{DoxyParamCaption})}
+
+
+
+Initialize an instance of \doxylink{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle}{Distinguished\+Triangle} with the specified objects, and then update the Chern Characters of the objects if they are not already set. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \doxylink{namespacesrc_1_1_derived_category_object}{Derived\+Category\+Object}} & derived\+\_\+object1 The first object in the distinguished triangle \\
+\hline
+{\em \doxylink{namespacesrc_1_1_derived_category_object}{Derived\+Category\+Object}} & derived\+\_\+object2\+: The second object in the distinguished triangle \\
+\hline
+{\em \doxylink{namespacesrc_1_1_derived_category_object}{Derived\+Category\+Object}} & derived\+\_\+object3\+: The third object in the distinguished triangle\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If any of the objects are not instances of \doxylink{namespacesrc_1_1_derived_category_object}{Derived\+Category\+Object} \\
+\hline
+{\em Type\+Error} & If the objects are not from the same underlying category \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_a1160c1270088f4857de6942dc099d2e2}\index{src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}!\_\_str\_\_@{\_\_str\_\_}}
+\index{\_\_str\_\_@{\_\_str\_\_}!src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}}
+\doxysubsubsection{\texorpdfstring{\_\_str\_\_()}{\_\_str\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_a1160c1270088f4857de6942dc099d2e2} 
+src.\+Distinguished\+Triangle.\+Distinguished\+Triangle.\+\_\+\+\_\+str\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+String representation of the distinguished triangle. 
+
+Since the chain complexes are printed horizontally, the distinguished triangle will be printed vertically.
+
+\begin{DoxyReturn}{Returns}
+str A string representation of the distinguished triangle 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_a73195d61b76eebcc4c72e2cfa3e81249}\index{src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}!\_update\_chern\_characters@{\_update\_chern\_characters}}
+\index{\_update\_chern\_characters@{\_update\_chern\_characters}!src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}}
+\doxysubsubsection{\texorpdfstring{\_update\_chern\_characters()}{\_update\_chern\_characters()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_a73195d61b76eebcc4c72e2cfa3e81249} 
+src.\+Distinguished\+Triangle.\+Distinguished\+Triangle.\+\_\+update\+\_\+chern\+\_\+characters (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Helper function to update the Chern Characters of the objects in the distinguished triangle if they are not already set. 
+
+This is done by using the additivity of the Chern Character on exact sequences. In particular, if the Chern Character of the first object is (0,0,0), then the Chern Character of the first object is updated to be the difference of the Chern Characters of the second and third objects. Similarly, if the Chern Character of the second object is (0,0,0), then the Chern Character of the second object is updated to be the sum of the Chern Characters of the first and third objects. If the Chern Character of the third object is (0,0,0), then the Chern Character of the third object is updated to be the difference of the Chern Characters of the first and second objects. \Hypertarget{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_ac401471ba6b81248c7dc5e2cee5c7177}\index{src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}!rotateLeft@{rotateLeft}}
+\index{rotateLeft@{rotateLeft}!src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}}
+\doxysubsubsection{\texorpdfstring{rotateLeft()}{rotateLeft()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_ac401471ba6b81248c7dc5e2cee5c7177} 
+src.\+Distinguished\+Triangle.\+Distinguished\+Triangle.\+rotate\+Left (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Method to shift the distinguished triangle to the left. 
+
+This is done by wrapping the first object in the previous triangle around to the last object in the new triangle (homologically shifted by 1) and then letting the previous second object be the new first object. The new third object is the previous second object.
+
+\begin{DoxyReturn}{Returns}
+\doxylink{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle}{Distinguished\+Triangle} The distinguished triangle shifted to the left 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_a3a36239e4c076cc5627d95af48d7435f}\index{src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}!rotateRight@{rotateRight}}
+\index{rotateRight@{rotateRight}!src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}}
+\doxysubsubsection{\texorpdfstring{rotateRight()}{rotateRight()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_a3a36239e4c076cc5627d95af48d7435f} 
+src.\+Distinguished\+Triangle.\+Distinguished\+Triangle.\+rotate\+Right (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Method to shift the distinguished triangle to the right. 
+
+This is done by wrapping the last object in the previous triangle around to the first object in the new triangle (homologically shifted by -\/1) and then letting the previous first object be the new second object. The new third object is the previous second object.
+
+\begin{DoxyReturn}{Returns}
+\doxylink{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle}{Distinguished\+Triangle} The distinguished triangle shifted to the right 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_a9349beae6a2f70a9a621b7769c1ebbac}\index{src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}!catagory@{catagory}}
+\index{catagory@{catagory}!src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}}
+\doxysubsubsection{\texorpdfstring{catagory}{catagory}}
+{\footnotesize\ttfamily \label{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_a9349beae6a2f70a9a621b7769c1ebbac} 
+src.\+Distinguished\+Triangle.\+Distinguished\+Triangle.\+catagory = first\+\_\+catagory}
+
+
+
+The underlying category of the distinguished triangle. 
+
+\Hypertarget{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_ac20ab524d7dfc2f7ed2a7120be3704a1}\index{src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}!object1@{object1}}
+\index{object1@{object1}!src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}}
+\doxysubsubsection{\texorpdfstring{object1}{object1}}
+{\footnotesize\ttfamily \label{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_ac20ab524d7dfc2f7ed2a7120be3704a1} 
+src.\+Distinguished\+Triangle.\+Distinguished\+Triangle.\+object1 = derived\+\_\+object1}
+
+
+
+The first object in the distinguished triangle. 
+
+\Hypertarget{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_aa13d71c36dc8bef4dce189a60f19e61c}\index{src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}!object2@{object2}}
+\index{object2@{object2}!src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}}
+\doxysubsubsection{\texorpdfstring{object2}{object2}}
+{\footnotesize\ttfamily \label{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_aa13d71c36dc8bef4dce189a60f19e61c} 
+src.\+Distinguished\+Triangle.\+Distinguished\+Triangle.\+object2 = derived\+\_\+object2}
+
+
+
+The second object in the distinguished triangle. 
+
+\Hypertarget{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_a2cf27f04f3016bf5a94c4c558dd51fb7}\index{src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}!object3@{object3}}
+\index{object3@{object3}!src.DistinguishedTriangle.DistinguishedTriangle@{src.DistinguishedTriangle.DistinguishedTriangle}}
+\doxysubsubsection{\texorpdfstring{object3}{object3}}
+{\footnotesize\ttfamily \label{classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_a2cf27f04f3016bf5a94c4c558dd51fb7} 
+src.\+Distinguished\+Triangle.\+Distinguished\+Triangle.\+object3 = derived\+\_\+object3}
+
+
+
+The third object in the distinguished triangle. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_distinguished_triangle_8py}{Distinguished\+Triangle.\+py}}\end{DoxyCompactItemize}

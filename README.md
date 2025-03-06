@@ -23,7 +23,13 @@ Most current supersymmetric models require 3 compactified complex dimensions for
 
 ## Installation
 
-To install the required dependencies, run:
+If you are interested in trying out the current implementation, you first want to move local directory of your choosing and clone the repository via
+
+```
+cd path/of/your/choosing && git clone https://github.com/cdare-ucsb/DerivedCategoryMass.git
+```
+
+Once the files are installed locally, there are some prerequisite Python libraries that are needed. To install the required dependencies, run:
 
 ```sh
 pip install -r requirements.txt
@@ -31,13 +37,20 @@ pip install -r requirements.txt
 
 ## Usage
 
-To run the project, execute:
+After the installation step has been completed and Flask / Plotly / etc. have been added to the current Python installation, the GUI for the program can be run from a Flask server using
 
 ```python
 python run.py
 ```
 
+This should open up the default browser to a webpage where the user can choose from 3 different geometric models for the compactified dimensions relevant to superstring theory — each model simplifies the standard complex projective threefold assumption in its own unique way, which is described on the relevant page. By navigating to the bottom of the page, the current utility is that the user can explore the mass asymptotics of D-branes under different charges
+
+![Example image of usage](/app/static/images/github_README.png)
+
+
 ## Project Structure 
+
+The project is currently separated into the front-end (handled by flask) in the `app` directory, the back-end (currently python) in the `src` directory, and the unit testing in the `tests/` directory. 
 
 ```
 __pycache__/
@@ -75,6 +88,16 @@ tests/
 - `docs`: Documentation files
 - `src`: The main source code for the backend mass computations
 - `tests`: Unit tests for the project
+
+Currently the majority of documentatinon is given for the back-end code in the `src/` directory. The documentation modus used for this project is Doxygen, and the documentation files can be easily accessed from the root directory of this project (i.e. `/DerivedCategoryMass`) by running 
+
+```
+firefox docs/html/index.html  # Linux
+open docs/html/index.html      # macOS
+start docs\html\index.html     # Windows
+```
+
+![Example of Doxygen documentation](/app/static/images/github_README_documentation.png)
 
 ## License 
 

@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kind="class" language="Python" prot="public">
+    <compoundname>src::CoherentSheaf::LineBundle</compoundname>
+    <basecompoundref refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf" prot="public" virt="non-virtual">src.CoherentSheaf.CoherentSheaf</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classsrc_1_1_coherent_sheaf_1_1_line_bundle_1a8d26ae3adb8a27a586eaf879215d55f9" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.CoherentSheaf.LineBundle::degree</definition>
+        <argsstring></argsstring>
+        <name>degree</name>
+        <qualifiedname>src.CoherentSheaf.LineBundle.degree</qualifiedname>
+        <initializer>=  degree</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="" line="18" column="1" bodyfile="src/CoherentSheaf.py" bodystart="18" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsrc_1_1_coherent_sheaf_1_1_line_bundle_1a8e95ddcf201c778d56740e0483f8fedd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.CoherentSheaf.LineBundle.is_semistable</definition>
+        <argsstring>(self, *args)</argsstring>
+        <name>is_semistable</name>
+        <qualifiedname>src.CoherentSheaf.LineBundle.is_semistable</qualifiedname>
+        <reimplements refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a95bc29833249e58a920c3454110125d2">is_semistable</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+<para>A result of Macrì-Schmidt (Lectures on Bridgeland Stability, 2016) is that whenever a surface has Picard rank 1, line bundles are stable everywhere. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This will specifically be used for the case of Local P2 (in which case the pushforward i_* preserves this fact), and K3 surfaces. For local P1, the line bundles are stable everywhere by definition of the tilt.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tuple</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>args The parameters of the stability condition. The number of parameters should be equal to the number of parameters required by the central charge for the given catagory. For example, a P1 object requires a single complex number parameter, while a P2 object requires two real number parameters. These are not in fact used, but included to match the format of other classes.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>bool True since line bundles are stable in our currently implemented examples. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CoherentSheaf.py" line="265" column="1" bodyfile="src/CoherentSheaf.py" bodystart="265" bodyend="284"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_coherent_sheaf_1_1_line_bundle_1a2c2e8cc0d0fe3614eb73642e2da9444c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.CoherentSheaf.LineBundle.__str__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__str__</name>
+        <qualifiedname>src.CoherentSheaf.LineBundle.__str__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>String representation of the line bundle. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Since all of our implemented catagories come from objects of Picard Rank 1, the line bundles are all derived from the structure sheaf. In particular, we can represent any line bundle as O(d) for some integer d.</para>
+<para><simplesect kind="return"><para>str A string representation of the line bundle, with the format &apos;O(d)&apos; </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CoherentSheaf.py" line="285" column="1" bodyfile="src/CoherentSheaf.py" bodystart="285" bodyend="295"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_coherent_sheaf_1_1_line_bundle_1a9d5184ea52c4a3af33dc81ffc090cfba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.CoherentSheaf.LineBundle.__eq__</definition>
+        <argsstring>(self, other)</argsstring>
+        <name>__eq__</name>
+        <qualifiedname>src.CoherentSheaf.LineBundle.__eq__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>other</type>
+          <defname>other</defname>
+        </param>
+        <briefdescription>
+<para>Equality comparison for line bundles. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Two line bundles are considered equal if they have the same degree and catagory.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>other The line bundle to compare to</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>bool True if the line bundles have the same catagory and degree, False otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CoherentSheaf.py" line="296" column="1" bodyfile="src/CoherentSheaf.py" bodystart="296" bodyend="310"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_coherent_sheaf_1_1_line_bundle_1a7e799278c25e792c35c856c1a1d45ebb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.CoherentSheaf.LineBundle.__hash__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__hash__</name>
+        <qualifiedname>src.CoherentSheaf.LineBundle.__hash__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Hash function for the line bundle. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is implemented to allow for the line bundle to be used as a key in a dictionary. This functionality is primarily implemented in the <ref refid="namespacesrc_1_1_chain_complex" kindref="compound">ChainComplex</ref> class, where a dictionary of Coherent sheaves is used to account for duplicate sheaves of the same type.</para>
+<para><simplesect kind="return"><para>int The hash of the line bundle </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CoherentSheaf.py" line="311" column="1" bodyfile="src/CoherentSheaf.py" bodystart="311" bodyend="322"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Main class for line bundles on a projective variety. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Line bundles are specifically locally free sheaves (i.e. vector bundles) of rank 1. In the cases of Local P1 and Local P2, the line bundles will serve as the building blocks of the derived category, since every coherent sheaf admits a resolution by line bundles (coming from the <lsquo/>canonical<rsquo/> exceptional collection). However, on K3 surfaces, it is not generally true that even vector bundles can be decomposed into sums of line bundels.</para>
+<para>Since LineBundles are specifically rank 1, their second chern class c_2(L) always vanishes. Since the second Chern Character is (c_1^2(E) - c_2(E))/2, the second Chern Character of a line bundle is simply c_1^2(E)/2; therefore, this class will conveniently only store the degree of the line bundle, which is the first Chern Character. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>src.CoherentSheaf.LineBundle</label>
+        <link refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src.CoherentSheaf.CoherentSheaf</label>
+        <link refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>src.DerivedCategoryObject.DerivedCategoryObject</label>
+        <link refid="classsrc_1_1_derived_category_object_1_1_derived_category_object"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>src.CoherentSheaf.LineBundle</label>
+        <link refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src.CoherentSheaf.CoherentSheaf</label>
+        <link refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>src.DerivedCategoryObject.DerivedCategoryObject</label>
+        <link refid="classsrc_1_1_derived_category_object_1_1_derived_category_object"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/CoherentSheaf.py" line="218" column="1" bodyfile="src/CoherentSheaf.py" bodystart="218" bodyend="322"/>
+    <listofallmembers>
+      <member refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle_1a9d5184ea52c4a3af33dc81ffc090cfba" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::LineBundle</scope><name>__eq__</name></member>
+      <member refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle_1a7e799278c25e792c35c856c1a1d45ebb" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::LineBundle</scope><name>__hash__</name></member>
+      <member refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1a92f50dd779ff4c7079311b77c865e9e1" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::LineBundle</scope><name>__init__</name></member>
+      <member refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle_1a2c2e8cc0d0fe3614eb73642e2da9444c" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::LineBundle</scope><name>__str__</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a244258a02691a74e0787cf277c5935c5" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::LineBundle</scope><name>catagory</name></member>
+      <member refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1aef4854cd91c31c02d3b227637604cec0" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::LineBundle</scope><name>central_charge</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a111bf62635e3a204488ca33689d296e6" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::LineBundle</scope><name>chern_character</name></member>
+      <member refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1acd49b46e6580eb9e222dd10e05a55e36" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::LineBundle</scope><name>chernCharacter</name></member>
+      <member refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle_1a8d26ae3adb8a27a586eaf879215d55f9" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::LineBundle</scope><name>degree</name></member>
+      <member refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle_1a8e95ddcf201c778d56740e0483f8fedd" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::LineBundle</scope><name>is_semistable</name></member>
+      <member refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1a6e3432c06461f7b1bad9c863c5563c4f" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::LineBundle</scope><name>phase</name></member>
+      <member refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_1a1bbe30e98a954561f98ea916a6dd5b77" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::LineBundle</scope><name>shift</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1ab7174b1273139ac7d0c2bc6f7c4d1789" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::LineBundle</scope><name>string</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a9ffd63e97c717dd171b7d1c7ef26e16d" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::LineBundle</scope><name>update_string_by_shift</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

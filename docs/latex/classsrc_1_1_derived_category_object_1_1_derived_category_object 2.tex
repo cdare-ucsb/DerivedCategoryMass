@@ -1,0 +1,265 @@
+\doxysection{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object Class Reference}
+\hypertarget{classsrc_1_1_derived_category_object_1_1_derived_category_object}{}\label{classsrc_1_1_derived_category_object_1_1_derived_category_object}\index{src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}}
+
+
+This class acts as a general parent class for objects in the derived category of coherent sheaves.  
+
+
+Inheritance diagram for src.\+Derived\+Category\+Object.\+Derived\+Category\+Object\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.070064cm]{classsrc_1_1_derived_category_object_1_1_derived_category_object}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a5b917d2624a9a499671f11e809397d71}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a244258a02691a74e0787cf277c5935c5}{catagory}}, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ab7174b1273139ac7d0c2bc6f7c4d1789}{string}}="{}0"{}, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a111bf62635e3a204488ca33689d296e6}{chern\+\_\+character}}=None)
+\begin{DoxyCompactList}\small\item\em Initialize an instance of the \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} with the specified catagory, string representation, and Chern Character. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ac086dabebbde64c028446348301011f2}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em String representation of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a1f4aac18056360d11918b709dc341937}{chern\+Character}} (self)
+\begin{DoxyCompactList}\small\item\em Method to return the Chern Character of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a6c1dfa5772ffeae4bf5f1e6a7a2de496}{shift}} (self, shift)
+\begin{DoxyCompactList}\small\item\em Method to shift the derived category object by a given homological shift. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a181bcb14152a914997c7990b33b51c18}{central\+\_\+charge}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Method to compute the central charge of the chain complex. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a95bc29833249e58a920c3454110125d2}{is\+\_\+semistable}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Method to determine if the derived category object is semistable with respect to a given stability condition. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a9ffd63e97c717dd171b7d1c7ef26e16d}{update\+\_\+string\+\_\+by\+\_\+shift}} (self, my\+\_\+str, n)
+\begin{DoxyCompactList}\small\item\em Static helper function to update the possible string representations of the abstract \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} by a homological shift. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a244258a02691a74e0787cf277c5935c5}{catagory}} = catagory
+\begin{DoxyCompactList}\small\item\em The catagory of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a111bf62635e3a204488ca33689d296e6}{chern\+\_\+character}} = chern\+\_\+character
+\begin{DoxyCompactList}\small\item\em The Chern Character of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ab7174b1273139ac7d0c2bc6f7c4d1789}{string}} = string
+\begin{DoxyCompactList}\small\item\em A string representation / label of the derived category object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class acts as a general parent class for objects in the derived category of coherent sheaves. 
+
+The derived category is a triangulated category (though in many cases is a dg-\/category) that is constructed over an abelian category --- in geometric contexts, this is usually the category of coherent sheaves on a variety. The derived category is a way to encode the information of the homological data of the abelian category in a more structured way, though it is considerably abstract since an element of the derived complex technically represents all possible resolutions of the object.
+
+One can typically think of objects in the derived catagory as chain complexes of sheaves; however, it will be true in general that multiple chain complexes of varying lengths can represent the same object in the derived category. For example, one can consider the cotangent bundle Ω\texorpdfstring{$^\wedge$}{\string^}1 on a variety IP\texorpdfstring{$^\wedge$}{\string^}2; there is a minimal resolution of the cotangent bundle by\+: \begin{DoxyVerb}                       0 -> O(-3) -> O(-2)^3 -> Ω^1 -> 0
+\end{DoxyVerb}
+
+
+obtained by replacing the last two terms in the standard Koszul resolution by Ω\texorpdfstring{$^\wedge$}{\string^}1 = ker(O(-\/1)\texorpdfstring{$^\wedge$}{\string^}3 -\/-\/\texorpdfstring{$>$}{>} O). It then follows that the derived category object representing Ω\texorpdfstring{$^\wedge$}{\string^}1 is the same as the two-\/term complex O(-\/3) -\/\texorpdfstring{$>$}{>} O(-\/2)\texorpdfstring{$^\wedge$}{\string^}3.
+
+As this is the most general class used in the current program, it will assume the least amount of information given since we can only assume the object fits into at least one distinguished triangle which may help determine the objects Chern character / numerical data. Thus, the bare minimum information this should encode is the catagory of the object and a string representation of the object. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classsrc_1_1_derived_category_object_1_1_derived_category_object_a5b917d2624a9a499671f11e809397d71}\index{src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_derived_category_object_1_1_derived_category_object_a5b917d2624a9a499671f11e809397d71} 
+src.\+Derived\+Category\+Object.\+Derived\+Category\+Object.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{catagory}{, }\item[{}]{string}{ = {\ttfamily "{}0"{}}, }\item[{}]{chern\+\_\+character}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+Initialize an instance of the \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} with the specified catagory, string representation, and Chern Character. 
+
+The Chern Character is optional and can be set later.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & catagory The catagory of the derived category object. This should be one of the implemented catagories \mbox{[}\textquotesingle{}P1\textquotesingle{}, \textquotesingle{}P2\textquotesingle{}, \textquotesingle{}K3\textquotesingle{}\mbox{]}. \\
+\hline
+{\em srt} & string A string representation / label of the derived category object. Default is "{}0"{}. \\
+\hline
+{\em \doxylink{namespacesrc_1_1_chern_character}{Chern\+Character}} & chern\+\_\+character The Chern Character of the derived category object. Default is None.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Not\+Implemented\+Error} & If the catagory is not implemented \\
+\hline
+{\em Type\+Error} & If the Chern Character is not an instance of Chern \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsrc_1_1_derived_category_object_1_1_derived_category_object_ac086dabebbde64c028446348301011f2}\index{src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}!\_\_str\_\_@{\_\_str\_\_}}
+\index{\_\_str\_\_@{\_\_str\_\_}!src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}}
+\doxysubsubsection{\texorpdfstring{\_\_str\_\_()}{\_\_str\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_derived_category_object_1_1_derived_category_object_ac086dabebbde64c028446348301011f2} 
+src.\+Derived\+Category\+Object.\+Derived\+Category\+Object.\+\_\+\+\_\+str\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+String representation of the derived category object. 
+
+\begin{DoxyReturn}{Returns}
+str A string representation of the derived category object 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_derived_category_object_1_1_derived_category_object_a181bcb14152a914997c7990b33b51c18}\index{src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}!central\_charge@{central\_charge}}
+\index{central\_charge@{central\_charge}!src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}}
+\doxysubsubsection{\texorpdfstring{central\_charge()}{central\_charge()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_derived_category_object_1_1_derived_category_object_a181bcb14152a914997c7990b33b51c18} 
+src.\+Derived\+Category\+Object.\+Derived\+Category\+Object.\+central\+\_\+charge (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Method to compute the central charge of the chain complex. 
+
+The central charge of a chain complex is the alternating sum of the central charges of the individual sheaves in the complex. Since the central charge is additive, we may multiply the central charges by the dimension of the sheaf to represent direct sums of sheaves.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tuple} & args The parameters of the stability condition. The number of parameters will depend on the catagory of the object. For P1, this will be a single complex number. For P2, this will be two real numbers. For K3, this will be two real numbers and one integer.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+complex The central charge of the chain complex as a complex number
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & If the \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} is not initialized If the number of parameters is incorrect for the catagory \\
+\hline
+{\em Type\+Error} & If the parameters are not of the correct type \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented in \mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_a70373ec03d47a5d6dd8e8694186ae138}{src.\+Chain\+Complex.\+Chain\+Complex}}, \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_aef4854cd91c31c02d3b227637604cec0}{src.\+Coherent\+Sheaf.\+Coherent\+Sheaf}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a68d54bee26b992863d77725861e0ec2c}{src.\+Spherical\+Twist.\+Double\+Spherical\+Twist}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a3548c15b0993329cebd465170cb78c00}{src.\+Spherical\+Twist.\+Spherical\+Twist}}, and \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ac0d03e78d54ff92408bfc5cd26722e23}{src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum}}.
+
+\Hypertarget{classsrc_1_1_derived_category_object_1_1_derived_category_object_a1f4aac18056360d11918b709dc341937}\index{src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}!chernCharacter@{chernCharacter}}
+\index{chernCharacter@{chernCharacter}!src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}}
+\doxysubsubsection{\texorpdfstring{chernCharacter()}{chernCharacter()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_derived_category_object_1_1_derived_category_object_a1f4aac18056360d11918b709dc341937} 
+src.\+Derived\+Category\+Object.\+Derived\+Category\+Object.\+chern\+Character (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Method to return the Chern Character of the derived category object. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{namespacesrc_1_1_chern_character}{Chern\+Character} The Chern Character of the derived category object 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_a0d7b95df49db36f52234bd8809b6a843}{src.\+Chain\+Complex.\+Chain\+Complex}}, \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_acd49b46e6580eb9e222dd10e05a55e36}{src.\+Coherent\+Sheaf.\+Coherent\+Sheaf}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ab9e9e5ae6673b64365efe14c77bab864}{src.\+Spherical\+Twist.\+Double\+Spherical\+Twist}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a183209b78a4202824b036ab2ebe40b91}{src.\+Spherical\+Twist.\+Spherical\+Twist}}, and \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a513a0c494fb9c82fa3545f8c8fdb3587}{src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum}}.
+
+\Hypertarget{classsrc_1_1_derived_category_object_1_1_derived_category_object_a95bc29833249e58a920c3454110125d2}\index{src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}!is\_semistable@{is\_semistable}}
+\index{is\_semistable@{is\_semistable}!src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}}
+\doxysubsubsection{\texorpdfstring{is\_semistable()}{is\_semistable()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_derived_category_object_1_1_derived_category_object_a95bc29833249e58a920c3454110125d2} 
+src.\+Derived\+Category\+Object.\+Derived\+Category\+Object.\+is\+\_\+semistable (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Method to determine if the derived category object is semistable with respect to a given stability condition. 
+
+This will simply act as a wrapper for the central charge method, which should be implemented in child classes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tuple} & args The parameters of the stability condition. The number of parameters will depend on the catagory of the object. For P1, this will be a single complex number. For P2, this will be two real numbers. For K3, this will be two real numbers and one integer.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if the object is semistable with respect to the stability condition, False otherwise
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & If the \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} is not initialized If the number of parameters is incorrect for the catagory \\
+\hline
+{\em Type\+Error} & If the parameters are not of the correct type \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented in \mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_ab0ec73042f19e9896f67b2a1724928d7}{src.\+Chain\+Complex.\+Chain\+Complex}}, \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_line_bundle_a8e95ddcf201c778d56740e0483f8fedd}{src.\+Coherent\+Sheaf.\+Line\+Bundle}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a1511075ab30c69c00130bc3e3b1820fb}{src.\+Spherical\+Twist.\+Double\+Spherical\+Twist}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a72577f81014ad8387458603c9fd522f8}{src.\+Spherical\+Twist.\+Spherical\+Twist}}, and \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a1e49845a4668418bb7cd17c463709223}{src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum}}.
+
+\Hypertarget{classsrc_1_1_derived_category_object_1_1_derived_category_object_a6c1dfa5772ffeae4bf5f1e6a7a2de496}\index{src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}!shift@{shift}}
+\index{shift@{shift}!src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}}
+\doxysubsubsection{\texorpdfstring{shift()}{shift()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_derived_category_object_1_1_derived_category_object_a6c1dfa5772ffeae4bf5f1e6a7a2de496} 
+src.\+Derived\+Category\+Object.\+Derived\+Category\+Object.\+shift (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{shift}{}\end{DoxyParamCaption})}
+
+
+
+Method to shift the derived category object by a given homological shift. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & shift The homological shift to apply to the derived category object\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} The derived category object shifted by the homological shift 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_a06ddcc7b614880bd8889c944f76237ee}{src.\+Chain\+Complex.\+Chain\+Complex}}, \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a1bbe30e98a954561f98ea916a6dd5b77}{src.\+Coherent\+Sheaf.\+Coherent\+Sheaf}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a0cae017d37b0e69454f7d039b77f3a54}{src.\+Spherical\+Twist.\+Spherical\+Twist}}, and \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ad3caf5216dee2ed1482c9494632cca7f}{src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum}}.
+
+\Hypertarget{classsrc_1_1_derived_category_object_1_1_derived_category_object_a9ffd63e97c717dd171b7d1c7ef26e16d}\index{src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}!update\_string\_by\_shift@{update\_string\_by\_shift}}
+\index{update\_string\_by\_shift@{update\_string\_by\_shift}!src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}}
+\doxysubsubsection{\texorpdfstring{update\_string\_by\_shift()}{update\_string\_by\_shift()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_derived_category_object_1_1_derived_category_object_a9ffd63e97c717dd171b7d1c7ef26e16d} 
+src.\+Derived\+Category\+Object.\+Derived\+Category\+Object.\+update\+\_\+string\+\_\+by\+\_\+shift (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{my\+\_\+str}{, }\item[{}]{n}{}\end{DoxyParamCaption})}
+
+
+
+Static helper function to update the possible string representations of the abstract \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} by a homological shift. 
+
+For example, if an object is called A\mbox{[}3\mbox{]}, then a shift of 2 will yield A\mbox{[}5\mbox{]} (as a string). If the object is unshifted to start with, then shifting the object should return A\mbox{[}n\mbox{]} (as a string). The only object that should not be shifted is the zero object, which is represented by the string "{}0"{}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & my\+\_\+str The string representation of the derived category object \\
+\hline
+{\em int} & n The homological shift to apply to the derived category object\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+str The string representation of the derived category object shifted by the homological shift
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If my\+\_\+str is not a string If n is not an integer \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classsrc_1_1_derived_category_object_1_1_derived_category_object_a244258a02691a74e0787cf277c5935c5}\index{src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}!catagory@{catagory}}
+\index{catagory@{catagory}!src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}}
+\doxysubsubsection{\texorpdfstring{catagory}{catagory}}
+{\footnotesize\ttfamily \label{classsrc_1_1_derived_category_object_1_1_derived_category_object_a244258a02691a74e0787cf277c5935c5} 
+str src.\+Derived\+Category\+Object.\+Derived\+Category\+Object.\+catagory = catagory}
+
+
+
+The catagory of the derived category object. 
+
+This should be one of the implemented catagories \mbox{[}\textquotesingle{}P1\textquotesingle{}, \textquotesingle{}P2\textquotesingle{}, \textquotesingle{}K3\textquotesingle{}\mbox{]}. \Hypertarget{classsrc_1_1_derived_category_object_1_1_derived_category_object_a111bf62635e3a204488ca33689d296e6}\index{src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}!chern\_character@{chern\_character}}
+\index{chern\_character@{chern\_character}!src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}}
+\doxysubsubsection{\texorpdfstring{chern\_character}{chern\_character}}
+{\footnotesize\ttfamily \label{classsrc_1_1_derived_category_object_1_1_derived_category_object_a111bf62635e3a204488ca33689d296e6} 
+src.\+Derived\+Category\+Object.\+Derived\+Category\+Object.\+chern\+\_\+character = chern\+\_\+character}
+
+
+
+The Chern Character of the derived category object. 
+
+This is optional and can be set later, especially when the object is put into a distinguished triangle with two objects whose Chern characters are known. \Hypertarget{classsrc_1_1_derived_category_object_1_1_derived_category_object_ab7174b1273139ac7d0c2bc6f7c4d1789}\index{src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}!string@{string}}
+\index{string@{string}!src.DerivedCategoryObject.DerivedCategoryObject@{src.DerivedCategoryObject.DerivedCategoryObject}}
+\doxysubsubsection{\texorpdfstring{string}{string}}
+{\footnotesize\ttfamily \label{classsrc_1_1_derived_category_object_1_1_derived_category_object_ab7174b1273139ac7d0c2bc6f7c4d1789} 
+src.\+Derived\+Category\+Object.\+Derived\+Category\+Object.\+string = string}
+
+
+
+A string representation / label of the derived category object. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_derived_category_object_8py}{Derived\+Category\+Object.\+py}}\end{DoxyCompactItemize}

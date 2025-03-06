@@ -1,0 +1,693 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="classsrc_1_1_chain_complex_1_1_chain_complex" kind="class" language="Python" prot="public">
+    <compoundname>src::ChainComplex::ChainComplex</compoundname>
+    <basecompoundref refid="classsrc_1_1_derived_category_object_1_1_derived_category_object" prot="public" virt="non-virtual">src.DerivedCategoryObject.DerivedCategoryObject</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classsrc_1_1_chain_complex_1_1_chain_complex_1a864ac31fa0d9fe9a4c50f803cc6023b8" prot="public" static="no" mutable="no">
+        <type>list</type>
+        <definition>src.ChainComplex.ChainComplex::sheaf_vector</definition>
+        <argsstring></argsstring>
+        <name>sheaf_vector</name>
+        <qualifiedname>src.ChainComplex.ChainComplex.sheaf_vector</qualifiedname>
+        <initializer>=  sheaf_vector</initializer>
+        <briefdescription>
+<para>List of coherent sheaves in the complex, so that the chain complex can operate similar to a DenseVector. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChainComplex.py" line="105" column="1" bodyfile="src/ChainComplex.py" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_chain_complex_1_1_chain_complex_1a6373f5a40572d1c1b76bfb3e0b0bf40c" prot="public" static="no" mutable="no">
+        <type>list</type>
+        <definition>src.ChainComplex.ChainComplex::dimension_vector</definition>
+        <argsstring></argsstring>
+        <name>dimension_vector</name>
+        <qualifiedname>src.ChainComplex.ChainComplex.dimension_vector</qualifiedname>
+        <initializer>=  dimension_vector</initializer>
+        <briefdescription>
+<para>List of the number of direct sums of each coherent sheaf in the complex. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChainComplex.py" line="107" column="1" bodyfile="src/ChainComplex.py" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_chain_complex_1_1_chain_complex_1ad30a876c85094c7347ea6180fb058171" prot="public" static="no" mutable="no">
+        <type>list</type>
+        <definition>src.ChainComplex.ChainComplex::shift_vector</definition>
+        <argsstring></argsstring>
+        <name>shift_vector</name>
+        <qualifiedname>src.ChainComplex.ChainComplex.shift_vector</qualifiedname>
+        <initializer>=  shift_vector</initializer>
+        <briefdescription>
+<para>List of homological shifts in the complex. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChainComplex.py" line="109" column="1" bodyfile="src/ChainComplex.py" bodystart="109" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1a72ab48cf534d48b0f2cc7e55c09b6a54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChainComplex.ChainComplex.__init__</definition>
+        <argsstring>(self, sheaf_vector, shift_vector, dimension_vector=None)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>src.ChainComplex.ChainComplex.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_chain_complex_1_1_chain_complex_1a864ac31fa0d9fe9a4c50f803cc6023b8" kindref="member">sheaf_vector</ref></type>
+          <defname>sheaf_vector</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_chain_complex_1_1_chain_complex_1ad30a876c85094c7347ea6180fb058171" kindref="member">shift_vector</ref></type>
+          <defname>shift_vector</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_chain_complex_1_1_chain_complex_1a6373f5a40572d1c1b76bfb3e0b0bf40c" kindref="member">dimension_vector</ref></type>
+          <defname>dimension_vector</defname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+<para>Initialize an instance of <ref refid="classsrc_1_1_chain_complex_1_1_chain_complex" kindref="compound">ChainComplex</ref> with the specified sheaf vector, shift vector, and potentially a dimension vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If a dimension vector is not provided, it must consist of non-negative integer values</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sheaf_vector A list of coherent sheaves in the complex </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>shift_vector A list of homological shifts in the complex </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimension_vector A list of the number of direct sums of each coherent sheaf in the complex</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the sheaf vector is empty </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the sheaf vector and shift vector have different lengths </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If any element of the sheaf vector is not a <ref refid="namespacesrc_1_1_coherent_sheaf" kindref="compound">CoherentSheaf</ref> object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If any element of the shift vector is not an integer </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the dimension vector is not the same length as the sheaf vector </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If any element of the dimension vector is not an integer </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If any element of the dimension vector is negative </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the catagory of the sheaves in the complex is not implemented </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the sheaf vector contains objects of different catagories </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the sheaf vector contains objects of different base spaces </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the sheaf vector contains objects of different projective spaces </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the sheaf vector contains objects of different projective spaces </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChainComplex.py" line="39" column="1" bodyfile="src/ChainComplex.py" bodystart="39" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1adbfc291368151be74b669b4f2edd9c79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChainComplex.ChainComplex.__str__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__str__</name>
+        <qualifiedname>src.ChainComplex.ChainComplex.__str__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>String representation of the chain complex. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The complex is represented in cohomological order (which technically would be descending order of the shifts, since IR[-2] means the complex with a copy of IR in index 2). The individual coherent sheaves in the complex are represented by their own respective print functinos <mdash/> this will generally be cumbersome for arbitrary vector bundles, but more clean for named instances like O(1) or Ω(3).</para>
+<para><simplesect kind="return"><para>str A string representation of the chain complex </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChainComplex.py" line="123" column="1" bodyfile="src/ChainComplex.py" bodystart="123" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1a85e811d0d0ed0e471f7666c51e7a483e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChainComplex.ChainComplex.__len__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__len__</name>
+        <qualifiedname>src.ChainComplex.ChainComplex.__len__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>The length of the chain complex is the number of sheaves in the complex. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>int The number of sheaves in the complex </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChainComplex.py" line="157" column="1" bodyfile="src/ChainComplex.py" bodystart="157" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1a0d7b95df49db36f52234bd8809b6a843" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChainComplex.ChainComplex.chernCharacter</definition>
+        <argsstring>(self)</argsstring>
+        <name>chernCharacter</name>
+        <qualifiedname>src.ChainComplex.ChainComplex.chernCharacter</qualifiedname>
+        <reimplements refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a1f4aac18056360d11918b709dc341937">chernCharacter</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Helper function to compute the Chern Character of the chain complex. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The Chern Character of a chain complex is the alternating sum of the Chern Characters of the individual sheaves in the complex. Since the Chern character is additive, we may multiply the Chern Characters by the dimension of the sheaf to represent direct sums of sheaves.</para>
+<para><simplesect kind="return"><para><ref refid="namespacesrc_1_1_chern_character" kindref="compound">ChernCharacter</ref> The Chern Character of the chain complex </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChainComplex.py" line="167" column="1" bodyfile="src/ChainComplex.py" bodystart="167" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1a70373ec03d47a5d6dd8e8694186ae138" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChainComplex.ChainComplex.central_charge</definition>
+        <argsstring>(self, *args)</argsstring>
+        <name>central_charge</name>
+        <qualifiedname>src.ChainComplex.ChainComplex.central_charge</qualifiedname>
+        <reimplements refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a181bcb14152a914997c7990b33b51c18">central_charge</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+<para>Compute the central charge of the chain complex. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The central charge of a chain complex is the alternating sum of the central charges of the individual sheaves in the complex. Since the central charge is additive, we may multiply the central charges by the dimension of the sheaf to represent direct sums of sheaves. However, most of this functionality is already defined in the <ref refid="classsrc_1_1_chain_complex_1_1_chain_complex_1a0d7b95df49db36f52234bd8809b6a843" kindref="member">chernCharacter()</ref> function, so we will simply call that function and then compute the central charge from the Chern Character.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tuple</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>args The arguments required to compute the central charge. The number of arguments and the type of arguments will depend on the catagory of the sheaves in the complex. For P1, the central charge requires a single complex number. For P2, the central charge requires two floating-point numbers. For K3, the central charge requires two floating-point numbers and an integer.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>complex The central charge of the chain complex as a complex number</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the number of arguments is incorrect </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the type of the arguments is incorrect </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NotImplementedError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the catagory of the sheaves in the complex is not implemented </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChainComplex.py" line="191" column="1" bodyfile="src/ChainComplex.py" bodystart="191" bodyend="253"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1a06ddcc7b614880bd8889c944f76237ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChainComplex.ChainComplex.shift</definition>
+        <argsstring>(self, shift)</argsstring>
+        <name>shift</name>
+        <qualifiedname>src.ChainComplex.ChainComplex.shift</qualifiedname>
+        <reimplements refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a6c1dfa5772ffeae4bf5f1e6a7a2de496">shift</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>shift</type>
+          <defname>shift</defname>
+        </param>
+        <briefdescription>
+<para>Method to shift the chain complex by a given homological shift. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>shift The homological shift to apply to the chain complex</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classsrc_1_1_chain_complex_1_1_chain_complex" kindref="compound">ChainComplex</ref> The chain complex shifted by the homological shift </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChainComplex.py" line="254" column="1" bodyfile="src/ChainComplex.py" bodystart="254" bodyend="266"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1a6fb46ca115fc7fef97f7f4676a74cfe8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChainComplex.ChainComplex.isShiftOfSheaf</definition>
+        <argsstring>(self)</argsstring>
+        <name>isShiftOfSheaf</name>
+        <qualifiedname>src.ChainComplex.ChainComplex.isShiftOfSheaf</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Simple helper function which checks if the complex is a shift of a single sheaf. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>bool True if the complex is a shift of a single sheaf, False otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChainComplex.py" line="267" column="1" bodyfile="src/ChainComplex.py" bodystart="267" bodyend="276"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1a36340635bb9a289121eb96778a5b4da3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChainComplex.ChainComplex.get_smallest_phase</definition>
+        <argsstring>(self, *args)</argsstring>
+        <name>get_smallest_phase</name>
+        <qualifiedname>src.ChainComplex.ChainComplex.get_smallest_phase</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+<para>Method to compute the smallest phase of the chain complex. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This behaves as a sort of &quot;smallest
+Harder-Narasimhan factor&quot; for the complex, since Chain complexes will almost never be stable when they have objects in distinct shifts. The phase of an individual element of a chain complex generally requires that object to be stable, so that we typically use LineBundles for our current applications. By definition of a slicing, the shift of each object in the complex should add to the respective phases; thus, this method computes the smallest sum of the phase of the sheaf and the shift of the sheaf in the complex.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tuple</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>args The arguments required to compute the phase. The number of arguments and the type of arguments will depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number. For P2, the phase requires two floating-point numbers. For K3, the phase requires two floating-point numbers and an integer.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>float The smallest phase of the chain complex</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the number of arguments is incorrect </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the type of the arguments is incorrect </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NotImplementedError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the catagory of the sheaves in the complex is not implemented </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChainComplex.py" line="319" column="1" bodyfile="src/ChainComplex.py" bodystart="319" bodyend="374"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1adc104a639fb1e10753ad4552ba9b1792" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChainComplex.ChainComplex.get_largest_phase</definition>
+        <argsstring>(self, *args)</argsstring>
+        <name>get_largest_phase</name>
+        <qualifiedname>src.ChainComplex.ChainComplex.get_largest_phase</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+<para>Method to compute the largest phase of the chain complex. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This behaves as a sort of &quot;largest
+Harder-Narasimhan factor&quot; for the complex, since Chain complexes will almost never be stable when they have objects in distinct shifts. The phase of an individual element of a chain complex generally requires that object to be stable, so that we typically use LineBundles for our current applications. By definition of a slicing, the shift of each object in the complex should add to the respective phases; thus, this method computes the largest sum of the phase of the sheaf and the shift of the sheaf in the complex.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tuple</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>args The arguments required to compute the phase. The number of arguments and the type of arguments will depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number. For P2, the phase requires two floating-point numbers. For K3, the phase requires two floating-point numbers and an integer.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>float The largest phase of the chain complex</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the number of arguments is incorrect </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the type of the arguments is incorrect </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NotImplementedError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the catagory of the sheaves in the complex is not implemented </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChainComplex.py" line="375" column="1" bodyfile="src/ChainComplex.py" bodystart="375" bodyend="433"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1ab0ec73042f19e9896f67b2a1724928d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChainComplex.ChainComplex.is_semistable</definition>
+        <argsstring>(self, *args)</argsstring>
+        <name>is_semistable</name>
+        <qualifiedname>src.ChainComplex.ChainComplex.is_semistable</qualifiedname>
+        <reimplements refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a95bc29833249e58a920c3454110125d2">is_semistable</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+<para>Method to compute whether the chain complex is semistable. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This almost never occurs, since if the complex contains two or more stable objects of distinct phase, it will never be stable. For example, suppose E2 is a stable subobject of maximum phase and E1 is another stable object with strictly smaller phase. Then <verbatim>      E2 ----&gt; Complex ------&gt; Cone
+</verbatim></para>
+<para>will destabilize the complex, and Cone will be nontrivial since it has a non-zero map to E1. The easiest way to check that the complex is concentrated in only a single phase is to compare its largest and smallest phases from the previous methods.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tuple</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>args The arguments required to compute the phase. The number of arguments and the type of arguments will depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number. For P2, the phase requires two floating-point numbers. For K3, the phase requires two floating-point numbers and an integer.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>bool True if the chain complex is semistable, False otherwise</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the number of arguments is incorrect </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the type of the arguments is incorrect </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NotImplementedError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the catagory of the sheaves in the complex is not implemented </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChainComplex.py" line="434" column="1" bodyfile="src/ChainComplex.py" bodystart="434" bodyend="486"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1af05e1ce45f86ad32474b98d8a17f7a73" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChainComplex.ChainComplex._remove_zeros_from_dimension_vector</definition>
+        <argsstring>(self)</argsstring>
+        <name>_remove_zeros_from_dimension_vector</name>
+        <qualifiedname>src.ChainComplex.ChainComplex._remove_zeros_from_dimension_vector</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Helper function which iterates through the dimension vector, and if a certain Coherent sheaf is only included 0 times, we may effectively erase it. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChainComplex.py" line="277" column="1" bodyfile="src/ChainComplex.py" bodystart="277" bodyend="287"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1aa0baf08c80270b5ccdf997788aeb1070" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ChainComplex.ChainComplex._combine_repeats</definition>
+        <argsstring>(self)</argsstring>
+        <name>_combine_repeats</name>
+        <qualifiedname>src.ChainComplex.ChainComplex._combine_repeats</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Helper function to combine repeated sheaves in the complex. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is useful for simplifying the complex, as we can combine repeated sheaves into a single sheaf with a larger dimension. This function specifically requires the <bold>hash</bold> implementation for the <ref refid="namespacesrc_1_1_coherent_sheaf" kindref="compound">CoherentSheaf</ref> and <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref> objects. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ChainComplex.py" line="288" column="1" bodyfile="src/ChainComplex.py" bodystart="288" bodyend="318"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>For any abelian category, a chain complex is a sequence of objects and morphisms between them such that the composition of any two consecutive morphisms is the zero morphism. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>In the derived category of coherent sheaves on P^2, we can represent a chain complex as a sequence of coherent sheaves with a shift. For instance, a general complex will be of the form <verbatim>         i=-n       i=-n+1      i=-n+2    ...
+0 ------&gt; E1 -------&gt; E2 --------&gt; E3 ---&gt; ...
+</verbatim></para>
+<para>(A priori, there is no reason the complexes cant also descend infinitely in the other direction). For the purposes of this project, only finite complexes will be considered. Such a complex can be stored in a similar way to a DenseVector object <mdash/> namely, since the majority of entries in the complex will be zero, we can store the complex as a list of coherent sheaves and a shift vector.</para>
+<sect1 id="classsrc_1_1_chain_complex_1_1_chain_complex_1autotoc_md0_1s1"><sect2 id="classsrc_1_1_chain_complex_1_1_chain_complex_1autotoc_md0">
+<title>Attributes:</title><para>sheaf_vector (list) : A list of coherent sheaves in the complex</para>
+<para>shift_vector (list) : A list of homological shifts in the complex</para>
+<para>dimension_vector (list) : A list of the number of direct sums of each coherent sheaf in the complex </para>
+</sect2></sect1>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>src.ChainComplex.ChainComplex</label>
+        <link refid="classsrc_1_1_chain_complex_1_1_chain_complex"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src.DerivedCategoryObject.DerivedCategoryObject</label>
+        <link refid="classsrc_1_1_derived_category_object_1_1_derived_category_object"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>src.ChainComplex.ChainComplex</label>
+        <link refid="classsrc_1_1_chain_complex_1_1_chain_complex"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src.DerivedCategoryObject.DerivedCategoryObject</label>
+        <link refid="classsrc_1_1_derived_category_object_1_1_derived_category_object"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/ChainComplex.py" line="14" column="1" bodyfile="src/ChainComplex.py" bodystart="14" bodyend="486"/>
+    <listofallmembers>
+      <member refid="classsrc_1_1_chain_complex_1_1_chain_complex_1a72ab48cf534d48b0f2cc7e55c09b6a54" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>__init__</name></member>
+      <member refid="classsrc_1_1_chain_complex_1_1_chain_complex_1a85e811d0d0ed0e471f7666c51e7a483e" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>__len__</name></member>
+      <member refid="classsrc_1_1_chain_complex_1_1_chain_complex_1adbfc291368151be74b669b4f2edd9c79" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>__str__</name></member>
+      <member refid="classsrc_1_1_chain_complex_1_1_chain_complex_1aa0baf08c80270b5ccdf997788aeb1070" prot="protected" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>_combine_repeats</name></member>
+      <member refid="classsrc_1_1_chain_complex_1_1_chain_complex_1af05e1ce45f86ad32474b98d8a17f7a73" prot="protected" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>_remove_zeros_from_dimension_vector</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a244258a02691a74e0787cf277c5935c5" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>catagory</name></member>
+      <member refid="classsrc_1_1_chain_complex_1_1_chain_complex_1a70373ec03d47a5d6dd8e8694186ae138" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>central_charge</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a111bf62635e3a204488ca33689d296e6" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>chern_character</name></member>
+      <member refid="classsrc_1_1_chain_complex_1_1_chain_complex_1a0d7b95df49db36f52234bd8809b6a843" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>chernCharacter</name></member>
+      <member refid="classsrc_1_1_chain_complex_1_1_chain_complex_1a6373f5a40572d1c1b76bfb3e0b0bf40c" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>dimension_vector</name></member>
+      <member refid="classsrc_1_1_chain_complex_1_1_chain_complex_1adc104a639fb1e10753ad4552ba9b1792" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>get_largest_phase</name></member>
+      <member refid="classsrc_1_1_chain_complex_1_1_chain_complex_1a36340635bb9a289121eb96778a5b4da3" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>get_smallest_phase</name></member>
+      <member refid="classsrc_1_1_chain_complex_1_1_chain_complex_1ab0ec73042f19e9896f67b2a1724928d7" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>is_semistable</name></member>
+      <member refid="classsrc_1_1_chain_complex_1_1_chain_complex_1a6fb46ca115fc7fef97f7f4676a74cfe8" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>isShiftOfSheaf</name></member>
+      <member refid="classsrc_1_1_chain_complex_1_1_chain_complex_1a864ac31fa0d9fe9a4c50f803cc6023b8" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>sheaf_vector</name></member>
+      <member refid="classsrc_1_1_chain_complex_1_1_chain_complex_1a06ddcc7b614880bd8889c944f76237ee" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>shift</name></member>
+      <member refid="classsrc_1_1_chain_complex_1_1_chain_complex_1ad30a876c85094c7347ea6180fb058171" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>shift_vector</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1ab7174b1273139ac7d0c2bc6f7c4d1789" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>string</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a9ffd63e97c717dd171b7d1c7ef26e16d" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>update_string_by_shift</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,406 @@
+\doxysection{src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum Class Reference}
+\hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum}{}\label{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum}\index{src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}}
+
+
+This class acts similar to the \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex} class for \doxylink{namespacesrc_1_1_coherent_sheaf}{Coherent\+Sheaf}; specifically, when considering double (or any n\texorpdfstring{$>$}{>}1) spherical twists, there are always triangles that the twist will fit into that are not necessarily the defining triangle and can be obtained by applying the twist functor to the defining triangle of the individual twists --- such triangles will often involve the sum of shifts of spherical twists, so we need an implementation for keeping track of such objects in a single argument of the \doxylink{namespacesrc_1_1_distinguished_triangle}{Distinguished\+Triangle}.  
+
+
+Inheritance diagram for src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_aa25c589a6642867e6a6fd9beed0e0f51}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a61524245ad81c4cb0243879e24c22ba4}{line\+\_\+bundle\+\_\+pairs\+\_\+vector}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a7535200f2ff52e1d73c6b6e025515efb}{dimension\+\_\+vector}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_adba9836083c0ee5b2654eeb970065315}{shift\+\_\+vector}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ab432f436cbc2f95ba86aadfe8dba6a17}{degree}}=1)
+\begin{DoxyCompactList}\small\item\em Initialize an instance of \doxylink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum}{Spherical\+Twist\+Sum} with the specified line bundles. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a80aae608c3ab615866e4440c35ed2c27}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Returns a string representation of the spherical twist by printing the defining triangle. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a1e6a63a1cccf6359d289a508ec85d23d}{\+\_\+\+\_\+len\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Returns the number of distinct spherical twists in the sum; we should generally expect that the spherical twists are distinct since the constructor should hypothetically combine like terms. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a513a0c494fb9c82fa3545f8c8fdb3587}{chern\+Character}} (self)
+\begin{DoxyCompactList}\small\item\em Similar to the case of \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex}, since the Chern character is additive on exact sequences (i.\+e. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ad3caf5216dee2ed1482c9494632cca7f}{shift}} (self, n)
+\begin{DoxyCompactList}\small\item\em Cohomological shift of the complex by some fixed amount. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ac0d03e78d54ff92408bfc5cd26722e23}{central\+\_\+charge}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Method to compute the central charge of the spherical twist sum. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a758bd9107244490ffbef06a73a6c6da2}{get\+\_\+lowest\+\_\+shift\+\_\+component}} (self)
+\begin{DoxyCompactList}\small\item\em Similar to the \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex} class, we wish to recover the lowest shift component of the spherical twist sum. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a01c65f64d5c0c516d01310a1c69b6138}{get\+\_\+highest\+\_\+shift\+\_\+component}} (self)
+\begin{DoxyCompactList}\small\item\em Similar to the \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex} class, we wish to recover the highest shift component of the spherical twist sum. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a1e49845a4668418bb7cd17c463709223}{is\+\_\+semistable}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Method to check if the spherical twist sum is stable. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_abe5b73ad2b84669fc3378f5b5cf9832b}{get\+\_\+\+HN\+\_\+factors\+\_\+ordered}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em This is a slightly modified version of the get\+\_\+\+HN\+\_\+factors method, where the Harder-\/\+Narasimhan factors are ordered by phase. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a5b917d2624a9a499671f11e809397d71}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a244258a02691a74e0787cf277c5935c5}{catagory}}, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ab7174b1273139ac7d0c2bc6f7c4d1789}{string}}="{}0"{}, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a111bf62635e3a204488ca33689d296e6}{chern\+\_\+character}}=None)
+\begin{DoxyCompactList}\small\item\em Initialize an instance of the \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} with the specified catagory, string representation, and Chern Character. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ac086dabebbde64c028446348301011f2}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em String representation of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a9ffd63e97c717dd171b7d1c7ef26e16d}{update\+\_\+string\+\_\+by\+\_\+shift}} (self, my\+\_\+str, n)
+\begin{DoxyCompactList}\small\item\em Static helper function to update the possible string representations of the abstract \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} by a homological shift. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+list \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a61524245ad81c4cb0243879e24c22ba4}{line\+\_\+bundle\+\_\+pairs\+\_\+vector}} = line\+\_\+bundle\+\_\+pairs\+\_\+vector
+\begin{DoxyCompactList}\small\item\em A list of tuples where each tuple is a pair of line bundles (lb1, lb2) that the spherical twist is defined around. \end{DoxyCompactList}\item 
+list \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a7535200f2ff52e1d73c6b6e025515efb}{dimension\+\_\+vector}} = dimension\+\_\+vector
+\begin{DoxyCompactList}\small\item\em A list of non-\/negative integers representing the number of times each spherical twist is applied. \end{DoxyCompactList}\item 
+list \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_adba9836083c0ee5b2654eeb970065315}{shift\+\_\+vector}} = shift\+\_\+vector
+\begin{DoxyCompactList}\small\item\em A list of integers representing the shift of each spherical twist. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ab432f436cbc2f95ba86aadfe8dba6a17}{degree}} = degree
+\begin{DoxyCompactList}\small\item\em An optional argument for the degree of the K3 surface, if applicable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a244258a02691a74e0787cf277c5935c5}{catagory}} = catagory
+\begin{DoxyCompactList}\small\item\em The catagory of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a111bf62635e3a204488ca33689d296e6}{chern\+\_\+character}} = chern\+\_\+character
+\begin{DoxyCompactList}\small\item\em The Chern Character of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ab7174b1273139ac7d0c2bc6f7c4d1789}{string}} = string
+\begin{DoxyCompactList}\small\item\em A string representation / label of the derived category object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ab026588657f8e7942142d524f21af97b}{\+\_\+remove\+\_\+zeros\+\_\+from\+\_\+dimension\+\_\+vector}} (self)
+\begin{DoxyCompactList}\small\item\em Helper function which iterates through the dimension vector, and if a certain Coherent sheaf is only included 0 times, we may effectively erase it. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ac200ed6fbce84c005d2afb81a6e7c1d3}{\+\_\+combine\+\_\+repeats}} (self)
+\begin{DoxyCompactList}\small\item\em Helper function to combine repeated sheaves in the complex. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class acts similar to the \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex} class for \doxylink{namespacesrc_1_1_coherent_sheaf}{Coherent\+Sheaf}; specifically, when considering double (or any n\texorpdfstring{$>$}{>}1) spherical twists, there are always triangles that the twist will fit into that are not necessarily the defining triangle and can be obtained by applying the twist functor to the defining triangle of the individual twists --- such triangles will often involve the sum of shifts of spherical twists, so we need an implementation for keeping track of such objects in a single argument of the \doxylink{namespacesrc_1_1_distinguished_triangle}{Distinguished\+Triangle}. 
+
+For successive spherical twist applications, this entire procedure will likely need to be generalized since it is inefficient to encode Double\+Spherical\+Twist\+Sum, Tripe\+Spherical\+Twist\+Sum, etc. as separate classes. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_aa25c589a6642867e6a6fd9beed0e0f51}\index{src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_aa25c589a6642867e6a6fd9beed0e0f51} 
+src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{line\+\_\+bundle\+\_\+pairs\+\_\+vector}{, }\item[{}]{dimension\+\_\+vector}{, }\item[{}]{shift\+\_\+vector}{, }\item[{}]{degree}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+
+
+Initialize an instance of \doxylink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum}{Spherical\+Twist\+Sum} with the specified line bundles. 
+
+This class is used to represent objects of the form
+
+Tw\+\_\+\{a\+\_\+1\} O(b\+\_\+1)\texorpdfstring{$^\wedge$}{\string^}\{n\+\_\+1\}\mbox{[}s\+\_\+1\mbox{]} ⊕ Tw\+\_\+\{a\+\_\+2\} O(b\+\_\+2)\texorpdfstring{$^\wedge$}{\string^}\{n\+\_\+2\}\mbox{[}s\+\_\+2\mbox{]}\}
+
+where the spherical twists are defined as the cone of the evaluation morphism \begin{DoxyVerb}Hom(O(a), O(b)) ⊗ O(a) ---->  O(b) ----> Tw_a O(b)
+\end{DoxyVerb}
+
+
+This class is primarily used for \doxylink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist}{Double\+Spherical\+Twist}, since the second canonical triangle will often be a sum of spherical twists.
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & line\+\_\+bundle\+\_\+pairs\+\_\+vector\+: A list of tuples where each tuple is a pair of line bundles (lb1, lb2) that the spherical twist is defined \\
+\hline
+{\em list} & dimension\+\_\+vector A list of non-\/negative integers representing the number of times each spherical twist is applied \\
+\hline
+{\em list} & shift\+\_\+vector A list of integers representing the shift of each spherical twist \\
+\hline
+{\em int} & degree An optional argument for the degree of the variety, which is relevant to the dimension of the derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations. Default is 1.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+pairs\+\_\+vector is not a list of tuples \\
+\hline
+{\em Type\+Error} & If dimension\+\_\+vector is not a list of integers \\
+\hline
+{\em Type\+Error} & If shift\+\_\+vector is not a list of integers \\
+\hline
+{\em Value\+Error} & If line\+\_\+bundle\+\_\+pairs\+\_\+vector is not a list of tuples with exactly two elements \\
+\hline
+{\em Value\+Error} & If line\+\_\+bundle\+\_\+pairs\+\_\+vector is not a list of tuples where both objects are line bundles \\
+\hline
+{\em Value\+Error} & If dimension\+\_\+vector is not a list of non-\/negative integers \\
+\hline
+{\em Value\+Error} & If line\+\_\+bundle\+\_\+pairs\+\_\+vector, dimension\+\_\+vector, and shift\+\_\+vector do not have the same length \\
+\hline
+{\em Value\+Error} & If line\+\_\+bundle\+\_\+pairs\+\_\+vector is empty \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a1e6a63a1cccf6359d289a508ec85d23d}\index{src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}!\_\_len\_\_@{\_\_len\_\_}}
+\index{\_\_len\_\_@{\_\_len\_\_}!src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}}
+\doxysubsubsection{\texorpdfstring{\_\_len\_\_()}{\_\_len\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a1e6a63a1cccf6359d289a508ec85d23d} 
+src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum.\+\_\+\+\_\+len\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Returns the number of distinct spherical twists in the sum; we should generally expect that the spherical twists are distinct since the constructor should hypothetically combine like terms. 
+
+This method is primarily used in the \doxylink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ae8b0a91cede767ce6188b18686b431c0}{Double\+Spherical\+Twist.\+get\+\_\+\+HN\+\_\+factors} method to help determine edge cases.
+
+\begin{DoxyReturn}{Returns}
+int The number of distinct spherical twists in the sum 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a80aae608c3ab615866e4440c35ed2c27}\index{src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}!\_\_str\_\_@{\_\_str\_\_}}
+\index{\_\_str\_\_@{\_\_str\_\_}!src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}}
+\doxysubsubsection{\texorpdfstring{\_\_str\_\_()}{\_\_str\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a80aae608c3ab615866e4440c35ed2c27} 
+src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum.\+\_\+\+\_\+str\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Returns a string representation of the spherical twist by printing the defining triangle. 
+
+The string representation is similar to that of the chain complex, where 2 lines are printed. The first line contains the number of times the spherical twist is applied, and the second line contains the actual twist. For example, the string representation of a spherical twist sum given by the data \mbox{[}(O(1), O(1)), \mbox{[}3\mbox{]}, \mbox{[}-\/2\mbox{]}\mbox{]} would be \begin{DoxyVerb}⊕3
+\end{DoxyVerb}
+ Tw\+\_\+1 O(1)\mbox{[}-\/2\mbox{]}
+
+\begin{DoxyReturn}{Returns}
+str A string representation of the spherical twist sum 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ac200ed6fbce84c005d2afb81a6e7c1d3}\index{src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}!\_combine\_repeats@{\_combine\_repeats}}
+\index{\_combine\_repeats@{\_combine\_repeats}!src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}}
+\doxysubsubsection{\texorpdfstring{\_combine\_repeats()}{\_combine\_repeats()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ac200ed6fbce84c005d2afb81a6e7c1d3} 
+src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum.\+\_\+combine\+\_\+repeats (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Helper function to combine repeated sheaves in the complex. 
+
+This is useful for simplifying the complex, as we can combine repeated sheaves into a single sheaf with a larger dimension. \Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ab026588657f8e7942142d524f21af97b}\index{src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}!\_remove\_zeros\_from\_dimension\_vector@{\_remove\_zeros\_from\_dimension\_vector}}
+\index{\_remove\_zeros\_from\_dimension\_vector@{\_remove\_zeros\_from\_dimension\_vector}!src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}}
+\doxysubsubsection{\texorpdfstring{\_remove\_zeros\_from\_dimension\_vector()}{\_remove\_zeros\_from\_dimension\_vector()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ab026588657f8e7942142d524f21af97b} 
+src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum.\+\_\+remove\+\_\+zeros\+\_\+from\+\_\+dimension\+\_\+vector (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Helper function which iterates through the dimension vector, and if a certain Coherent sheaf is only included 0 times, we may effectively erase it. 
+
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ac0d03e78d54ff92408bfc5cd26722e23}\index{src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}!central\_charge@{central\_charge}}
+\index{central\_charge@{central\_charge}!src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}}
+\doxysubsubsection{\texorpdfstring{central\_charge()}{central\_charge()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ac0d03e78d54ff92408bfc5cd26722e23} 
+src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum.\+central\+\_\+charge (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Method to compute the central charge of the spherical twist sum. 
+
+Since all stability conditions are numerical for our current implementations, it suffices to compute the central charge of the Chern character
+
+
+\begin{DoxyParams}{Parameters}
+{\em args} & The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+complex The central charge of the spherical twist sum as a complex number
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If the args are not of the correct type \\
+\hline
+{\em Value\+Error} & If the number of args is incorrect \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the object is not P1, P2, or K3 \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a181bcb14152a914997c7990b33b51c18}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a513a0c494fb9c82fa3545f8c8fdb3587}\index{src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}!chernCharacter@{chernCharacter}}
+\index{chernCharacter@{chernCharacter}!src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}}
+\doxysubsubsection{\texorpdfstring{chernCharacter()}{chernCharacter()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a513a0c494fb9c82fa3545f8c8fdb3587} 
+src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum.\+chern\+Character (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Similar to the case of \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex}, since the Chern character is additive on exact sequences (i.\+e. 
+
+factors through the Grothendieck group), we may always find the Chern character of an object obtained by sums and twists of known objects. In this case, we simply rely on the implementation of the above \doxylink{classsrc_1_1_spherical_twist_1_1_spherical_twist}{Spherical\+Twist} class.
+
+\begin{DoxyReturn}{Returns}
+\doxylink{namespacesrc_1_1_chern_character}{Chern\+Character} The Chern Character of the spherical twist sum 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a1f4aac18056360d11918b709dc341937}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a01c65f64d5c0c516d01310a1c69b6138}\index{src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}!get\_highest\_shift\_component@{get\_highest\_shift\_component}}
+\index{get\_highest\_shift\_component@{get\_highest\_shift\_component}!src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}}
+\doxysubsubsection{\texorpdfstring{get\_highest\_shift\_component()}{get\_highest\_shift\_component()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a01c65f64d5c0c516d01310a1c69b6138} 
+src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum.\+get\+\_\+highest\+\_\+shift\+\_\+component (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Similar to the \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex} class, we wish to recover the highest shift component of the spherical twist sum. 
+
+This is useful for computing the Harder-\/\+Narasimhan factors of the Double\+Spherical\+Twist\+Sum class.
+
+\begin{DoxyReturn}{Returns}
+\doxylink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum}{Spherical\+Twist\+Sum} The spherical twist sum with the highest shift 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_abe5b73ad2b84669fc3378f5b5cf9832b}\index{src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}!get\_HN\_factors\_ordered@{get\_HN\_factors\_ordered}}
+\index{get\_HN\_factors\_ordered@{get\_HN\_factors\_ordered}!src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}}
+\doxysubsubsection{\texorpdfstring{get\_HN\_factors\_ordered()}{get\_HN\_factors\_ordered()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_abe5b73ad2b84669fc3378f5b5cf9832b} 
+src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum.\+get\+\_\+\+HN\+\_\+factors\+\_\+ordered (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+This is a slightly modified version of the get\+\_\+\+HN\+\_\+factors method, where the Harder-\/\+Narasimhan factors are ordered by phase. 
+
+In particular, this method is a slight misnomer in the sense that it is not actually claiming that the list returned is the HN filtration of the object, but rather a concatenated list of all the individual semistable factors. This is still nonetheless useful for computing the HN factors of the Double\+Spherical\+Twist\+Sum class.
+
+
+\begin{DoxyParams}{Parameters}
+{\em args} & The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A list of tuples where the first element is a \doxylink{namespacesrc_1_1_derived_category_object}{Derived\+Category\+Object} and the second element is a float representing the phase of the object. The list is always returned in such a way that the largest phase HN factor is first and smallest is last.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If the args are not of the correct type \\
+\hline
+{\em Value\+Error} & If the number of args is incorrect \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the object is not P1, P2, or K3 \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a758bd9107244490ffbef06a73a6c6da2}\index{src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}!get\_lowest\_shift\_component@{get\_lowest\_shift\_component}}
+\index{get\_lowest\_shift\_component@{get\_lowest\_shift\_component}!src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}}
+\doxysubsubsection{\texorpdfstring{get\_lowest\_shift\_component()}{get\_lowest\_shift\_component()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a758bd9107244490ffbef06a73a6c6da2} 
+src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum.\+get\+\_\+lowest\+\_\+shift\+\_\+component (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Similar to the \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex} class, we wish to recover the lowest shift component of the spherical twist sum. 
+
+This is useful for computing the Harder-\/\+Narasimhan factors of the Double\+Spherical\+Twist\+Sum class.
+
+\begin{DoxyReturn}{Returns}
+\doxylink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum}{Spherical\+Twist\+Sum} The spherical twist sum with the lowest shift 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a1e49845a4668418bb7cd17c463709223}\index{src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}!is\_semistable@{is\_semistable}}
+\index{is\_semistable@{is\_semistable}!src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}}
+\doxysubsubsection{\texorpdfstring{is\_semistable()}{is\_semistable()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a1e49845a4668418bb7cd17c463709223} 
+src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum.\+is\+\_\+semistable (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Method to check if the spherical twist sum is stable. 
+
+The sum of shifts of distinct objects will generally never be stable unless the objects and shifts are all the same; for example, one can consider the trivial case where E is a stable object, but
+
+E\mbox{[}1\mbox{]} -\/-\/-\/\texorpdfstring{$>$}{>} E\mbox{[}1\mbox{]} ⊕ E -\/-\/-\/\texorpdfstring{$>$}{>} E
+
+destabilizes the direct sum. In general, the spherical twist sum is stable if the Harder-\/\+Narasimhan filtration is trivial, i.\+e. just the object itself.
+
+
+\begin{DoxyParams}{Parameters}
+{\em args} & The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if the spherical twist sum is stable, False otherwise
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If the args are not of the correct type \\
+\hline
+{\em Value\+Error} & If the number of args is incorrect \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the object is not P1, P2, or K3 \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a95bc29833249e58a920c3454110125d2}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ad3caf5216dee2ed1482c9494632cca7f}\index{src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}!shift@{shift}}
+\index{shift@{shift}!src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}}
+\doxysubsubsection{\texorpdfstring{shift()}{shift()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ad3caf5216dee2ed1482c9494632cca7f} 
+src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum.\+shift (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{n}{}\end{DoxyParamCaption})}
+
+
+
+Cohomological shift of the complex by some fixed amount. 
+
+This is one of the main methods one wishes to override for the \doxylink{namespacesrc_1_1_derived_category_object}{Derived\+Category\+Object} class, since the shift of a spherical twist sum is simply the sum of the shifts of the individual spherical twists.
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & n The amount to shift the complex by ~\newline
+\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum}{Spherical\+Twist\+Sum} The shifted spherical twist sum 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a6c1dfa5772ffeae4bf5f1e6a7a2de496}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ab432f436cbc2f95ba86aadfe8dba6a17}\index{src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}!degree@{degree}}
+\index{degree@{degree}!src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}}
+\doxysubsubsection{\texorpdfstring{degree}{degree}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_ab432f436cbc2f95ba86aadfe8dba6a17} 
+src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum.\+degree = degree}
+
+
+
+An optional argument for the degree of the K3 surface, if applicable. 
+
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a7535200f2ff52e1d73c6b6e025515efb}\index{src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}!dimension\_vector@{dimension\_vector}}
+\index{dimension\_vector@{dimension\_vector}!src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}}
+\doxysubsubsection{\texorpdfstring{dimension\_vector}{dimension\_vector}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a7535200f2ff52e1d73c6b6e025515efb} 
+src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum.\+dimension\+\_\+vector = dimension\+\_\+vector}
+
+
+
+A list of non-\/negative integers representing the number of times each spherical twist is applied. 
+
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a61524245ad81c4cb0243879e24c22ba4}\index{src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}!line\_bundle\_pairs\_vector@{line\_bundle\_pairs\_vector}}
+\index{line\_bundle\_pairs\_vector@{line\_bundle\_pairs\_vector}!src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}}
+\doxysubsubsection{\texorpdfstring{line\_bundle\_pairs\_vector}{line\_bundle\_pairs\_vector}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_a61524245ad81c4cb0243879e24c22ba4} 
+src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum.\+line\+\_\+bundle\+\_\+pairs\+\_\+vector = line\+\_\+bundle\+\_\+pairs\+\_\+vector}
+
+
+
+A list of tuples where each tuple is a pair of line bundles (lb1, lb2) that the spherical twist is defined around. 
+
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_adba9836083c0ee5b2654eeb970065315}\index{src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}!shift\_vector@{shift\_vector}}
+\index{shift\_vector@{shift\_vector}!src.SphericalTwist.SphericalTwistSum@{src.SphericalTwist.SphericalTwistSum}}
+\doxysubsubsection{\texorpdfstring{shift\_vector}{shift\_vector}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_adba9836083c0ee5b2654eeb970065315} 
+src.\+Spherical\+Twist.\+Spherical\+Twist\+Sum.\+shift\+\_\+vector = shift\+\_\+vector}
+
+
+
+A list of integers representing the shift of each spherical twist. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_spherical_twist_8py}{Spherical\+Twist.\+py}}\end{DoxyCompactItemize}

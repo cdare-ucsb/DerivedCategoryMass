@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="namespacesrc_1_1_local_p1" kind="namespace" language="Python">
+    <compoundname>src::LocalP1</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacesrc_1_1_local_p1_1a672b2478ed63bd51ebc9acb6569c754b" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::LocalP1.return_json</definition>
+        <argsstring></argsstring>
+        <name>return_json</name>
+        <qualifiedname>src.LocalP1.return_json</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LocalP1.py" line="137" column="1" bodyfile="src/LocalP1.py" bodystart="137" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacesrc_1_1_local_p1_1aaf150e1cf83dedef44ba9db30b29a0b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.LocalP1.ints_to_mass_plot_P1_sing_twist</definition>
+        <argsstring>(line_bundle_1, line_bundle_2, return_json=False)</argsstring>
+        <name>ints_to_mass_plot_P1_sing_twist</name>
+        <qualifiedname>src.LocalP1.ints_to_mass_plot_P1_sing_twist</qualifiedname>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1a43573e56e18e52559a2d31128936f558" kindref="member">line_bundle_1</ref></type>
+          <defname>line_bundle_1</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1ae9dd2ce41559bc7d27aeebcd188761d1" kindref="member">line_bundle_2</ref></type>
+          <defname>line_bundle_2</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p1_1a672b2478ed63bd51ebc9acb6569c754b" kindref="member">return_json</ref></type>
+          <defname>return_json</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para>Method which takes in two integers and returns a plot of the mass of the spherical twist of the two line bundles. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is used in the Flask app implementation to generate plots based on user form data.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_1 The first line bundle degree in the spherical twist </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_2 The second line bundle degree in the spherical twist </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bool</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>return_json A flag to indicate whether the plot should be returned as a JSON string or displayed in the browser. When passed to a Flask app, this should be True. Default is False.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+\raises ValueError If the input data is not an integer</para>
+<para><simplesect kind="return"><para>str A JSON string representation of the plotly plot if return_json is True </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LocalP1.py" line="9" column="1" bodyfile="src/LocalP1.py" bodystart="9" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacesrc_1_1_local_p1_1a847328623c2db7151196507a5374dcd8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.LocalP1.twist_triangle_to_json_P1</definition>
+        <argsstring>(line_bundle_1, line_bundle_2)</argsstring>
+        <name>twist_triangle_to_json_P1</name>
+        <qualifiedname>src.LocalP1.twist_triangle_to_json_P1</qualifiedname>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1a43573e56e18e52559a2d31128936f558" kindref="member">line_bundle_1</ref></type>
+          <defname>line_bundle_1</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1ae9dd2ce41559bc7d27aeebcd188761d1" kindref="member">line_bundle_2</ref></type>
+          <defname>line_bundle_2</defname>
+        </param>
+        <briefdescription>
+<para>Helper function to convert the data of a spherical twist of two line bundles to a JSON string for use in the Flask app. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is used to display the chain complex data of the spherical twist in the browser.</para>
+<para>:param line_bundle_1: The first line bundle degree in the spherical twist :type line_bundle_1: int :param line_bundle_2: The second line bundle degree in the spherical twist :type line_bundle_2: int</para>
+<para>:raises ValueError: If the input data is not an integer :return: A JSON string representation of the chain complex :rtype: str </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LocalP1.py" line="87" column="1" bodyfile="src/LocalP1.py" bodystart="87" bodyend="135"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/LocalP1.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>
