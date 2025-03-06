@@ -13,11 +13,6 @@ class ChernCharacter():
     lists of floating point numbers, since they are graded objects concentrated in degrees 
     going from 0 to the dimension of the variety. 
 
-    Attributes:
-    -------------
-
-        graded_element (np.array): The graded element of the Chern Character object. This is a numpy array of floats or integers
-
     """
 
     def __init__(self, graded_element):
