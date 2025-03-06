@@ -1,0 +1,616 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="classsrc_1_1_spherical_twist_1_1_spherical_twist" kind="class" language="Python" prot="public">
+    <compoundname>src::SphericalTwist::SphericalTwist</compoundname>
+    <basecompoundref refid="classsrc_1_1_derived_category_object_1_1_derived_category_object" prot="public" virt="non-virtual">src.DerivedCategoryObject.DerivedCategoryObject</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a16387ebcbf8065fea959f9b1f2c96185" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwist::line_bundle_1</definition>
+        <argsstring></argsstring>
+        <name>line_bundle_1</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwist.line_bundle_1</qualifiedname>
+        <initializer>=  line_bundle_1</initializer>
+        <briefdescription>
+<para>The first line bundle in the Hom space, i.e. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>O(a) in Hom(O(a), O(b)) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="118" column="1" bodyfile="src/SphericalTwist.py" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_1ac3e080e6277d060fcc6b56c076461e27" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwist::line_bundle_2</definition>
+        <argsstring></argsstring>
+        <name>line_bundle_2</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwist.line_bundle_2</qualifiedname>
+        <initializer>=  line_bundle_2</initializer>
+        <briefdescription>
+<para>The second line bundle in the Hom space, i.e. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>O(b) in Hom(O(a), O(b)) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="120" column="1" bodyfile="src/SphericalTwist.py" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_1ae2bccb64f12b9d586d8ca3cf4688f157" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwist::degree</definition>
+        <argsstring></argsstring>
+        <name>degree</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwist.degree</qualifiedname>
+        <initializer>=  degree</initializer>
+        <briefdescription>
+<para>The degree of the K3 surface, if applicable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="124" column="1" bodyfile="src/SphericalTwist.py" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a45bab068cfcf3ed76462c137df88cd4b" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwist::defining_triangle</definition>
+        <argsstring></argsstring>
+        <name>defining_triangle</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwist.defining_triangle</qualifiedname>
+        <initializer>=  self._sph_twist_LineBundles(<ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a16387ebcbf8065fea959f9b1f2c96185" kindref="member">line_bundle_1</ref>, <ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1ac3e080e6277d060fcc6b56c076461e27" kindref="member">line_bundle_2</ref>)</initializer>
+        <briefdescription>
+<para>The distinguished triangle representing the spherical twist. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="126" column="1" bodyfile="src/SphericalTwist.py" bodystart="126" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a9a67efb1d59e905c5e7cfdb7cc309daa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwist.__init__</definition>
+        <argsstring>(self, line_bundle_1, line_bundle_2, degree=1)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwist.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a16387ebcbf8065fea959f9b1f2c96185" kindref="member">line_bundle_1</ref></type>
+          <defname>line_bundle_1</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1ac3e080e6277d060fcc6b56c076461e27" kindref="member">line_bundle_2</ref></type>
+          <defname>line_bundle_2</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1ae2bccb64f12b9d586d8ca3cf4688f157" kindref="member">degree</ref></type>
+          <defname>degree</defname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>Initialize an instance of <ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist" kindref="compound">SphericalTwist</ref> with the specified line bundles. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The spherical twist is defined as the cone of the evaluation morphism <verbatim>Hom(O(a), O(b)) ⊗ O(a) ----&gt;  O(b) ----&gt; Tw_a O(b)
+</verbatim></para>
+<para>where O(a) and O(b) denote either line bundles or pushforwards of line bundles along the inclusion of the zero section. The spherical twist is represented as a distinguished triangle in the derived category of coherent sheaves.</para>
+<para>Several helper methods are used to compute the dimensions of the Hom spaces between the pushforwards of the line bundles, and then to construct the distinguished triangle.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_1 The first line bundle in the Hom space</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_2: The second line bundle in the Hom space</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>degree An optional argument for the degree of the variety, which is relevant to the dimension of the derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations. Default is 1.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_1 is not an instance of <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_2 is not an instance of <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the line bundles are not defined on the same variety </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="84" column="1" bodyfile="src/SphericalTwist.py" bodystart="84" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a2dbfba1b1b215dfdb4e58bd160819479" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwist.__str__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__str__</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwist.__str__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Returns a string representation of the spherical twist by printing the defining triangle. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>str A string representation of the spherical twist </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="129" column="1" bodyfile="src/SphericalTwist.py" bodystart="129" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a183209b78a4202824b036ab2ebe40b91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwist.chernCharacter</definition>
+        <argsstring>(self)</argsstring>
+        <name>chernCharacter</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwist.chernCharacter</qualifiedname>
+        <reimplements refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a1f4aac18056360d11918b709dc341937">chernCharacter</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Method to compute the Chern Character of the spherical twist. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The Chern Character of the spherical twist is the Chern Character of the third object in the distinguished triangle.</para>
+<para><simplesect kind="return"><para><ref refid="namespacesrc_1_1_chern_character" kindref="compound">ChernCharacter</ref> The Chern Character of the spherical twist </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="182" column="1" bodyfile="src/SphericalTwist.py" bodystart="182" bodyend="191"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a0cae017d37b0e69454f7d039b77f3a54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwist.shift</definition>
+        <argsstring>(self, n)</argsstring>
+        <name>shift</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwist.shift</qualifiedname>
+        <reimplements refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a6c1dfa5772ffeae4bf5f1e6a7a2de496">shift</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>n</type>
+          <defname>n</defname>
+        </param>
+        <briefdescription>
+<para>Method to shift the spherical twist by n units. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>As a spherical twist is initially only specified as a string until its defining triangle is computed, the shift method simply relies on the implementation in the parent class <ref refid="namespacesrc_1_1_derived_category_object" kindref="compound">DerivedCategoryObject</ref>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>n: The number of units to shift the object by</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="namespacesrc_1_1_derived_category_object" kindref="compound">DerivedCategoryObject</ref> The shifted object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="192" column="1" bodyfile="src/SphericalTwist.py" bodystart="192" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a3548c15b0993329cebd465170cb78c00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwist.central_charge</definition>
+        <argsstring>(self, *args)</argsstring>
+        <name>central_charge</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwist.central_charge</qualifiedname>
+        <reimplements refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a181bcb14152a914997c7990b33b51c18">central_charge</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+<para>Method to compute the central charge of the spherical twist. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The central charge of the spherical twist is the central charge of the third object in the distinguished triangle.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The central charge of the spherical twist as a complex number</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the args are not of the correct type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the number of args is incorrect </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NotImplementedError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the catagory of the object is not P1, P2, or K3 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="211" column="1" bodyfile="src/SphericalTwist.py" bodystart="211" bodyend="274"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a72577f81014ad8387458603c9fd522f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwist.is_semistable</definition>
+        <argsstring>(self, *args)</argsstring>
+        <name>is_semistable</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwist.is_semistable</qualifiedname>
+        <reimplements refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a95bc29833249e58a920c3454110125d2">is_semistable</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+<para>Method to check if the spherical twist is stable. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The spherical twist is stable if the Harder-Narasimhan filtration is trivial, i.e. just the object itself.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if the spherical twist is stable, False otherwise</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the args are not of the correct type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the number of args is incorrect </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NotImplementedError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the catagory of the object is not P1, P2, or K3 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="275" column="1" bodyfile="src/SphericalTwist.py" bodystart="275" bodyend="321"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a729ebfa2e5edd9a786917301cfdaebc1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwist.mass</definition>
+        <argsstring>(self, *args)</argsstring>
+        <name>mass</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwist.mass</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+<para>Computes the mass of an object in the derived catagory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The mass of a stable object is simply the modulus of its central charge. For a non-stable object, the mass is the sum of the masses of the Harder-Narasimhan factors of the object. The notion of the mass of an object is derived from string theory, where BPS states are characterized as objects which satisfy the BPS bound M = |Z|. For non-BPS states, one simply has |Z| &lt; M. The mass of a Bridgeland stability condition is given by the sum of its semistable factors, which corresponds to the decomposition of an object in the derived category into Harder-Narasimhan factors. As a consequence, this method heavily relies on the get_HN_factors method to compute the Harder-Narasimhan factors of the object.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The mass of the object, as a non-negative real number</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the args are not of the correct type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the number of args is incorrect </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NotImplementedError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the catagory of the object is not P1, P2, or K3 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="322" column="1" bodyfile="src/SphericalTwist.py" bodystart="322" bodyend="384"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a68f7b3d2761fa842f86e7e6405ce7fb4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwist.get_HN_factors</definition>
+        <argsstring>(self, *args)</argsstring>
+        <name>get_HN_factors</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwist.get_HN_factors</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+<para>This method is the main workhorse of the <ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist" kindref="compound">SphericalTwist</ref> class. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>It computes the Harder-Narasimhan factors of the spherical twist object. It is generally assumed that for a single spherical twist, the only way that an object can destabilize is when an element of the last term of the defining triangle <verbatim>                 O(a) -----&gt; Tw_O(a) O(b) --------&gt;  O(b)[n] ⊕ O(b)[n+1]
+</verbatim></para>
+<para>has larger phase than O(a). In this case, the Harder-Narasimhan factors of the spherical twist depend on which object it is that has larger phase. For example, if the minimum shift has larger phase, then we assume that the object must be strictly stable - THIS IS A CONJECTURE. If the maximum shift has smaller phase, then the triangle above leads to a Harder-Narasimhan filtration, so that the individual line bundle sums are precisely the HN factors; this is a result of Bapat-Deopurkar-Licata (2020).</para>
+<para>The most difficult case is when the smaller phase O(b)[n] is smaller than O(a) is smaller than O(b)[n+1]. In this case, some homological algebra is required to show that the cone of the composed map <verbatim>                  Tw_O(a) O(b) -------&gt; O(b)[n+1]
+</verbatim></para>
+<para>fits into a distinguished triangle O(a) ----&gt; Cone ----&gt; O(b)[n].</para>
+<para>Instead of returning the objects alone, the method returns a list of tuples, where the first element is the semistable factor and the second element is the phase of the object. This is done to make computing largest and smallest semistable factors easier in the <ref refid="classsrc_1_1_spherical_twist_1_1_double_spherical_twist" kindref="compound">DoubleSphericalTwist</ref> class.</para>
+<para>The list is always returned in reverse order of the phase, so that the smallest phase HN factor is last and the largest is first.</para>
+<para><itemizedlist>
+<listitem><para>It should be noted that several assumptions in this have not been verified outside of the quiver case</para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A list of tuples where the first element is a <ref refid="namespacesrc_1_1_derived_category_object" kindref="compound">DerivedCategoryObject</ref> and the second element is a float representing the phase of the object. The list is always returned in such a way that the largest phase HN factor is first and smallest is last.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the args are not of the correct type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the number of args is incorrect </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NotImplementedError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the catagory of the object is not P1, P2, or K3 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error" kindref="compound">HarderNarasimhanError</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the spherical twist is stable but the phase cannot be found </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="385" column="1" bodyfile="src/SphericalTwist.py" bodystart="385" bodyend="569"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_1af4a147a84ede8e924aa4b92f98bede80" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.SphericalTwist._sph_twist_LineBundles</definition>
+        <argsstring>(self, line_bundle_1, line_bundle_2)</argsstring>
+        <name>_sph_twist_LineBundles</name>
+        <qualifiedname>src.SphericalTwist.SphericalTwist._sph_twist_LineBundles</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a16387ebcbf8065fea959f9b1f2c96185" kindref="member">line_bundle_1</ref></type>
+          <defname>line_bundle_1</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1ac3e080e6277d060fcc6b56c076461e27" kindref="member">line_bundle_2</ref></type>
+          <defname>line_bundle_2</defname>
+        </param>
+        <briefdescription>
+<para>Helper function which uses the __dimHom_LineBundlesP2 method to compute the defining triangle for a single spherical twist of a line bundle around another line bundle. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The twist is given by</para>
+<para>Tw_lb1 lb2 = Cone( Hom(lb_1, lb_2) ⊗ lb_1 ----&gt; lb_2 )</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_1: The first line bundle in the Hom space </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_2: The second line bundle in the Hom space</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="namespacesrc_1_1_distinguished_triangle" kindref="compound">DistinguishedTriangle</ref> The distinguished triangle representing the spherical twist </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="140" column="1" bodyfile="src/SphericalTwist.py" bodystart="140" bodyend="181"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A spherical twist is a non-standard autoequivalence of the derived category of coherent sheaves, in the sense that it does not arise from any composition of (1) standard autoequivalences on the variety (2) tensoring by line bundles and (3) (co)homological shifts. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Such autoequivalences typically only arise in the case of Calabi-Yau categories and toric varieties (where (-2)-curves can exist in the Fano setting as well, e.g. P^2 blown up at 2 points), but often control the structure of the stability manifold. They are also relevant to homological mirror symmetry since they are the derived equivalent of Dehn twists in the Fukaya category in the symplectic setting. They are explicitly defined as the cone of the derived evaluation morphism <verbatim>    Hom(A, B) ⊗ A ----&gt;  B ----&gt; Tw_A B
+</verbatim></para>
+<para>where A is a spherical object in the sense that RHom(A,A) is isomorphic as a graded-vector space to the singular cohomology of an n-sphere.</para>
+<para>Currently, we only consider spherical twists around line bundles in the derived category of coherent sheaves since they always yield examples of spherical objects for Local P^n and K3 surfaces. On K3 surfaces, it is not true that the spherical twists account for all spherical objects, but they are still provide a rich source of examples to help predict mass growth. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>src.SphericalTwist.SphericalTwist</label>
+        <link refid="classsrc_1_1_spherical_twist_1_1_spherical_twist"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src.DerivedCategoryObject.DerivedCategoryObject</label>
+        <link refid="classsrc_1_1_derived_category_object_1_1_derived_category_object"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>src.SphericalTwist.SphericalTwist</label>
+        <link refid="classsrc_1_1_spherical_twist_1_1_spherical_twist"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src.DerivedCategoryObject.DerivedCategoryObject</label>
+        <link refid="classsrc_1_1_derived_category_object_1_1_derived_category_object"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/SphericalTwist.py" line="61" column="1" bodyfile="src/SphericalTwist.py" bodystart="61" bodyend="569"/>
+    <listofallmembers>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a9a67efb1d59e905c5e7cfdb7cc309daa" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwist</scope><name>__init__</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a2dbfba1b1b215dfdb4e58bd160819479" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwist</scope><name>__str__</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1af4a147a84ede8e924aa4b92f98bede80" prot="protected" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwist</scope><name>_sph_twist_LineBundles</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a244258a02691a74e0787cf277c5935c5" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwist</scope><name>catagory</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a3548c15b0993329cebd465170cb78c00" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwist</scope><name>central_charge</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a111bf62635e3a204488ca33689d296e6" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwist</scope><name>chern_character</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a183209b78a4202824b036ab2ebe40b91" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwist</scope><name>chernCharacter</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a45bab068cfcf3ed76462c137df88cd4b" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwist</scope><name>defining_triangle</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1ae2bccb64f12b9d586d8ca3cf4688f157" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwist</scope><name>degree</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a68f7b3d2761fa842f86e7e6405ce7fb4" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwist</scope><name>get_HN_factors</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a72577f81014ad8387458603c9fd522f8" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwist</scope><name>is_semistable</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a16387ebcbf8065fea959f9b1f2c96185" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwist</scope><name>line_bundle_1</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1ac3e080e6277d060fcc6b56c076461e27" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwist</scope><name>line_bundle_2</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a729ebfa2e5edd9a786917301cfdaebc1" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwist</scope><name>mass</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a0cae017d37b0e69454f7d039b77f3a54" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwist</scope><name>shift</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1ab7174b1273139ac7d0c2bc6f7c4d1789" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwist</scope><name>string</name></member>
+      <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a9ffd63e97c717dd171b7d1c7ef26e16d" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwist</scope><name>update_string_by_shift</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

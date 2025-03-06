@@ -1,0 +1,407 @@
+\doxysection{src.\+Chain\+Complex.\+Chain\+Complex Class Reference}
+\hypertarget{classsrc_1_1_chain_complex_1_1_chain_complex}{}\label{classsrc_1_1_chain_complex_1_1_chain_complex}\index{src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}}
+
+
+For any abelian category, a chain complex is a sequence of objects and morphisms between them such that the composition of any two consecutive morphisms is the zero morphism.  
+
+
+Inheritance diagram for src.\+Chain\+Complex.\+Chain\+Complex\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classsrc_1_1_chain_complex_1_1_chain_complex}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_a72ab48cf534d48b0f2cc7e55c09b6a54}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_a864ac31fa0d9fe9a4c50f803cc6023b8}{sheaf\+\_\+vector}}, \mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_ad30a876c85094c7347ea6180fb058171}{shift\+\_\+vector}}, \mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_a6373f5a40572d1c1b76bfb3e0b0bf40c}{dimension\+\_\+vector}}=None)
+\begin{DoxyCompactList}\small\item\em Initialize an instance of \doxylink{classsrc_1_1_chain_complex_1_1_chain_complex}{Chain\+Complex} with the specified sheaf vector, shift vector, and potentially a dimension vector. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_adbfc291368151be74b669b4f2edd9c79}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em String representation of the chain complex. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_a85e811d0d0ed0e471f7666c51e7a483e}{\+\_\+\+\_\+len\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em The length of the chain complex is the number of sheaves in the complex. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_a0d7b95df49db36f52234bd8809b6a843}{chern\+Character}} (self)
+\begin{DoxyCompactList}\small\item\em Helper function to compute the Chern Character of the chain complex. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_a70373ec03d47a5d6dd8e8694186ae138}{central\+\_\+charge}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Compute the central charge of the chain complex. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_a06ddcc7b614880bd8889c944f76237ee}{shift}} (self, shift)
+\begin{DoxyCompactList}\small\item\em Method to shift the chain complex by a given homological shift. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_a6fb46ca115fc7fef97f7f4676a74cfe8}{is\+Shift\+Of\+Sheaf}} (self)
+\begin{DoxyCompactList}\small\item\em Simple helper function which checks if the complex is a shift of a single sheaf. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_a36340635bb9a289121eb96778a5b4da3}{get\+\_\+smallest\+\_\+phase}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Method to compute the smallest phase of the chain complex. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_adc104a639fb1e10753ad4552ba9b1792}{get\+\_\+largest\+\_\+phase}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Method to compute the largest phase of the chain complex. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_ab0ec73042f19e9896f67b2a1724928d7}{is\+\_\+semistable}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Method to compute whether the chain complex is semistable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a5b917d2624a9a499671f11e809397d71}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a244258a02691a74e0787cf277c5935c5}{catagory}}, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ab7174b1273139ac7d0c2bc6f7c4d1789}{string}}="{}0"{}, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a111bf62635e3a204488ca33689d296e6}{chern\+\_\+character}}=None)
+\begin{DoxyCompactList}\small\item\em Initialize an instance of the \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} with the specified catagory, string representation, and Chern Character. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ac086dabebbde64c028446348301011f2}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em String representation of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a9ffd63e97c717dd171b7d1c7ef26e16d}{update\+\_\+string\+\_\+by\+\_\+shift}} (self, my\+\_\+str, n)
+\begin{DoxyCompactList}\small\item\em Static helper function to update the possible string representations of the abstract \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} by a homological shift. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+list \mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_a864ac31fa0d9fe9a4c50f803cc6023b8}{sheaf\+\_\+vector}} = sheaf\+\_\+vector
+\begin{DoxyCompactList}\small\item\em List of coherent sheaves in the complex, so that the chain complex can operate similar to a Dense\+Vector. \end{DoxyCompactList}\item 
+list \mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_a6373f5a40572d1c1b76bfb3e0b0bf40c}{dimension\+\_\+vector}} = dimension\+\_\+vector
+\begin{DoxyCompactList}\small\item\em List of the number of direct sums of each coherent sheaf in the complex. \end{DoxyCompactList}\item 
+list \mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_ad30a876c85094c7347ea6180fb058171}{shift\+\_\+vector}} = shift\+\_\+vector
+\begin{DoxyCompactList}\small\item\em List of homological shifts in the complex. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a244258a02691a74e0787cf277c5935c5}{catagory}} = catagory
+\begin{DoxyCompactList}\small\item\em The catagory of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a111bf62635e3a204488ca33689d296e6}{chern\+\_\+character}} = chern\+\_\+character
+\begin{DoxyCompactList}\small\item\em The Chern Character of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ab7174b1273139ac7d0c2bc6f7c4d1789}{string}} = string
+\begin{DoxyCompactList}\small\item\em A string representation / label of the derived category object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_af05e1ce45f86ad32474b98d8a17f7a73}{\+\_\+remove\+\_\+zeros\+\_\+from\+\_\+dimension\+\_\+vector}} (self)
+\begin{DoxyCompactList}\small\item\em Helper function which iterates through the dimension vector, and if a certain Coherent sheaf is only included 0 times, we may effectively erase it. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chain_complex_1_1_chain_complex_aa0baf08c80270b5ccdf997788aeb1070}{\+\_\+combine\+\_\+repeats}} (self)
+\begin{DoxyCompactList}\small\item\em Helper function to combine repeated sheaves in the complex. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+For any abelian category, a chain complex is a sequence of objects and morphisms between them such that the composition of any two consecutive morphisms is the zero morphism. 
+
+In the derived category of coherent sheaves on P\texorpdfstring{$^\wedge$}{\string^}2, we can represent a chain complex as a sequence of coherent sheaves with a shift. For instance, a general complex will be of the form \begin{DoxyVerb}         i=-n       i=-n+1      i=-n+2    ...
+0 ------> E1 -------> E2 --------> E3 ---> ...
+\end{DoxyVerb}
+
+
+(A priori, there is no reason the complexes cant also descend infinitely in the other direction). For the purposes of this project, only finite complexes will be considered. Such a complex can be stored in a similar way to a Dense\+Vector object --- namely, since the majority of entries in the complex will be zero, we can store the complex as a list of coherent sheaves and a shift vector.\hypertarget{classsrc_1_1_chain_complex_1_1_chain_complex_autotoc_md0}{}\doxysubsubsection{\texorpdfstring{Attributes\+:}{Attributes\+:}}\label{classsrc_1_1_chain_complex_1_1_chain_complex_autotoc_md0}
+sheaf\+\_\+vector (list) \+: A list of coherent sheaves in the complex
+
+shift\+\_\+vector (list) \+: A list of homological shifts in the complex
+
+dimension\+\_\+vector (list) \+: A list of the number of direct sums of each coherent sheaf in the complex 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classsrc_1_1_chain_complex_1_1_chain_complex_a72ab48cf534d48b0f2cc7e55c09b6a54}\index{src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chain_complex_1_1_chain_complex_a72ab48cf534d48b0f2cc7e55c09b6a54} 
+src.\+Chain\+Complex.\+Chain\+Complex.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{sheaf\+\_\+vector}{, }\item[{}]{shift\+\_\+vector}{, }\item[{}]{dimension\+\_\+vector}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+Initialize an instance of \doxylink{classsrc_1_1_chain_complex_1_1_chain_complex}{Chain\+Complex} with the specified sheaf vector, shift vector, and potentially a dimension vector. 
+
+If a dimension vector is not provided, it must consist of non-\/negative integer values
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & sheaf\+\_\+vector A list of coherent sheaves in the complex \\
+\hline
+{\em list} & shift\+\_\+vector A list of homological shifts in the complex \\
+\hline
+{\em list} & dimension\+\_\+vector A list of the number of direct sums of each coherent sheaf in the complex\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & If the sheaf vector is empty \\
+\hline
+{\em Value\+Error} & If the sheaf vector and shift vector have different lengths \\
+\hline
+{\em Type\+Error} & If any element of the sheaf vector is not a \doxylink{namespacesrc_1_1_coherent_sheaf}{Coherent\+Sheaf} object \\
+\hline
+{\em Type\+Error} & If any element of the shift vector is not an integer \\
+\hline
+{\em Value\+Error} & If the dimension vector is not the same length as the sheaf vector \\
+\hline
+{\em Type\+Error} & If any element of the dimension vector is not an integer \\
+\hline
+{\em Value\+Error} & If any element of the dimension vector is negative \\
+\hline
+{\em Value\+Error} & If the catagory of the sheaves in the complex is not implemented \\
+\hline
+{\em Value\+Error} & If the sheaf vector contains objects of different catagories \\
+\hline
+{\em Value\+Error} & If the sheaf vector contains objects of different base spaces \\
+\hline
+{\em Value\+Error} & If the sheaf vector contains objects of different projective spaces \\
+\hline
+{\em Type\+Error} & If the sheaf vector contains objects of different projective spaces \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsrc_1_1_chain_complex_1_1_chain_complex_a85e811d0d0ed0e471f7666c51e7a483e}\index{src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}!\_\_len\_\_@{\_\_len\_\_}}
+\index{\_\_len\_\_@{\_\_len\_\_}!src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}}
+\doxysubsubsection{\texorpdfstring{\_\_len\_\_()}{\_\_len\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chain_complex_1_1_chain_complex_a85e811d0d0ed0e471f7666c51e7a483e} 
+src.\+Chain\+Complex.\+Chain\+Complex.\+\_\+\+\_\+len\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+The length of the chain complex is the number of sheaves in the complex. 
+
+\begin{DoxyReturn}{Returns}
+int The number of sheaves in the complex 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_chain_complex_1_1_chain_complex_adbfc291368151be74b669b4f2edd9c79}\index{src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}!\_\_str\_\_@{\_\_str\_\_}}
+\index{\_\_str\_\_@{\_\_str\_\_}!src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}}
+\doxysubsubsection{\texorpdfstring{\_\_str\_\_()}{\_\_str\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chain_complex_1_1_chain_complex_adbfc291368151be74b669b4f2edd9c79} 
+src.\+Chain\+Complex.\+Chain\+Complex.\+\_\+\+\_\+str\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+String representation of the chain complex. 
+
+The complex is represented in cohomological order (which technically would be descending order of the shifts, since IR\mbox{[}-\/2\mbox{]} means the complex with a copy of IR in index 2). The individual coherent sheaves in the complex are represented by their own respective print functinos --- this will generally be cumbersome for arbitrary vector bundles, but more clean for named instances like O(1) or Ω(3).
+
+\begin{DoxyReturn}{Returns}
+str A string representation of the chain complex 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_chain_complex_1_1_chain_complex_aa0baf08c80270b5ccdf997788aeb1070}\index{src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}!\_combine\_repeats@{\_combine\_repeats}}
+\index{\_combine\_repeats@{\_combine\_repeats}!src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}}
+\doxysubsubsection{\texorpdfstring{\_combine\_repeats()}{\_combine\_repeats()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chain_complex_1_1_chain_complex_aa0baf08c80270b5ccdf997788aeb1070} 
+src.\+Chain\+Complex.\+Chain\+Complex.\+\_\+combine\+\_\+repeats (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Helper function to combine repeated sheaves in the complex. 
+
+This is useful for simplifying the complex, as we can combine repeated sheaves into a single sheaf with a larger dimension. This function specifically requires the {\bfseries{hash}} implementation for the \doxylink{namespacesrc_1_1_coherent_sheaf}{Coherent\+Sheaf} and \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} objects. \Hypertarget{classsrc_1_1_chain_complex_1_1_chain_complex_af05e1ce45f86ad32474b98d8a17f7a73}\index{src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}!\_remove\_zeros\_from\_dimension\_vector@{\_remove\_zeros\_from\_dimension\_vector}}
+\index{\_remove\_zeros\_from\_dimension\_vector@{\_remove\_zeros\_from\_dimension\_vector}!src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}}
+\doxysubsubsection{\texorpdfstring{\_remove\_zeros\_from\_dimension\_vector()}{\_remove\_zeros\_from\_dimension\_vector()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chain_complex_1_1_chain_complex_af05e1ce45f86ad32474b98d8a17f7a73} 
+src.\+Chain\+Complex.\+Chain\+Complex.\+\_\+remove\+\_\+zeros\+\_\+from\+\_\+dimension\+\_\+vector (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Helper function which iterates through the dimension vector, and if a certain Coherent sheaf is only included 0 times, we may effectively erase it. 
+
+\Hypertarget{classsrc_1_1_chain_complex_1_1_chain_complex_a70373ec03d47a5d6dd8e8694186ae138}\index{src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}!central\_charge@{central\_charge}}
+\index{central\_charge@{central\_charge}!src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}}
+\doxysubsubsection{\texorpdfstring{central\_charge()}{central\_charge()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chain_complex_1_1_chain_complex_a70373ec03d47a5d6dd8e8694186ae138} 
+src.\+Chain\+Complex.\+Chain\+Complex.\+central\+\_\+charge (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Compute the central charge of the chain complex. 
+
+The central charge of a chain complex is the alternating sum of the central charges of the individual sheaves in the complex. Since the central charge is additive, we may multiply the central charges by the dimension of the sheaf to represent direct sums of sheaves. However, most of this functionality is already defined in the \doxylink{classsrc_1_1_chain_complex_1_1_chain_complex_a0d7b95df49db36f52234bd8809b6a843}{chern\+Character()} function, so we will simply call that function and then compute the central charge from the Chern Character.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tuple} & args The arguments required to compute the central charge. The number of arguments and the type of arguments will depend on the catagory of the sheaves in the complex. For P1, the central charge requires a single complex number. For P2, the central charge requires two floating-\/point numbers. For K3, the central charge requires two floating-\/point numbers and an integer.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+complex The central charge of the chain complex as a complex number
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & If the number of arguments is incorrect \\
+\hline
+{\em Type\+Error} & If the type of the arguments is incorrect \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the sheaves in the complex is not implemented \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a181bcb14152a914997c7990b33b51c18}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+\Hypertarget{classsrc_1_1_chain_complex_1_1_chain_complex_a0d7b95df49db36f52234bd8809b6a843}\index{src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}!chernCharacter@{chernCharacter}}
+\index{chernCharacter@{chernCharacter}!src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}}
+\doxysubsubsection{\texorpdfstring{chernCharacter()}{chernCharacter()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chain_complex_1_1_chain_complex_a0d7b95df49db36f52234bd8809b6a843} 
+src.\+Chain\+Complex.\+Chain\+Complex.\+chern\+Character (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Helper function to compute the Chern Character of the chain complex. 
+
+The Chern Character of a chain complex is the alternating sum of the Chern Characters of the individual sheaves in the complex. Since the Chern character is additive, we may multiply the Chern Characters by the dimension of the sheaf to represent direct sums of sheaves.
+
+\begin{DoxyReturn}{Returns}
+\doxylink{namespacesrc_1_1_chern_character}{Chern\+Character} The Chern Character of the chain complex 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a1f4aac18056360d11918b709dc341937}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+\Hypertarget{classsrc_1_1_chain_complex_1_1_chain_complex_adc104a639fb1e10753ad4552ba9b1792}\index{src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}!get\_largest\_phase@{get\_largest\_phase}}
+\index{get\_largest\_phase@{get\_largest\_phase}!src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}}
+\doxysubsubsection{\texorpdfstring{get\_largest\_phase()}{get\_largest\_phase()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chain_complex_1_1_chain_complex_adc104a639fb1e10753ad4552ba9b1792} 
+src.\+Chain\+Complex.\+Chain\+Complex.\+get\+\_\+largest\+\_\+phase (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Method to compute the largest phase of the chain complex. 
+
+This behaves as a sort of "{}largest \+Harder-\/\+Narasimhan factor"{} for the complex, since Chain complexes will almost never be stable when they have objects in distinct shifts. The phase of an individual element of a chain complex generally requires that object to be stable, so that we typically use Line\+Bundles for our current applications. By definition of a slicing, the shift of each object in the complex should add to the respective phases; thus, this method computes the largest sum of the phase of the sheaf and the shift of the sheaf in the complex.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tuple} & args The arguments required to compute the phase. The number of arguments and the type of arguments will depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number. For P2, the phase requires two floating-\/point numbers. For K3, the phase requires two floating-\/point numbers and an integer.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float The largest phase of the chain complex
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & If the number of arguments is incorrect \\
+\hline
+{\em Type\+Error} & If the type of the arguments is incorrect \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the sheaves in the complex is not implemented \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classsrc_1_1_chain_complex_1_1_chain_complex_a36340635bb9a289121eb96778a5b4da3}\index{src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}!get\_smallest\_phase@{get\_smallest\_phase}}
+\index{get\_smallest\_phase@{get\_smallest\_phase}!src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}}
+\doxysubsubsection{\texorpdfstring{get\_smallest\_phase()}{get\_smallest\_phase()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chain_complex_1_1_chain_complex_a36340635bb9a289121eb96778a5b4da3} 
+src.\+Chain\+Complex.\+Chain\+Complex.\+get\+\_\+smallest\+\_\+phase (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Method to compute the smallest phase of the chain complex. 
+
+This behaves as a sort of "{}smallest \+Harder-\/\+Narasimhan factor"{} for the complex, since Chain complexes will almost never be stable when they have objects in distinct shifts. The phase of an individual element of a chain complex generally requires that object to be stable, so that we typically use Line\+Bundles for our current applications. By definition of a slicing, the shift of each object in the complex should add to the respective phases; thus, this method computes the smallest sum of the phase of the sheaf and the shift of the sheaf in the complex.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tuple} & args The arguments required to compute the phase. The number of arguments and the type of arguments will depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number. For P2, the phase requires two floating-\/point numbers. For K3, the phase requires two floating-\/point numbers and an integer.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float The smallest phase of the chain complex
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & If the number of arguments is incorrect \\
+\hline
+{\em Type\+Error} & If the type of the arguments is incorrect \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the sheaves in the complex is not implemented \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classsrc_1_1_chain_complex_1_1_chain_complex_ab0ec73042f19e9896f67b2a1724928d7}\index{src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}!is\_semistable@{is\_semistable}}
+\index{is\_semistable@{is\_semistable}!src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}}
+\doxysubsubsection{\texorpdfstring{is\_semistable()}{is\_semistable()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chain_complex_1_1_chain_complex_ab0ec73042f19e9896f67b2a1724928d7} 
+src.\+Chain\+Complex.\+Chain\+Complex.\+is\+\_\+semistable (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Method to compute whether the chain complex is semistable. 
+
+This almost never occurs, since if the complex contains two or more stable objects of distinct phase, it will never be stable. For example, suppose E2 is a stable subobject of maximum phase and E1 is another stable object with strictly smaller phase. Then \begin{DoxyVerb}      E2 ----> Complex ------> Cone
+\end{DoxyVerb}
+
+
+will destabilize the complex, and Cone will be nontrivial since it has a non-\/zero map to E1. The easiest way to check that the complex is concentrated in only a single phase is to compare its largest and smallest phases from the previous methods.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tuple} & args The arguments required to compute the phase. The number of arguments and the type of arguments will depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number. For P2, the phase requires two floating-\/point numbers. For K3, the phase requires two floating-\/point numbers and an integer.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if the chain complex is semistable, False otherwise
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & If the number of arguments is incorrect \\
+\hline
+{\em Type\+Error} & If the type of the arguments is incorrect \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the sheaves in the complex is not implemented \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a95bc29833249e58a920c3454110125d2}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+\Hypertarget{classsrc_1_1_chain_complex_1_1_chain_complex_a6fb46ca115fc7fef97f7f4676a74cfe8}\index{src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}!isShiftOfSheaf@{isShiftOfSheaf}}
+\index{isShiftOfSheaf@{isShiftOfSheaf}!src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}}
+\doxysubsubsection{\texorpdfstring{isShiftOfSheaf()}{isShiftOfSheaf()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chain_complex_1_1_chain_complex_a6fb46ca115fc7fef97f7f4676a74cfe8} 
+src.\+Chain\+Complex.\+Chain\+Complex.\+is\+Shift\+Of\+Sheaf (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Simple helper function which checks if the complex is a shift of a single sheaf. 
+
+\begin{DoxyReturn}{Returns}
+bool True if the complex is a shift of a single sheaf, False otherwise 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_chain_complex_1_1_chain_complex_a06ddcc7b614880bd8889c944f76237ee}\index{src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}!shift@{shift}}
+\index{shift@{shift}!src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}}
+\doxysubsubsection{\texorpdfstring{shift()}{shift()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chain_complex_1_1_chain_complex_a06ddcc7b614880bd8889c944f76237ee} 
+src.\+Chain\+Complex.\+Chain\+Complex.\+shift (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{shift}{}\end{DoxyParamCaption})}
+
+
+
+Method to shift the chain complex by a given homological shift. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & shift The homological shift to apply to the chain complex\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classsrc_1_1_chain_complex_1_1_chain_complex}{Chain\+Complex} The chain complex shifted by the homological shift 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a6c1dfa5772ffeae4bf5f1e6a7a2de496}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classsrc_1_1_chain_complex_1_1_chain_complex_a6373f5a40572d1c1b76bfb3e0b0bf40c}\index{src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}!dimension\_vector@{dimension\_vector}}
+\index{dimension\_vector@{dimension\_vector}!src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}}
+\doxysubsubsection{\texorpdfstring{dimension\_vector}{dimension\_vector}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chain_complex_1_1_chain_complex_a6373f5a40572d1c1b76bfb3e0b0bf40c} 
+src.\+Chain\+Complex.\+Chain\+Complex.\+dimension\+\_\+vector = dimension\+\_\+vector}
+
+
+
+List of the number of direct sums of each coherent sheaf in the complex. 
+
+\Hypertarget{classsrc_1_1_chain_complex_1_1_chain_complex_a864ac31fa0d9fe9a4c50f803cc6023b8}\index{src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}!sheaf\_vector@{sheaf\_vector}}
+\index{sheaf\_vector@{sheaf\_vector}!src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}}
+\doxysubsubsection{\texorpdfstring{sheaf\_vector}{sheaf\_vector}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chain_complex_1_1_chain_complex_a864ac31fa0d9fe9a4c50f803cc6023b8} 
+src.\+Chain\+Complex.\+Chain\+Complex.\+sheaf\+\_\+vector = sheaf\+\_\+vector}
+
+
+
+List of coherent sheaves in the complex, so that the chain complex can operate similar to a Dense\+Vector. 
+
+\Hypertarget{classsrc_1_1_chain_complex_1_1_chain_complex_ad30a876c85094c7347ea6180fb058171}\index{src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}!shift\_vector@{shift\_vector}}
+\index{shift\_vector@{shift\_vector}!src.ChainComplex.ChainComplex@{src.ChainComplex.ChainComplex}}
+\doxysubsubsection{\texorpdfstring{shift\_vector}{shift\_vector}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chain_complex_1_1_chain_complex_ad30a876c85094c7347ea6180fb058171} 
+src.\+Chain\+Complex.\+Chain\+Complex.\+shift\+\_\+vector = shift\+\_\+vector}
+
+
+
+List of homological shifts in the complex. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_chain_complex_8py}{Chain\+Complex.\+py}}\end{DoxyCompactItemize}

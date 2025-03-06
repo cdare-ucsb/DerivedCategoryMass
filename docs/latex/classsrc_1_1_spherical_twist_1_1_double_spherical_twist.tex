@@ -1,0 +1,397 @@
+\doxysection{src.\+Spherical\+Twist.\+Double\+Spherical\+Twist Class Reference}
+\hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist}{}\label{classsrc_1_1_spherical_twist_1_1_double_spherical_twist}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
+
+
+A class to represent the composition of successive spherical twists applied to a line bundle.  
+
+
+Inheritance diagram for src.\+Spherical\+Twist.\+Double\+Spherical\+Twist\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classsrc_1_1_spherical_twist_1_1_double_spherical_twist}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ade9c9fe0c4c8d3bdd3edfff5d59610ca}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a947c7b2a57720d1b8fc2475abcb462cc}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_acce8a1155a547cac5584e308de550d1b}{line\+\_\+bundle\+\_\+2}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_adfdc4891899bc2d90600064511ef3a56}{line\+\_\+bundle\+\_\+3}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a29dff17ca204f873dca375391d956a35}{degree}}=1)
+\begin{DoxyCompactList}\small\item\em Initialize an instance of \doxylink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist}{Double\+Spherical\+Twist} with the specified line bundles. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ab9e9e5ae6673b64365efe14c77bab864}{chern\+Character}} (self)
+\begin{DoxyCompactList}\small\item\em Method to compute the Chern character of the double spherical twist. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a68d54bee26b992863d77725861e0ec2c}{central\+\_\+charge}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Method to compute the central charge of the spherical twist. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a6cc185f90c2474199cc64957beb5f2bb}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Returns a string representation of the spherical twist by printing the defining triangle. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a4d600ef4b8ee2b4ca1473c15ce61c177}{secondary\+\_\+canonical\+\_\+triangle}} (self)
+\begin{DoxyCompactList}\small\item\em Method to compute the secondary canonical triangle of the spherical twist. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a1511075ab30c69c00130bc3e3b1820fb}{is\+\_\+semistable}} (self, \texorpdfstring{$\ast$}{*}args, logging=False, log\+\_\+file=None)
+\begin{DoxyCompactList}\small\item\em Method to check if the double spherical twist is semistable. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a4daf8f6e1a2470c949ac3e49ca099977}{mass}} (self, \texorpdfstring{$\ast$}{*}args, logging=False, log\+\_\+file=None)
+\begin{DoxyCompactList}\small\item\em The mass of the double spherical twist is the sum of the masses of the Harder-\/\+Narasimhan factors; the Harder-\/\+Narasimhan factors are assumed to come from either the defining triangle or secondary canonical triangle. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ae8b0a91cede767ce6188b18686b431c0}{get\+\_\+\+HN\+\_\+factors}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em This is the crux of the \doxylink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist}{Double\+Spherical\+Twist} class, where we compute the Harder-\/\+Narasimhan factors of the double spherical twist. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a5b917d2624a9a499671f11e809397d71}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a244258a02691a74e0787cf277c5935c5}{catagory}}, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ab7174b1273139ac7d0c2bc6f7c4d1789}{string}}="{}0"{}, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a111bf62635e3a204488ca33689d296e6}{chern\+\_\+character}}=None)
+\begin{DoxyCompactList}\small\item\em Initialize an instance of the \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} with the specified catagory, string representation, and Chern Character. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ac086dabebbde64c028446348301011f2}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em String representation of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a6c1dfa5772ffeae4bf5f1e6a7a2de496}{shift}} (self, shift)
+\begin{DoxyCompactList}\small\item\em Method to shift the derived category object by a given homological shift. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a9ffd63e97c717dd171b7d1c7ef26e16d}{update\+\_\+string\+\_\+by\+\_\+shift}} (self, my\+\_\+str, n)
+\begin{DoxyCompactList}\small\item\em Static helper function to update the possible string representations of the abstract \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} by a homological shift. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a947c7b2a57720d1b8fc2475abcb462cc}{line\+\_\+bundle\+\_\+1}} = line\+\_\+bundle\+\_\+1
+\begin{DoxyCompactList}\small\item\em The last line bundle twisted around; i.\+e. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_acce8a1155a547cac5584e308de550d1b}{line\+\_\+bundle\+\_\+2}} = line\+\_\+bundle\+\_\+2
+\begin{DoxyCompactList}\small\item\em The first line bundle twisted around; i.\+e. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_adfdc4891899bc2d90600064511ef3a56}{line\+\_\+bundle\+\_\+3}} = line\+\_\+bundle\+\_\+3
+\begin{DoxyCompactList}\small\item\em The line bundle we are applying the spherical twist to; i.\+e. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a29dff17ca204f873dca375391d956a35}{degree}} = degree
+\begin{DoxyCompactList}\small\item\em An optional argument for the degree of the K3 surface, if applicable. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a1100a2c4f0133b30520ce7dbd360cbfd}{defining\+\_\+triangle}} = self.\+\_\+sph\+\_\+twist\+\_\+\+Double\+Line\+Bundles(\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a947c7b2a57720d1b8fc2475abcb462cc}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_acce8a1155a547cac5584e308de550d1b}{line\+\_\+bundle\+\_\+2}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_adfdc4891899bc2d90600064511ef3a56}{line\+\_\+bundle\+\_\+3}})
+\begin{DoxyCompactList}\small\item\em The distinguished triangle of the double spherical twist. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a244258a02691a74e0787cf277c5935c5}{catagory}} = catagory
+\begin{DoxyCompactList}\small\item\em The catagory of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a111bf62635e3a204488ca33689d296e6}{chern\+\_\+character}} = chern\+\_\+character
+\begin{DoxyCompactList}\small\item\em The Chern Character of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ab7174b1273139ac7d0c2bc6f7c4d1789}{string}} = string
+\begin{DoxyCompactList}\small\item\em A string representation / label of the derived category object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a12e2989157e1bed9d0bd02156a5fe811}{\+\_\+sph\+\_\+twist\+\_\+\+Double\+Line\+Bundles}} (self, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a947c7b2a57720d1b8fc2475abcb462cc}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_acce8a1155a547cac5584e308de550d1b}{line\+\_\+bundle\+\_\+2}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_adfdc4891899bc2d90600064511ef3a56}{line\+\_\+bundle\+\_\+3}})
+\begin{DoxyCompactList}\small\item\em Helper method to compute the distinguished triangle of the double spherical twist. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class to represent the composition of successive spherical twists applied to a line bundle. 
+
+The double spherical twist is given as a distinguished triangle similar to the case of the single spherical twist; however, for higher numbers of spherical twists, there are often multiple triangles that the object fits into. The added functionality that this class provides is the ability to account for both triangles when computing the Harder-\/ Narasimhan filtration of the object. Specifically, one must account for the defining triangle
+
+Hom(O(a), Tw\+\_\+b O(c)) ⊗ O(a) -\/-\/-\/-\/\texorpdfstring{$>$}{>} Tw\+\_\+b O(c) -\/-\/-\/-\/\texorpdfstring{$>$}{>} Tw\+\_\+a Tw\+\_\+b O(c)
+
+as well as what we refer to as the \textquotesingle{}secondary canonical triangle\textquotesingle{} given by
+
+Tw\+\_\+a (Hom(O(b), O(c)) ⊗ O(b)) -\/-\/-\/-\/\texorpdfstring{$>$}{>} Tw\+\_\+a O(c) -\/-\/-\/-\/\texorpdfstring{$>$}{>} Tw\+\_\+a Tw\+\_\+b O(c)
+
+The Harder-\/\+Narasimhan factors of the double spherical twist are computed by first computing the Harder-\/\+Narasimhan factors of the defining triangle, and then the secondary canonical triangle. Unlike the single \doxylink{classsrc_1_1_spherical_twist_1_1_spherical_twist}{Spherical\+Twist} class, we do not actually provide the Harder-\/\+Narasimhan filtration in all cases; there are edge cases where nothing can currently be said and we must return an empty list leading to a mass of 0. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ade9c9fe0c4c8d3bdd3edfff5d59610ca}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ade9c9fe0c4c8d3bdd3edfff5d59610ca} 
+src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{line\+\_\+bundle\+\_\+1}{, }\item[{}]{line\+\_\+bundle\+\_\+2}{, }\item[{}]{line\+\_\+bundle\+\_\+3}{, }\item[{}]{degree}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+
+
+Initialize an instance of \doxylink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist}{Double\+Spherical\+Twist} with the specified line bundles. 
+
+The spherical twist is defined as the cone of the evaluation morphism \begin{DoxyVerb}Hom(O(a), Tw_b O(c)) ⊗ O(a) ---->  Tw_b O(c) ----> Tw_a Tw_b O(c)
+\end{DoxyVerb}
+
+
+where O(a), O(b), and O(c) denote line bundles. The double spherical twist is represented as a distinguished triangle in the derived category of coherent sheaves.
+
+Several helper methods are used to compute the dimensions of the Hom spaces between the pushforwards of the line bundles, and then to construct the distinguished triangle.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Line\+Bundleline\+\_\+bundle\+\_\+1} & The last line bundle twisted around; i.\+e. O(a) where we are computing Tw\+\_\+a Tw\+\_\+b O(c) \\
+\hline
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+2 The first line bundle twisted around; i.\+e. O(b) where we are computing Tw\+\_\+a Tw\+\_\+b O(c) \\
+\hline
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+3 The line bundle we are applying the spherical twist to; i.\+e. O(c) where we are computing Tw\+\_\+a Tw\+\_\+b O(c) \\
+\hline
+{\em int} & degree An optional argument for the degree of the variety, which is relevant to the dimension of the derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations. Default is 1.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+1, line\+\_\+bundle\+\_\+2, or line\+\_\+bundle\+\_\+3 are not instances of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+{\em Value\+Error} & If the line bundles are not defined on the same catagory \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a6cc185f90c2474199cc64957beb5f2bb}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}!\_\_str\_\_@{\_\_str\_\_}}
+\index{\_\_str\_\_@{\_\_str\_\_}!src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
+\doxysubsubsection{\texorpdfstring{\_\_str\_\_()}{\_\_str\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a6cc185f90c2474199cc64957beb5f2bb} 
+src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+\_\+\+\_\+str\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Returns a string representation of the spherical twist by printing the defining triangle. 
+
+\begin{DoxyReturn}{Returns}
+str A string representation of the spherical twist 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a12e2989157e1bed9d0bd02156a5fe811}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}!\_sph\_twist\_DoubleLineBundles@{\_sph\_twist\_DoubleLineBundles}}
+\index{\_sph\_twist\_DoubleLineBundles@{\_sph\_twist\_DoubleLineBundles}!src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
+\doxysubsubsection{\texorpdfstring{\_sph\_twist\_DoubleLineBundles()}{\_sph\_twist\_DoubleLineBundles()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a12e2989157e1bed9d0bd02156a5fe811} 
+src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+\_\+sph\+\_\+twist\+\_\+\+Double\+Line\+Bundles (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{line\+\_\+bundle\+\_\+1}{, }\item[{}]{line\+\_\+bundle\+\_\+2}{, }\item[{}]{line\+\_\+bundle\+\_\+3}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Helper method to compute the distinguished triangle of the double spherical twist. 
+
+The distinguished triangle is given by the cone of the evaluation morphism \begin{DoxyVerb}Hom(O(a), Tw_b O(c)) ⊗ O(a) ---->  Tw_b O(c) ----> Tw_a Tw_b O(c)
+\end{DoxyVerb}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+1 The last line bundle twisted around; i.\+e. O(a) where we are computing Tw\+\_\+a Tw\+\_\+b O(c) \\
+\hline
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+2 The first line bundle twisted around; i.\+e. O(b) where we are computing Tw\+\_\+a Tw\+\_\+b O(c) \\
+\hline
+{\em \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}} & line\+\_\+bundle\+\_\+3 The line bundle we are applying the spherical twist to; i.\+e. O(c) where we are computing Tw\+\_\+a Tw\+\_\+b O(c)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{namespacesrc_1_1_distinguished_triangle}{Distinguished\+Triangle} The distinguished triangle of the double spherical twist
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If line\+\_\+bundle\+\_\+1, line\+\_\+bundle\+\_\+2, or line\+\_\+bundle\+\_\+3 are not instances of \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle} \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a68d54bee26b992863d77725861e0ec2c}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}!central\_charge@{central\_charge}}
+\index{central\_charge@{central\_charge}!src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
+\doxysubsubsection{\texorpdfstring{central\_charge()}{central\_charge()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a68d54bee26b992863d77725861e0ec2c} 
+src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+central\+\_\+charge (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Method to compute the central charge of the spherical twist. 
+
+The central charge of the spherical twist is the central charge of the third object in the distinguished triangle.
+
+
+\begin{DoxyParams}{Parameters}
+{\em args} & The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+complex The central charge of the spherical twist as a complex number
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If the args are not of the correct type \\
+\hline
+{\em Value\+Error} & If the number of args is incorrect \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the object is not P1, P2, or K3 \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a181bcb14152a914997c7990b33b51c18}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ab9e9e5ae6673b64365efe14c77bab864}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}!chernCharacter@{chernCharacter}}
+\index{chernCharacter@{chernCharacter}!src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
+\doxysubsubsection{\texorpdfstring{chernCharacter()}{chernCharacter()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ab9e9e5ae6673b64365efe14c77bab864} 
+src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+chern\+Character (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Method to compute the Chern character of the double spherical twist. 
+
+The Chern character of the double spherical twist is the Chern character of the third object in the distinguished triangle.
+
+\begin{DoxyReturn}{Returns}
+\doxylink{namespacesrc_1_1_chern_character}{Chern\+Character} The Chern Character of the double spherical twist 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a1f4aac18056360d11918b709dc341937}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ae8b0a91cede767ce6188b18686b431c0}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}!get\_HN\_factors@{get\_HN\_factors}}
+\index{get\_HN\_factors@{get\_HN\_factors}!src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
+\doxysubsubsection{\texorpdfstring{get\_HN\_factors()}{get\_HN\_factors()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ae8b0a91cede767ce6188b18686b431c0} 
+src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+get\+\_\+\+HN\+\_\+factors (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+This is the crux of the \doxylink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist}{Double\+Spherical\+Twist} class, where we compute the Harder-\/\+Narasimhan factors of the double spherical twist. 
+
+A signficiant assumption (CONJECTURAL) that we make is that the Harder-\/\+Narasimhan filtration must arise from the defining triangle or the secondary canonical triangle. This is not always the case, but we have not yet implemented a general method to compute the HN factors in all cases.
+
+This method works by first examining the two edge cases for the defining triangle\+: if the largest phase of the subobject is less than the smallest phase of the quotient, then we assume the object is stable (CONJECTURAL). If the smallest phase of the subobject is larger than the largest phase of the quotient, then we know for a fact (by BDL) that the Harder-\/\+Narasimhan filtration can be computed by concatenating the HN factors of the subobject and quotient. If neither of these cases hold, we move on to the second canonical triangle and apply a similar logic.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tuple} & args The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list A list of tuples where the first element is a \doxylink{namespacesrc_1_1_derived_category_object}{Derived\+Category\+Object} and the second element is a float representing the phase of the object. The list is always returned in such a way that the largest phase HN factor is first and smallest is last.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If the args are not of the correct type \\
+\hline
+{\em Value\+Error} & If the number of args is incorrect \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the object is not P1, P2, or K3 \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a1511075ab30c69c00130bc3e3b1820fb}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}!is\_semistable@{is\_semistable}}
+\index{is\_semistable@{is\_semistable}!src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
+\doxysubsubsection{\texorpdfstring{is\_semistable()}{is\_semistable()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a1511075ab30c69c00130bc3e3b1820fb} 
+src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+is\+\_\+semistable (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{, }\item[{}]{logging}{ = {\ttfamily False}, }\item[{}]{log\+\_\+file}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+Method to check if the double spherical twist is semistable. 
+
+The double spherical twist is semistable if the Harder-\/\+Narasimhan factorization is trivial.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tuple} & args The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface. \\
+\hline
+{\em bool} & logging A boolean flag to indicate whether to log the Harder-\/\+Narasimhan factors that caused the object to be unstable \\
+\hline
+{\em str} & log\+\_\+file The file to log the Harder-\/\+Narasimhan factors that caused the object to be unstable\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if the double spherical twist is semistable, False otherwise
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If the args are not of the correct type \\
+\hline
+{\em Value\+Error} & If the number of args is incorrect \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the object is not P1, P2, or K3 \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a95bc29833249e58a920c3454110125d2}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a4daf8f6e1a2470c949ac3e49ca099977}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}!mass@{mass}}
+\index{mass@{mass}!src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
+\doxysubsubsection{\texorpdfstring{mass()}{mass()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a4daf8f6e1a2470c949ac3e49ca099977} 
+src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+mass (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{, }\item[{}]{logging}{ = {\ttfamily False}, }\item[{}]{log\+\_\+file}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+The mass of the double spherical twist is the sum of the masses of the Harder-\/\+Narasimhan factors; the Harder-\/\+Narasimhan factors are assumed to come from either the defining triangle or secondary canonical triangle. 
+
+The mass of the double spherical twist is computed by first computing the Harder-\/\+Narasimhan factors of the defining triangle, and then the secondary canonical triangle.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tuple} & args The parameters for the stability condition. The number of parameters depends on the catagory of the object For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers and an integer representing the degree of the K3 surface. \\
+\hline
+{\em bool} & logging A boolean flag to indicate whether to log the Harder-\/\+Narasimhan factors that caused the object to be unstable \\
+\hline
+{\em str} & log\+\_\+file The file to log the Harder-\/\+Narasimhan factors that caused the object to be unstable\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float The mass of the double spherical twist
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If the args are not of the correct type \\
+\hline
+{\em Value\+Error} & If the number of args is incorrect \\
+\hline
+{\em Not\+Implemented\+Error} & If the catagory of the object is not P1, P2, or K3 \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a4d600ef4b8ee2b4ca1473c15ce61c177}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}!secondary\_canonical\_triangle@{secondary\_canonical\_triangle}}
+\index{secondary\_canonical\_triangle@{secondary\_canonical\_triangle}!src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
+\doxysubsubsection{\texorpdfstring{secondary\_canonical\_triangle()}{secondary\_canonical\_triangle()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a4d600ef4b8ee2b4ca1473c15ce61c177} 
+src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+secondary\+\_\+canonical\+\_\+triangle (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Method to compute the secondary canonical triangle of the spherical twist. 
+
+The secondary canonical triangle is obtained by applying Tw\+\_\+a to the defining triangle of Tw\+\_\+b O(c); specifically, this gives
+
+Tw\+\_\+a (Hom(O(b), O(c)) ⊗ O(b)) -\/-\/-\/-\/\texorpdfstring{$>$}{>} Tw\+\_\+a O(c) -\/-\/-\/-\/\texorpdfstring{$>$}{>} Tw\+\_\+a Tw\+\_\+b O(c)
+
+\begin{DoxyReturn}{Returns}
+\doxylink{namespacesrc_1_1_distinguished_triangle}{Distinguished\+Triangle} The secondary canonical triangle of the spherical twist 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a1100a2c4f0133b30520ce7dbd360cbfd}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}!defining\_triangle@{defining\_triangle}}
+\index{defining\_triangle@{defining\_triangle}!src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
+\doxysubsubsection{\texorpdfstring{defining\_triangle}{defining\_triangle}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a1100a2c4f0133b30520ce7dbd360cbfd} 
+src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+defining\+\_\+triangle = self.\+\_\+sph\+\_\+twist\+\_\+\+Double\+Line\+Bundles(\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a947c7b2a57720d1b8fc2475abcb462cc}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_acce8a1155a547cac5584e308de550d1b}{line\+\_\+bundle\+\_\+2}}, \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_adfdc4891899bc2d90600064511ef3a56}{line\+\_\+bundle\+\_\+3}})}
+
+
+
+The distinguished triangle of the double spherical twist. 
+
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a29dff17ca204f873dca375391d956a35}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}!degree@{degree}}
+\index{degree@{degree}!src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
+\doxysubsubsection{\texorpdfstring{degree}{degree}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a29dff17ca204f873dca375391d956a35} 
+src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+degree = degree}
+
+
+
+An optional argument for the degree of the K3 surface, if applicable. 
+
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a947c7b2a57720d1b8fc2475abcb462cc}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}!line\_bundle\_1@{line\_bundle\_1}}
+\index{line\_bundle\_1@{line\_bundle\_1}!src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
+\doxysubsubsection{\texorpdfstring{line\_bundle\_1}{line\_bundle\_1}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a947c7b2a57720d1b8fc2475abcb462cc} 
+src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+line\+\_\+bundle\+\_\+1 = line\+\_\+bundle\+\_\+1}
+
+
+
+The last line bundle twisted around; i.\+e. 
+
+O(a) where we are computing Tw\+\_\+a Tw\+\_\+b O(c) \Hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_acce8a1155a547cac5584e308de550d1b}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}!line\_bundle\_2@{line\_bundle\_2}}
+\index{line\_bundle\_2@{line\_bundle\_2}!src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
+\doxysubsubsection{\texorpdfstring{line\_bundle\_2}{line\_bundle\_2}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_acce8a1155a547cac5584e308de550d1b} 
+src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+line\+\_\+bundle\+\_\+2 = line\+\_\+bundle\+\_\+2}
+
+
+
+The first line bundle twisted around; i.\+e. 
+
+O(b) where we are computing Tw\+\_\+a Tw\+\_\+b O(c) \Hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_adfdc4891899bc2d90600064511ef3a56}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}!line\_bundle\_3@{line\_bundle\_3}}
+\index{line\_bundle\_3@{line\_bundle\_3}!src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
+\doxysubsubsection{\texorpdfstring{line\_bundle\_3}{line\_bundle\_3}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_adfdc4891899bc2d90600064511ef3a56} 
+src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+line\+\_\+bundle\+\_\+3 = line\+\_\+bundle\+\_\+3}
+
+
+
+The line bundle we are applying the spherical twist to; i.\+e. 
+
+O(c) where we are computing Tw\+\_\+a Tw\+\_\+b O(c) 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_spherical_twist_8py}{Spherical\+Twist.\+py}}\end{DoxyCompactItemize}

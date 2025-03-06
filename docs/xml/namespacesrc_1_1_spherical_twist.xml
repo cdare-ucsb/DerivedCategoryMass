@@ -1,0 +1,718 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="namespacesrc_1_1_spherical_twist" kind="namespace" language="Python">
+    <compoundname>src::SphericalTwist</compoundname>
+    <innerclass refid="classsrc_1_1_spherical_twist_1_1_double_spherical_twist" prot="public">src::SphericalTwist::DoubleSphericalTwist</innerclass>
+    <innerclass refid="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error" prot="public">src::SphericalTwist::HarderNarasimhanError</innerclass>
+    <innerclass refid="classsrc_1_1_spherical_twist_1_1_spherical_twist" prot="public">src::SphericalTwist::SphericalTwist</innerclass>
+    <innerclass refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum" prot="public">src::SphericalTwist::SphericalTwistSum</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a6adb5f1c02cdb6c62340a1e45e5c1f3c" prot="private" static="no" mutable="no">
+        <type>list</type>
+        <definition>list src::SphericalTwist.__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</definition>
+        <argsstring></argsstring>
+        <name>__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</name>
+        <qualifiedname>src.SphericalTwist.__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</qualifiedname>
+        <initializer>=  [&apos;<ref refid="namespacesrc_1_1_projective_c_y_1ae24dbe6f91328befda2836d4a4b311b7" kindref="member">K3</ref>&apos;]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="16" column="1" bodyfile="src/SphericalTwist.py" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1ad60fa80652e6ca4ef6c6cb8658f23e19" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::SphericalTwist.lb6</definition>
+        <argsstring></argsstring>
+        <name>lb6</name>
+        <qualifiedname>src.SphericalTwist.lb6</qualifiedname>
+        <initializer>=  <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref>(1, catagory=&apos;<ref refid="namespacesrc_1_1_projective_c_y_1ae24dbe6f91328befda2836d4a4b311b7" kindref="member">K3</ref>&apos;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="1922" column="1" bodyfile="src/SphericalTwist.py" bodystart="1922" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a551e481eec0d20b002128676f68ea940" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::SphericalTwist.lb7</definition>
+        <argsstring></argsstring>
+        <name>lb7</name>
+        <qualifiedname>src.SphericalTwist.lb7</qualifiedname>
+        <initializer>=  <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref>(2, catagory=&apos;<ref refid="namespacesrc_1_1_projective_c_y_1ae24dbe6f91328befda2836d4a4b311b7" kindref="member">K3</ref>&apos;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="1923" column="1" bodyfile="src/SphericalTwist.py" bodystart="1923" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a55f6d2af3496d6d3f2e1b82dfe628dc2" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::SphericalTwist.lb8</definition>
+        <argsstring></argsstring>
+        <name>lb8</name>
+        <qualifiedname>src.SphericalTwist.lb8</qualifiedname>
+        <initializer>=  <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref>(4, catagory=&apos;<ref refid="namespacesrc_1_1_projective_c_y_1ae24dbe6f91328befda2836d4a4b311b7" kindref="member">K3</ref>&apos;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="1924" column="1" bodyfile="src/SphericalTwist.py" bodystart="1924" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a057fe29da15b1472a927881b6dbcba3d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int src::SphericalTwist.K3_deg</definition>
+        <argsstring></argsstring>
+        <name>K3_deg</name>
+        <qualifiedname>src.SphericalTwist.K3_deg</qualifiedname>
+        <initializer>=  1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="1941" column="1" bodyfile="src/SphericalTwist.py" bodystart="1941" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a4c6ca7b43f9daf9a902a7d8cbf03b44e" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::SphericalTwist.sph4</definition>
+        <argsstring></argsstring>
+        <name>sph4</name>
+        <qualifiedname>src.SphericalTwist.sph4</qualifiedname>
+        <initializer>=  <ref refid="classsrc_1_1_spherical_twist_1_1_double_spherical_twist" kindref="compound">DoubleSphericalTwist</ref>(<ref refid="namespacesrc_1_1_spherical_twist_1ad60fa80652e6ca4ef6c6cb8658f23e19" kindref="member">lb6</ref>, <ref refid="namespacesrc_1_1_spherical_twist_1a551e481eec0d20b002128676f68ea940" kindref="member">lb7</ref>, <ref refid="namespacesrc_1_1_spherical_twist_1a55f6d2af3496d6d3f2e1b82dfe628dc2" kindref="member">lb8</ref>, <ref refid="namespacesrc_1_1_projective_c_y_1ada9e2125f4ff45cabe142cf18d906fad" kindref="member">degree</ref>=<ref refid="namespacesrc_1_1_spherical_twist_1a057fe29da15b1472a927881b6dbcba3d" kindref="member">K3_deg</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="1944" column="1" bodyfile="src/SphericalTwist.py" bodystart="1944" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a689a91ee93ec6b6371ea8daacb0bb3ac" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::SphericalTwist.x_vals</definition>
+        <argsstring></argsstring>
+        <name>x_vals</name>
+        <qualifiedname>src.SphericalTwist.x_vals</qualifiedname>
+        <initializer>=  np.linspace(-5, 11.10, 200)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="1948" column="1" bodyfile="src/SphericalTwist.py" bodystart="1948" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a711446b175a82fb756eefac305b42428" prot="public" static="no" mutable="no">
+        <type>list</type>
+        <definition>src::SphericalTwist.y_vals</definition>
+        <argsstring></argsstring>
+        <name>y_vals</name>
+        <qualifiedname>src.SphericalTwist.y_vals</qualifiedname>
+        <initializer>=  []</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="1951" column="1" bodyfile="src/SphericalTwist.py" bodystart="1951" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1ac2c121df4f006e959c856d7d64130240" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::SphericalTwist.y_range</definition>
+        <argsstring></argsstring>
+        <name>y_range</name>
+        <qualifiedname>src.SphericalTwist.y_range</qualifiedname>
+        <initializer>=  np.linspace(0, 5, 100)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="1953" column="1" bodyfile="src/SphericalTwist.py" bodystart="1953" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1ad2b4eeebd6eb183d13666ec15fdb6634" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::SphericalTwist.masses</definition>
+        <argsstring></argsstring>
+        <name>masses</name>
+        <qualifiedname>src.SphericalTwist.masses</qualifiedname>
+        <initializer>=  np.array([sph4.mass(x, y, <ref refid="namespacesrc_1_1_spherical_twist_1a057fe29da15b1472a927881b6dbcba3d" kindref="member">K3_deg</ref>) for x, y in zip(<ref refid="namespacesrc_1_1_spherical_twist_1a689a91ee93ec6b6371ea8daacb0bb3ac" kindref="member">x_vals</ref>, <ref refid="namespacesrc_1_1_spherical_twist_1a711446b175a82fb756eefac305b42428" kindref="member">y_vals</ref>)])</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="1962" column="1" bodyfile="src/SphericalTwist.py" bodystart="1962" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a0019d0dc829ecd5586a727b073225b34" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::SphericalTwist.fig</definition>
+        <argsstring></argsstring>
+        <name>fig</name>
+        <qualifiedname>src.SphericalTwist.fig</qualifiedname>
+        <initializer>=  go.Figure(data=[go.Scatter3d(z=<ref refid="namespacesrc_1_1_spherical_twist_1ad2b4eeebd6eb183d13666ec15fdb6634" kindref="member">masses</ref>, x=<ref refid="namespacesrc_1_1_spherical_twist_1a689a91ee93ec6b6371ea8daacb0bb3ac" kindref="member">x_vals</ref>, y=<ref refid="namespacesrc_1_1_spherical_twist_1a711446b175a82fb756eefac305b42428" kindref="member">y_vals</ref>,
+                                    mode=&apos;markers&apos;, marker=dict(size=3, color=<ref refid="namespacesrc_1_1_spherical_twist_1ad2b4eeebd6eb183d13666ec15fdb6634" kindref="member">masses</ref>, colorscale=&apos;viridis&apos;))])</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="1965" column="1" bodyfile="src/SphericalTwist.py" bodystart="1965" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a702de543b542d8cbccd91cf7eed902ff" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::SphericalTwist.scene</definition>
+        <argsstring></argsstring>
+        <name>scene</name>
+        <qualifiedname>src.SphericalTwist.scene</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="1968" column="1" bodyfile="src/SphericalTwist.py" bodystart="1968" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacesrc_1_1_spherical_twist_1a1c38ced9519f6b38d31ba2b21e85bf0d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist._dimHom_LineBundles</definition>
+        <argsstring>(line_bundle_1, line_bundle_2, degree_K3=1)</argsstring>
+        <name>_dimHom_LineBundles</name>
+        <qualifiedname>src.SphericalTwist._dimHom_LineBundles</qualifiedname>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1a43573e56e18e52559a2d31128936f558" kindref="member">line_bundle_1</ref></type>
+          <defname>line_bundle_1</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1ae9dd2ce41559bc7d27aeebcd188761d1" kindref="member">line_bundle_2</ref></type>
+          <defname>line_bundle_2</defname>
+        </param>
+        <param>
+          <type>degree_K3</type>
+          <defname>degree_K3</defname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>General helper method to compute the dimension of the Hom spaces between two line bundles (or pushforwards of line bundles, in the local Projectiv space case). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The method is a wrapper for the specific implementations for P1, P2, and K3 surfaces.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_1 The first line bundle in the Hom space </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_2 The second line bundle in the Hom space </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>degree_K3: The degree of the K3 surface, as an optional argument. This only affects the K3 implementation. Default is 1.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_1 is not an instance of <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_2 is not an instance of <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the line bundles are not defined on the same catagory </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NotImplementedError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the catagory of the object is not P1, P2, or K3 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="1566" column="1" bodyfile="src/SphericalTwist.py" bodystart="1566" bodyend="1606"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacesrc_1_1_spherical_twist_1adcd60e481039de6c60d8a2d37f5c63c9" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist._dimHom_LineBundlesP1</definition>
+        <argsstring>(line_bundle_1, line_bundle_2)</argsstring>
+        <name>_dimHom_LineBundlesP1</name>
+        <qualifiedname>src.SphericalTwist._dimHom_LineBundlesP1</qualifiedname>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1a43573e56e18e52559a2d31128936f558" kindref="member">line_bundle_1</ref></type>
+          <defname>line_bundle_1</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1ae9dd2ce41559bc7d27aeebcd188761d1" kindref="member">line_bundle_2</ref></type>
+          <defname>line_bundle_2</defname>
+        </param>
+        <briefdescription>
+<para>Helper method which computes the dimension of the hom spaces between the pushforwards of the line bundles O(a) and O(b). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The dimensions of the pushforwards are computed using the triangle</para>
+<para>i^* i_* E -&gt; E -&gt; E x O(2)[2]</para>
+<para>and applying Hom(-, O(b)) to obtain a long-exact sequence. Using the standard dimensions of the Hom spaces between line bundles on P1, the computation reduces to a case-by-case combinatorial problem. Since the homological index of the hom-space on P1 is bounded between 0 and 1, the hom-space for local P1 is concentrated between degrees 0 and 2. Thus, we return a tuple of the form (a,b,c)</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_1 The first line bundle in the Hom space </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_2 The second line bundle in the Hom space</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_1 is not an instance of <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_2 is not an instance of <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref> </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="1607" column="1" bodyfile="src/SphericalTwist.py" bodystart="1607" bodyend="1643"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacesrc_1_1_spherical_twist_1aff5a06c58e0e3b1d744af87d52053c4f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist._dimHom_LineBundlesP2</definition>
+        <argsstring>(line_bundle_1, line_bundle_2)</argsstring>
+        <name>_dimHom_LineBundlesP2</name>
+        <qualifiedname>src.SphericalTwist._dimHom_LineBundlesP2</qualifiedname>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1a43573e56e18e52559a2d31128936f558" kindref="member">line_bundle_1</ref></type>
+          <defname>line_bundle_1</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1ae9dd2ce41559bc7d27aeebcd188761d1" kindref="member">line_bundle_2</ref></type>
+          <defname>line_bundle_2</defname>
+        </param>
+        <briefdescription>
+<para>Helper method which computes the dimension of the hom spaces between the pushforwards of the line bundles O(a) and O(b). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The dimensions of the pushforwards are computed using the triangle</para>
+<para>i^* i_* E -&gt; E -&gt; E x O(3)[2]</para>
+<para>and applying Hom(-, O(b)) to obtain a long-exact sequence. Using the standard dimensions of the Hom spaces between line bundles on P^2, the computation reduces to a case-by-case combinatorial problem. Since the homological index of the hom-space on P^2 is bounded between 0 and 2, the hom-space for local P2 is concentrated between degrees 0 and 3. Thus, we return a tuple of the form (a,b,c,d)</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_1 The first line bundle in the Hom space </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_2 The second line bundle in the Hom space</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_1 is not an instance of <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_2 is not an instance of <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref> </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="1644" column="1" bodyfile="src/SphericalTwist.py" bodystart="1644" bodyend="1684"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacesrc_1_1_spherical_twist_1ad116867ac212aa843b4e6d6051436472" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist._dimHom_LineBundlesK3</definition>
+        <argsstring>(line_bundle_1, line_bundle_2, degree_K3)</argsstring>
+        <name>_dimHom_LineBundlesK3</name>
+        <qualifiedname>src.SphericalTwist._dimHom_LineBundlesK3</qualifiedname>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1a43573e56e18e52559a2d31128936f558" kindref="member">line_bundle_1</ref></type>
+          <defname>line_bundle_1</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1ae9dd2ce41559bc7d27aeebcd188761d1" kindref="member">line_bundle_2</ref></type>
+          <defname>line_bundle_2</defname>
+        </param>
+        <param>
+          <type>degree_K3</type>
+          <defname>degree_K3</defname>
+        </param>
+        <briefdescription>
+<para>Helper method which computes the dimension of the hom spaces between line bundles on a degree d K3 surface. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Since the only K3s we consider are Picard rank 1, if O(a) and O(b) are distinct then either O(b-a) or O(a-b) must be ample; by Serre duality and a result of Huybrechts, one may always argue that Ext1(O(a), O(b)) = 0. In fact, Serre duality implies that the complex must be concentrated in a single degree, which is either 0 or 2 and corresponds to the cases that b &gt; a and a &lt; b, respectively.</para>
+<para>We return a tuple of the form (n0,n1,n2) indicating the dimension of the graded RHom space. Aside from the instance that a=b, this will only include one nonzero element. Hirzebruch-Riemann-Roch shows that</para>
+<para>dim RHom(O(a), O(b)) = 1 + d(b-a)^2</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_1 The first line bundle in the Hom space </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_2 The second line bundle in the Hom space </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>degree_K3 The degree of the K3 surface</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_1 is not an instance of <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_2 is not an instance of <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If degree_K3 is not an integer </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="1685" column="1" bodyfile="src/SphericalTwist.py" bodystart="1685" bodyend="1727"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacesrc_1_1_spherical_twist_1a8d4c5f90a3a32982ba929fae740b1736" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist._dimHom_Line_and_SingleTwist</definition>
+        <argsstring>(line_bundle_1, line_bundle_2, line_bundle_3, degree_K3)</argsstring>
+        <name>_dimHom_Line_and_SingleTwist</name>
+        <qualifiedname>src.SphericalTwist._dimHom_Line_and_SingleTwist</qualifiedname>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1a43573e56e18e52559a2d31128936f558" kindref="member">line_bundle_1</ref></type>
+          <defname>line_bundle_1</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1ae9dd2ce41559bc7d27aeebcd188761d1" kindref="member">line_bundle_2</ref></type>
+          <defname>line_bundle_2</defname>
+        </param>
+        <param>
+          <type>line_bundle_3</type>
+          <defname>line_bundle_3</defname>
+        </param>
+        <param>
+          <type>degree_K3</type>
+          <defname>degree_K3</defname>
+        </param>
+        <briefdescription>
+<para>Helper method which computes the dimension of the hom spaces between a line bundle and a single spherical twist of line bundles. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is a wrapper for the specific implementations for P1, P2, and K3 surfaces.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_1 The line bundle to twist around: i.e. O(a) where we are computing Tw_a O(b) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_2 The line bundle which the spherical twist is being applied to: i.e. O(b) where we are computing Tw_a O(b) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_3: The line bundle which the spherical twist is being applied to: i.e. O(c) where we are computing Tw_a O(c) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>degree_K3: The degree of the K3 surface, as an optional argument. This only affects the K3 implementation. Default is 1.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_1 is not an instance of <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_2 is not an instance of <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_3 is not an instance of <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the line bundles are not defined on the same catagory </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NotImplementedError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the catagory of the object is not P1, P2, or K3 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="1728" column="1" bodyfile="src/SphericalTwist.py" bodystart="1728" bodyend="1769"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacesrc_1_1_spherical_twist_1ace1a7dca89c709b900186dca644a49da" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist._dimHom_Line_and_SingleTwistK3</definition>
+        <argsstring>(line_bundle_1, line_bundle_2, line_bundle_3, degree_K3)</argsstring>
+        <name>_dimHom_Line_and_SingleTwistK3</name>
+        <qualifiedname>src.SphericalTwist._dimHom_Line_and_SingleTwistK3</qualifiedname>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1a43573e56e18e52559a2d31128936f558" kindref="member">line_bundle_1</ref></type>
+          <defname>line_bundle_1</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1ae9dd2ce41559bc7d27aeebcd188761d1" kindref="member">line_bundle_2</ref></type>
+          <defname>line_bundle_2</defname>
+        </param>
+        <param>
+          <type>line_bundle_3</type>
+          <defname>line_bundle_3</defname>
+        </param>
+        <param>
+          <type>degree_K3</type>
+          <defname>degree_K3</defname>
+        </param>
+        <briefdescription>
+<para>Helper function which computes the dimensions of the derived hom spaces between a line bundle and a spherical twist of line bundles; that is, this function computes the dimensions of. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>       RHom(O(a), Tw_{O(b)} O(c))
+</verbatim></para>
+<para>which is necessarily concentrated in cohomological degrees -1 through 3. As a consequence, this function returns a tuple of five integers (hom-1, hom0, hom1, hom2, hom3) corresponding to the dimensions of the higher-ext groups.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_1 The line bundle to twist around: i.e. O(a) where we are computing Tw_a O(b) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_2 The line bundle which the spherical twist is being applied to: i.e. O(b) where we are computing Tw_a O(b) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_3 The line bundle which the spherical twist is being applied to: i.e. O(c) where we are computing Tw_a O(c) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>degree_K3: The degree of the K3 surface, as an optional argument. This only affects the K3 implementation. Default is 1.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_1 is not an instance of <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_2 is not an instance of <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If line_bundle_3 is not an instance of <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the line bundles are not defined on the same catagory </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NotImplementedError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the catagory of the object is not P1, P2, or K3 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="1770" column="1" bodyfile="src/SphericalTwist.py" bodystart="1770" bodyend="1871"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/SphericalTwist.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

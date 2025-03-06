@@ -12,14 +12,14 @@ IMPLEMENTED_CATAGORIES = ['P1', 'P2', 'K3']
 
 
 class ChainComplex(DerivedCategoryObject):
-    """
+    """!
     For any abelian category, a chain complex is a sequence of objects and morphisms between them
     such that the composition of any two consecutive morphisms is the zero morphism. In the derived
     category of coherent sheaves on P^2, we can represent a chain complex as a sequence of coherent
     sheaves with a shift. For instance, a general complex will be of the form
 
-              i=-n       i=-n+1      i=-n+2    ...
-    0 ------> E1 -------> E2 --------> E3 ---> ...
+                 i=-n       i=-n+1      i=-n+2    ...
+        0 ------> E1 -------> E2 --------> E3 ---> ...
 
     (A priori, there is no reason the complexes cant also descend infinitely in the other direction). 
     For the purposes of this project, only finite complexes will be considered. Such a complex can be
@@ -27,40 +27,39 @@ class ChainComplex(DerivedCategoryObject):
     complex will be zero, we can store the complex as a list of coherent sheaves and a shift vector.
 
     Attributes:
-    ----------
-    sheaf_vector : list
-        A list of coherent sheaves in the complex
-    shift_vector : list
-        A list of homological shifts in the complex
-    dimension_vector : list
-        A list of the number of direct sums of each coherent sheaf in the complex
+    ----------------
+        sheaf_vector (list) : A list of coherent sheaves in the complex
+
+        shift_vector (list) : A list of homological shifts in the complex
+
+        dimension_vector (list) : A list of the number of direct sums of each coherent sheaf in the complex
     
     """
 
     def __init__(self, sheaf_vector, shift_vector, dimension_vector = None):
-        """
+        r"""!
         Initialize an instance of ChainComplex with the specified sheaf vector, shift vector,
         and potentially a dimension vector. If a dimension vector is not provided, it must 
         consist of non-negative integer values
 
-        Parameters:
-        ----------
-        sheaf_vector : list
-            A list of coherent sheaves in the complex
-        shift_vector : list
-            A list of homological shifts in the complex
-        dimension_vector : list
-            A list of the number of direct sums of each coherent sheaf in the complex. By default,
-            it will simply be set to be [1, 1, ..., 1] so that there is only one copy of each sheaf.
 
-        Raises:
-        -------
-        ValueError
-            If the sheaf vector is empty
-            If the sheaf vector and shift vector have different lengths
-        TypeError
-            If any element of the sheaf vector is not a CoherentSheaf object
-            If any element of the shift vector is not an integer
+        \param list sheaf_vector A list of coherent sheaves in the complex
+        \param list shift_vector A list of homological shifts in the complex
+        \param list dimension_vector A list of the number of direct sums of each coherent sheaf in the complex
+
+
+        \throws ValueError If the sheaf vector is empty
+        \throws ValueError If the sheaf vector and shift vector have different lengths
+        \throws TypeError If any element of the sheaf vector is not a CoherentSheaf object
+        \throws TypeError If any element of the shift vector is not an integer
+        \throws ValueError If the dimension vector is not the same length as the sheaf vector
+        \throws TypeError If any element of the dimension vector is not an integer
+        \throws ValueError If any element of the dimension vector is negative
+        \throws ValueError If the catagory of the sheaves in the complex is not implemented
+        \throws ValueError If the sheaf vector contains objects of different catagories
+        \throws ValueError If the sheaf vector contains objects of different base spaces
+        \throws ValueError If the sheaf vector contains objects of different projective spaces
+        \throws TypeError If the sheaf vector contains objects of different projective spaces
         """
 
 
@@ -103,11 +102,13 @@ class ChainComplex(DerivedCategoryObject):
             # Dimension cannot be non-negative
             raise ValueError("All elements of dimension_vector must be non-negative integers.") 
         
-        self.sheaf_vector = sheaf_vector
-        self.dimension_vector = dimension_vector
-        self.shift_vector = shift_vector
+        self.sheaf_vector = sheaf_vector ## List of coherent sheaves in the complex, so that the chain complex can operate similar to a DenseVector.
 
-        self.catagory = sheaf_catagory
+        self.dimension_vector = dimension_vector ## List of the number of direct sums of each coherent sheaf in the complex.
+
+        self.shift_vector = shift_vector ## List of homological shifts in the complex.
+
+        self.catagory = sheaf_catagory ## The catagory of the sheaves in the complex.
 
         # If an element of the complex has dimension 0, we can get rid of it using helper method
         self._remove_zeros_from_dimension_vector()
@@ -120,17 +121,14 @@ class ChainComplex(DerivedCategoryObject):
         
 
     def __str__(self):
-        """
+        r"""!
         String representation of the chain complex. The complex is represented in cohomological order 
         (which technically would be descending order of the shifts, since IR[-2] means the complex with
         a copy of IR in index 2). The individual coherent sheaves in the complex are represented by their
         own respective print functinos --- this will generally be cumbersome for arbitrary vector bundles,
         but more clean for named instances like O(1) or Ω(3). 
 
-        Example
-        -------
-        For a complex with O(3)
-
+        \return str A string representation of the chain complex
         """
          # Zip the three lists together and sort by descending shift
         bundles = list(zip(self.sheaf_vector, self.dimension_vector, self.shift_vector))
@@ -157,30 +155,23 @@ class ChainComplex(DerivedCategoryObject):
         return top_line + "\n" + bottom_line
 
     def __len__(self):
-        """
+        r"""!
         The length of the chain complex is the number of sheaves in the complex
 
-        Returns:
-        -------
-        int
-            The number of sheaves in the complex
-
+        \return int The number of sheaves in the complex
         """
         return len(self.sheaf_vector)
         
     
 
     def chernCharacter(self):
-        """
+        r"""!
         Helper function to compute the Chern Character of the chain complex. The Chern Character of
         a chain complex is the alternating sum of the Chern Characters of the individual sheaves in
         the complex. Since the Chern character is additive, we may multiply the Chern Characters by
         the dimension of the sheaf to represent direct sums of sheaves.
 
-        Returns:
-        -------
-        ChernCharacter
-            The Chern Character of the chain complex
+        \return ChernCharacter The Chern Character of the chain complex
         """
         cherns = [sheaf.chernCharacter() for sheaf in self.sheaf_vector]
 
@@ -198,7 +189,7 @@ class ChainComplex(DerivedCategoryObject):
         return ChernCharacter(chain_complex_chern)
 
     def central_charge(self, *args):
-        """
+        r"""!
         Compute the central charge of the chain complex. The central charge of a chain complex is the
         alternating sum of the central charges of the individual sheaves in the complex. Since the
         central charge is additive, we may multiply the central charges by the dimension of the sheaf
@@ -206,29 +197,19 @@ class ChainComplex(DerivedCategoryObject):
         in the chernCharacter() function, so we will simply call that function and then compute the
         central charge from the Chern Character.
 
-        Parameters:
-        ----------
-        args : list
-            The arguments required to compute the central charge. The number of arguments and the type
-            of arguments will depend on the catagory of the sheaves in the complex. For P1, the central
-            charge requires a single complex number. For P2, the central charge requires two floating-point
-            numbers. For K3, the central charge requires two floating-point numbers and an integer.
+        \param tuple args The arguments required to compute the central charge. The number of arguments and the type
+                     of arguments will depend on the catagory of the sheaves in the complex. For P1, the central
+                     charge requires a single complex number. For P2, the central charge requires two floating-point
+                     numbers. For K3, the central charge requires two floating-point numbers and an integer.
 
-        Returns:
-        -------
-        complex
-            The central charge of the chain complex as a complex number
+        \return complex The central charge of the chain complex as a complex number
 
-        Raises:
-        -------
-        ValueError
-            If the number of arguments is incorrect
-        TypeError
-            If the type of the arguments is incorrect
-        NotImplementedError
-            If the catagory of the sheaves in the complex is not implemented
+        \throws ValueError If the number of arguments is incorrect
+        \throws TypeError If the type of the arguments is incorrect
+        \throws NotImplementedError If the catagory of the sheaves in the complex is not implemented
         """
 
+        
         if self.catagory == 'P1':
             if len(args) != 1:
                 raise ValueError("Central charge for P1 requires exactly one argument.")
@@ -271,37 +252,30 @@ class ChainComplex(DerivedCategoryObject):
 
     
     def shift(self, shift):
-        """
+        r"""!
         Method to shift the chain complex by a given homological shift
 
-        Parameters:
-        ----------
-        shift : int
-            The homological shift to apply to the chain complex
+        \param int shift The homological shift to apply to the chain complex
 
-        Returns:
-        -------
-        ChainComplex
-            The chain complex shifted by the homological shift
+        \return ChainComplex The chain complex shifted by the homological shift
         """
+
         new_shift_vector = [shift + s for s in self.shift_vector]
 
         return ChainComplex(self.sheaf_vector, new_shift_vector, self.dimension_vector)
 
     def isShiftOfSheaf(self):
-        """
+        r"""!
         Simple helper function which checks if the complex is a shift of a single sheaf
 
-        Returns:
-        -------
-        bool
-            True if the complex is a shift of a single sheaf, False otherwise
+        \return bool True if the complex is a shift of a single sheaf, False otherwise
         """
+
         return len(self.sheaf_vector) == 1
 
 
     def _remove_zeros_from_dimension_vector(self):
-        """
+        r"""!
         Helper function which iterates through the dimension vector, and if a certain Coherent sheaf
         is only included 0 times, we may effectively erase it.
         """
@@ -312,7 +286,7 @@ class ChainComplex(DerivedCategoryObject):
                 del self.dimension_vector[i]
 
     def _combine_repeats(self):
-        """
+        r"""!
         Helper function to combine repeated sheaves in the complex. This is useful for simplifying
         the complex, as we can combine repeated sheaves into a single sheaf with a larger dimension.
         This function specifically requires the __hash__ implementation for the CoherentSheaf and 
@@ -343,7 +317,7 @@ class ChainComplex(DerivedCategoryObject):
         
     
     def get_smallest_phase(self, *args):
-        """
+        r"""!
         Method to compute the smallest phase of the chain complex. This behaves as a sort of "smallest
         Harder-Narasimhan factor" for the complex, since Chain complexes will almost never be stable when
         they have objects in distinct shifts. The phase of an individual element of a chain complex generally
@@ -352,18 +326,16 @@ class ChainComplex(DerivedCategoryObject):
         thus, this method computes the smallest sum of the phase of the sheaf and the shift of the sheaf in the
         complex.
 
-        Parameters:
-        ----------
-        args : list
-            The arguments required to compute the phase. The number of arguments and the type of arguments will
-            depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number.
-            For P2, the phase requires two floating-point numbers. For K3, the phase requires two floating-point
-            numbers and an integer.
+        \param tuple args The arguments required to compute the phase. The number of arguments and the type of arguments will
+                     depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number.
+                     For P2, the phase requires two floating-point numbers. For K3, the phase requires two floating-point
+                     numbers and an integer.
 
-        Returns:
-        -------
-        float
-            The smallest phase of the chain complex
+        \return float The smallest phase of the chain complex
+
+        \throws ValueError If the number of arguments is incorrect
+        \throws TypeError If the type of the arguments is incorrect
+        \throws NotImplementedError If the catagory of the sheaves in the complex is not implemented
         """
 
         if self.catagory == 'P1':
@@ -401,7 +373,7 @@ class ChainComplex(DerivedCategoryObject):
         return min_phase
     
     def get_largest_phase(self, *args):
-        """
+        r"""!
         Method to compute the largest phase of the chain complex. This behaves as a sort of "largest
         Harder-Narasimhan factor" for the complex, since Chain complexes will almost never be stable when
         they have objects in distinct shifts. The phase of an individual element of a chain complex generally
@@ -410,20 +382,18 @@ class ChainComplex(DerivedCategoryObject):
         thus, this method computes the largest sum of the phase of the sheaf and the shift of the sheaf in the
         complex.
 
-        Parameters:
-        ----------
-        args : list
-            The arguments required to compute the phase. The number of arguments and the type of arguments will
-            depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number.
-            For P2, the phase requires two floating-point numbers. For K3, the phase requires two floating-point
-            numbers and an integer.
+        \param tuple args The arguments required to compute the phase. The number of arguments and the type of arguments will
+                     depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number.
+                     For P2, the phase requires two floating-point numbers. For K3, the phase requires two floating-point
+                     numbers and an integer.
 
-        Returns:
-        -------
-        float
-            The largest phase of the chain complex
+        \return float The largest phase of the chain complex
+
+        \throws ValueError If the number of arguments is incorrect
+        \throws TypeError If the type of the arguments is incorrect
+        \throws NotImplementedError If the catagory of the sheaves in the complex is not implemented
         """
-            
+
         if self.catagory == 'P1':
             if len(args) != 1:
                 raise ValueError("Phase of P1 requires exactly one argument.")
@@ -462,7 +432,7 @@ class ChainComplex(DerivedCategoryObject):
 
 
     def is_semistable(self, *args):
-        """
+        r"""!
         Method to compute whether the chain complex is semistable. This almost never occurs, since if
         the complex contains two or more stable objects of distinct phase, it will never be stable. For
         example, suppose E2 is a stable subobject of maximum phase and E1 is another stable object with
@@ -474,20 +444,20 @@ class ChainComplex(DerivedCategoryObject):
         The easiest way to check that the complex is concentrated in only a single phase is to compare
         its largest and smallest phases from the previous methods.
 
-        Parameters:
-        ----------
-        args : list
-            The arguments required to compute the phase. The number of arguments and the type of arguments will
-            depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number.
-            For P2, the phase requires two floating-point numbers. For K3, the phase requires two floating-point
-            numbers and an integer.
 
-        Returns:
-        -------
-        bool
-            True if the chain complex is semistable, False otherwise  
+        \param tuple args The arguments required to compute the phase. The number of arguments and the type of arguments will
+                     depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number.
+                     For P2, the phase requires two floating-point numbers. For K3, the phase requires two floating-point
+                     numbers and an integer.
+
+        \return bool True if the chain complex is semistable, False otherwise
+
+        \throws ValueError If the number of arguments is incorrect
+        \throws TypeError If the type of the arguments is incorrect
+        \throws NotImplementedError If the catagory of the sheaves in the complex is not implemented
         """
 
+    
         if self.catagory == 'P1':
             if len(args) != 1:
                 raise ValueError("Phase of P1 requires exactly one argument.")

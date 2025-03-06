@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error" kind="class" language="Python" prot="public">
+    <compoundname>src::SphericalTwist::HarderNarasimhanError</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Exception</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error_1a247019cf436761ee38e1dd7b11e6c8c1" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.SphericalTwist.HarderNarasimhanError::message</definition>
+        <argsstring></argsstring>
+        <name>message</name>
+        <qualifiedname>src.SphericalTwist.HarderNarasimhanError.message</qualifiedname>
+        <initializer>=  kwargs.get(&apos;stability_parameters&apos;)</initializer>
+        <briefdescription>
+<para>The error message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The stability parameters used to compute the Harder-Narasimhan factors </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="55" column="1" bodyfile="src/SphericalTwist.py" bodystart="55" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error_1ad8666384a318fb06e069988617438d63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.SphericalTwist.HarderNarasimhanError.__init__</definition>
+        <argsstring>(self, *args, **kwargs)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>src.SphericalTwist.HarderNarasimhanError.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>args</declname>
+        </param>
+        <param>
+          <type>**</type>
+          <declname>kwargs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="53" column="1" bodyfile="src/SphericalTwist.py" bodystart="53" bodyend="60"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Exception raised when the correct Harder-Narasimhan filtration cannot be found. </para>
+    </briefdescription>
+    <detaileddescription>
+<sect1 id="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error_1autotoc_md4_1s1"><sect2 id="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error_1autotoc_md4">
+<title>Attributes:</title><para>message (str) : The error message</para>
+<para>stability_parameters (tuple) : The stability parameters used to compute the Harder-Narasimhan factors </para>
+</sect2></sect1>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Exception</label>
+      </node>
+      <node id="1">
+        <label>src.SphericalTwist.HarderNarasimhanError</label>
+        <link refid="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Exception</label>
+      </node>
+      <node id="1">
+        <label>src.SphericalTwist.HarderNarasimhanError</label>
+        <link refid="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/SphericalTwist.py" line="43" column="1" bodyfile="src/SphericalTwist.py" bodystart="43" bodyend="60"/>
+    <listofallmembers>
+      <member refid="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error_1ad8666384a318fb06e069988617438d63" prot="public" virt="non-virtual"><scope>src::SphericalTwist::HarderNarasimhanError</scope><name>__init__</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error_1a247019cf436761ee38e1dd7b11e6c8c1" prot="public" virt="non-virtual"><scope>src::SphericalTwist::HarderNarasimhanError</scope><name>message</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

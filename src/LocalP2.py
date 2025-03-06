@@ -12,38 +12,31 @@ import json
 
 
 class LePotier():
-    """
+    """!
     Class which encodes a significant porition of the mathematical information about the Drézet-Le Potier
     curve embedded in the ch1/ch0, ch2/ch0 plane. An algorithmic description of how to obtain the 
     coordinates of exceptional vector bundles is described in 
 
     https://link.springer.com/article/10.1007/s00029-017-0352-4
 
-    Attributes:
-    ----------------
-    granularity (int): The number of bits of precision to use in the calculation of the curve
-    width (int): The width of the curve in terms of the number of dyadic characters
-    boundary_points (list): A list of tuples containing the coordinates of the boundary points of the curve
-
     """
 
     def __init__(self, granularity=5, width=5):
-        """
+        """!
         Constructor for the LePotier class. Initializes the curve with the given granularity
         and width.
 
-        Args:
-        ----------------
-        granularity (int): The number of bits of precision to use in the calculation of the curve
-        width (int): The width of the curve in terms of the number of dyadic characters
+        \param int granularity: The number of bits of precision to use in the calculation of the curve
+        \param int width: The width of the curve in terms of the number of dyadic characters
         """
-        self.granularity = granularity
-        self.width = width
+
+        self.granularity = granularity ## The number of bits of precision to use in the calculation of the curve
+        self.width = width ## The width of the curve in terms of the number of dyadic characters
 
         lower_bound = -1*self.width * 2**self.granularity
         upper_bound = self.width * 2**(self.granularity +1) 
 
-        self.boundary_points = []
+        self.boundary_points = [] ## A list of tuples containing the coordinates of the boundary points of the curve
 
         for i in range(lower_bound, upper_bound):
 
@@ -51,27 +44,21 @@ class LePotier():
             self.boundary_points.append(self._e_left(i, granularity))
             self.boundary_points.append(self._e_right(i, granularity))
         
-        self.boundary_points = sorted(self.boundary_points, key=lambda x: x[0])
+        self.boundary_points = sorted(self.boundary_points, key=lambda x: x[0]) ## A sorted list of the boundary points of the curve, sorted by the x-coordinate. The number of elements depends on the granularity and width of the curve.
         
 
 
     def _get_dyadic_character(self, p, m):
-        """
+        r"""!
         Helper function to calculate the chern characer corresponding to a dyadic number p/2^m
-        
-        Args:
-        ----------------
-        p (int): The index of the dyadic character
-        m (int): the exponent of the denominator of the dyadic character, e.g. p/2^m
 
-        Returns:
-        ----------------
-        ChernCharacter: The Chern character of the dyadic character
+        \param int p The index of the dyadic character
+        \param int m The exponent of the denominator of the dyadic character, e.g. p/2^m
+        \return ChernCharacter The Chern character of the dyadic character
 
-        Raises:
-        ----------------
-        ValueError: If the input data is not valid
+        \throws ValueError If the input data is not valid
         """
+        
 
         if not isinstance(p, int) or not isinstance(m, int) or not m >= 0:
             raise ValueError("Input data must be integers, with m >= 0")
@@ -92,55 +79,38 @@ class LePotier():
             return self._get_dyadic_character(new_p, m-2)
         
     def _e_reg(self, p, m):
-        """
+        r"""!
         Helper function to calculate the regular part of the exceptional vector bundle
 
-        Args:
-        ----------------
-        p (int): The index of the dyadic character
-        m (int): the exponent of the denominator of the dyadic character, e.g. p/2^m
-
-        Returns:
-        ----------------
-        tuple: A tuple containing the coordinates of the regular part of the exceptional vector bundle
+        \param int p The index of the dyadic character
+        \param int m: The exponent of the denominator of the dyadic character, e.g. p/2^m
+        \return tuple A tuple containing the coordinates of the regular part of the exceptional vector bundle
         """
+
         chern = self._get_dyadic_character(p, m)
         return ( float(chern[1]) / chern[0], chern[2] / chern[0] )
         
     def _e_plus(self, p, m):
-        """
+        r"""!
         Helper function to calculate the right-side part of the exceptional vector bundle
 
-        Args:
-        ----------------
-        p (int): The index of the dyadic character
-        m (int): the exponent of the denominator of the dyadic character, e.g. p/2^m
-
-        Returns:
-        ----------------
-        tuple: A tuple containing the coordinates of the right-side part of the exceptional vector bundle
-
-        
+        \param int p The index of the dyadic character
+        \param int m The exponent of the denominator of the dyadic character, e.g. p/2^m
+        \return tuple A tuple containing the coordinates of the right-side part of the exceptional vector bundle
         """
+
         chern = self._get_dyadic_character(p, m)
         return ( float(chern[1]) / chern[0], chern[2] / chern[0] - float(1 / (chern[0])**2) )
     
     def _e_left(self, p, m):
-        """
-        
+        r"""!
         Helper function to calculate the left-side part of the exceptional vector bundle
 
-        Args:
-        ----------------
-        p (int): The index of the dyadic character
-        m (int): the exponent of the denominator of the dyadic character, e.g. p/2^m
-
-        Returns:
-        ----------------
-
-        tuple: A tuple containing the coordinates of the left-side part of the exceptional vector bundle
-
+        \param int p: The index of the dyadic character
+        \param int m The exponent of the denominator of the dyadic character, e.g. p/2^m
+        \return tuple A tuple containing the coordinates of the left-side part of the exceptional vector bundle
         """
+
         x_1, y_1 = self._e_plus(p, m)
         x_2, y_2 = self._e_reg(p-1, m)
 
@@ -158,19 +128,12 @@ class LePotier():
 
 
     def _e_right(self, p, m):
-        """
-
+        r"""!
         Helper function to calculate the right-side part of the exceptional vector bundle
 
-        Args:
-        ----------------
-        p (int): The index of the dyadic character
-        m (int): the exponent of the denominator of the dyadic character, e.g. p/2^m
-
-        Returns:
-        ----------------
-        tuple: A tuple containing the coordinates of the right-side part of the exceptional vector bundle
-
+        \param int p The index of the dyadic character
+        \param int m The exponent of the denominator of the dyadic character, e.g. p/2^m
+        \return tuple A tuple containing the coordinates of the right-side part of the exceptional vector bundle
         """
 
         x_1, y_1 = self._e_plus(p, m)
@@ -190,32 +153,28 @@ class LePotier():
 
 
     def is_above_curve(self, x, y):
-        """
+        r"""!
         Function which indicates whether a coordinate (s,q) is above the set of (ch1/ch0, ch2/ch0) for which vector bundles of given charge are stable
 
-        Args:
-        ----------------
-        x (float): The x-coordinate of the point
-        y (float): The y-coordinate of the point
+        
+        \param float x The x-coordinate of the point
 
-        Returns:
-        ----------------
-        bool: True if the point is above the curve, False otherwise
+        \param float y The y-coordinate of the point
+
+        \return bool True if the point is above the curve, False otherwise
         """
+
+        
         return y > self.curve_estimate(x)
     
     def curve_estimate(self, x):
-
-        """
+        r"""!
         Function which estimates the value of y for a given x using linear interpolation between the boundary points
 
-        Args:
-        ----------------
-        x (float): The x-coordinate of the point
+        \param float x The x-coordinate of the point
 
-        Returns:
-        ----------------
-        float: The estimated y-coordinate of the point
+        \throws ValueError If the x-coordinate is outside the range of the curve
+        \return float The estimated y-coordinate of the point
         """
 
         x_values = [p[0] for p in self.boundary_points]
@@ -242,25 +201,19 @@ class LePotier():
     def plot_region(self, plot_3d=False, return_json=False,
                     show_walls=False, boundary_color='blue',
                     wall_color='gray'):
-        """
+        r"""!
         Method to plot the region of the ch1/ch0, ch2/ch0 plane above the Drezet-Le Potier curve.
         The plot can be displayed in the browser or returned as a JSON string, and can be in 2D or 3D.
         Additionally, the plot can include the walls of the chambers and the colors of the boundary and walls
         can be customized.
 
-        Args:
-        ----------------
-        plot_3d (bool): A flag to indicate whether the plot should be in 3D. Default is False.
-        return_json (bool): A flag to indicate whether the plot should be returned as a JSON string. Default is False.
-        show_walls (bool): A flag to indicate whether the walls of the chambers should be shown. Default is False.
-        boundary_color (str): The color of the boundary of the curve. Default is 'blue'.
-        wall_color (str): The color of the walls of the chambers. Default is 'gray'.
+        \param bool plot_3d A flag to indicate whether the plot should be in 3D. Default is False.
+        \param bool return_json: A flag to indicate whether the plot should be returned as a JSON string. Default is False.
+        \param bool show_walls: A flag to indicate whether the walls of the chambers should be shown. Default is False.
+        \param str boundary_color: The color of the boundary of the curve. Default is 'blue'.
+        \param str wall_color: The color of the walls of the chambers. Default is 'gray'.
 
-
-        Returns:
-        ----------------
-        str: A JSON string representation of the plot if return_json is True
-
+        \return: A JSON string representation of the plot if return_json is True
 
         """
         
@@ -373,19 +326,15 @@ class LePotier():
 
 
 def plot_multiple_neighbors_ex1(width=5, granularity=3, return_json=False):
-    """
+    r"""!
     Example implementation to plot multiple neighboring chambers to the geometric chamber
     for Local P2 at once. The plot can be displayed in the browser or returned as a JSON string.
 
+    \param int width The width of the curve in terms of the number of dyadic characters
+    \param int granularity: The number of bits of precision to use in the calculation of the curve
+    \param bool return_json: A flag to indicate whether the plot should be returned as a JSON string. Default is False.
 
-    Args:
-    ----------------
-    width (int): The width of the curve in terms of the number of dyadic characters
-    granularity (int): The number of bits of precision to use in the calculation of the curve
-
-    Returns:
-    ----------------
-    str: A JSON string representation of the plot if return
+    \return str A JSON string representation of the plot if return_json is True
     """
 
     DLP= LePotier(width, granularity)
@@ -491,19 +440,17 @@ def plot_multiple_neighbors_ex1(width=5, granularity=3, return_json=False):
 
 
 def plot_successive_neighbors_ex1(width=5, granularity=4, plot_walls=False, return_json=False):
-    """
+    r"""!
     Example implementation to plot 9 successive chambers to the geometric chamber for Local P2.
     The plot can be displayed in the browser or returned as a JSON string.
 
-    Args:
-    ----------------
-    width (int): The width of the curve in terms of the number of dyadic characters
-    granularity (int): The number of bits of precision to use in the calculation of the curve
-    plot_walls (bool): A flag to indicate whether the walls of the chambers should be shown. Default is False.
+    \param int width The width of the curve in terms of the number of dyadic characters
+    \param int granularity The number of bits of precision to use in the calculation of the curve
+    \param bool plot_walls A flag to indicate whether the walls of the chambers should be shown. Default is False.
+    \param bool return_json A flag to indicate whether the plot should be returned as a JSON string. Default is False.
 
-    Returns:
-    ----------------
-    str: A JSON string representation of the plot if return
+    \return str A JSON string representation of the plot if return_json is True
+
     """
     DLP = LePotier(6, granularity)
 
@@ -906,6 +853,19 @@ def plot_successive_neighbors_ex1(width=5, granularity=4, plot_walls=False, retu
 
 
 def ints_to_mass_plot_P2_sing_twist(line_bundle_1, line_bundle_2, return_json=False):
+    r"""!
+    Function which plots the mass of the spherical twist triangle for a given pair of line bundles
+    in the P2 case. The plot can be displayed in the browser or returned as a JSON string.
+
+    \param int line_bundle_1 The line bundle of the first object in the spherical twist triangle
+    \param int line_bundle_2: The line bundle of the second object in the spherical twist triangle
+    \param bool return_json: A flag to indicate whether the plot should be returned as a JSON string. Default is False.
+
+    \return str A JSON string representation of the plot if return_json is True
+
+    \throws ValueError If the input data is not an integer
+    
+    """
 
     if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
         raise ValueError("Input data must be integers")
@@ -975,19 +935,17 @@ def ints_to_mass_plot_P2_sing_twist(line_bundle_1, line_bundle_2, return_json=Fa
 
 
 def twist_triangle_to_json_P2(line_bundle_1, line_bundle_2):
-    """
+    r"""!
     Helper function to convert the data of a spherical twist triangle to a JSON string. The data includes the
      sheaf vectors, shift vectors, and dimension vectors of the objects in the triangle. This is primarily used
      for the front-end visualization of the spherical twist triangle in a Flask application.
 
-    Args:
-    ----------------
-    line_bundle_1 (int): The line bundle of the first object in the spherical twist triangle
-    line_bundle_2 (int): The line bundle of the second object in the spherical twist triangle
 
-    Returns:
-    ----------------
-    str: A JSON string representation of the spherical twist triangle data
+     \param int line_bundle_1 The line bundle of the first object in the spherical twist triangle
+     \param int line_bundle_2 The line bundle of the second object in the spherical twist triangle
+
+    \return str A JSON string representation of the spherical twist triangle data
+
     """
     
     if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):

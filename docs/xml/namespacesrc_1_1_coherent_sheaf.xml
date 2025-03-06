@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="namespacesrc_1_1_coherent_sheaf" kind="namespace" language="Python">
+    <compoundname>src::CoherentSheaf</compoundname>
+    <innerclass refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf" prot="public">src::CoherentSheaf::CoherentSheaf</innerclass>
+    <innerclass refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" prot="public">src::CoherentSheaf::LineBundle</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacesrc_1_1_coherent_sheaf_1a96dc18afaa9dd4165c3ebc85ab9c1106" prot="public" static="no" mutable="no">
+        <type>list</type>
+        <definition>list src::CoherentSheaf.IMPLEMENTED_CATAGORIES</definition>
+        <argsstring></argsstring>
+        <name>IMPLEMENTED_CATAGORIES</name>
+        <qualifiedname>src.CoherentSheaf.IMPLEMENTED_CATAGORIES</qualifiedname>
+        <initializer>=  [&apos;P1&apos;, &apos;P2&apos;, &apos;<ref refid="namespacesrc_1_1_projective_c_y_1ae24dbe6f91328befda2836d4a4b311b7" kindref="member">K3</ref>&apos;]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>                                                                        #
+                       Single-Degree Objects                            #
+</verbatim> -------------------------------------------------------------------------<mdash/># These objects are used to represent coherent sheaves, vector bundles, and # line bundles. Line bundles (i.e. vector bundles of rank 1) will be our # building blocks for the sake of this project, since every coherent sheaf # in projective space has a resolution by line bundles. Moreover, all # <linebreak/>
+ spherical twists that we will consider can be represented as a composition # of twists around (the pushforward of) line bundles. # <linebreak/>
+ # </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CoherentSheaf.py" line="21" column="1" bodyfile="src/CoherentSheaf.py" bodystart="21" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/CoherentSheaf.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

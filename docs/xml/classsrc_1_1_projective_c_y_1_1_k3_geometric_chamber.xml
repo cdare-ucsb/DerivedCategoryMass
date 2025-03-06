@@ -1,0 +1,286 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber" kind="class" language="Python" prot="public">
+    <compoundname>src::ProjectiveCY::K3GeometricChamber</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1a7b4aa8fe6cd0abb1ef8ba1a79b0c464f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.ProjectiveCY.K3GeometricChamber::degree</definition>
+        <argsstring></argsstring>
+        <name>degree</name>
+        <qualifiedname>src.ProjectiveCY.K3GeometricChamber.degree</qualifiedname>
+        <initializer>=  degree</initializer>
+        <briefdescription>
+<para>The degree of the K3 surface. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ProjectiveCY.py" line="45" column="1" bodyfile="src/ProjectiveCY.py" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1a60be867150a669c555447d3b9f6be07b" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.ProjectiveCY.K3GeometricChamber::granularity</definition>
+        <argsstring></argsstring>
+        <name>granularity</name>
+        <qualifiedname>src.ProjectiveCY.K3GeometricChamber.granularity</qualifiedname>
+        <initializer>=  granularity</initializer>
+        <briefdescription>
+<para>The granularity of the walls to be plotted in the the (α,β) plane. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ProjectiveCY.py" line="47" column="1" bodyfile="src/ProjectiveCY.py" bodystart="47" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1aaad23c5efdf2a72fb851ddba4efde53e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ProjectiveCY.K3GeometricChamber.__init__</definition>
+        <argsstring>(self, degree=1, granularity=15)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>src.ProjectiveCY.K3GeometricChamber.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1a7b4aa8fe6cd0abb1ef8ba1a79b0c464f" kindref="member">degree</ref></type>
+          <defname>degree</defname>
+          <defval>1</defval>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1a60be867150a669c555447d3b9f6be07b" kindref="member">granularity</ref></type>
+          <defname>granularity</defname>
+          <defval>15</defval>
+        </param>
+        <briefdescription>
+<para>Constructor for the <ref refid="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber" kindref="compound">K3GeometricChamber</ref> class. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This class represents the geometric chamber of a general projective K3 surface of picard rank 1. Since the geometric chamber consists of a Cantor-set of walls associated to the spherical vector bundles on it, there is no accurate way to simultaneously represent all walls at once. Thus, this class provides a method to plot such walls in the (α,β) plane up to some accuracy (i.e. granularity).</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>degree The degree of the K3 surface</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>granularity The granularity of the walls to be plotted in the the (α,β) plane</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the degree is not a positive integer </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ProjectiveCY.py" line="29" column="1" bodyfile="src/ProjectiveCY.py" bodystart="29" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1add32d6d1a97f246e8e6918eb847d6fea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ProjectiveCY.K3GeometricChamber.create_mukai_vectors</definition>
+        <argsstring>(self)</argsstring>
+        <name>create_mukai_vectors</name>
+        <qualifiedname>src.ProjectiveCY.K3GeometricChamber.create_mukai_vectors</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Method to create the mukai vectors of a spherical vector bundle on a K3 surface of degree d. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>granularity The granularity of the mukai vectors to be computed. This roughly indicates how close the mukai vectors should get to integer points on the real axis</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>list A list of tuples representing the mukai vectors of the spherical vector bundles </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ProjectiveCY.py" line="50" column="1" bodyfile="src/ProjectiveCY.py" bodystart="50" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1a741e4fb172003d853178d82f95501a54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ProjectiveCY.K3GeometricChamber.plot_alpha_beta_plane</definition>
+        <argsstring>(self, return_json=False)</argsstring>
+        <name>plot_alpha_beta_plane</name>
+        <qualifiedname>src.ProjectiveCY.K3GeometricChamber.plot_alpha_beta_plane</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p1_1a672b2478ed63bd51ebc9acb6569c754b" kindref="member">return_json</ref></type>
+          <defname>return_json</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para>Method to plot the walls of the geometric chamber of a K3 surface in the (α,β) plane. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>As this method is quite computationally intensive at the standard granularity of 15, we only plot the walls between -1.6 and 1.6 in the α direction and between 0 and √d in the β direction.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bool</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>return_json A flag indicating whether the plot should be returned as a JSON string or displayed in the browser </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ProjectiveCY.py" line="73" column="1" bodyfile="src/ProjectiveCY.py" bodystart="73" bodyend="128"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1adcc689c9e14e3e110eeeee6393d03db1" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ProjectiveCY.K3GeometricChamber._npDivs</definition>
+        <argsstring>(self, N)</argsstring>
+        <name>_npDivs</name>
+        <qualifiedname>src.ProjectiveCY.K3GeometricChamber._npDivs</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>N</type>
+          <defname>N</defname>
+        </param>
+        <briefdescription>
+<para>Helper method to compute the divisors of a number N. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>N The number whose divisors are to be computed</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>numpy.ndarray An array of divisors of N </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ProjectiveCY.py" line="129" column="1" bodyfile="src/ProjectiveCY.py" bodystart="129" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1a13de70e3968963ac29cc7c07009cf3c3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.ProjectiveCY.K3GeometricChamber._convert_to_alpha_beta</definition>
+        <argsstring>(self, r, l, s)</argsstring>
+        <name>_convert_to_alpha_beta</name>
+        <qualifiedname>src.ProjectiveCY.K3GeometricChamber._convert_to_alpha_beta</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>r</type>
+          <defname>r</defname>
+        </param>
+        <param>
+          <type>l</type>
+          <defname>l</defname>
+        </param>
+        <param>
+          <type>s</type>
+          <defname>s</defname>
+        </param>
+        <briefdescription>
+<para>Helper method to compute the coordinates of a hole in the (α,β) plane corresponding to a mukai vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Suppose (r, lH, s) is the mukai vector of a spherical vector bundle on a degree d K3 surface (H^2 = 2d). Then </para>
+<sect1 id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1autotoc_md2">
+<title>dl^2 - rs = -1. For a corresponding hole in the (α,β) plane, we must have the real and imaginary part of</title></sect1>
+<sect1 id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1autotoc_md3">
+<title>&lt; exp(αΗ + ι βΗ) , (r, lH, s) &gt; vanish. This gives</title><para>0 = &lt;(1, αH, (α^2 - β^2)d), (r, lH, s)&gt; = 2dal - s - rd(α^2 - β^2) 0 = &lt;(0, βΗ, 2αβd), (r, lH, s)&gt; = 2βdl - 2rdαβ = 2dβ(l - rα)</para>
+<para>The second equation gives β = 0 or l = rα. Since βΗ is necessarily ample, we must have β &gt; 0. Therefore, l = rα. Substituting into the first equation simplifies to</para>
+<para>dl^2 - rs + dr^2 β^2 = 0</para>
+<para>Using dl^2 - rs = -1, we find that β = 1/r√d.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>r The first component of the mukai vector </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>l The second component of the mukai vector </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>s The third component of the mukai vector</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>tuple The coordinates of the hole in the (α,β) plane </para>
+</simplesect>
+</para>
+</sect1>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ProjectiveCY.py" line="144" column="1" bodyfile="src/ProjectiveCY.py" bodystart="144" bodyend="178"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>This class represents the geometric chamber of a general projective K3 surface of picard rank 1. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Since the geometric chamber consists of a Cantor-set of walls associated to the spherical vector bundles on it, there is no accurate way to simultaneously represent all walls at once. Thus, this class provides a method to plot such walls in the (α,β) plane up to some accuracy (i.e. granularity). </para>
+    </detaileddescription>
+    <location file="src/ProjectiveCY.py" line="21" column="1" bodyfile="src/ProjectiveCY.py" bodystart="21" bodyend="178"/>
+    <listofallmembers>
+      <member refid="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1aaad23c5efdf2a72fb851ddba4efde53e" prot="public" virt="non-virtual"><scope>src::ProjectiveCY::K3GeometricChamber</scope><name>__init__</name></member>
+      <member refid="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1a13de70e3968963ac29cc7c07009cf3c3" prot="protected" virt="non-virtual"><scope>src::ProjectiveCY::K3GeometricChamber</scope><name>_convert_to_alpha_beta</name></member>
+      <member refid="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1adcc689c9e14e3e110eeeee6393d03db1" prot="protected" virt="non-virtual"><scope>src::ProjectiveCY::K3GeometricChamber</scope><name>_npDivs</name></member>
+      <member refid="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1add32d6d1a97f246e8e6918eb847d6fea" prot="public" virt="non-virtual"><scope>src::ProjectiveCY::K3GeometricChamber</scope><name>create_mukai_vectors</name></member>
+      <member refid="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1a7b4aa8fe6cd0abb1ef8ba1a79b0c464f" prot="public" virt="non-virtual"><scope>src::ProjectiveCY::K3GeometricChamber</scope><name>degree</name></member>
+      <member refid="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1a60be867150a669c555447d3b9f6be07b" prot="public" virt="non-virtual"><scope>src::ProjectiveCY::K3GeometricChamber</scope><name>granularity</name></member>
+      <member refid="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1a741e4fb172003d853178d82f95501a54" prot="public" virt="non-virtual"><scope>src::ProjectiveCY::K3GeometricChamber</scope><name>plot_alpha_beta_plane</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

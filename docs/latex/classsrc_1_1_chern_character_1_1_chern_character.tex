@@ -1,0 +1,359 @@
+\doxysection{src.\+Chern\+Character.\+Chern\+Character Class Reference}
+\hypertarget{classsrc_1_1_chern_character_1_1_chern_character}{}\label{classsrc_1_1_chern_character_1_1_chern_character}\index{src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}}
+
+
+Generic parent class for the chern character.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_chern_character_1_1_chern_character_a21c3d3a3f6bdd7bae5e10d786c67bcc3}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsrc_1_1_chern_character_1_1_chern_character_a2fc8384e7523d58bfef9daea2663d9d9}{graded\+\_\+element}})
+\begin{DoxyCompactList}\small\item\em Initialize a Chern Character object with the specified graded element. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chern_character_1_1_chern_character_a7d054c5d0019e163f87efe8b8f36d670}{\+\_\+\+\_\+add\+\_\+\+\_\+}} (self, other)
+\begin{DoxyCompactList}\small\item\em Add two Chern Character objects together. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chern_character_1_1_chern_character_aae8f368443f6dbecc24f447177af0699}{\+\_\+\+\_\+sub\+\_\+\+\_\+}} (self, other)
+\begin{DoxyCompactList}\small\item\em Subtract two Chern Character objects together. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chern_character_1_1_chern_character_a27eb6a2909ed50cb45bbbb1baeb34093}{\+\_\+\+\_\+mul\+\_\+\+\_\+}} (self, scalar)
+\begin{DoxyCompactList}\small\item\em Multiply the Chern Character object by a scalar. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chern_character_1_1_chern_character_a9b357c2038dd0b702e5f4760ec005335}{\+\_\+\+\_\+rmul\+\_\+\+\_\+}} (self, scalar)
+\begin{DoxyCompactList}\small\item\em This is effectively the same as the {\bfseries{mul}} method, though allows for the scalar to be on the left side of the multiplication. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chern_character_1_1_chern_character_ab63c86b4f057004e4f6ba4d06c6ec1ea}{\+\_\+\+\_\+eq\+\_\+\+\_\+}} (self, other)
+\begin{DoxyCompactList}\small\item\em Check if two Chern Character objects are equal. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chern_character_1_1_chern_character_a9200a8d0f53ce3cad287ba1f12919a92}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em String representation of the Chern Character object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chern_character_1_1_chern_character_a35932f383b0dccdf1bd84046bac2adb0}{\+\_\+\+\_\+getitem\+\_\+\+\_\+}} (self, key)
+\begin{DoxyCompactList}\small\item\em Allow for indexing of the Chern Character object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chern_character_1_1_chern_character_a6b52d37e0c59801236e0d49f5fa8ea03}{\+\_\+\+\_\+len\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Return the length of the Chern Character object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chern_character_1_1_chern_character_a73daa8575d8035a236c1d5fdc576465f}{\+\_\+\+\_\+iter\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Allow for iteration over the Chern Character object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chern_character_1_1_chern_character_abdf7bff7656f24ffb121a0fc7a39c883}{\+\_\+\+\_\+reversed\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Return the reversed Chern Character object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chern_character_1_1_chern_character_a812cb5e194bb0e1c2d6c91404cc07a0b}{\+\_\+\+\_\+contains\+\_\+\+\_\+}} (self, item)
+\begin{DoxyCompactList}\small\item\em Check if an item is in the Chern Character object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_chern_character_1_1_chern_character_ad311df0e62323369f3e7e359e5959fcc}{\+\_\+\+\_\+setitem\+\_\+\+\_\+}} (self, key, value)
+\begin{DoxyCompactList}\small\item\em Allow for setting the value of an index in the Chern Character object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_chern_character_1_1_chern_character_a2fc8384e7523d58bfef9daea2663d9d9}{graded\+\_\+element}} = np.\+array(graded\+\_\+element)
+\begin{DoxyCompactList}\small\item\em Chern Characters stored as numpy array for quick computations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Generic parent class for the chern character. 
+
+\begin{DoxyVerb}                                                                        #
+                      Numerical Characters                              #
+\end{DoxyVerb}
+ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\# These objects are used to represent Chern classes of coherent sheaves / \# vector bundles / line bundles, as well as more abstract constructions \# in the derived category of coherent sheaves on some variety. As most \# stability conditions will be numerical stability conditions, they will \# only rely on the information of Chern characters as opposed to more \# arbitrary geometric data. \# \#
+
+Chern characters should operate like lists of floating point numbers, since they are graded objects concentrated in degrees going from 0 to the dimension of the variety.\hypertarget{classsrc_1_1_chern_character_1_1_chern_character_autotoc_md1}{}\doxysubsubsection{\texorpdfstring{Attributes\+:}{Attributes\+:}}\label{classsrc_1_1_chern_character_1_1_chern_character_autotoc_md1}
+\begin{DoxyVerb}graded_element (np.array): The graded element of the Chern Character object. This is a numpy array of floats or integers
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classsrc_1_1_chern_character_1_1_chern_character_a21c3d3a3f6bdd7bae5e10d786c67bcc3}\index{src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chern_character_1_1_chern_character_a21c3d3a3f6bdd7bae5e10d786c67bcc3} 
+src.\+Chern\+Character.\+Chern\+Character.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{graded\+\_\+element}{}\end{DoxyParamCaption})}
+
+
+
+Initialize a Chern Character object with the specified graded element. 
+
+The graded element should be a list of floats or integers, representing the Chern character of a coherent sheaf or vector bundle. Since Chern characters are additive on exact sequences, this allows us to also consider Chern characters of complexes of coherent sheaves.
+
+In order to allow for quick computations, the graded element is stored as a numpy array.
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & graded\+\_\+element A list of floats or integers representing the Chern character of a coherent sheaf or vector bundle. Theoretically this value should be rational, but this is not enforced in the class due to the additional complexity of enforcing this constraint.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If the graded element is not a list of floats or integers \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsrc_1_1_chern_character_1_1_chern_character_a7d054c5d0019e163f87efe8b8f36d670}\index{src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}!\_\_add\_\_@{\_\_add\_\_}}
+\index{\_\_add\_\_@{\_\_add\_\_}!src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}}
+\doxysubsubsection{\texorpdfstring{\_\_add\_\_()}{\_\_add\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chern_character_1_1_chern_character_a7d054c5d0019e163f87efe8b8f36d670} 
+src.\+Chern\+Character.\+Chern\+Character.\+\_\+\+\_\+add\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{}\end{DoxyParamCaption})}
+
+
+
+Add two Chern Character objects together. 
+
+The Chern Character objects must have the same length in order to add them together. Since the addition of numpy vectors is already defined, this method simply calls the addition of the numpy arrays.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \doxylink{classsrc_1_1_chern_character_1_1_chern_character}{Chern\+Character}} & other The Chern Character object to add to the current Chern Character object\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classsrc_1_1_chern_character_1_1_chern_character}{Chern\+Character} The sum of the two Chern Character objects, which is simply the element-\/wise sum of the graded elements
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If other is not a \doxylink{classsrc_1_1_chern_character_1_1_chern_character}{Chern\+Character} object \\
+\hline
+{\em Value\+Error} & If the Chern Character objects do not have the same length \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classsrc_1_1_chern_character_1_1_chern_character_a812cb5e194bb0e1c2d6c91404cc07a0b}\index{src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}!\_\_contains\_\_@{\_\_contains\_\_}}
+\index{\_\_contains\_\_@{\_\_contains\_\_}!src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}}
+\doxysubsubsection{\texorpdfstring{\_\_contains\_\_()}{\_\_contains\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chern_character_1_1_chern_character_a812cb5e194bb0e1c2d6c91404cc07a0b} 
+src.\+Chern\+Character.\+Chern\+Character.\+\_\+\+\_\+contains\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{item}{}\end{DoxyParamCaption})}
+
+
+
+Check if an item is in the Chern Character object. 
+
+This is simply a pass-\/through to the numpy array.
+
+
+\begin{DoxyParams}{Parameters}
+{\em item} & float The item to check if it is in the Chern Character object\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if the item is in the Chern Character object, False otherwise 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_chern_character_1_1_chern_character_ab63c86b4f057004e4f6ba4d06c6ec1ea}\index{src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}!\_\_eq\_\_@{\_\_eq\_\_}}
+\index{\_\_eq\_\_@{\_\_eq\_\_}!src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}}
+\doxysubsubsection{\texorpdfstring{\_\_eq\_\_()}{\_\_eq\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chern_character_1_1_chern_character_ab63c86b4f057004e4f6ba4d06c6ec1ea} 
+src.\+Chern\+Character.\+Chern\+Character.\+\_\+\+\_\+eq\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{}\end{DoxyParamCaption})}
+
+
+
+Check if two Chern Character objects are equal. 
+
+The Chern Character objects are equal if their graded elements are equal.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \doxylink{classsrc_1_1_chern_character_1_1_chern_character}{Chern\+Character}} & other The Chern Character object to compare to the current Chern Character object\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if the Chern Character objects are equal, False otherwise 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_chern_character_1_1_chern_character_a35932f383b0dccdf1bd84046bac2adb0}\index{src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}!\_\_getitem\_\_@{\_\_getitem\_\_}}
+\index{\_\_getitem\_\_@{\_\_getitem\_\_}!src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}}
+\doxysubsubsection{\texorpdfstring{\_\_getitem\_\_()}{\_\_getitem\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chern_character_1_1_chern_character_a35932f383b0dccdf1bd84046bac2adb0} 
+src.\+Chern\+Character.\+Chern\+Character.\+\_\+\+\_\+getitem\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{key}{}\end{DoxyParamCaption})}
+
+
+
+Allow for indexing of the Chern Character object. 
+
+This is simply a pass-\/through to the numpy array.
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & key The index of the Chern Character object to retrieve\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float The value of the Chern Character object at the specified index
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If key is not an integer \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classsrc_1_1_chern_character_1_1_chern_character_a73daa8575d8035a236c1d5fdc576465f}\index{src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}!\_\_iter\_\_@{\_\_iter\_\_}}
+\index{\_\_iter\_\_@{\_\_iter\_\_}!src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}}
+\doxysubsubsection{\texorpdfstring{\_\_iter\_\_()}{\_\_iter\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chern_character_1_1_chern_character_a73daa8575d8035a236c1d5fdc576465f} 
+src.\+Chern\+Character.\+Chern\+Character.\+\_\+\+\_\+iter\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Allow for iteration over the Chern Character object. 
+
+This is simply a pass-\/through to the numpy array.
+
+\begin{DoxyReturn}{Returns}
+iter An iterator over the Chern Character object 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_chern_character_1_1_chern_character_a6b52d37e0c59801236e0d49f5fa8ea03}\index{src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}!\_\_len\_\_@{\_\_len\_\_}}
+\index{\_\_len\_\_@{\_\_len\_\_}!src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}}
+\doxysubsubsection{\texorpdfstring{\_\_len\_\_()}{\_\_len\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chern_character_1_1_chern_character_a6b52d37e0c59801236e0d49f5fa8ea03} 
+src.\+Chern\+Character.\+Chern\+Character.\+\_\+\+\_\+len\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Return the length of the Chern Character object. 
+
+This is simply the length of the numpy array.
+
+\begin{DoxyReturn}{Returns}
+int The length of the Chern Character object 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_chern_character_1_1_chern_character_a27eb6a2909ed50cb45bbbb1baeb34093}\index{src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}!\_\_mul\_\_@{\_\_mul\_\_}}
+\index{\_\_mul\_\_@{\_\_mul\_\_}!src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}}
+\doxysubsubsection{\texorpdfstring{\_\_mul\_\_()}{\_\_mul\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chern_character_1_1_chern_character_a27eb6a2909ed50cb45bbbb1baeb34093} 
+src.\+Chern\+Character.\+Chern\+Character.\+\_\+\+\_\+mul\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{scalar}{}\end{DoxyParamCaption})}
+
+
+
+Multiply the Chern Character object by a scalar. 
+
+The scalar must be an integer, as the Chern Character is a graded object. Since the multiplication of numpy vectors is already defined, this method simply calls the multiplication of the numpy array by the scalar.
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & scalar The integer to multiply the Chern Character object by\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classsrc_1_1_chern_character_1_1_chern_character}{Chern\+Character} The Chern Character object multiplied by the scalar. This is simply the element-\/wise multiplication of the graded element by the scalar
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If scalar is not an integer \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classsrc_1_1_chern_character_1_1_chern_character_abdf7bff7656f24ffb121a0fc7a39c883}\index{src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}!\_\_reversed\_\_@{\_\_reversed\_\_}}
+\index{\_\_reversed\_\_@{\_\_reversed\_\_}!src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}}
+\doxysubsubsection{\texorpdfstring{\_\_reversed\_\_()}{\_\_reversed\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chern_character_1_1_chern_character_abdf7bff7656f24ffb121a0fc7a39c883} 
+src.\+Chern\+Character.\+Chern\+Character.\+\_\+\+\_\+reversed\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Return the reversed Chern Character object. 
+
+This is simply a pass-\/through to the numpy array.
+
+\begin{DoxyReturn}{Returns}
+reversed The reversed Chern Character object 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_chern_character_1_1_chern_character_a9b357c2038dd0b702e5f4760ec005335}\index{src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}!\_\_rmul\_\_@{\_\_rmul\_\_}}
+\index{\_\_rmul\_\_@{\_\_rmul\_\_}!src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}}
+\doxysubsubsection{\texorpdfstring{\_\_rmul\_\_()}{\_\_rmul\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chern_character_1_1_chern_character_a9b357c2038dd0b702e5f4760ec005335} 
+src.\+Chern\+Character.\+Chern\+Character.\+\_\+\+\_\+rmul\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{scalar}{}\end{DoxyParamCaption})}
+
+
+
+This is effectively the same as the {\bfseries{mul}} method, though allows for the scalar to be on the left side of the multiplication. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & scalar The integer to multiply the Chern Character object by\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classsrc_1_1_chern_character_1_1_chern_character}{Chern\+Character} The Chern Character object multiplied by the scalar. This is simply the element-\/wise multiplication of the graded element by the scalar
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If scalar is not an integer \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classsrc_1_1_chern_character_1_1_chern_character_ad311df0e62323369f3e7e359e5959fcc}\index{src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}!\_\_setitem\_\_@{\_\_setitem\_\_}}
+\index{\_\_setitem\_\_@{\_\_setitem\_\_}!src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}}
+\doxysubsubsection{\texorpdfstring{\_\_setitem\_\_()}{\_\_setitem\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chern_character_1_1_chern_character_ad311df0e62323369f3e7e359e5959fcc} 
+src.\+Chern\+Character.\+Chern\+Character.\+\_\+\+\_\+setitem\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{key}{, }\item[{}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Allow for setting the value of an index in the Chern Character object. 
+
+This is simply a pass-\/through to the numpy array.
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & key The index of the Chern Character object to set\\
+\hline
+{\em float} & value The value to set the Chern Character object at the specified index\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If key is not an integer \\
+\hline
+{\em Type\+Error} & If value is not a number \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classsrc_1_1_chern_character_1_1_chern_character_a9200a8d0f53ce3cad287ba1f12919a92}\index{src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}!\_\_str\_\_@{\_\_str\_\_}}
+\index{\_\_str\_\_@{\_\_str\_\_}!src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}}
+\doxysubsubsection{\texorpdfstring{\_\_str\_\_()}{\_\_str\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chern_character_1_1_chern_character_a9200a8d0f53ce3cad287ba1f12919a92} 
+src.\+Chern\+Character.\+Chern\+Character.\+\_\+\+\_\+str\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+String representation of the Chern Character object. 
+
+This is simply the string representation of the numpy array, formatted as
+
+\texorpdfstring{$<$}{<}a\+\_\+0, a\+\_\+1, ..., a\+\_\+n\texorpdfstring{$>$}{>}
+
+where a\+\_\+i are the elements of the Chern Character object.
+
+\begin{DoxyReturn}{Returns}
+str A string representation of the Chern Character object 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_chern_character_1_1_chern_character_aae8f368443f6dbecc24f447177af0699}\index{src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}!\_\_sub\_\_@{\_\_sub\_\_}}
+\index{\_\_sub\_\_@{\_\_sub\_\_}!src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}}
+\doxysubsubsection{\texorpdfstring{\_\_sub\_\_()}{\_\_sub\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chern_character_1_1_chern_character_aae8f368443f6dbecc24f447177af0699} 
+src.\+Chern\+Character.\+Chern\+Character.\+\_\+\+\_\+sub\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{}\end{DoxyParamCaption})}
+
+
+
+Subtract two Chern Character objects together. 
+
+The Chern Character objects must have the same length in order to subtract them. Since the subtraction of numpy vectors is already defined, this method simply calls the subtraction of the numpy arrays.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \doxylink{classsrc_1_1_chern_character_1_1_chern_character}{Chern\+Character}} & other The Chern Character object to subtract from the current Chern Character object\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classsrc_1_1_chern_character_1_1_chern_character}{Chern\+Character} The difference of the two Chern Character objects, which is simply the element-\/wise difference of the graded elements
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Type\+Error} & If other is not a \doxylink{classsrc_1_1_chern_character_1_1_chern_character}{Chern\+Character} object\\
+\hline
+{\em Value\+Error} & If the Chern Character objects do not have the same length \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classsrc_1_1_chern_character_1_1_chern_character_a2fc8384e7523d58bfef9daea2663d9d9}\index{src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}!graded\_element@{graded\_element}}
+\index{graded\_element@{graded\_element}!src.ChernCharacter.ChernCharacter@{src.ChernCharacter.ChernCharacter}}
+\doxysubsubsection{\texorpdfstring{graded\_element}{graded\_element}}
+{\footnotesize\ttfamily \label{classsrc_1_1_chern_character_1_1_chern_character_a2fc8384e7523d58bfef9daea2663d9d9} 
+src.\+Chern\+Character.\+Chern\+Character.\+graded\+\_\+element = np.\+array(graded\+\_\+element)}
+
+
+
+Chern Characters stored as numpy array for quick computations. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_chern_character_8py}{Chern\+Character.\+py}}\end{DoxyCompactItemize}

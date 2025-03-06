@@ -19,8 +19,7 @@ __CURRENT_DOUBLE_TWIST_IMPLEMENTED__ = ['K3']
 
 
 
-###############################################################################
-#                                                                             #
+
 #                           Spherical Twist                                   #
 # ----------------------------------------------------------------------------#
 #  This object is used to represent the composition of spherical twists in    #
@@ -37,23 +36,30 @@ __CURRENT_DOUBLE_TWIST_IMPLEMENTED__ = ['K3']
 #  spherical twists, we need to iteratively keep track of previous Harder-    #
 #  Narasimhan filtrations. At the moment, this is only computed up to two     #
 #  successive spherical twists.                                               #
-#                                                                             #   
-###############################################################################   
+
 
 
 
 class HarderNarasimhanError(Exception):
-    """ Exception raised when the correct Harder-Narasimhan filtration cannot be found """
+    r"""!
+    Exception raised when the correct Harder-Narasimhan filtration cannot be found 
+
+    Attributes:
+    ----------
+        message (str) : The error message
+
+        stability_parameters (tuple) : The stability parameters used to compute the Harder-Narasimhan factors
+    """
     def __init__(self, *args, **kwargs):
         super().__init__(*args)
-        self.message = kwargs.get('message')
-        self.stability_parameters = kwargs.get('stability_parameters')
+        self.message = kwargs.get('message') ## The error message
+        self.stability_parameters = kwargs.get('stability_parameters') ## The stability parameters used to compute the Harder-Narasimhan factors
 
 
 
 
 class SphericalTwist(DerivedCategoryObject):
-    """
+    r"""!
     A spherical twist is a non-standard autoequivalence of the derived category of coherent sheaves, in the 
     sense that it does not arise from any composition of (1) standard autoequivalences on the variety (2) 
     tensoring by line bundles and (3) (co)homological shifts. Such autoequivalences typically only arise in the
@@ -73,21 +79,10 @@ class SphericalTwist(DerivedCategoryObject):
     true that the spherical twists account for all spherical objects, but they are still provide a rich source of
     examples to help predict mass growth.
 
-    Attributes:
-    ----------
-    line_bundle_1 : LineBundle
-        The first line bundle in the Hom space
-    line_bundle_2 : LineBundle
-        The second line bundle in the Hom space
-    degree : int
-        An optional argument for the degree of the variety, which is relevant to the dimension of the
-        derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations.
-        Default is 1. 
-
     """
     
     def __init__(self, line_bundle_1, line_bundle_2, degree=1):
-        """
+        r"""!
         Initialize an instance of SphericalTwist with the specified line bundles. The spherical twist
         is defined as the cone of the evaluation morphism 
 
@@ -100,18 +95,19 @@ class SphericalTwist(DerivedCategoryObject):
         Several helper methods are used to compute the dimensions of the Hom spaces between the pushforwards
         of the line bundles, and then to construct the distinguished triangle.
 
-        Parameters:
-        ----------
-        line_bundle_1 : LineBundle
-            The first line bundle in the Hom space
-        line_bundle_2 : LineBundle
-            The second line bundle in the Hom space
-        degree : int
-            An optional argument for the degree of the variety, which is relevant to the dimension of the
-            derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations.
-            Default is 1.
+        \param LineBundle line_bundle_1 The first line bundle in the Hom space
 
+        \param LineBundle line_bundle_2: The second line bundle in the Hom space
+
+        \param int degree An optional argument for the degree of the variety, which is relevant to the dimension of the
+                       derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations.
+                       Default is 1.
+
+        \throws TypeError If line_bundle_1 is not an instance of LineBundle
+        \throws TypeError If line_bundle_2 is not an instance of LineBundle
+        \throws ValueError If the line bundles are not defined on the same variety
         """
+
         if not isinstance(line_bundle_1, LineBundle):
             raise TypeError("line_bundle_1 must be an instance of LineBundle.")
         if not isinstance(line_bundle_2, LineBundle):
@@ -119,53 +115,40 @@ class SphericalTwist(DerivedCategoryObject):
         if line_bundle_1.catagory != line_bundle_2.catagory:
             raise ValueError("Line bundles must be defined on the same variety")
 
-        self.line_bundle_1 = line_bundle_1
-        self.line_bundle_2 = line_bundle_2
-        self.catagory = line_bundle_1.catagory
-        self.degree = degree
+        self.line_bundle_1 = line_bundle_1 ## The first line bundle in the Hom space, i.e. O(a) in Hom(O(a), O(b))
 
-        # Call helper method to create defining triangle of spherical twist
-        self.defining_triangle = self._sph_twist_LineBundles(line_bundle_1, line_bundle_2)
+        self.line_bundle_2 = line_bundle_2 ## The second line bundle in the Hom space, i.e. O(b) in Hom(O(a), O(b))
+
+        self.catagory = line_bundle_1.catagory ## The catagory of the object, i.e. P1, P2, or K3
+
+        self.degree = degree ## The degree of the K3 surface, if applicable
+
+        self.defining_triangle = self._sph_twist_LineBundles(line_bundle_1, line_bundle_2) ## The distinguished triangle representing the spherical twist
 
 
     def __str__(self):
-        """
+        r"""!
         Returns a string representation of the spherical twist by printing the defining triangle
 
-        Returns:
-        -------
-        str
-            A string representation of the spherical twist
+        \return str A string representation of the spherical twist
         """
+
         return str(self.defining_triangle.object3)
     
 
     
     def _sph_twist_LineBundles(self, line_bundle_1, line_bundle_2):
-        """
+        r"""!
         Helper function which uses the __dimHom_LineBundlesP2 method to compute the defining triangle for a 
         single spherical twist of a line bundle around another line bundle. The twist is given by
 
         Tw_lb1 lb2 = Cone(  Hom(lb_1, lb_2) ⊗ lb_1 ---->  lb_2 )
 
 
-        Parameters:
-        ----------
-        line_bundle_1 : LineBundle
-            The first line bundle in the Hom space
-        line_bundle_2 : LineBundle
-            The second line bundle in the Hom space
+        \param LineBundle line_bundle_1: The first line bundle in the Hom space
+        \param LineBundle line_bundle_2: The second line bundle in the Hom space
 
-        Returns:
-        -------
-        DistinguishedTriangle
-            The distinguished triangle representing the spherical twist
-
-        Raises:
-        -------
-        TypeError
-            If line_bundle_1 is not an instance of LineBundle
-            If line_bundle_2 is not an instance of LineBundle
+        \return DistinguishedTriangle The distinguished triangle representing the spherical twist
         """
 
         if not isinstance(line_bundle_1, LineBundle):
@@ -197,33 +180,24 @@ class SphericalTwist(DerivedCategoryObject):
         return DistinguishedTriangle(object1, object2, object3)
     
     def chernCharacter(self):
-        """
+        r"""!
         Method to compute the Chern Character of the spherical twist. The Chern Character of the
         spherical twist is the Chern Character of the third object in the distinguished triangle.
 
-        Returns:
-        -------
-        ChernCharacter
-            The Chern Character of the spherical twist
+        \return ChernCharacter The Chern Character of the spherical twist
         """
 
         return self.defining_triangle.object3.chernCharacter()
     
     def shift(self, n):
-        """
+        r"""!
         Method to shift the spherical twist by n units. As a spherical twist is initially only
         specified as a string until its defining triangle is computed, the shift method simply
         relies on the implementation in the parent class DerivedCategoryObject.
 
-        Parameters:
-        ----------
-        n : int
-            The number of units to shift the object by
+        \param int n: The number of units to shift the object by
 
-        Returns:
-        -------
-        DerivedCategoryObject
-            The shifted object
+        \return DerivedCategoryObject The shifted object
         """
 
         if not isinstance(n, int):
@@ -235,30 +209,19 @@ class SphericalTwist(DerivedCategoryObject):
 
     
     def central_charge(self, *args):
-        """
+        r"""!
         Method to compute the central charge of the spherical twist. The central charge of the spherical
         twist is the central charge of the third object in the distinguished triangle.
 
-        Parameters:
-        ----------
-        args : tuple
-            The parameters for the stability condition. The number of parameters depends on the catagory of the object.
-            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers 
-            and an integer representing the degree of the K3 surface.
+        \param args The parameters for the stability condition. The number of parameters depends on the catagory of the object
+                        For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+                        and an integer representing the degree of the K3 surface.
 
-        Returns:
-        -------
-        complex
-            The central charge of the spherical twist as a complex number
+        \return The central charge of the spherical twist as a complex number 
 
-        Raises:
-        -------
-        TypeError
-            If the args are not of the correct type
-        ValueError
-            If the number of args is incorrect
-        NotImplementedError
-            If the catagory of the object is not P1, P2, or K3
+        \throws TypeError If the args are not of the correct type
+        \throws ValueError If the number of args is incorrect
+        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
         """
 
         if self.catagory == 'P1':
@@ -310,23 +273,19 @@ class SphericalTwist(DerivedCategoryObject):
 
     
     def is_semistable(self, *args):
-        """
+        r"""!
         Method to check if the spherical twist is stable. The spherical twist is stable if the Harder-Narasimhan
         filtration is trivial, i.e. just the object itself.
 
+        \param args The parameters for the stability condition. The number of parameters depends on the catagory of the object
+                        For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+                        and an integer representing the degree of the K3 surface.
 
-        Parameters:
-        -------
-        args : tuple
-            The parameters for the stability condition. The number of parameters depends on the catagory of the object
-            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
-            and an integer representing the degree of the K3 surface.
+        \return True if the spherical twist is stable, False otherwise
 
-
-        Returns:
-        -------
-        bool
-            True if the spherical twist is stable, False otherwise
+        \throws TypeError If the args are not of the correct type
+        \throws ValueError If the number of args is incorrect
+        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
         """
 
         if self.catagory == 'P1':
@@ -361,7 +320,7 @@ class SphericalTwist(DerivedCategoryObject):
 
     
     def mass(self, *args):
-        """
+        r"""!
         Computes the mass of an object in the derived catagory. The mass of a stable object is simply the modulus
         of its central charge. For a non-stable object, the mass is the sum of the masses of the Harder-Narasimhan
         factors of the object. The notion of the mass of an object is derived from string theory, where BPS states
@@ -371,28 +330,15 @@ class SphericalTwist(DerivedCategoryObject):
         As a consequence, this method heavily relies on the get_HN_factors method to compute the Harder-Narasimhan
         factors of the object.
 
-        Parameters:
-        ----------
-        args : tuple
-            The parameters for the stability condition. The number of parameters depends on the catagory of the object
-            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
-            and an integer representing the degree of the K3 surface.
+        \param args The parameters for the stability condition. The number of parameters depends on the catagory of the object
+                        For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+                        and an integer representing the degree of the K3 surface.
 
-        Returns:
-        -------
-        float
-            The mass of the object, as a non-negative real number. Theoretically the mass should always be positive,
-            but the get_HN_factors method does not always give the correct filtration in edge cases.
+        \return The mass of the object, as a non-negative real number 
 
-        Raises:
-        -------
-        TypeError
-            If the args are not of the correct type
-        ValueError
-            If the number of args is incorrect
-        NotImplementedError
-            If the catagory of the object is not P1, P2, or K3
-
+        \throws TypeError If the args are not of the correct type
+        \throws ValueError If the number of args is incorrect
+        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
         """
 
 
@@ -437,7 +383,7 @@ class SphericalTwist(DerivedCategoryObject):
 
                 
     def get_HN_factors(self, *args):
-        """
+        r"""!
         This method is the main workhorse of the SphericalTwist class. It computes the Harder-Narasimhan factors
         of the spherical twist object. It is generally assumed that for a single spherical twist, the only way
         that an object can destabilize is when an element of the last term of the defining triangle
@@ -470,33 +416,21 @@ class SphericalTwist(DerivedCategoryObject):
         case
 
 
-        Parameters:
-        ----------
-        args : tuple
-            The parameters for the stability condition. The number of parameters depends on the catagory of the object
-            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
-            and an integer representing the degree of the K3 surface.
+        \param args The parameters for the stability condition. The number of parameters depends on the catagory of the object
+                        For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+                        and an integer representing the degree of the K3 surface.
 
-        Returns:
-        -------
-        list
-            A list of tuples where the first element is a DerivedCategoryObject and the second element is a float
-            representing the phase of the object. The list is always returned in such a way that the largest phase
-            HN factor is first and smallest is last.
+        \return A list of tuples where the first element is a DerivedCategoryObject and the second element is a float
+                    representing the phase of the object. The list is always returned in such a way that the largest phase
+                    HN factor is first and smallest is last.
 
-        Raises:
-        -------
-        TypeError
-            If the args are not of the correct type
-        ValueError
-            If the number of args is incorrect
-        NotImplementedError
-            If the catagory of the object is not P1, P2, or K3
-        HarderNarasimhanError
-            If the spherical twist is stable but the phase cannot be found
-            If the phase of the cone object cannot be found
+        \throws TypeError If the args are not of the correct type
+        \throws ValueError If the number of args is incorrect
+        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
+        \throws HarderNarasimhanError If the spherical twist is stable but the phase cannot be found
 
         """
+
         if self.catagory == 'P1':
             if len(args) != 1:
                 raise ValueError("Central charge of P1 requires single complex number parameter")
@@ -634,7 +568,7 @@ class SphericalTwist(DerivedCategoryObject):
 
 
 class SphericalTwistSum(DerivedCategoryObject):
-    """
+    r"""!
     This class acts similar to the ChainComplex class for CoherentSheaf; specifically, when considering
     double (or any n>1) spherical twists, there are always triangles that the twist will fit into that are 
     not necessarily the defining triangle and can be obtained by applying the twist functor to the defining
@@ -644,26 +578,11 @@ class SphericalTwistSum(DerivedCategoryObject):
     For successive spherical twist applications, this entire procedure will likely need to be generalized since
     it is inefficient to encode DoubleSphericalTwistSum, TripeSphericalTwistSum, etc. as separate classes.
 
-
-    Attributes:
-    ----------
-    line_bundle_pairs_vector : list
-        A list of tuples where each tuple is a pair of line bundles (lb1, lb2) that the spherical twist is
-        defined around
-    dimension_vector : list
-        A list of non-negative integers representing the number of times each spherical twist is applied
-    shift_vector : list
-        A list of integers representing the shift of each spherical twist
-    degree : int
-        An optional argument for the degree of the variety, which is relevant to the dimension of the
-        derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations.
-        Default is 1.
-
     """
 
 
     def __init__(self, line_bundle_pairs_vector, dimension_vector, shift_vector, degree=1):
-        """
+        r"""!
         Initialize an instance of SphericalTwistSum with the specified line bundles. This class is used
         to represent objects of the form
 
@@ -676,33 +595,24 @@ class SphericalTwistSum(DerivedCategoryObject):
         This class is primarily used for DoubleSphericalTwist, since the second canonical triangle
         will often be a sum of spherical twists.
 
-        Parameters:
-        ----------
-        line_bundle_pairs_vector : list
-            A list of tuples where each tuple is a pair of line bundles (lb1, lb2) that the spherical twist is
-            defined around
-        dimension_vector : list
-            A list of non-negative integers representing the number of times each spherical twist is applied
-        shift_vector : list
-            A list of integers representing the shift of each spherical twist
-        degree : int
-            An optional argument for the degree of the variety, which is relevant to the dimension of the
-            derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations.
-            Default is 1.
+        \param list line_bundle_pairs_vector: A list of tuples where each tuple is a pair of line bundles (lb1, lb2) that the spherical twist is
+                                         defined
+        \param list dimension_vector A list of non-negative integers representing the number of times each spherical twist is applied
+        \param list shift_vector A list of integers representing the shift of each spherical twist
+        \param int degree An optional argument for the degree of the variety, which is relevant to the dimension of the
+                       derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations.
+                       Default is 1.
 
-        Raises:
-        -------
-        TypeError
-            If line_bundle_pairs_vector is not a list of tuples
-            If dimension_vector is not a list of integers
-            If shift_vector is not a list of integers
-        ValueError
-            If line_bundle_pairs_vector is not a list of tuples with exactly two elements
-            If line_bundle_pairs_vector is not a list of tuples where both objects are line bundles
-            If dimension_vector is not a list of non-negative integers
-            If line_bundle_pairs_vector, dimension_vector, and shift_vector do not have the same length
-            If line_bundle_pairs_vector is empty
+        \throws TypeError If line_bundle_pairs_vector is not a list of tuples
+        \throws TypeError If dimension_vector is not a list of integers
+        \throws TypeError If shift_vector is not a list of integers
+        \throws ValueError If line_bundle_pairs_vector is not a list of tuples with exactly two elements
+        \throws ValueError If line_bundle_pairs_vector is not a list of tuples where both objects are line bundles
+        \throws ValueError If dimension_vector is not a list of non-negative integers
+        \throws ValueError If line_bundle_pairs_vector, dimension_vector, and shift_vector do not have the same length
+        \throws ValueError If line_bundle_pairs_vector is empty
         """
+
         if not all(isinstance(x, tuple) for x in line_bundle_pairs_vector):
             raise TypeError("line_bundle_pairs_vector must be a list of tuples")
         if not all(len(x) == 2 for x in line_bundle_pairs_vector):
@@ -731,10 +641,13 @@ class SphericalTwistSum(DerivedCategoryObject):
         if len(line_bundle_pairs_vector) == 0:
             raise ValueError("line_bundle_pairs_vector must have at least one element")
         
-        self.line_bundle_pairs_vector = line_bundle_pairs_vector
-        self.dimension_vector = dimension_vector
-        self.shift_vector = shift_vector
-        self.degree = degree
+        self.line_bundle_pairs_vector = line_bundle_pairs_vector ## A list of tuples where each tuple is a pair of line bundles (lb1, lb2) that the spherical twist is defined around
+
+        self.dimension_vector = dimension_vector ## A list of non-negative integers representing the number of times each spherical twist is applied
+
+        self.shift_vector = shift_vector ## A list of integers representing the shift of each spherical twist
+
+        self.degree = degree ## An optional argument for the degree of the K3 surface, if applicable
 
 
         self._remove_zeros_from_dimension_vector()
@@ -743,7 +656,7 @@ class SphericalTwistSum(DerivedCategoryObject):
 
 
     def __str__(self):
-        """
+        r"""!
         Returns a string representation of the spherical twist by printing the defining triangle. 
         The string representation is similar to that of the chain complex, where 2 lines are printed.
         The first line contains the number of times the spherical twist is applied, and the second line
@@ -753,11 +666,9 @@ class SphericalTwistSum(DerivedCategoryObject):
                 ⊕3
         Tw_1 O(1)[-2]
 
-        Returns:
-        -------
-        str
-            A string representation of the spherical twist
+        \return str A string representation of the spherical twist sum
         """
+
         # Initialize lists to hold each formatted component
         first_line_components = []
         second_line_components = []
@@ -798,32 +709,27 @@ class SphericalTwistSum(DerivedCategoryObject):
     
 
     def __len__(self):
-        """
+        r"""!
         Returns the number of distinct spherical twists in the sum; we should generally expect that 
         the spherical twists are distinct since the constructor should hypothetically combine like terms.
 
         This method is primarily used in the DoubleSphericalTwist.get_HN_factors method to help determine
         edge cases.
 
-        Returns:
-        -------
-        int
-            The number of distinct spherical twists in the sum
+        \return int The number of distinct spherical twists in the sum
         """
+
         return len(self.line_bundle_pairs_vector)
     
     def chernCharacter(self):
-        """
+        r"""!
         Similar to the case of ChainComplex, since the Chern character is additive on exact sequences (i.e. factors
         through the Grothendieck group), we may always find the Chern character of an object obtained by sums and twists
         of known objects. In this case, we simply rely on the implementation of the above SphericalTwist class.
 
-        Returns:
-        -------
-        ChernCharacter
-            The Chern Character of the spherical twist sum
+        \return ChernCharacter The Chern Character of the spherical twist sum
         """
-        
+
         chern_character = ChernCharacter([0, 0, 0])
         
         for (lb1, lb2), n, s in zip(self.line_bundle_pairs_vector, self.dimension_vector, self.shift_vector):
@@ -836,51 +742,35 @@ class SphericalTwistSum(DerivedCategoryObject):
 
     
     def shift(self, n):
-        """
+        r"""!
         Cohomological shift of the complex by some fixed amount. This is one of the main methods one wishes
         to override for the DerivedCategoryObject class, since the shift of a spherical twist sum is simply
         the sum of the shifts of the individual spherical twists.
 
-        Parameters:
-        ----------
-        n : int
-            The amount to shift the complex by
+        \param int n The amount to shift the complex by  
 
-        Returns:
-        -------
-        SphericalTwistSum
-            The shifted spherical twist sum
+        \return SphericalTwistSum The shifted spherical twist sum
         """
+
 
         new_shift_vector = [x + n for x in self.shift_vector]
 
         return SphericalTwistSum(self.line_bundle_pairs_vector, self.dimension_vector, new_shift_vector, self.degree)
     
     def central_charge(self, *args):
-        """
+        r"""!
         Method to compute the central charge of the spherical twist sum. Since all stability conditions are numerical
         for our current implementations, it suffices to compute the central charge of the Chern character
 
-        Parameters:
-        ----------
-        args : tuple
-            The parameters for the stability condition. The number of parameters depends on the catagory of the 
-            object. For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two
-            real numbers and an integer representing the degree of the K3 surface.
+        \param args: The parameters for the stability condition. The number of parameters depends on the catagory of the object
+                        For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+                        and an integer representing the degree of the K3 surface.
 
-        Returns:
-        -------
-        complex
-            The central charge of the spherical twist as a complex number
+        \return complex The central charge of the spherical twist sum as a complex number
 
-        Raises:
-        -------
-        TypeError
-            If the args are not of the correct type
-        ValueError
-            If the number of args is incorrect
-        NotImplementedError
-            If the catagory of the object is not P1, P2, or K3
+        \throws TypeError If the args are not of the correct type
+        \throws ValueError If the number of args is incorrect
+        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
         """
 
         if self.catagory == 'P1':
@@ -913,16 +803,13 @@ class SphericalTwistSum(DerivedCategoryObject):
         return central_charge
     
     def get_lowest_shift_component(self):
-        """
+        r"""!
         Similar to the ChainComplex class, we wish to recover the lowest shift component of the spherical twist sum.
         This is useful for computing the Harder-Narasimhan factors of the DoubleSphericalTwistSum class.
 
-        Returns:
-        -------
-        SphericalTwistSum
-            The spherical twist sum with the lowest shift
+        \return SphericalTwistSum The spherical twist sum with the lowest shift
         """
-        
+
         min_shift = float('inf')
         min_lb_pair = None
         min_dimension = None
@@ -936,14 +823,11 @@ class SphericalTwistSum(DerivedCategoryObject):
         return SphericalTwistSum([min_lb_pair], [min_dimension], [min_shift], self.degree)
             
     def get_highest_shift_component(self):
-        """
+        r"""!
         Similar to the ChainComplex class, we wish to recover the highest shift component of the spherical twist sum.
         This is useful for computing the Harder-Narasimhan factors of the DoubleSphericalTwistSum class.
 
-        Returns:
-        -------
-        SphericalTwistSum
-            The spherical twist sum with the highest shift
+        \return SphericalTwistSum The spherical twist sum with the highest shift
         """
         
         max_shift = float('-inf')
@@ -959,7 +843,7 @@ class SphericalTwistSum(DerivedCategoryObject):
         return SphericalTwistSum([max_lb_pair], [max_dimension], [max_shift], self.degree)
     
     def is_semistable(self, *args):
-        """
+        r"""!
         Method to check if the spherical twist sum is stable. The sum of shifts of distinct objects will generally
         never be stable unless the objects and shifts are all the same; for example, one can consider the trivial case
         where E is a stable object, but
@@ -969,26 +853,15 @@ class SphericalTwistSum(DerivedCategoryObject):
         destabilizes the direct sum. In general, the spherical twist sum is stable if the Harder-Narasimhan
         filtration is trivial, i.e. just the object itself. 
 
-        Parameters:
-        -------
-        args : tuple
-            The parameters for the stability condition. The number of parameters depends on the catagory of the object
-            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
-            and an integer representing the degree of the K3 surface.
+        \param args The parameters for the stability condition. The number of parameters depends on the catagory of the object
+                        For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+                        and an integer representing the degree of the K3 surface.
 
-        Returns:
-        -------
-        bool
-            True if the spherical twist sum is stable, False otherwise
+        \return bool True if the spherical twist sum is stable, False otherwise
 
-        Raises:
-        -------
-        TypeError
-            If the args are not of the correct type
-        ValueError
-            If the number of args is incorrect
-        NotImplementedError
-            If the catagory of the object is not P1, P2, or K3
+        \throws TypeError If the args are not of the correct type
+        \throws ValueError If the number of args is incorrect
+        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
         """
 
         if self.catagory == 'P1':
@@ -1016,35 +889,24 @@ class SphericalTwistSum(DerivedCategoryObject):
         return len(self.get_HN_factors_ordered(*args)) == 1 
             
     def get_HN_factors_ordered(self, *args):
-        """
+        r"""!
         This is a slightly modified version of the get_HN_factors method, where the Harder-Narasimhan factors
         are ordered by phase. In particular, this method is a slight misnomer in the sense that it is not actually
         claiming that the list returned is the HN filtration of the object, but rather a concatenated list of all 
         the individual semistable factors. This is still nonetheless useful for computing the HN factors of the
         DoubleSphericalTwistSum class.
 
-        Parameters:
-        ----------
-        args : tuple
-            The parameters for the stability condition. The number of parameters depends on the catagory of the object
-            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
-            and an integer representing the degree of the K3 surface.
+        \param args The parameters for the stability condition. The number of parameters depends on the catagory of the object
+                        For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+                        and an integer representing the degree of the K3 surface.
 
-        Returns:
-        -------
-        list
-            A list of tuples where the first element is a DerivedCategoryObject and the second element is a float
-            representing the phase of the object. The list is always returned in such a way that the largest phase
-            HN factor is first and smallest is last.
+        \return A list of tuples where the first element is a DerivedCategoryObject and the second element is a float
+                    representing the phase of the object. The list is always returned in such a way that the largest phase
+                    HN factor is first and smallest is last.
 
-        Raises:
-        -------
-        TypeError
-            If the args are not of the correct type
-        ValueError
-            If the number of args is incorrect
-        NotImplementedError
-            If the catagory of the object is not P1, P2, or K3
+        \throws TypeError If the args are not of the correct type
+        \throws ValueError If the number of args is incorrect
+        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
         """
 
         if self.catagory == 'P1':
@@ -1092,7 +954,7 @@ class SphericalTwistSum(DerivedCategoryObject):
 
             
     def _remove_zeros_from_dimension_vector(self):
-        """
+        """!
         Helper function which iterates through the dimension vector, and if a certain Coherent sheaf
         is only included 0 times, we may effectively erase it.
         """
@@ -1103,7 +965,7 @@ class SphericalTwistSum(DerivedCategoryObject):
                 del self.dimension_vector[i]
 
     def _combine_repeats(self):
-        """
+        """!
         Helper function to combine repeated sheaves in the complex. This is useful for simplifying
         the complex, as we can combine repeated sheaves into a single sheaf with a larger dimension.
         """
@@ -1140,7 +1002,7 @@ class SphericalTwistSum(DerivedCategoryObject):
 
 
 class DoubleSphericalTwist(DerivedCategoryObject):
-    """
+    """!
     A class to represent the composition of successive spherical twists applied to a line bundle. The double
     spherical twist is given as a distinguished triangle similar to the case of the single spherical twist; however,
     for higher numbers of spherical twists, there are often multiple triangles that the object fits into. The added
@@ -1157,23 +1019,11 @@ class DoubleSphericalTwist(DerivedCategoryObject):
     factors of the defining triangle, and then the secondary canonical triangle. Unlike the single SphericalTwist class,
     we do not actually provide the Harder-Narasimhan filtration in all cases; there are edge cases where nothing can 
     currently be said and we must return an empty list leading to a mass of 0. 
-
-    Attributes:
-    ----------
-    line_bundle_1 : LineBundle
-        The last line bundle twisted around; i.e. O(a) where we are computing Tw_a Tw_b O(c)
-    line_bundle_2 : LineBundle
-        The first line bundle twisted around; i.e. O(b) where we are computing Tw_a Tw_b O(c)
-    line_bundle_3 : LineBundle
-        The line bundle we are applying the spherical twist to; i.e. O(c) where we are computing Tw_a Tw_b O(c)
-    degree : int
-        An optional argument for the degree of the variety, which is relevant to the dimension of the
-        derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations.
-        Default is 1.
     """
+    
 
     def __init__(self, line_bundle_1, line_bundle_2, line_bundle_3, degree=1):
-        """
+        r"""!
         Initialize an instance of DoubleSphericalTwist with the specified line bundles. The spherical twist
         is defined as the cone of the evaluation morphism 
 
@@ -1186,25 +1036,17 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         Several helper methods are used to compute the dimensions of the Hom spaces between the pushforwards
         of the line bundles, and then to construct the distinguished triangle.
 
-        Parameters:
-        ----------
-        line_bundle_1 : LineBundle
-            The last line bundle twisted around; i.e. O(a) where we are computing Tw_a Tw_b O(c)
-        line_bundle_2 : LineBundle
-            The first line bundle twisted around; i.e. O(b) where we are computing Tw_a Tw_b O(c)
-        line_bundle_3 : LineBundle
-            The line bundle we are applying the spherical twist to; i.e. O(c) where we are computing Tw_a Tw_b O(c)
-        degree : int
-            Optional argument for degree of K3 surface
+        \param LineBundleline_bundle_1 The last line bundle twisted around; i.e. O(a) where we are computing Tw_a Tw_b O(c)
+        \param LineBundle line_bundle_2 The first line bundle twisted around; i.e. O(b) where we are computing Tw_a Tw_b O(c)
+        \param LineBundle line_bundle_3 The line bundle we are applying the spherical twist to; i.e. O(c) where we are computing Tw_a Tw_b O(c)
+        \param int degree An optional argument for the degree of the variety, which is relevant to the dimension of the
+                       derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations.
+                       Default is 1.
 
-        Raises:
-        -------
-        TypeError
-            If line_bundle_1, line_bundle_2, or line_bundle_3 are not instances of LineBundle
-        ValueError
-            If the line bundles are not defined on the same catagory
-
+        \throws TypeError If line_bundle_1, line_bundle_2, or line_bundle_3 are not instances of LineBundle
+        \throws ValueError If the line bundles are not defined on the same catagory
         """
+
         if not isinstance(line_bundle_1, LineBundle):
             raise TypeError("line_bundle_1 must be an instance of LineBundleP1.")
         if not isinstance(line_bundle_2, LineBundle):
@@ -1215,13 +1057,17 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         if line_bundle_1.catagory != line_bundle_2.catagory or line_bundle_1.catagory != line_bundle_3.catagory:
             raise ValueError("Line bundles must be defined on the same variety")
 
-        self.line_bundle_1 = line_bundle_1
-        self.line_bundle_2 = line_bundle_2
-        self.line_bundle_3 = line_bundle_3
-        self.catagory = line_bundle_1.catagory
-        self.degree = degree
+        self.line_bundle_1 = line_bundle_1 ## The last line bundle twisted around; i.e. O(a) where we are computing Tw_a Tw_b O(c)
 
-        self.defining_triangle = self._sph_twist_DoubleLineBundles(line_bundle_1, line_bundle_2, line_bundle_3)
+        self.line_bundle_2 = line_bundle_2 ## The first line bundle twisted around; i.e. O(b) where we are computing Tw_a Tw_b O(c)
+
+        self.line_bundle_3 = line_bundle_3 ## The line bundle we are applying the spherical twist to; i.e. O(c) where we are computing Tw_a Tw_b O(c)
+
+        self.catagory = line_bundle_1.catagory ## The catagory of the line bundles, e.g. P1, P2, K3
+        
+        self.degree = degree ## An optional argument for the degree of the K3 surface, if applicable
+
+        self.defining_triangle = self._sph_twist_DoubleLineBundles(line_bundle_1, line_bundle_2, line_bundle_3) ## The distinguished triangle of the double spherical twist
 
 
         # UPDATE AS MORE CATAGORIES ARE IMPLEMENTED
@@ -1230,30 +1076,19 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         
 
     def _sph_twist_DoubleLineBundles(self, line_bundle_1, line_bundle_2, line_bundle_3):
-        """
+        r"""!
         Helper method to compute the distinguished triangle of the double spherical twist. The distinguished triangle
         is given by the cone of the evaluation morphism 
 
             Hom(O(a), Tw_b O(c)) ⊗ O(a) ---->  Tw_b O(c) ----> Tw_a Tw_b O(c)
 
-        Parameters:
-        ----------
-        line_bundle_1 : LineBundle
-            The last line bundle twisted around; i.e. O(a) where we are computing Tw_a Tw_b O(c)
-        line_bundle_2 : LineBundle
-            The first line bundle twisted around; i.e. O(b) where we are computing Tw_a Tw_b O(c)
-        line_bundle_3 : LineBundle
-            The line bundle we are applying the spherical twist to; i.e. O(c) where we are computing Tw_a Tw_b O(c)
+        \param LineBundle line_bundle_1 The last line bundle twisted around; i.e. O(a) where we are computing Tw_a Tw_b O(c)
+        \param LineBundle line_bundle_2 The first line bundle twisted around; i.e. O(b) where we are computing Tw_a Tw_b O(c)
+        \param LineBundle line_bundle_3 The line bundle we are applying the spherical twist to; i.e. O(c) where we are computing Tw_a Tw_b O(c)
 
-        Returns:
-        -------
-        DistinguishedTriangle
-            The distinguished triangle of the double spherical twist
+        \return DistinguishedTriangle The distinguished triangle of the double spherical twist
 
-        Raises:
-        -------
-        TypeError
-            If line_bundle_1, line_bundle_2, or line_bundle_3 are not instances of LineBundle
+        \throws TypeError If line_bundle_1, line_bundle_2, or line_bundle_3 are not instances of LineBundle
         """
 
         if not isinstance(line_bundle_1, LineBundle):
@@ -1291,43 +1126,31 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         return DistinguishedTriangle(object1, object2, object3)
     
     def chernCharacter(self):
-        """
+        r"""!
         Method to compute the Chern character of the double spherical twist. The Chern character of the double
         spherical twist is the Chern character of the third object in the distinguished triangle.
 
-        Returns:
-        -------
-        ChernCharacter
-            The Chern Character of the double spherical twist
+        \return ChernCharacter The Chern Character of the double spherical twist
         """
+
 
         return self.defining_triangle.object3.chernCharacter()
     
     def central_charge(self, *args):
-        """
+        r"""!
         Method to compute the central charge of the spherical twist. The central charge of the spherical
         twist is the central charge of the third object in the distinguished triangle.
 
-        Parameters:
-        ----------
-        args : tuple
-            The parameters for the stability condition. The number of parameters depends on the catagory of the object.
-            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers 
-            and an integer representing the degree of the K3 surface.
+        \param args The parameters for the stability condition. The number of parameters depends on the catagory of the object
+                        For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+                        and an integer representing the degree of the K3 surface.
 
-        Returns:
-        -------
-        complex
-            The central charge of the spherical twist as a complex number
+        \return complex The central charge of the spherical twist as a complex number
 
-        Raises:
-        -------
-        TypeError
-            If the type of arguments is not correct for the catagory
-        ValueError
-            If the number of arguments is not correct for the catagory
-        NotImplementedError
-            If the catagory is not in __CURRENT_DOUBLE_TWIST_IMPLEMENTED__
+        \throws TypeError If the args are not of the correct type
+        \throws ValueError If the number of args is incorrect
+        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
+
         """
 
         if self.catagory == 'P1':
@@ -1376,28 +1199,24 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         
     
     def __str__(self):
-        """
+        r"""!
         Returns a string representation of the spherical twist by printing the defining triangle
 
-        Returns:
-        -------
-        str
-            A string representation of the spherical twist
+        \return str A string representation of the spherical twist
         """
+
         return str(self.defining_triangle.object3)
     
     def secondary_canonical_triangle(self):
-        """
+        r"""!
         Method to compute the secondary canonical triangle of the spherical twist. The secondary canonical triangle
         is obtained by applying Tw_a to the defining triangle of Tw_b O(c); specifically, this gives
 
         Tw_a (Hom(O(b), O(c)) ⊗ O(b)) ----> Tw_a O(c) ----> Tw_a Tw_b O(c)
 
-        Returns:
-        -------
-        DistinguishedTriangle
-            The secondary canonical triangle of the spherical twist
+        \return DistinguishedTriangle The secondary canonical triangle of the spherical twist
         """
+
         # Get the object Tw_a O(c)
         object2 = SphericalTwistSum([(self.line_bundle_1, self.line_bundle_3)], dimension_vector=[1], shift_vector=[0], degree=self.degree)
     
@@ -1425,30 +1244,21 @@ class DoubleSphericalTwist(DerivedCategoryObject):
 
         
     def is_semistable(self, *args, logging=False, log_file=None):
-        """
+        r"""!
         Method to check if the double spherical twist is semistable. The double spherical twist is semistable
         if the Harder-Narasimhan factorization is trivial.
 
-        Parameters:
-        -------
-        args : tuple
-            The parameters for the stability condition. The number of parameters depends on the catagory of the object
-            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
-            and an integer representing the degree of the K3 surface.
+        \param tuple args The parameters for the stability condition. The number of parameters depends on the catagory of the object
+                        For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+                        and an integer representing the degree of the K3 surface.
+        \param bool logging A boolean flag to indicate whether to log the Harder-Narasimhan factors that caused the object to be unstable
+        \param str log_file The file to log the Harder-Narasimhan factors that caused the object to be unstable
 
-        Returns:
-        -------
-        bool
-            True if the double spherical twist is semistable, False otherwise
+        \return bool True if the double spherical twist is semistable, False otherwise
 
-        Raises:
-        -------
-        TypeError
-            If the args are not of the correct type
-        ValueError
-            If the number of args is incorrect
-        NotImplementedError
-            If the catagory of the object is not P1, P2, or K3
+        \throws TypeError If the args are not of the correct type
+        \throws ValueError If the number of args is incorrect
+        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
         """
 
         if self.catagory == 'P1':
@@ -1487,32 +1297,23 @@ class DoubleSphericalTwist(DerivedCategoryObject):
             return False
     
     def mass(self, *args, logging=False, log_file=None):
-        """
+        r"""!
         The mass of the double spherical twist is the sum of the masses of the Harder-Narasimhan factors; the 
         Harder-Narasimhan factors are assumed to come from either the defining triangle or secondary canonical triangle.
         The mass of the double spherical twist is computed by first computing the Harder-Narasimhan factors of the
         defining triangle, and then the secondary canonical triangle.
 
-        Parameters:
-        -------
-        args : tuple
-            The parameters for the stability condition. The number of parameters depends on the catagory of the object
-            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
-            and an integer representing the degree of the K3 surface.
+        \param tuple args The parameters for the stability condition. The number of parameters depends on the catagory of the object
+                        For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+                        and an integer representing the degree of the K3 surface.
+        \param bool logging A boolean flag to indicate whether to log the Harder-Narasimhan factors that caused the object to be unstable
+        \param str log_file The file to log the Harder-Narasimhan factors that caused the object to be unstable
 
-        Returns:
-        -------
-        float
-            The mass of the double spherical twist
+        \return float The mass of the double spherical twist
 
-        Raises:
-        -------
-        TypeError
-            If the args are not of the correct type
-        ValueError
-            If the number of args is incorrect
-        NotImplementedError
-            If the catagory of the object is not P1, P2, or K3
+        \throws TypeError If the args are not of the correct type
+        \throws ValueError If the number of args is incorrect
+        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
         """
 
         if self.catagory == 'P1':
@@ -1563,7 +1364,7 @@ class DoubleSphericalTwist(DerivedCategoryObject):
 
     
     def get_HN_factors(self, *args):
-        """
+        r"""!
         This is the crux of the DoubleSphericalTwist class, where we compute the Harder-Narasimhan factors of the
         double spherical twist. A signficiant assumption (CONJECTURAL) that we make is that the Harder-Narasimhan filtration
         must arise from the defining triangle or the secondary canonical triangle. This is not always the case, but we
@@ -1575,28 +1376,18 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         filtration can be computed by concatenating the HN factors of the subobject and quotient. If neither of these cases hold, we move
         on to the second canonical triangle and apply a similar logic.
 
-        Parameters:
-        -------
-        args : tuple
-            The parameters for the stability condition. The number of parameters depends on the catagory of the object
-            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
-            and an integer representing the degree of the K3 surface.
+        \param tuple args The parameters for the stability condition. The number of parameters depends on the catagory of the object
+                        For P1, this is a single complex number. For
+                        P2, this is two real numbers. For K3, this is two real numbers
+                        and an integer representing the degree of the K3 surface.
 
-        Returns:
-        -------
-        list
-            A list of tuples where the first element is a DerivedCategoryObject and the second element is a float
-            representing the phase of the object. The list is always returned in such a way that the largest phase
-            HN factor is first and smallest is last.
+        \return list A list of tuples where the first element is a DerivedCategoryObject and the second element is a float
+                    representing the phase of the object. The list is always returned in such a way that the largest phase
+                    HN factor is first and smallest is last.
 
-        Raises:
-        -------
-        TypeError
-            If the args are not of the correct type
-        ValueError
-            If the number of args is incorrect
-        NotImplementedError
-            If the catagory of the object is not P1, P2, or K3
+        \throws TypeError If the args are not of the correct type
+        \throws ValueError If the number of args is incorrect
+        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
         """
         
         if self.catagory == 'P1':
@@ -1773,36 +1564,23 @@ class DoubleSphericalTwist(DerivedCategoryObject):
 
 
 def _dimHom_LineBundles(line_bundle_1, line_bundle_2, degree_K3 = 1):
-    """
+    r"""!
     General helper method to compute the dimension of the Hom spaces between 
     two line bundles (or pushforwards of line bundles, in the local Projectiv
     space case). The method is a wrapper for the specific implementations
     for P1, P2, and K3 surfaces.
 
-    Parameters:
-    ----------
-    line_bundle_1 : LineBundle
-        The first line bundle in the Hom space
-    line_bundle_2 : LineBundle
-        The second line bundle in the Hom space
-    degree_K3 : int
-        The degree of the K3 surface, as an optional argument. This only affects
-        the K3 implementation. Default is 1.
+    \param LineBundle line_bundle_1 The first line bundle in the Hom space
+    \param LineBundle line_bundle_2 The second line bundle in the Hom space
+    \param int degree_K3: The degree of the K3 surface, as an optional argument. This only affects
+                      the K3 implementation. Default is 1.
 
-    Returns:
-    -------
-    tuple
-        A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
-
-    Raises:
-    -------
-    TypeError
-        If line_bundle_1 is not an instance of LineBundle
-        If line_bundle_2 is not an instance of LineBundle
-    ValueError
-        If the line bundles are not defined on the same catagory
-    NotImplementedError
-        If the catagory of the object is not P1, P2, or K3
+    \return tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
+    
+    \throws TypeError If line_bundle_1 is not an instance of LineBundle
+    \throws TypeError If line_bundle_2 is not an instance of LineBundle
+    \throws ValueError If the line bundles are not defined on the same catagory
+    \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
     """
 
     if not isinstance(line_bundle_1, LineBundle):
@@ -1827,7 +1605,7 @@ def _dimHom_LineBundles(line_bundle_1, line_bundle_2, degree_K3 = 1):
 
 
 def _dimHom_LineBundlesP1(line_bundle_1, line_bundle_2):
-        """
+        r"""!
         Helper method which computes the dimension of the hom spaces between the pushforwards of the
         line bundles O(a) and O(b). The dimensions of the pushforwards are computed using the triangle
 
@@ -1839,26 +1617,14 @@ def _dimHom_LineBundlesP1(line_bundle_1, line_bundle_2):
         0 and 1, the hom-space for local P1 is concentrated between degrees 0 and 2. Thus, we return
         a tuple of the form (a,b,c)
 
-        Parameters:
-        ----------
-        line_bundle_1 : LineBundleP1
-            The first line bundle in the Hom space
-        line_bundle_2 : LineBundleP1
-            The second line bundle in the Hom space
+        \param LineBundle line_bundle_1 The first line bundle in the Hom space
+        \param LineBundle line_bundle_2 The second line bundle in the Hom space
 
-        Returns:
-        -------
-        tuple
-            A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
+        \return tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
 
-        Raises:
-        -------
-        TypeError
-            If line_bundle_1 is not an instance of LineBundleP1
-            If line_bundle_2 is not an instance of LineBundleP1
+        \throws TypeError If line_bundle_1 is not an instance of LineBundle
+        \throws TypeError If line_bundle_2 is not an instance of LineBundle
         """
-
-
 
         degree_dif = line_bundle_2.degree - line_bundle_1.degree
 
@@ -1876,7 +1642,7 @@ def _dimHom_LineBundlesP1(line_bundle_1, line_bundle_2):
 
 
 def _dimHom_LineBundlesP2(line_bundle_1, line_bundle_2):
-        """
+        r"""!
         Helper method which computes the dimension of the hom spaces between the pushforwards of the
         line bundles O(a) and O(b). The dimensions of the pushforwards are computed using the triangle
 
@@ -1888,25 +1654,14 @@ def _dimHom_LineBundlesP2(line_bundle_1, line_bundle_2):
         0 and 2, the hom-space for local P2 is concentrated between degrees 0 and 3. Thus, we return
         a tuple of the form (a,b,c,d)
 
-        Parameters:
-        ----------
-        line_bundle_1 : LineBundle
-            The first line bundle in the Hom space
-        line_bundle_2 : LineBundle
-            The second line bundle in the Hom space
+        \param LineBundle line_bundle_1 The first line bundle in the Hom space
+        \param LineBundle line_bundle_2 The second line bundle in the Hom space
 
-        Returns:
-        -------
-        tuple
-            A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
+        \return tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
 
-        Raises:
-        -------
-        TypeError
-            If line_bundle_1 is not an instance of LineBundle
-            If line_bundle_2 is not an instance of LineBundle
+        \throws TypeError If line_bundle_1 is not an instance of LineBundle
+        \throws TypeError If line_bundle_2 is not an instance of LineBundle
         """
-
 
         degree_dif = line_bundle_2.degree - line_bundle_1.degree
 
@@ -1928,7 +1683,7 @@ def _dimHom_LineBundlesP2(line_bundle_1, line_bundle_2):
             return (0, 0, rank2, rank3)
         
 def _dimHom_LineBundlesK3(line_bundle_1, line_bundle_2, degree_K3):
-    """
+    r"""!
     Helper method which computes the dimension of the hom spaces between line bundles on a 
     degree d K3 surface. Since the only K3s we consider are Picard rank 1, if O(a) and O(b) are
     distinct then either O(b-a) or O(a-b) must be ample; by Serre duality and a result of Huybrechts,
@@ -1941,26 +1696,15 @@ def _dimHom_LineBundlesK3(line_bundle_1, line_bundle_2, degree_K3):
 
     dim RHom(O(a), O(b)) = 1 + d(b-a)^2 
 
-    Parameters:
-    ----------
-    line_bundle_1 : LineBundle
-        The first line bundle in the Hom space
-    line_bundle_2 : LineBundle
-        The second line bundle in the Hom space
-    degree_K3 : int
-        The degree of the K3 surface
+    \param LineBundle line_bundle_1 The first line bundle in the Hom space
+    \param LineBundle line_bundle_2 The second line bundle in the Hom space
+    \param int degree_K3 The degree of the K3 surface
 
-    Returns:
-    -------
-    tuple
-        A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
+    \return tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
 
-    Raises:
-    -------
-    TypeError
-        If line_bundle_1 is not an instance of LineBundle
-        If line_bundle_2 is not an instance of LineBundle
-        If degree_K3 is not an integer
+    \throws TypeError If line_bundle_1 is not an instance of LineBundle
+    \throws TypeError If line_bundle_2 is not an instance of LineBundle
+    \throws TypeError If degree_K3 is not an integer
     """
 
     if not isinstance(line_bundle_1, LineBundle):
@@ -1982,39 +1726,26 @@ def _dimHom_LineBundlesK3(line_bundle_1, line_bundle_2, degree_K3):
         
 
 def _dimHom_Line_and_SingleTwist(line_bundle_1, line_bundle_2, line_bundle_3, degree_K3):
-    """
+    r"""!
     Helper method which computes the dimension of the hom spaces between a line bundle and 
     a single spherical twist of line bundles. This is a wrapper for the specific implementations
     for P1, P2, and K3 surfaces.
 
-    Parameters:
-    ----------
-    line_bundle_1 : LineBundle
-        The line bundle to twist around: i.e. O(a) where we are computing Tw_a O(b)
-    line_bundle_2 : LineBundle
-        The line bundle which the spherical twist is being applied to: i.e. O(b) where we are computing Tw_a O(b)
-    line_bundle_3 : LineBundle
-        The line bundle which the spherical twist is being applied to: i.e. O(c) where we are computing Tw_a O(c)
-    degree_K3 : int
-        The degree of the K3 surface, as an optional argument. This only affects
-        the K3 implementation. Default is 1.
+    \param LineBundle line_bundle_1 The line bundle to twist around: i.e. O(a) where we are computing Tw_a O(b)
+    \param LineBundle line_bundle_2 The line bundle which the spherical twist is being applied to: i.e. O(b) where we are computing Tw_a O(b)
+    \param LineBundle line_bundle_3: The line bundle which the spherical twist is being applied to: i.e. O(c) where we are computing Tw_a O(c)
+    \param int degree_K3: The degree of the K3 surface, as an optional argument. This only affects
+                      the K3 implementation. Default is 1.
 
-    Returns:
-    -------
-    tuple
-        A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
+    \return tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
 
-    Raises:
-    -------
-    TypeError
-        If line_bundle_1 is not an instance of LineBundle
-        If line_bundle_2 is not an instance of LineBundle
-        If line_bundle_3 is not an instance of LineBundle
-    ValueError
-        If the line bundles are not defined on the same catagory
-    NotImplementedError
-        If the catagory of the object is not P1, P2, or K3
+    \throws TypeError If line_bundle_1 is not an instance of LineBundle
+    \throws TypeError If line_bundle_2 is not an instance of LineBundle
+    \throws TypeError If line_bundle_3 is not an instance of LineBundle
+    \throws ValueError If the line bundles are not defined on the same catagory
+    \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
     """
+
     if not isinstance(line_bundle_1, LineBundle):
         raise TypeError("line_bundle_1 must be an instance of LineBundle.")
     if not isinstance(line_bundle_2, LineBundle):
@@ -2037,7 +1768,7 @@ def _dimHom_Line_and_SingleTwist(line_bundle_1, line_bundle_2, line_bundle_3, de
 
 
 def _dimHom_Line_and_SingleTwistK3(line_bundle_1, line_bundle_2, line_bundle_3, degree_K3):
-    """
+    r"""!
     Helper function which computes the dimensions of the derived hom spaces between a line bundle 
     and a spherical twist of line bundles; that is, this function computes the dimensions of 
     
@@ -2047,17 +1778,19 @@ def _dimHom_Line_and_SingleTwistK3(line_bundle_1, line_bundle_2, line_bundle_3, 
     function returns a tuple of five integers (hom-1, hom0, hom1, hom2, hom3) corresponding to the 
     dimensions of the higher-ext groups. 
 
+    \param LineBundle line_bundle_1 The line bundle to twist around: i.e. O(a) where we are computing Tw_a O(b)
+    \param LineBundle line_bundle_2 The line bundle which the spherical twist is being applied to: i.e. O(b) where we are computing Tw_a O(b)
+    \param LineBundle line_bundle_3 The line bundle which the spherical twist is being applied to: i.e. O(c) where we are computing Tw_a O(c)
+    \param int degree_K3: The degree of the K3 surface, as an optional argument. This only affects
+                      the K3 implementation. Default is 1.
 
-    Parameters:
-    ----------
-    line_bundle_1 : LineBundle
-        The last line bundle to twist around: i.e. O(a) where we are computing Tw_a Tw_b O(c)
-    line_bundle_2 : LineBundle
-        The first line bundle to twist around: i.e. O(b) where we are computing Tw_a Tw_b O(c)
-    line_bundle_3 : LineBundle
-        The line bundle which the spherical twists are being applied to: i.e. O(c) where we are computing Tw_a Tw_b O(c)
-    degree_K3 : int
-        The degree of the K3 surface.
+    \return tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
+
+    \throws TypeError If line_bundle_1 is not an instance of LineBundle
+    \throws TypeError If line_bundle_2 is not an instance of LineBundle
+    \throws TypeError If line_bundle_3 is not an instance of LineBundle
+    \throws ValueError If the line bundles are not defined on the same catagory
+    \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
 
     """
 

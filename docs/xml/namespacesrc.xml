@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="namespacesrc" kind="namespace" language="Python">
+    <compoundname>src</compoundname>
+    <innernamespace refid="namespacesrc_1_1_chain_complex">src::ChainComplex</innernamespace>
+    <innernamespace refid="namespacesrc_1_1_chern_character">src::ChernCharacter</innernamespace>
+    <innernamespace refid="namespacesrc_1_1_coherent_sheaf">src::CoherentSheaf</innernamespace>
+    <innernamespace refid="namespacesrc_1_1_derived_category_object">src::DerivedCategoryObject</innernamespace>
+    <innernamespace refid="namespacesrc_1_1_distinguished_triangle">src::DistinguishedTriangle</innernamespace>
+    <innernamespace refid="namespacesrc_1_1_local_p1">src::LocalP1</innernamespace>
+    <innernamespace refid="namespacesrc_1_1_local_p2">src::LocalP2</innernamespace>
+    <innernamespace refid="namespacesrc_1_1_projective_c_y">src::ProjectiveCY</innernamespace>
+    <innernamespace refid="namespacesrc_1_1_spherical_twist">src::SphericalTwist</innernamespace>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacesrc_1ae6c4b21c7310e6ded7486acae404bc3c" prot="private" static="no" mutable="no">
+        <type>list</type>
+        <definition>list src.__all__</definition>
+        <argsstring></argsstring>
+        <name>__all__</name>
+        <qualifiedname>src.__all__</qualifiedname>
+        <initializer>=  [&apos;ChernCharacterP2&apos;, &apos;<ref refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf" kindref="compound">CoherentSheaf</ref>&apos;, &apos;<ref refid="classsrc_1_1_derived_category_object_1_1_derived_category_object" kindref="compound">DerivedCategoryObject</ref>&apos;,
+           &apos;<ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist" kindref="compound">SphericalTwist</ref>&apos;,  &apos;LocalP2&apos;, &apos;LocalP1&apos;, &apos;<ref refid="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle" kindref="compound">DistinguishedTriangle</ref>&apos;,
+             &apos;<ref refid="classsrc_1_1_chain_complex_1_1_chain_complex" kindref="compound">ChainComplex</ref>&apos;, &apos;ProjectiveCY&apos;]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/__init__.py" line="24" column="1" bodyfile="src/__init__.py" bodystart="24" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Initialization for the scripts package.
+
+This package includes the following modules:
+- LocalP2_stab.py
+- train.py
+- cicy_train.py
+- binarytree.py
+</verbatim> </para>
+    </detaileddescription>
+    <location file="src/__init__.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

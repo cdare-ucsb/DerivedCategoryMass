@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle" kind="class" language="Python" prot="public">
+    <compoundname>src::DistinguishedTriangle::DistinguishedTriangle</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1ac20ab524d7dfc2f7ed2a7120be3704a1" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.DistinguishedTriangle.DistinguishedTriangle::object1</definition>
+        <argsstring></argsstring>
+        <name>object1</name>
+        <qualifiedname>src.DistinguishedTriangle.DistinguishedTriangle.object1</qualifiedname>
+        <initializer>=  derived_object1</initializer>
+        <briefdescription>
+<para>The first object in the distinguished triangle. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/DistinguishedTriangle.py" line="40" column="1" bodyfile="src/DistinguishedTriangle.py" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1aa13d71c36dc8bef4dce189a60f19e61c" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.DistinguishedTriangle.DistinguishedTriangle::object2</definition>
+        <argsstring></argsstring>
+        <name>object2</name>
+        <qualifiedname>src.DistinguishedTriangle.DistinguishedTriangle.object2</qualifiedname>
+        <initializer>=  derived_object2</initializer>
+        <briefdescription>
+<para>The second object in the distinguished triangle. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/DistinguishedTriangle.py" line="42" column="1" bodyfile="src/DistinguishedTriangle.py" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1a2cf27f04f3016bf5a94c4c558dd51fb7" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.DistinguishedTriangle.DistinguishedTriangle::object3</definition>
+        <argsstring></argsstring>
+        <name>object3</name>
+        <qualifiedname>src.DistinguishedTriangle.DistinguishedTriangle.object3</qualifiedname>
+        <initializer>=  derived_object3</initializer>
+        <briefdescription>
+<para>The third object in the distinguished triangle. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/DistinguishedTriangle.py" line="44" column="1" bodyfile="src/DistinguishedTriangle.py" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1a9349beae6a2f70a9a621b7769c1ebbac" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.DistinguishedTriangle.DistinguishedTriangle::catagory</definition>
+        <argsstring></argsstring>
+        <name>catagory</name>
+        <qualifiedname>src.DistinguishedTriangle.DistinguishedTriangle.catagory</qualifiedname>
+        <initializer>=  first_catagory</initializer>
+        <briefdescription>
+<para>The underlying category of the distinguished triangle. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/DistinguishedTriangle.py" line="46" column="1" bodyfile="src/DistinguishedTriangle.py" bodystart="46" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1aff0cedc882dafb6cc51dea52ab7d6753" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.DistinguishedTriangle.DistinguishedTriangle.__init__</definition>
+        <argsstring>(self, derived_object1, derived_object2, derived_object3)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>src.DistinguishedTriangle.DistinguishedTriangle.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>derived_object1</type>
+          <defname>derived_object1</defname>
+        </param>
+        <param>
+          <type>derived_object2</type>
+          <defname>derived_object2</defname>
+        </param>
+        <param>
+          <type>derived_object3</type>
+          <defname>derived_object3</defname>
+        </param>
+        <briefdescription>
+<para>Initialize an instance of <ref refid="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle" kindref="compound">DistinguishedTriangle</ref> with the specified objects, and then update the Chern Characters of the objects if they are not already set. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="namespacesrc_1_1_derived_category_object" kindref="compound">DerivedCategoryObject</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>derived_object1 The first object in the distinguished triangle </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="namespacesrc_1_1_derived_category_object" kindref="compound">DerivedCategoryObject</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>derived_object2: The second object in the distinguished triangle </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="namespacesrc_1_1_derived_category_object" kindref="compound">DerivedCategoryObject</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>derived_object3: The third object in the distinguished triangle</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If any of the objects are not instances of <ref refid="namespacesrc_1_1_derived_category_object" kindref="compound">DerivedCategoryObject</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TypeError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the objects are not from the same underlying category </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/DistinguishedTriangle.py" line="19" column="1" bodyfile="src/DistinguishedTriangle.py" bodystart="19" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1a1160c1270088f4857de6942dc099d2e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.DistinguishedTriangle.DistinguishedTriangle.__str__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__str__</name>
+        <qualifiedname>src.DistinguishedTriangle.DistinguishedTriangle.__str__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>String representation of the distinguished triangle. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Since the chain complexes are printed horizontally, the distinguished triangle will be printed vertically.</para>
+<para><simplesect kind="return"><para>str A string representation of the distinguished triangle </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/DistinguishedTriangle.py" line="53" column="1" bodyfile="src/DistinguishedTriangle.py" bodystart="53" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1a3a36239e4c076cc5627d95af48d7435f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.DistinguishedTriangle.DistinguishedTriangle.rotateRight</definition>
+        <argsstring>(self)</argsstring>
+        <name>rotateRight</name>
+        <qualifiedname>src.DistinguishedTriangle.DistinguishedTriangle.rotateRight</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Method to shift the distinguished triangle to the right. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is done by wrapping the last object in the previous triangle around to the first object in the new triangle (homologically shifted by -1) and then letting the previous first object be the new second object. The new third object is the previous second object.</para>
+<para><simplesect kind="return"><para><ref refid="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle" kindref="compound">DistinguishedTriangle</ref> The distinguished triangle shifted to the right </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/DistinguishedTriangle.py" line="69" column="1" bodyfile="src/DistinguishedTriangle.py" bodystart="69" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1ac401471ba6b81248c7dc5e2cee5c7177" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.DistinguishedTriangle.DistinguishedTriangle.rotateLeft</definition>
+        <argsstring>(self)</argsstring>
+        <name>rotateLeft</name>
+        <qualifiedname>src.DistinguishedTriangle.DistinguishedTriangle.rotateLeft</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Method to shift the distinguished triangle to the left. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is done by wrapping the first object in the previous triangle around to the last object in the new triangle (homologically shifted by 1) and then letting the previous second object be the new first object. The new third object is the previous second object.</para>
+<para><simplesect kind="return"><para><ref refid="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle" kindref="compound">DistinguishedTriangle</ref> The distinguished triangle shifted to the left </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/DistinguishedTriangle.py" line="81" column="1" bodyfile="src/DistinguishedTriangle.py" bodystart="81" bodyend="94"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1a73195d61b76eebcc4c72e2cfa3e81249" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.DistinguishedTriangle.DistinguishedTriangle._update_chern_characters</definition>
+        <argsstring>(self)</argsstring>
+        <name>_update_chern_characters</name>
+        <qualifiedname>src.DistinguishedTriangle.DistinguishedTriangle._update_chern_characters</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Helper function to update the Chern Characters of the objects in the distinguished triangle if they are not already set. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is done by using the additivity of the Chern Character on exact sequences. In particular, if the Chern Character of the first object is (0,0,0), then the Chern Character of the first object is updated to be the difference of the Chern Characters of the second and third objects. Similarly, if the Chern Character of the second object is (0,0,0), then the Chern Character of the second object is updated to be the sum of the Chern Characters of the first and third objects. If the Chern Character of the third object is (0,0,0), then the Chern Character of the third object is updated to be the difference of the Chern Characters of the first and second objects. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/DistinguishedTriangle.py" line="95" column="1" bodyfile="src/DistinguishedTriangle.py" bodystart="95" bodyend="130"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A distinguished triangle is a sequence of three objects in the derived category of coherent sheaves (in our case) with morphisms of complexes between them such that the third complex is always quasi-isomorphic to the mapping cone of the morphism between the first two complexes. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>In the derived category, distinguished triangles generalize the notion of exact sequences since they also give rise to long exact sequences on the level of cohomology.</para>
+<para>In our implementation, we will use the classes <ref refid="namespacesrc_1_1_derived_category_object" kindref="compound">DerivedCategoryObject</ref> and <ref refid="namespacesrc_1_1_chain_complex" kindref="compound">ChainComplex</ref> to represent the objects in the distinguished triangle. </para>
+    </detaileddescription>
+    <location file="src/DistinguishedTriangle.py" line="6" column="1" bodyfile="src/DistinguishedTriangle.py" bodystart="6" bodyend="130"/>
+    <listofallmembers>
+      <member refid="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1aff0cedc882dafb6cc51dea52ab7d6753" prot="public" virt="non-virtual"><scope>src::DistinguishedTriangle::DistinguishedTriangle</scope><name>__init__</name></member>
+      <member refid="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1a1160c1270088f4857de6942dc099d2e2" prot="public" virt="non-virtual"><scope>src::DistinguishedTriangle::DistinguishedTriangle</scope><name>__str__</name></member>
+      <member refid="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1a73195d61b76eebcc4c72e2cfa3e81249" prot="protected" virt="non-virtual"><scope>src::DistinguishedTriangle::DistinguishedTriangle</scope><name>_update_chern_characters</name></member>
+      <member refid="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1a9349beae6a2f70a9a621b7769c1ebbac" prot="public" virt="non-virtual"><scope>src::DistinguishedTriangle::DistinguishedTriangle</scope><name>catagory</name></member>
+      <member refid="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1ac20ab524d7dfc2f7ed2a7120be3704a1" prot="public" virt="non-virtual"><scope>src::DistinguishedTriangle::DistinguishedTriangle</scope><name>object1</name></member>
+      <member refid="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1aa13d71c36dc8bef4dce189a60f19e61c" prot="public" virt="non-virtual"><scope>src::DistinguishedTriangle::DistinguishedTriangle</scope><name>object2</name></member>
+      <member refid="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1a2cf27f04f3016bf5a94c4c558dd51fb7" prot="public" virt="non-virtual"><scope>src::DistinguishedTriangle::DistinguishedTriangle</scope><name>object3</name></member>
+      <member refid="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1ac401471ba6b81248c7dc5e2cee5c7177" prot="public" virt="non-virtual"><scope>src::DistinguishedTriangle::DistinguishedTriangle</scope><name>rotateLeft</name></member>
+      <member refid="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle_1a3a36239e4c076cc5627d95af48d7435f" prot="public" virt="non-virtual"><scope>src::DistinguishedTriangle::DistinguishedTriangle</scope><name>rotateRight</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

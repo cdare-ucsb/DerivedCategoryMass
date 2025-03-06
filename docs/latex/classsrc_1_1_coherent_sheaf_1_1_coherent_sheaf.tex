@@ -1,0 +1,211 @@
+\doxysection{src.\+Coherent\+Sheaf.\+Coherent\+Sheaf Class Reference}
+\hypertarget{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf}{}\label{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf}\index{src.CoherentSheaf.CoherentSheaf@{src.CoherentSheaf.CoherentSheaf}}
+
+
+Generic class for coherent sheaves on a projective variety.  
+
+
+Inheritance diagram for src.\+Coherent\+Sheaf.\+Coherent\+Sheaf\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a92f50dd779ff4c7079311b77c865e9e1}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf}{chern\+\_\+character}}, \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf}{catagory}})
+\begin{DoxyCompactList}\small\item\em Initializes an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf}{Coherent\+Sheaf} with the specified Chern Character and catagory. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_acd49b46e6580eb9e222dd10e05a55e36}{chern\+Character}} (self)
+\begin{DoxyCompactList}\small\item\em Simply accessor method that is intended to be overridden by subclasses, but is also implemented for more general parent / container classes like \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex} and \doxylink{namespacesrc_1_1_derived_category_object}{Derived\+Category\+Object}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a6e3432c06461f7b1bad9c863c5563c4f}{phase}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Computes the phase of the central charge of the coherent sheaf. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_aef4854cd91c31c02d3b227637604cec0}{central\+\_\+charge}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Computes the central charge of the coherent sheaf. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a1bbe30e98a954561f98ea916a6dd5b77}{shift}} (self, n)
+\begin{DoxyCompactList}\small\item\em Override of the Derived\+Chatagory\+Object shift method. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a1479488db4a394bb11701c9ed682335b}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em String representation of the coherent sheaf. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a188fde81cbaf47916cbca09b67396fd4}{\+\_\+\+\_\+hash\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Hash function for the coherent sheaf. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a5b917d2624a9a499671f11e809397d71}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a244258a02691a74e0787cf277c5935c5}{catagory}}, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ab7174b1273139ac7d0c2bc6f7c4d1789}{string}}="{}0"{}, \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a111bf62635e3a204488ca33689d296e6}{chern\+\_\+character}}=None)
+\begin{DoxyCompactList}\small\item\em Initialize an instance of the \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} with the specified catagory, string representation, and Chern Character. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ac086dabebbde64c028446348301011f2}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em String representation of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a95bc29833249e58a920c3454110125d2}{is\+\_\+semistable}} (self, \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Method to determine if the derived category object is semistable with respect to a given stability condition. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a9ffd63e97c717dd171b7d1c7ef26e16d}{update\+\_\+string\+\_\+by\+\_\+shift}} (self, my\+\_\+str, n)
+\begin{DoxyCompactList}\small\item\em Static helper function to update the possible string representations of the abstract \doxylink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{Derived\+Category\+Object} by a homological shift. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a244258a02691a74e0787cf277c5935c5}{catagory}} = catagory
+\begin{DoxyCompactList}\small\item\em The catagory of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a111bf62635e3a204488ca33689d296e6}{chern\+\_\+character}} = chern\+\_\+character
+\begin{DoxyCompactList}\small\item\em The Chern Character of the derived category object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_ab7174b1273139ac7d0c2bc6f7c4d1789}{string}} = string
+\begin{DoxyCompactList}\small\item\em A string representation / label of the derived category object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Generic class for coherent sheaves on a projective variety. 
+
+This class is intended to be subclassed by more specific classes like \doxylink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle}, which represent line bundles on projective varieties. By itself, it does not encode much more data than the Chern Character of the sheaf, since numerical stability conditions technicially only depend on the Chern Character.
+
+The parent class to this is \doxylink{namespacesrc_1_1_derived_category_object}{Derived\+Category\+Object}, which is a more general class that theoretically does not even require a \doxylink{namespacesrc_1_1_chern_character}{Chern\+Character} --- just a string label. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a92f50dd779ff4c7079311b77c865e9e1}\index{src.CoherentSheaf.CoherentSheaf@{src.CoherentSheaf.CoherentSheaf}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!src.CoherentSheaf.CoherentSheaf@{src.CoherentSheaf.CoherentSheaf}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a92f50dd779ff4c7079311b77c865e9e1} 
+src.\+Coherent\+Sheaf.\+Coherent\+Sheaf.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{chern\+\_\+character}{, }\item[{}]{catagory}{}\end{DoxyParamCaption})}
+
+
+
+Initializes an instance of \doxylink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf}{Coherent\+Sheaf} with the specified Chern Character and catagory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em chern\+\_\+character} & \doxylink{namespacesrc_1_1_chern_character}{Chern\+Character} The Chern Character of the coherent sheaf \\
+\hline
+{\em catagory} & str The catagory of the coherent sheaf. Currently implemented catagories are \textquotesingle{}P1\textquotesingle{}, \textquotesingle{}P2\textquotesingle{}, and \textquotesingle{}K3\textquotesingle{}\\
+\hline
+\end{DoxyParams}
+\textbackslash{}raises Value\+Error\+: If the catagory is not implemented, or if the Chern Character is not of the correct length \textbackslash{}raises Type\+Error\+: If the Chern Character is not an instance of Chern 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a188fde81cbaf47916cbca09b67396fd4}\index{src.CoherentSheaf.CoherentSheaf@{src.CoherentSheaf.CoherentSheaf}!\_\_hash\_\_@{\_\_hash\_\_}}
+\index{\_\_hash\_\_@{\_\_hash\_\_}!src.CoherentSheaf.CoherentSheaf@{src.CoherentSheaf.CoherentSheaf}}
+\doxysubsubsection{\texorpdfstring{\_\_hash\_\_()}{\_\_hash\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a188fde81cbaf47916cbca09b67396fd4} 
+src.\+Coherent\+Sheaf.\+Coherent\+Sheaf.\+\_\+\+\_\+hash\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Hash function for the coherent sheaf. 
+
+This is implemented to allow for the coherent sheaf to be used as a key in a dictionary. This functionality is primarily implemented in the \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex} class, where a dictionary of Coherent sheaves is used to account for duplicate sheaves of the same type.
+
+\begin{DoxyReturn}{Returns}
+int The hash of the coherent sheaf 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a1479488db4a394bb11701c9ed682335b}\index{src.CoherentSheaf.CoherentSheaf@{src.CoherentSheaf.CoherentSheaf}!\_\_str\_\_@{\_\_str\_\_}}
+\index{\_\_str\_\_@{\_\_str\_\_}!src.CoherentSheaf.CoherentSheaf@{src.CoherentSheaf.CoherentSheaf}}
+\doxysubsubsection{\texorpdfstring{\_\_str\_\_()}{\_\_str\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a1479488db4a394bb11701c9ed682335b} 
+src.\+Coherent\+Sheaf.\+Coherent\+Sheaf.\+\_\+\+\_\+str\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+String representation of the coherent sheaf. 
+
+This is intended to be overridden by subclasses to provide a more informative string representation. Currently this method only returns the following string\+:
+
+\textquotesingle{}\doxylink{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf}{Coherent\+Sheaf} with Chern Character \texorpdfstring{$<$}{<}ch0, ch1, ch2\texorpdfstring{$>$}{>}\textquotesingle{}
+
+assuming that the Chern character has 3 entries.
+
+\begin{DoxyReturn}{Returns}
+str A string representation of the coherent sheaf 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_aef4854cd91c31c02d3b227637604cec0}\index{src.CoherentSheaf.CoherentSheaf@{src.CoherentSheaf.CoherentSheaf}!central\_charge@{central\_charge}}
+\index{central\_charge@{central\_charge}!src.CoherentSheaf.CoherentSheaf@{src.CoherentSheaf.CoherentSheaf}}
+\doxysubsubsection{\texorpdfstring{central\_charge()}{central\_charge()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_aef4854cd91c31c02d3b227637604cec0} 
+src.\+Coherent\+Sheaf.\+Coherent\+Sheaf.\+central\+\_\+charge (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Computes the central charge of the coherent sheaf. 
+
+The central charge is a function that takes in the parameters of the stability condition, and returns a complex number. The central charge is a function of the Chern Character of the sheaf that is additive on exact sequences, with coefficients that depend on the stability condition.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tuple} & args The parameters of the central charge. The number of parameters should be equal to the number of parameters required by the central charge for the given catagory. For example, a P1 object requires a single complex number parameter, while a P2 object requires two real number parameters.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+complex The central charge of the coherent sheaf as a complex number
+\end{DoxyReturn}
+\textbackslash{}raises Value\+Error If the number of arguments is incorrect \textbackslash{}raises Type\+Error If the arguments are not of the correct type \textbackslash{}raises Not\+Implemented\+Error If the catagory is not implemented 
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a181bcb14152a914997c7990b33b51c18}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+\Hypertarget{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_acd49b46e6580eb9e222dd10e05a55e36}\index{src.CoherentSheaf.CoherentSheaf@{src.CoherentSheaf.CoherentSheaf}!chernCharacter@{chernCharacter}}
+\index{chernCharacter@{chernCharacter}!src.CoherentSheaf.CoherentSheaf@{src.CoherentSheaf.CoherentSheaf}}
+\doxysubsubsection{\texorpdfstring{chernCharacter()}{chernCharacter()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_acd49b46e6580eb9e222dd10e05a55e36} 
+src.\+Coherent\+Sheaf.\+Coherent\+Sheaf.\+chern\+Character (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Simply accessor method that is intended to be overridden by subclasses, but is also implemented for more general parent / container classes like \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex} and \doxylink{namespacesrc_1_1_derived_category_object}{Derived\+Category\+Object}. 
+
+Using the same name allows more modularity in the code, and allows for more general functions to be written that can be applied to a variety of objects.
+
+\begin{DoxyReturn}{Returns}
+\doxylink{namespacesrc_1_1_chern_character}{Chern\+Character} The Chern Character of the coherent sheaf 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a1f4aac18056360d11918b709dc341937}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+\Hypertarget{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a6e3432c06461f7b1bad9c863c5563c4f}\index{src.CoherentSheaf.CoherentSheaf@{src.CoherentSheaf.CoherentSheaf}!phase@{phase}}
+\index{phase@{phase}!src.CoherentSheaf.CoherentSheaf@{src.CoherentSheaf.CoherentSheaf}}
+\doxysubsubsection{\texorpdfstring{phase()}{phase()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a6e3432c06461f7b1bad9c863c5563c4f} 
+src.\+Coherent\+Sheaf.\+Coherent\+Sheaf.\+phase (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Computes the phase of the central charge of the coherent sheaf. 
+
+The central charge is an element of the dual of the numerical Grothendieck group; in other words, a funtction
+
+Z \+: K -\/\texorpdfstring{$>$}{>} C
+
+where K is the numerical Grothendieck group, and C is the complex numbers. The phase of the central charge is the argument of this complex number.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \texorpdfstring{$\ast$}{*}args} & float or int The parameters of the central charge. The number of parameters should be equal to the number of parameters required by the central charge for the given catagory. For example, a P1 object requires a single complex number parameter, while a P2 object requires two real number parameters.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float The phase of the central charge of the coherent sheaf, in units of pi 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a1bbe30e98a954561f98ea916a6dd5b77}\index{src.CoherentSheaf.CoherentSheaf@{src.CoherentSheaf.CoherentSheaf}!shift@{shift}}
+\index{shift@{shift}!src.CoherentSheaf.CoherentSheaf@{src.CoherentSheaf.CoherentSheaf}}
+\doxysubsubsection{\texorpdfstring{shift()}{shift()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf_a1bbe30e98a954561f98ea916a6dd5b77} 
+src.\+Coherent\+Sheaf.\+Coherent\+Sheaf.\+shift (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{n}{}\end{DoxyParamCaption})}
+
+
+
+Override of the Derived\+Chatagory\+Object shift method. 
+
+This method shifts the coherents sheaf, considered as a complex concentrated in degree 0, by n units. The implementation of this method is crucial to allow including the sheaf in a distinguished triangle, since any triangle can be rotated right or left. Since a Coherent sheaf does not keep track of its cohomological information, the method must return a \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex} concentrated in a single degree.
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & n The number of units to shift the coherent sheaf by\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex} A \doxylink{namespacesrc_1_1_chain_complex}{Chain\+Complex} concentrated in a single degree, shifted by n units 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a6c1dfa5772ffeae4bf5f1e6a7a2de496}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_coherent_sheaf_8py}{Coherent\+Sheaf.\+py}}\end{DoxyCompactItemize}

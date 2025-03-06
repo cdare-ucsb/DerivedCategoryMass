@@ -19,34 +19,22 @@ from .CoherentSheaf import LineBundle
 
 
 class K3GeometricChamber():
-    """
+    """!
     This class represents the geometric chamber of a general projective K3 surface of picard rank 1. Since the geometric chamber consists of a Cantor-set of walls associated to the spherical vector bundles on it, there is no accurate way to simultaneously represent all walls at once. Thus, this class provides a method to plot such walls in the (α,β) plane up to some accuracy (i.e. granularity).
 
-    Attributes
-    ----------
-    degree : int
-        The degree of the K3 surface
-    granularity : int
-        The granularity of the walls to be plotted in the the (α,β) plane
     """
+   
     
 
     def __init__(self, degree=1, granularity=15):
-        """
+        r"""!
         Constructor for the K3GeometricChamber class. This class represents the geometric chamber of a general projective K3 surface of picard rank 1. Since the geometric chamber consists of a Cantor-set of walls associated to the spherical vector bundles on it, there is no accurate way to simultaneously represent all walls at once. Thus, this class provides a method to plot such walls in the (α,β) plane up to some accuracy (i.e. granularity).
 
-        Parameters
-        ----------
-        degree : int
-            The degree of the K3 surface
-        granularity : int
-            The granularity of the walls to be plotted in the the (α,β) plane
+        \param int degree The degree of the K3 surface
 
-        Raises
-        ------
-        ValueError
-            If the degree is not a positive integer
-        
+        \param int granularity The granularity of the walls to be plotted in the the (α,β) plane
+
+        \throws ValueError If the degree is not a positive integer
         """
 
         if not isinstance(degree, int):
@@ -54,25 +42,18 @@ class K3GeometricChamber():
         if degree < 1:
             raise ValueError("Degree must be a positive integer")
 
-        self.degree = degree
-        self.granularity = granularity
+        self.degree = degree ## The degree of the K3 surface
+        
+        self.granularity = granularity ## The granularity of the walls to be plotted in the the (α,β) plane
 
 
     def create_mukai_vectors(self):
-        """
+        r"""!
         Method to create the mukai vectors of a spherical vector bundle on a K3 surface of degree d.
 
+        \param int granularity The granularity of the mukai vectors to be computed. This roughly indicates how close the mukai vectors should get to integer points on the real axis
 
-        Parameters
-        ----------
-        granularity : int
-            The granularity of the mukai vectors to be computed. This roughly indicates how close the mukai vectors should get to integer points
-            on the real axis
-
-        Returns
-        -------
-        mukai_vectors : list
-            A list of tuples representing the mukai vectors of the spherical vector bundles
+        \return list A list of tuples representing the mukai vectors of the spherical vector bundles
         """
 
         mukai_vectors = []
@@ -90,16 +71,12 @@ class K3GeometricChamber():
         return mukai_vectors
 
     def plot_alpha_beta_plane(self, return_json=False):
-        """
+        """!
         Method to plot the walls of the geometric chamber of a K3 surface in the (α,β) plane. As this method is quite computationally intensive at the standard granularity of 15, we only plot the walls between -1.6 and 1.6 in the α direction and between 0 and √d in the β direction.
 
-        Parameters
-        ----------
-        return_json : bool
-            A flag indicating whether the plot should be returned as a JSON string or displayed in the browser
-
-        
+        \param bool return_json A flag indicating whether the plot should be returned as a JSON string or displayed in the browser
         """
+
 
         x_vals = []
         y_vals = []
@@ -150,18 +127,12 @@ class K3GeometricChamber():
 
 
     def _npDivs(self, N):
-        """
+        r"""!
         Helper method to compute the divisors of a number N.
 
-        Parameters
-        ----------
-        N : int
-            The number whose divisors are to be computed
+        \param int N The number whose divisors are to be computed
 
-        Returns
-        -------
-        divs : numpy.ndarray
-            An array of divisors of N
+        \return numpy.ndarray An array of divisors of N
         """
 
         divs = np.arange(1,int(N**0.5)+1)  # potential divisors up to √N
@@ -171,7 +142,7 @@ class K3GeometricChamber():
 
 
     def _convert_to_alpha_beta(self, r, l, s):
-        """
+        r"""!
         Helper method to compute the coordinates of a hole in the (α,β) plane corresponding to a mukai vector.
 
 
@@ -189,21 +160,12 @@ class K3GeometricChamber():
 
         Using dl^2 - rs = -1, we find that β = 1/r√d. 
 
-        Parameters
-        ----------
-        r : int
-            The first component of the mukai vector
-        l : int
-            The second component of the mukai vector
-        s : int
-            The third component of the mukai vector
 
-        Returns
-        -------
-        alpha : float
-            The x-coordinate of the hole in the (α,β) plane
-        beta : float
-            The y-coordinate of the hole in the (α,β) plane
+        \param int r The first component of the mukai vector
+        \param int l The second component of the mukai vector
+        \param int s The third component of the mukai vector
+
+        \return tuple The coordinates of the hole in the (α,β) plane
         """
 
 
@@ -215,9 +177,30 @@ class K3GeometricChamber():
 
 
 def _calcZ1(x, y, k, n):
+    r"""!
+    Computes a single component of the complex hypersurface in the (x,y) plane.
+
+    \param float x The x-coordinate of the point
+    \param float y The y-coordinate of the point
+    \param int k The index of the component
+    \param int n The degree of the hypersurface
+
+    \return complex The k-th component of the hypersurface at the point (x,y)
+    """
     return cmath.exp(1j*(2*cmath.pi*k/n)) * (cmath.cos(x+y*1j)**(2/n))
 
 def _calcZ2(x, y, k, n):
+    r"""!
+    Computes a single component of the complex hypersurface in the (x,y) plane.
+
+    \param float x The x-coordinate of the point
+    \param float y The y-coordinate of the point
+    \param int k The index of the component
+    \param int n The degree of the hypersurface
+
+    \return complex The k-th component of the hypersurface at the point (x,y)
+    """
+
     return cmath.exp(1j*(2*cmath.pi*k/n)) * (cmath.sin(x+y*1j)**(2/n))
 
 def _calcZ1Real(x, y, k, n):
@@ -242,6 +225,26 @@ def complex_hypersurface_matplot_animation_ex1(degree, filename='hypersurf',
                                             to_gif=False, to_html=False,
                                             y_granularity=30, x_granularity=30,
                                             nframes=100, t_interval=175):
+    
+    r"""!
+    Example of a method to plot a complex degree d hypersurface using matplotlib, and save the animation either
+    as an HTML <video> tag or as a GIF file. The hypersurface is given by the equation
+
+    z0^d + z1^d + ... + zn^d = 1
+
+    and is restricted to the region 0 <= z0, z1 <= pi/2. The plot is done using Matplotlib.
+
+    \param int degree The degree of the hypersurface
+    \param str filename The name of the file to save the plot to
+    \param bool to_gif A flag indicating whether the plot should be saved as a GIF file
+    \param bool to_html A flag indicating whether the plot should be saved as an HTML file
+    \param int y_granularity The granularity of the y-axis
+    \param int x_granularity The granularity of the x-axis
+    \param int nframes The number of frames in the animation
+    \param int t_interval: The time interval between frames
+
+    \throws ValueError If both to_gif and to_html are both simultaneously set to True
+    """
     
     if to_gif and to_html:
         raise ValueError(f"Cannot make {filename} both a .gif and .html file. One value must be set False.")
@@ -301,21 +304,19 @@ def complex_hypersurface_plotly_ex1(degree, filename="hypersurface.html",
                                     to_html=False, return_json=False,
                                     y_granularity=30, x_granularity=30):
     
-    """
+    """!
     First static example for plotting a degree d complex hypersurface; specifically, this just restricts the graph of
     
     z0^d + z1^d + ... + zn^d = 1
 
     to the region 0 <= z0, z1 <= pi/2. The plot is done using Plotly.
 
-    Args:
-    ----------------
-    degree (int): The degree of the hypersurface
-    filename (str): The name of the file to save the plot to
-    to_html (bool): A flag indicating whether the plot should be saved to an HTML file
-    return_json (bool): A flag indicating whether the plot should be returned as a JSON string
-    y_granularity (int): The granularity of the y-axis
-    x_granularity (int): The granularity of the x-axis
+    \param int degree The degree of the hypersurface
+    \param str filename The name of the file to save the plot to
+    \param bool to_html A flag indicating whether the plot should be saved to an HTML file
+    \param bool return_json A flag indicating whether the plot should be returned as a JSON string
+    \param int y_granularity The granularity of the y-axis
+    \param int x_granularity The granularity of the x-axis
     """
     
 
@@ -354,23 +355,17 @@ def complex_hypersurface_plotly_ex1(degree, filename="hypersurface.html",
 
 
 def ints_to_mass_plot_K3_sing_twist(line_bundle_1, line_bundle_2, degree=1, return_json=False):
-    """
+    r"""!
     Helper method to plot the mass of a single spherical twist on a K3 surface, and potentially pass the output as a JSON string. This is primarily used for the Flask application, which feeds it to an HTML template.
 
-    Args:
-    ----------------
-    line_bundle_1 (int): The line bundle of the object being twisted
-    line_bundle_2 (int): The line bundle of the object being twisted by
-    degree (int): The degree of the K3 surface
-    return_json (bool): A flag indicating whether the plot should be returned as a JSON string
+    \param int line_bundle_1 The line bundle of the object being twisted
+    \param int line_bundle_2 The line bundle of the object being twisted by
+    \param int degree: The degree of the K3 surface
+    \param bool return_json: A flag indicating whether the plot should be returned as a JSON string
 
-    Returns:
-    ----------------
-    str: A JSON string representation of the plot
+    \return str A JSON string representation of the plot
 
-    Raises:
-    ----------------
-    ValueError: If the input data is not an integer
+    \throws ValueError If the input data is not an integer
     """
 
     if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
@@ -439,24 +434,20 @@ def ints_to_mass_plot_K3_sing_twist(line_bundle_1, line_bundle_2, degree=1, retu
 
 
 def ints_to_mass_plot_K3_double_twist(line_bundle_1, line_bundle_2, line_bundle_3, degree=1, return_json=False):
-    """
+    r"""!
     Helper method to plot the mass of a double spherical twist on a K3 surface, and potentially pass the output as a JSON string. This is primarily used for the Flask application, which feeds it to an HTML template.
 
-    Args:
-    ----------------
-    line_bundle_1 (int): The line bundle of the object being twisted
-    line_bundle_2 (int): The line bundle of the object being twisted by
-    line_bundle_3 (int): The line bundle of the object being twisted by
-    degree (int): The degree of the K3 surface
-    return_json (bool): A flag indicating whether the plot should be returned as a JSON string
+    \param int line_bundle_1 The line bundle of the object being twisted
+    \param int line_bundle_2 The line bundle of the object being twisted by
+    \param int line_bundle_3: The line bundle of the object being twisted by    
 
-    Returns:
-    ----------------
-    str: A JSON string representation of the plot
+    \param int degree: The degree of the K3 surface
 
-    Raises:
-    ----------------
-    ValueError: If the input data is not an integer
+    \param bool return_json A flag indicating whether the plot should be returned as a JSON string
+
+    \return str A JSON string representation of the plot
+
+    \throws ValueError If the input data is not an integer
     """
 
     if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int) or not isinstance(line_bundle_3, int):
@@ -528,19 +519,17 @@ def ints_to_mass_plot_K3_double_twist(line_bundle_1, line_bundle_2, line_bundle_
 
 
 def single_twist_triangle_to_json_K3(line_bundle_1, line_bundle_2, degree=1):
-    """
+    r"""!
     Helper function to convert the data of a spherical twist triangle to a JSON string. The data includes the
      sheaf vectors, shift vectors, and dimension vectors of the objects in the triangle. This is primarily used
      for the front-end visualization of the spherical twist triangle in a Flask application.
 
-    Args:
-    ----------------
-    line_bundle_1 (int): The line bundle of the first object in the spherical twist triangle
-    line_bundle_2 (int): The line bundle of the second object in the spherical twist triangle
+     \param int line_bundle_1 The line bundle of the first object in the spherical twist triangle
+     \param int line_bundle_2 The line bundle of the second object in the spherical twist triangle
+     \param int degree The degree of the K3 surface
 
-    Returns:
-    ----------------
-    str: A JSON string representation of the spherical twist triangle data
+    \throws ValueError: If the input data is not an integer
+
     """
     
     if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
@@ -579,19 +568,19 @@ def single_twist_triangle_to_json_K3(line_bundle_1, line_bundle_2, degree=1):
 
 
 def double_twist_triangle_to_json_K3(line_bundle_1, line_bundle_2, line_bundle_3, degree=1):
-    """
+    r"""!
     Helper function to convert the data of a spherical twist triangle to a JSON string. The data includes the
-     sheaf vectors, shift vectors, and dimension vectors of the objects in the triangle. This is primarily used
-     for the front-end visualization of the spherical twist triangle in a Flask application.
+    sheaf vectors, shift vectors, and dimension vectors of the objects in the triangle. This is primarily used
+    for the front-end visualization of the spherical twist triangle in a Flask application.
 
-    Args:
-    ----------------
-    line_bundle_1 (int): The line bundle of the first object in the spherical twist triangle
-    line_bundle_2 (int): The line bundle of the second object in the spherical twist triangle
+    \param int line_bundle_1 The line bundle of the first object in the spherical twist triangle
+    \param int line_bundle_2 The line bundle of the second object in the spherical twist triangle
+    \param int line_bundle_3: The line bundle of the third object in the spherical twist triangle
+    \param int degree The degree of the K3 surface
 
-    Returns:
-    ----------------
-    str: A JSON string representation of the spherical twist triangle data
+    \throws ValueError If the input data is not an integer
+
+    \return str A JSON string representation of the spherical twist triangle data
     """
     
     if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int) or not isinstance(line_bundle_3, int):
