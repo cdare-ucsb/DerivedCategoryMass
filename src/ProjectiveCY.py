@@ -10,16 +10,55 @@ from plotly.graph_objs import *
 import plotly.utils
 import json
 
+from .SphericalTwist import SphericalTwist, DoubleSphericalTwist
+from .CoherentSheaf import LineBundle
 
 
-class K3Surface:
+
+
+
+
+class K3GeometricChamber():
+    """
+    This class represents the geometric chamber of a general projective K3 surface of picard rank 1. Since the geometric chamber consists of a Cantor-set of walls associated to the spherical vector bundles on it, there is no accurate way to simultaneously represent all walls at once. Thus, this class provides a method to plot such walls in the (α,β) plane up to some accuracy (i.e. granularity).
+
+    Attributes
+    ----------
+    degree : int
+        The degree of the K3 surface
+    granularity : int
+        The granularity of the walls to be plotted in the the (α,β) plane
+    """
     
 
-    def __init__(self, degree):
+    def __init__(self, degree=1, granularity=15):
+        """
+        Constructor for the K3GeometricChamber class. This class represents the geometric chamber of a general projective K3 surface of picard rank 1. Since the geometric chamber consists of a Cantor-set of walls associated to the spherical vector bundles on it, there is no accurate way to simultaneously represent all walls at once. Thus, this class provides a method to plot such walls in the (α,β) plane up to some accuracy (i.e. granularity).
+
+        Parameters
+        ----------
+        degree : int
+            The degree of the K3 surface
+        granularity : int
+            The granularity of the walls to be plotted in the the (α,β) plane
+
+        Raises
+        ------
+        ValueError
+            If the degree is not a positive integer
+        
+        """
+
+        if not isinstance(degree, int):
+            raise ValueError("Degree must be an integer")
+        if degree < 1:
+            raise ValueError("Degree must be a positive integer")
+
         self.degree = degree
+        self.granularity = granularity
 
 
-    def create_mukai_vectors(self, granularity=15):
+    def create_mukai_vectors(self):
         """
         Method to create the mukai vectors of a spherical vector bundle on a K3 surface of degree d.
 
@@ -38,7 +77,7 @@ class K3Surface:
 
         mukai_vectors = []
 
-        for n in range(-granularity, granularity):
+        for n in range(-self.granularity, self.granularity):
 
             numerator = self.degree*n**2 + 1
             divisors = self._npDivs(numerator)
@@ -50,7 +89,17 @@ class K3Surface:
 
         return mukai_vectors
 
-    def plot_alpha_beta_plane(self):
+    def plot_alpha_beta_plane(self, return_json=False):
+        """
+        Method to plot the walls of the geometric chamber of a K3 surface in the (α,β) plane. As this method is quite computationally intensive at the standard granularity of 15, we only plot the walls between -1.6 and 1.6 in the α direction and between 0 and √d in the β direction.
+
+        Parameters
+        ----------
+        return_json : bool
+            A flag indicating whether the plot should be returned as a JSON string or displayed in the browser
+
+        
+        """
 
         x_vals = []
         y_vals = []
@@ -93,8 +142,10 @@ class K3Surface:
         fig.update_xaxes(range=[-1.6, 1.6])
         fig.update_yaxes(range=[-0.2, math.sqrt(self.degree)+0.2])
 
-        # fig.show(config={'scrollZoom': True})
-        fig.show()
+        if return_json:
+            return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+        else:
+            fig.show()
 
 
 
@@ -240,9 +291,32 @@ def complex_hypersurface_matplot_animation_ex1(degree, filename='hypersurf',
 
 
 
+#####################################################
+#            STATIC PLOTTING EXAMPLES               #
+#####################################################
+
+
+
 def complex_hypersurface_plotly_ex1(degree, filename="hypersurface.html", 
                                     to_html=False, return_json=False,
                                     y_granularity=30, x_granularity=30):
+    
+    """
+    First static example for plotting a degree d complex hypersurface; specifically, this just restricts the graph of
+    
+    z0^d + z1^d + ... + zn^d = 1
+
+    to the region 0 <= z0, z1 <= pi/2. The plot is done using Plotly.
+
+    Args:
+    ----------------
+    degree (int): The degree of the hypersurface
+    filename (str): The name of the file to save the plot to
+    to_html (bool): A flag indicating whether the plot should be saved to an HTML file
+    return_json (bool): A flag indicating whether the plot should be returned as a JSON string
+    y_granularity (int): The granularity of the y-axis
+    x_granularity (int): The granularity of the x-axis
+    """
     
 
     x = np.linspace(0, math.pi/2, x_granularity)
@@ -271,10 +345,286 @@ def complex_hypersurface_plotly_ex1(degree, filename="hypersurface.html",
 
 
 
+#####################################################
+#                  FLASK METHODS                    #
+#####################################################
 
 
 
 
+
+def ints_to_mass_plot_K3_sing_twist(line_bundle_1, line_bundle_2, degree=1, return_json=False):
+    """
+    Helper method to plot the mass of a single spherical twist on a K3 surface, and potentially pass the output as a JSON string. This is primarily used for the Flask application, which feeds it to an HTML template.
+
+    Args:
+    ----------------
+    line_bundle_1 (int): The line bundle of the object being twisted
+    line_bundle_2 (int): The line bundle of the object being twisted by
+    degree (int): The degree of the K3 surface
+    return_json (bool): A flag indicating whether the plot should be returned as a JSON string
+
+    Returns:
+    ----------------
+    str: A JSON string representation of the plot
+
+    Raises:
+    ----------------
+    ValueError: If the input data is not an integer
+    """
+
+    if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
+        raise ValueError("Input data must be integers")
+
+    sph = SphericalTwist(LineBundle(line_bundle_1, catagory='K3'),
+                          LineBundle(line_bundle_2, catagory='K3'),
+                          degree=degree)
+
+
+    
+
+    # Define x values (spread around a region)
+    x_vals = np.linspace(-5, 5, 200)  # X values from -2 to 2
+
+    # Generate y values satisfying y > x^2
+    y_vals = []
+    for x in x_vals:
+        y_range = np.linspace(0.1, 10, 160)  # 50 points per x value
+        y_vals.append(y_range)
+
+    # Convert to numpy array
+    y_vals = np.array(y_vals).flatten()  # Flatten the y array
+
+    # Repeat x values to match the shape of y
+    x_vals = np.repeat(x_vals, 160)  # Each x value repeats 10 times
+
+    masses = np.array([sph.mass(x, y, degree) for x, y in zip(x_vals, y_vals)])
+
+    # Plot the surface
+    fig = go.Figure(data=[go.Scatter3d(z=masses, x=x_vals, y=y_vals,
+                                    mode='markers', marker=dict(size=3, color=masses, colorscale='viridis'))])
+
+    fig.update_layout(
+        title="",
+        autosize=True,
+        margin=dict(l=0, r=0, b=0, t=30),
+        scene=dict(
+            
+            bgcolor="white",  # Changes the 3D plot background,
+
+            xaxis = dict(
+                backgroundcolor="white",
+                gridcolor="white",
+                showbackground=True,
+                zerolinecolor="white",),
+            yaxis = dict(
+                backgroundcolor="white",
+                gridcolor="white",
+                showbackground=True,
+                zerolinecolor="white"),
+            zaxis = dict(
+                backgroundcolor="white",
+                gridcolor="white",
+                showbackground=True,
+                zerolinecolor="white"
+            )
+        )
+    )
+
+    if return_json:
+        return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    else:
+        fig.show()
+
+
+
+def ints_to_mass_plot_K3_double_twist(line_bundle_1, line_bundle_2, line_bundle_3, degree=1, return_json=False):
+    """
+    Helper method to plot the mass of a double spherical twist on a K3 surface, and potentially pass the output as a JSON string. This is primarily used for the Flask application, which feeds it to an HTML template.
+
+    Args:
+    ----------------
+    line_bundle_1 (int): The line bundle of the object being twisted
+    line_bundle_2 (int): The line bundle of the object being twisted by
+    line_bundle_3 (int): The line bundle of the object being twisted by
+    degree (int): The degree of the K3 surface
+    return_json (bool): A flag indicating whether the plot should be returned as a JSON string
+
+    Returns:
+    ----------------
+    str: A JSON string representation of the plot
+
+    Raises:
+    ----------------
+    ValueError: If the input data is not an integer
+    """
+
+    if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int) or not isinstance(line_bundle_3, int):
+        raise ValueError("Input data must be integers")
+
+    sph = DoubleSphericalTwist(LineBundle(line_bundle_1, catagory='K3'),
+                          LineBundle(line_bundle_2, catagory='K3'),
+                          LineBundle(line_bundle_3, catagory='K3'),
+                          degree=degree)
+
+
+    
+
+    # Define x values (spread around a region)
+    x_vals = np.linspace(-5, 5, 150)  # X values from -5 to 5
+    _NUM_Y_VALS_ = 100
+
+    # Generate y values satisfying y > x^2
+    y_vals = []
+    for x in x_vals:
+        y_range = np.linspace(0.1, 5, _NUM_Y_VALS_)  # 50 points per x value
+        y_vals.append(y_range)
+
+    # Convert to numpy array
+    y_vals = np.array(y_vals).flatten()  # Flatten the y array
+
+    # Repeat x values to match the shape of y
+    x_vals = np.repeat(x_vals, _NUM_Y_VALS_)  # Each x value repeats 10 times
+
+    masses = np.array([sph.mass(x, y, degree) for x, y in zip(x_vals, y_vals)])
+
+    # Plot the surface
+    fig = go.Figure(data=[go.Scatter3d(z=masses, x=x_vals, y=y_vals,
+                                    mode='markers', marker=dict(size=3, color=masses, colorscale='viridis'))])
+
+    fig.update_layout(
+        title="",
+        autosize=True,
+        margin=dict(l=0, r=0, b=0, t=30),
+        scene=dict(
+            
+            bgcolor="white",  # Changes the 3D plot background,
+
+            xaxis = dict(
+                backgroundcolor="white",
+                gridcolor="white",
+                showbackground=True,
+                zerolinecolor="white",),
+            yaxis = dict(
+                backgroundcolor="white",
+                gridcolor="white",
+                showbackground=True,
+                zerolinecolor="white"),
+            zaxis = dict(
+                backgroundcolor="white",
+                gridcolor="white",
+                showbackground=True,
+                zerolinecolor="white"
+            )
+        )
+    )
+
+    if return_json:
+        return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    else:
+        fig.show()
+
+
+
+
+def single_twist_triangle_to_json_K3(line_bundle_1, line_bundle_2, degree=1):
+    """
+    Helper function to convert the data of a spherical twist triangle to a JSON string. The data includes the
+     sheaf vectors, shift vectors, and dimension vectors of the objects in the triangle. This is primarily used
+     for the front-end visualization of the spherical twist triangle in a Flask application.
+
+    Args:
+    ----------------
+    line_bundle_1 (int): The line bundle of the first object in the spherical twist triangle
+    line_bundle_2 (int): The line bundle of the second object in the spherical twist triangle
+
+    Returns:
+    ----------------
+    str: A JSON string representation of the spherical twist triangle data
+    """
+    
+    if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
+        raise ValueError("Input data must be integers")
+
+    sph = SphericalTwist(LineBundle(line_bundle_1, catagory='K3'),
+                          LineBundle(line_bundle_2, catagory='K3'),
+                          degree=degree)
+    first_sheaf_vector = []
+
+    if len(sph.defining_triangle.object1.sheaf_vector) == 1:
+        first_sheaf_vector = [line_bundle_1]
+    else:
+        first_sheaf_vector = [line_bundle_1, line_bundle_1]
+
+
+    object1 = {
+        "sheaf_vector" : first_sheaf_vector,
+        "shift_vector" : sph.defining_triangle.object1.shift_vector,
+        "dimension_vector" : sph.defining_triangle.object1.dimension_vector
+    }
+
+    object2 = {
+        "sheaf_vector" : [line_bundle_2],
+        "shift_vector" : sph.defining_triangle.object2.shift_vector,
+        "dimension_vector" : sph.defining_triangle.object2.dimension_vector
+    }
+
+    chain_complex_data = {
+        "object1" : object1,
+        "object2" : object2
+    }
+
+    
+    return json.dumps(chain_complex_data)        
+
+
+def double_twist_triangle_to_json_K3(line_bundle_1, line_bundle_2, line_bundle_3, degree=1):
+    """
+    Helper function to convert the data of a spherical twist triangle to a JSON string. The data includes the
+     sheaf vectors, shift vectors, and dimension vectors of the objects in the triangle. This is primarily used
+     for the front-end visualization of the spherical twist triangle in a Flask application.
+
+    Args:
+    ----------------
+    line_bundle_1 (int): The line bundle of the first object in the spherical twist triangle
+    line_bundle_2 (int): The line bundle of the second object in the spherical twist triangle
+
+    Returns:
+    ----------------
+    str: A JSON string representation of the spherical twist triangle data
+    """
+    
+    if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int) or not isinstance(line_bundle_3, int):
+        raise ValueError("Input data must be integers")
+
+    sph = DoubleSphericalTwist(LineBundle(line_bundle_1, catagory='K3'),
+                          LineBundle(line_bundle_2, catagory='K3'),
+                          LineBundle(line_bundle_3, catagory='K3'),
+                          degree=degree)
+    first_sheaf_vector = []
+
+    if len(sph.defining_triangle.object1) == 1:
+        first_sheaf_vector = [line_bundle_1]
+    elif len(sph.defining_triangle.object1) == 2:
+        first_sheaf_vector = [line_bundle_1, line_bundle_1]
+    else:
+        first_sheaf_vector = [line_bundle_1, line_bundle_1, line_bundle_1]
+
+
+    object1 = {
+        "sheaf_vector" : first_sheaf_vector,
+        "shift_vector" : sph.defining_triangle.object1.shift_vector,
+        "dimension_vector" : sph.defining_triangle.object1.dimension_vector
+    }
+
+
+    chain_complex_data = {
+        "object1" : object1,
+        "degrees" : [line_bundle_1, line_bundle_2, line_bundle_3]
+    }
+
+    
+    return json.dumps(chain_complex_data)        
 
 
 
@@ -282,6 +632,8 @@ def complex_hypersurface_plotly_ex1(degree, filename="hypersurface.html",
 
 
 if __name__ == "__main__":
+
+    K3 = K3GeometricChamber(degree=1)
     
     complex_hypersurface_matplot_animation_ex1(filename='CY3fold.gif', degree=5, to_gif=True)
 

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K3 Surface Mass</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+    <!-- Load MathJax v3 with AMS package -->
+    <script>
+        window.MathJax = {
+            loader: {load: ['[tex]/amscd']},
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],  // Allow inline LaTeX
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],  // Allow display LaTeX
+                packages: {'[+]': ['amscd']}
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+
+    <script type="text/javascript" async 
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+
+
+
+
+
+    <style>
+        /* Style for the return button */
+        .return-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            z-index: 1000;  /* Ensure it's on top */
+            display: block;  /* Ensure it's not hidden */
+        }
+        .return-button:hover {
+            background-color: #0056b3;
+        }
+        /* LaTeX equation container */
+        .latex-container {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .form_wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            margin: 0 auto;
+            max-width: calc(100% - 2in); /* Ensures 1-inch margin on both sides */
+            padding: 20px;
+        }
+
+        form {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+     <!-- Return Home Button -->
+      <div id="form_wrapper">
+        <form action="/K3-surface" method="POST">
+            <button type="submit" class="return-button">Go Back</a>
+        </form>
+    </div>
+
+
+    <div class="container">
+        <!--plotly object-->
+        <div id="plot"></div>
+        <br/>
+        <hr/>
+        <br/>
+        <br/>
+
+        <p>
+            Up to the $\mathbb{C}$-action, every geometric stability condition is of the form $\sigma_{\alpha,\beta} = (\operatorname{Coh}^{\alpha\beta}( S), Z_{\alpha,\beta} )$
+            with $\beta > 0$ and the central charge of the form 
+        </p>
+        <p>
+            $$
+            Z_{\alpha, \beta}(-) := \big( 2d \alpha \operatorname{ch}_1(-) - \operatorname{ch}_2(-) - \operatorname{ch}_0(-) + (\beta^2 - \alpha_2)d \operatorname{ch}_0(-) \big) + 2d i \big( \operatorname{ch}_1 -  \alpha \beta \operatorname{ch}_0\big)
+             $$
+        </p>
+        <p>
+           (here $d$ denotes the degree of the K3 surface, such that $H^2 = 2d$ for the ample generator $\operatorname{Pic}(S) = \mathbb{Z} H$).
+        </p>
+
+        <p id="exposition-1">
+            The mass of the spherical twist $\\operatorname{Tw}_{  \\mathcal{O}( line\_bundle\_1\_deg )}   \\mathcal{O}( line\_bundle\_2\_deg )$, as shown in the above figure, is the sum of the masses of its Harder-Narasimhan factors. For a single twist, we may simply rotate the defining triangle
+        </p>
+
+        <!-- LaTeX Equation Section -->
+        <div class="latex-container">
+            <p id="commutative-diagram">
+                $$ 
+                \\begin{CD}
+                     \\mathcal{O}( line\_bundle\_2\_deg ) @>>> \\operatorname{Tw}_{ line\_bundle\_1\_deg }  \\mathcal{O}( line\_bundle\_2\_deg ) @>>>   \\mathcal{O}( line\_bundle\_1\_deg )^{\\oplus line\_bundle\_1\_dim}
+                \\end{CD}
+                $$
+            </p>
+        </div>
+
+        <p id="exposition-2">
+
+        </p>
+
+
+    </div>
+
+    <script>
+        var plot_data = {{ plot_json | safe }};
+        Plotly.newPlot('plot', plot_data.data, plot_data.layout);
+
+        // Convert ChainComplex JSON into a JavaScript object
+        var chainComplex = JSON.parse({{ chain_complex | tojson | safe }});
+        console.log("Chain Complex Data:", chainComplex);
+
+        var shift_vector = chainComplex["object1"]["shift_vector"];
+        var dimension_vector = chainComplex["object1"]["dimension_vector"];
+        var lb_1_deg = chainComplex["object1"]["sheaf_vector"][0];
+        var lb_2_deg = chainComplex["object2"]["sheaf_vector"][0];
+
+        if (shift_vector.length == 1 && shift_vector[0] == -1) {
+
+            // Update the TikZ diagram dynamically
+            document.getElementById("commutative-diagram").innerHTML = `$$ 
+                    \\begin{CD}
+                           \\mathcal{O}( ${lb_2_deg} ) @>>>  \\operatorname{Tw}_{ ${lb_1_deg} }   \\mathcal{O}( ${lb_2_deg} ) @>>>   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}}
+                    \\end{CD}
+                    $$`;
+            
+        } else if (shift_vector.length == 1) {
+
+            // Update the TikZ diagram dynamically
+            document.getElementById("commutative-diagram").innerHTML = `$$ 
+                    \\begin{CD}
+                           \\mathcal{O}( ${lb_2_deg} ) @>>> \\operatorname{Tw}_{ ${lb_1_deg} }   \\mathcal{O}( ${lb_2_deg} ) @>>>   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}}[ ${shift_vector[0] + 1} ]
+                    \\end{CD}
+                    $$`;
+
+            document.getElementById("exposition-2").innerHTML = `
+                Since $\\operatorname{Tw}_{ ${lb_1_deg} }   \\mathcal{O}( ${lb_2_deg} )$ falls between two stable line bundles, its stability is completely determined by the order of the phases between the two line bundles. In particular, when 
+                $\\phi  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_2_deg} )) < \\phi  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_1_deg} ) [${shift_vector[0] + 1}])$, the mass of the twist is given by the norm of the central charge
+                $$
+                m  _{\\alpha, \\beta} (\\operatorname{Tw}_{ ${lb_1_deg} }   \\mathcal{O}( ${lb_2_deg} ) ) = |Z  _{\\alpha, \\beta}(\\operatorname{Tw}_{ ${lb_1_deg} }   \\mathcal{O}( ${lb_2_deg} ) )  | = |Z  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_2_deg} ) )  + Z  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}} [${shift_vector[0] + 1}]) |
+                $$
+                Otherwise, the two line bundles form a Harder-Narasimhan filtration so that
+                $$
+                m  _{\\alpha, \\beta} (\\operatorname{Tw}_{ ${lb_1_deg} }   \\mathcal{O}( ${lb_2_deg} ) ) = |Z  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_2_deg} ) )| + |Z  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}} [${shift_vector[0] + 1}]) |
+                $$
+                `;
+            
+        } else {
+
+            //shift_vector is length two.
+            
+            if (shift_vector[0] == -1) {
+                
+                // Update the TikZ diagram dynamically
+                document.getElementById("commutative-diagram").innerHTML = `$$ 
+                        \\begin{CD}
+                                \\mathcal{O}( ${lb_2_deg} ) @>>> \\operatorname{Tw}_{ ${lb_1_deg} }   \\mathcal{O}( ${lb_2_deg} ) @>>>   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}} \\oplus   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[1]}}[ ${shift_vector[1] + 1} ]
+                        \\end{CD}
+                        $$`;
+
+            } else if (shift_vector[1] == -1) {
+                // Update the TikZ diagram dynamically
+                document.getElementById("commutative-diagram").innerHTML = `$$ 
+                                        \\begin{CD}
+                                           \\mathcal{O}( ${lb_2_deg} ) @>>> \\operatorname{Tw}_{ ${lb_1_deg} }   \\mathcal{O}( ${lb_2_deg} ) @>>>   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}}[ ${shift_vector[0]+1} ] \\oplus   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[1]}}
+                                        \\end{CD}
+                                        $$`;
+            } else {
+                // Update the TikZ diagram dynamically
+                document.getElementById("commutative-diagram").innerHTML = `$$ 
+                        \\begin{CD}
+                          \\mathcal{O}( ${lb_2_deg} ) @>>> \\operatorname{Tw}_{ ${lb_1_deg} }   \\mathcal{O}( ${lb_2_deg} ) @>>>   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}}[ ${shift_vector[0] + 1} ] \\oplus   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[1]}}[ ${shift_vector[1] + 1} ]
+                        \\end{CD}
+                        $$`;
+
+            }
+
+            var min_shift = 0;
+            var max_shift = 0;
+            var dim_max_shift = 0;
+            var dim_min_shift = 0;
+
+            if (shift_vector[0] < shift_vector[1]) {
+                min_shift = shift_vector[0];
+                max_shift = shift_vector[1];
+                dim_max_shift = dimension_vector[1];
+                dim_min_shift = dimension_vector[0];
+            } else {
+                min_shift = shift_vector[1];
+                max_shift = shift_vector[0];
+                dim_max_shift = dimension_vector[0];
+                dim_min_shift = dimension_vector[1];
+            }
+
+            if (min_shift == -1) {
+                document.getElementById("exposition-2").innerHTML = `
+                Since the last object in this triangle is a direct sum of stable objects of different phases, this object will never be stable. Thus, the stability of $\\operatorname{Tw}_{   \\mathcal{O}( ${lb_1_deg} )}    \\mathcal{O}( ${lb_2_deg} )$
+                is determined by whether $\\phi  _{\\alpha, \\beta}( \\mathcal{O}(${ lb_2_deg }) )$ is smaller than $\\phi  _{\\alpha, \\beta}( \\mathcal{O}(${lb_1_deg} ) ) $. In the case that $\\operatorname{Tw}_{   \\mathcal{O}( ${lb_1_deg} )}    \\mathcal{O}( ${lb_2_deg} )$ is indeed stable, the mass is
+            trivial to compute since it is simply the norm of the central charge 
+            $$
+            m  _{\\alpha, \\beta} (\\operatorname{Tw}_{   \\mathcal{O}( ${lb_1_deg} )}    \\mathcal{O}( ${lb_2_deg} ) ) = |Z  _{\\alpha, \\beta}(\\operatorname{Tw}_{   \\mathcal{O}( ${lb_1_deg} )}    \\mathcal{O}( ${lb_2_deg} ) )  |
+            $$
+            However, when $\\operatorname{Tw}_{   \\mathcal{O}( ${lb_1_deg} )}    \\mathcal{O}( ${lb_2_deg} ) $ destabilizes, determining the mass becomes much more subtle; in particular, one must distinguish between the cases of <br/><br/> (i) $\\phi  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_2_deg} )) < \\phi  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_1_deg} ) [${max_shift + 1}])$ 
+            and <br/>(ii) $\\phi  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_2_deg} )) > \\phi  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_1_deg} ) [${max_shift + 1}])$. 
+
+            <br/>
+            <br/>
+            There is a commuting diagram of the form
+            $$
+                \\begin{CD}
+                    0 @>>>   \\mathcal{O}(${lb_1_deg})^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ] \\\\
+                    @VVV @VVV \\\\
+                    \\operatorname{Tw}_{   \\mathcal{O}( ${lb_1_deg} )}   \\mathcal{O}( ${lb_2_deg} ) @>>>   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}} \\oplus   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ] \\\\
+                    @VVV @VVV \\\\
+                    \\operatorname{Tw}_{   \\mathcal{O}( ${lb_1_deg} )}   \\mathcal{O}( ${lb_2_deg} )@>>>   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}} \\\\
+                \\end{CD}
+            $$
+            <br/>
+            <br/>
+            By (TR4), we have that the co-cone (or fibre) of the bottom morphism — call it $C$ — fits into a triangle of the form
+            $$
+            \\begin{CD}
+                  \\mathcal{O}( ${lb_2_deg}) @>>> C @>>>   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ]
+            \\end{CD}
+            $$
+            When $\\phi  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_2_deg})) < \\phi  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_1_deg} )[ ${max_shift + 1} ])$, the object $C$ is stable and thus a semi-stable factor, so that
+            $$
+                m  _{\\alpha, \\beta} (\\operatorname{Tw}_{   \\mathcal{O}( ${lb_1_deg} )}    \\mathcal{O}( ${lb_2_deg} ) ) = |Z  _{\\alpha, \\beta}(   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}} [${max_shift + 1}] )  | + | Z  _{\\alpha, \\beta}(   \\mathcal{O} (${lb_2_deg}) ) + Z  _{\\alpha, \\beta}(i_{\\ast } \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}}  )  |
+            $$
+                `;
+            } else {
+                document.getElementById("exposition-2").innerHTML = `
+            Since the last object in this triangle is a direct sum of stable objects of different phases, this object will never be stable. Thus, the stability of $\\operatorname{Tw}_{   \\mathcal{O}( ${lb_1_deg} )}    \\mathcal{O}( ${lb_2_deg} )$
+            is determined by whether $\\phi  _{\\alpha, \\beta}( \\mathcal{O}(${ lb_2_deg }) )$ is smaller than $\\phi  _{\\alpha, \\beta}(  \\mathcal{O}(${lb_1_deg} )[ ${ min_shift + 1 } ] ) $. In the case that $\\operatorname{Tw}_{   \\mathcal{O}( ${lb_1_deg} )}    \\mathcal{O}( ${lb_2_deg} )$ is indeed stable, the mass is
+            trivial to compute since it is simply the norm of the central charge 
+            $$
+            m  _{\\alpha, \\beta} (\\operatorname{Tw}_{   \\mathcal{O}( ${lb_1_deg} )}    \\mathcal{O}( ${lb_2_deg} ) ) = |Z  _{\\alpha, \\beta}(\\operatorname{Tw}_{   \\mathcal{O}( ${lb_1_deg} )}    \\mathcal{O}( ${lb_2_deg} ) )  |
+            $$
+            However, when $\\operatorname{Tw}_{   \\mathcal{O}( ${lb_1_deg} )}    \\mathcal{O}( ${lb_2_deg} ) $ destabilizes, determining the mass becomes much more subtle; in particular, one must distinguish between the cases of<br/><br/> (i) $\\phi  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_2_deg} )) < \\phi  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_1_deg} ) [${max_shift + 1}])$ 
+            and<br/> (ii) $\\phi  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_2_deg} )) > \\phi  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_1_deg} ) [${max_shift + 1}])$.  
+            <br/>
+            <br/>
+            There is a commuting diagram of the form
+            $$
+                \\begin{CD}
+                    0 @>>>   \\mathcal{O}(${lb_1_deg})^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ] \\\\
+                    @VVV @VVV \\\\
+                    \\operatorname{Tw}_{   \\mathcal{O}( ${lb_1_deg} )}   \\mathcal{O}( ${lb_2_deg} ) @>>>   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}}[ ${min_shift + 1} ] \\oplus   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ] \\\\
+                    @VVV @VVV \\\\
+                    \\operatorname{Tw}_{   \\mathcal{O}( ${lb_1_deg} )}   \\mathcal{O}( ${lb_2_deg} )@>>>   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}}[ ${min_shift + 1} ] \\\\
+                \\end{CD}
+            $$
+            <br/>
+            <br/>
+            By (TR4), we have that the co-cone (or fibre) of the bottom morphism — call it $C$ — fits into a triangle of the form
+            $$
+            \\begin{CD}
+                  \\mathcal{O}( ${lb_2_deg}) @>>> C @>>>   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ]
+            \\end{CD}
+            $$
+            When $\\phi  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_2_deg})) < \\phi  _{\\alpha, \\beta}(  \\mathcal{O}( ${lb_1_deg} )[ ${max_shift + 1} ])$, the object $C$ is stable and thus a semi-stable factor, so that
+            $$
+                m  _{\\alpha, \\beta} (\\operatorname{Tw}_{   \\mathcal{O}( ${lb_1_deg} )}    \\mathcal{O}( ${lb_2_deg} ) ) = |Z  _{\\alpha, \\beta}(   \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}} [${max_shift + 1}] )  | + | Z  _{\\alpha, \\beta}(   \\mathcal{O} (${lb_2_deg}) ) + Z  _{\\alpha, \\beta}(i_{\\ast } \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}} [${min_shift + 1}] )  |
+            $$
+            `;
+            }
+            
+
+        }
+
+    document.getElementById("exposition-1").innerHTML = `The mass of the spherical twist $\\operatorname{Tw}_{   \\mathcal{O}( ${lb_1_deg} )}    \\mathcal{O}( ${lb_2_deg} )$, as shown in the above figure, is the sum of the masses of its Harder-Narasimhan factors. For a single twist, we may simply use the defining triangle`;
+
+    </script>
+
+     
+</body>
+</html>

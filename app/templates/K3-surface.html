@@ -2,7 +2,7 @@
 <html lang="en">
   
 <head>
-    <title>Local P2</title>
+    <title>K3 Surfaces</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
@@ -123,7 +123,7 @@
         .parallax-3 {
             width: 100%;
             height: 550px;
-            background: url("{{ url_for('static', filename='images/CP2.jpeg') }}") center fixed;
+            background: url("{{ url_for('static', filename='images/naive_local_P1.png') }}") center fixed;
             background-size: 100% 100%;
             background-attachment: fixed;
         }
@@ -177,25 +177,15 @@
             text-align: center;
         }
 
-        /* Hidden image on page 2 */
         #page-3-content {
+            /* position: fixed; */
             display: flex; /* Keeps elements inside aligned */
-            width: auto; /* Shrinks wrapper to fit the image */
-            height: auto;
-            font-size: 24px;
-            color: white;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        /* Hidden image on page 4 */
-        #page-4-content {
-            display: flex; /* Keeps elements inside aligned */
-            width: auto; /* Shrinks wrapper to fit the image */
-            height: auto;
-            font-size: 24px;
+            justify-content: center;  /* Centers horizontally */
+            align-items: center;  /* Centers vertically */
+            max-width: 50%; /* Prevents it from being too large */
+            width: fit-content; /* Shrinks wrapper to fit the image */
+            height: fit-content;
+            position: relative; /* Ensures it remains within normal flow */
             color: white;
             background: rgba(0, 0, 0, 0.7);
             padding: 20px;
@@ -243,7 +233,7 @@
             box-sizing: border-box;
             margin: 0;
             display: flex;
-    justify-content: center;
+            justify-content: center;
         }
         input, button {
             width: 30%;
@@ -292,7 +282,7 @@
 
     <!-- Giving title of the first parallax -->
     <div class="parallax-1">
-        <h2>Local $\mathbb{P}^2$</h2>
+        <h2>K3 Surfaces</h2>
     </div>
 
     <!--Content of first parallax -->
@@ -333,128 +323,105 @@
         <p id="page-2-text-cont">
             In string theory, objects depending on some choice of Kähler class are often modified by world-sheet instanton corrections. In this context, the vacuaa are described as BPS vacua and correspond to
             Bridgeland-stable objects in the derived category of our compactified dimensions (i.e. the Calabi-Yau threefold). Unfortunately, only one example of a complex compact Kahler threefold that admits
-            geometric Bridgeland stability conditions is known (c.f. <a href="https://link.springer.com/article/10.1007/s00222-019-00888-z">Li (2019)</a>). Instead, physicists often consider a simpler "localized" model by assuming that
-            the compactified dimensions are fibred over a complex projective plane (<emph>pictured below</emph>). This model has been dubbed "Local $\mathbb{P}^2$" and the space of Bridgeland stability conditions
-            on it was originally studied in <a href="https://arxiv.org/abs/0912.0043">Bayer, Macrì (2011)</a>.
-            <br/>
-            <br/>
-            $\ ^\star\ $ It should be noted that a "very general" compact complex Calabi-Yau does not contain a projective plane (i.e. by randomly choosing a CY 3-fold, mathematically there is a 0% chance you will pick one with an embedded $\mathbb{P}^2$).
+            geometric Bridgeland stability conditions is known (c.f. <a href="https://link.springer.com/article/10.1007/s00222-019-00888-z">Li (2019)</a>). One can simplify the problem by considering models with only  
+            two compactified dimensions, so that much of the physics revolves around the study of K3 surfaces (<emph>plotted below</emph>). 
         </p>
     </div>
 
     <!--This will be same as first parallax-->
-    <div class="parallax-3">
-        
+    <div class="parallax-1">
+        <div id="page-2-content">
+            <div id="plot_k3" style="width: 40vw;"></div>
+        </div>
     </div>
 
     <div class="para-2">
-        <p id="page-3-text">
-            The behavior of stability conditions on Local $\mathbb{P}^2$ is very closely related to those on the underlying projective plane (arising as the zero section of $\omega_{\mathbb{P}^2} \to \mathbb{P}^2$). Bridgeland stability
-            conditions on $\mathbb{P}^2$ were classified by <a href="https://link.springer.com/article/10.1007/s00029-017-0352-4"> Li, (2017)</a> and depend on the classical theory of slope-stable bundles on $\mathbb{P}^2$, as originally described by <a href="https://webusers.imj-prg.fr/~jean-marc.drezet/papers/DLP.pdf">Drézet, Le Potier (1985)</a>.
-            <br/>
-            <br/>
-            In their seminal article, Drézet and Le Potier showed that a vector bundle $E \to \mathbb{P}^2$ is slope-stable if and only if the coordinates of its slope and discriminant $(x,y) = (\mu, \Delta)$ lie above a certain fractal curve. Following notation of Li, it is in some ways easier to consider the Drézet-Le Potier curve embedded
-            in the $( \frac{\operatorname{ch}_1}{\operatorname{ch}_0}, \frac{\operatorname{ch}_2}{ \operatorname{ch}_0} )$-plane, as shown to the left. 
-            <br/>
-            <br/>
-            Most notably, there is a "Cantor-like" set of gray walls corresponding to the exceptional vector bundles of $\mathbb{P}^2$, which we will see on the next page lead to a very rich geometry in our
-            local Calabi-Yau model. 
-        </p>
+        The Bridgeland stability manifold of K3 surfaces was one of the first examples of stability conditions in higher dimensions, and was originally by Bridgeland himself in <a href="https://projecteuclid.org/journals/duke-mathematical-journal/volume-141/issue-2/Stability-conditions-on-K3-surfaces/10.1215/S0012-7094-08-14122-5.full"><em>Stability Conditions on K3 Surfaces</em>, (2008)</a>. Unlike the case of curves and simple resolutions of singularities, the stability conditions on a surface turn out to depend on the divisors (codimension 1 complex subvarieties) and their respective numerical classes, making even the geometric chamber much more difficult to compute. Similar to the case of our local projective spaces, it also turns out that there is an action of spherical twists on the stability manifold leading to a wall-and-chamber decomposition.
+        <br/>
+        <br/>
+        <br/>
+        In the simplest case that a K3 surface is Picard rank 1, every curve class is a multiple of the polarization $H$, so that there exist no rational curves $C \cong \mathbb{P}^1$ with $C^2 < 0$. In particular, every geometric stability condition is induced by $\sigma_{\alpha H, \beta H} = (Z_{\alpha, \beta}, \mathcal{P}_{\alpha, \beta})$ where
+        $$
+        Z_{\alpha, \beta} = \int_S \operatorname{exp}((\alpha + i \beta)H) \operatorname{ch}(-) \sqrt{\operatorname{td}(S)}
+        $$
+        However, there is a very subtle restriction on the values of $\alpha$ and $\beta$ that make the stability condition $\sigma_{\alpha H, \beta H}$ a Bridgeland stability condition; in particular, there are punctures in the $(\alpha, \beta)$-plane corresponding to where spherical objects become massless, and the values of $\alpha$ and $\beta$ should not lie below these punctured. This is pictured below for a degree $2$ double cover of $\mathbb{P}^2$ branched along a sextic (e.g. locally of the form $z^2 = f_6(x,y,w)$ in the weighted projective space $\mathbb{P}(1,1,1,3)$).
     </div>
 
     <!-- Giving title of the first parallax -->
     <div class="parallax-1">
         <div id="page-3-content">
-            <div id="plot1" style="width: 40vw;"></div>
+            <div id="plot_alpha_beta" style="width: 40vw;"></div>
         </div>  
     </div>
 
     <div class="para-3">
         <p id="page-4-text">
-            It turns out that the set of "geometric" stability conditions on Local $\mathbb{P}^2$ looks precisely like the previous graph; up to a certain $\mathbb{C}$-action, all central charges $$Z_{\omega, B} = \int_{\mathbb{P}^2} e^{-B -i \omega}\operatorname{ch}\ \circ \ \pi_\ast $$ accounting for $B$-field and Kähler corrections can be reparameterized as
-            $$
-            Z_{s, q} = (-\operatorname{ch}_2 + q \operatorname{ch}_0) + i (\operatorname{ch}_1 - s \operatorname{ch}_0)
-            $$
-            where $(s,q)$ lies above the previous Drézet-Le Potier curve.
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            Unlike the standard projective plane, crossing any of the previous gray-walls leads to another identical chamber corresponding to a transition of BPS vacuum states. In this region, many of the previous stable BPS states will decompose and some of the previous unstable BPS states now become stable.
+            Crossing any of these walls underneath a puncture corresponding to some spherical object $S$ leads to a completely new geometric chamber identical to the first, with the same sets of walls and holes. Unlike the case of our local projective spaces, there is <emph>no identification between the different chambers</emph>. This means that there is a true tree-like structure of chambers that branch off from the original geometric chamber; to make matters more complicated, there are infinitely many branches going in "upwards" and "downwards" directions and each new chamber at the end of the branch has infinitely many children. 
         </p>
         <br/>
         <br/>
         <br/>
-        
 
         <p id="page-4-text-cont">
-            Each new "chamber" inherits its own set of walls, identical to the plot on the previous page. However, it is <emph>not</emph> true that crossing wall A (corresponding to the pushforward of exceptional $\mathcal{A} \in \operatorname{Coh}(\mathbb{P}^2)$) followed by crossing wall B (corresponding to exceptional $\mathcal{B} \in \operatorname{Coh}(\mathbb{P}^2)$) is the same as crossing wall B followed by A. One gets a "tree-like" structure of chambers with nodes corresponding to chambers and infinitely many branches at each point; however, there is a subtle identification of chambers that makes the geometry of the space of stability conditions on Local $\mathbb{P}^2$ signficantly more convoluted.
+            The only upshot of computing masses is that the $\operatorname{Ext}$-algebras (corresponding to the open string spectra) on K3 surfaces of Picard rank 1 are much easier to compute. Thus, we are able to attempt to compute masses of "farther neighboring chambers", though we will never actually be able to even compute the masses for all adjacent chambers simultaneously. Thus, the first purpose of this program for K3 surfaces is to plot the mass of spherical objects in chambers that are either adjacent to the geometric chamber or distance 2 away from it.
         </p>
     </div>
 
 
 
     
-    <!-- Giving title of the first parallax -->
-    <div class="parallax-1">
-        <div id="page-4-content">
-            <div id="plot2" style="width: 50vw;"></div>
-        </div> 
-    </div>
 
-    <div class="para-4">
-        <p>
-        It was shown in my Ph.D. thesis that there is in fact an identification between many of the chambers above, leading to a tiling decomposition that is still not quite understood geometrically. However, it turns out that finding the mass of a standard line bundle in the other chambers is the same as finding the mass of a spherical twist in the original geometric chamber. Thus, the first purpose of this program is to plot the mass of spherical objects in the flat region plotted above.
-        </p>
-    </div>
 
-    <!-- Giving title of the first parallax -->
-    <div class="parallax-1">
-        <div id="page-5-content">
-            <!-- The First Container (Initially Off-Screen) -->
-            <div class="container-background">
-                <div class="container" id="first-container">
-                    <h2 style="color: #4d4d4d;">Single Spherical Twist Computation</h2>
-                    <p>Compute the mass of $\operatorname{Tw}_{i_\ast \mathcal{O}(a)} i_\ast \mathcal{O}(b)$, where</p>
-                    <br/>
-                    <form id="sph-twist-form" action="/plot_sph_twist_P2" method="POST">
-                        <label for="line_bundle_1">First line bundle degree $a$ (integer):</label>
-                        <input type="number" id="line_bundle_1" name="line_bundle_1" placeholder="e.g. -1" required>
+        <!-- Giving title of the first parallax -->
+        <div class="parallax-1">
+            <div id="page-5-content">
+                <!-- The First Container (Initially Off-Screen) -->
+                <div class="container-background">
+                    <div class="container" id="first-container">
+                        <h2 style="color: #4d4d4d;">Single Spherical Twist Computation</h2>
+                        <p>Compute the mass of $\operatorname{Tw}_{ \mathcal{O}(a)}  \mathcal{O}(b)$, where</p>
                         <br/>
-                        <label for="line_bundle_2">Second line bundle degree $b$ (integer):</label>
-                        <input type="number" id="line_bundle_2" name="line_bundle_2" placeholder="e.g. 1" required>
+                        <form id="sph-twist-form" action="/plot_sing_sph_twist_K3" method="POST">
+                            <label for="line_bundle_1">First line bundle degree $a$ (integer):</label>
+                            <input type="number" id="line_bundle_1" name="line_bundle_1" placeholder="e.g. -1" required>
+                            <br/>
+                            <label for="line_bundle_2">Second line bundle degree $b$ (integer):</label>
+                            <input type="number" id="line_bundle_2" name="line_bundle_2" placeholder="e.g. 1" required>
+                            <br/>
+                            <button type="submit">Get Prediction</button>
+                        </form>
+                    </div> 
+                </div>
+    
+                <div class="container-background">
+                    <div class="container" id="second-container">
+                        <h2 style="color: #4d4d4d;">Double Spherical Twist Computation</h2>
+                        <p>Compute the mass of $\operatorname{Tw}_{\mathcal{O}(a)} \operatorname{Tw}_{\mathcal{O}(b)} \mathcal{O}(c)$, where</p>
                         <br/>
-                        <button type="submit">Get Prediction</button>
-                    </form>
-                </div> 
+                        <form id="double-twist-form" action="/plot_double_sph_twist_K3" method="POST">
+                            <label for="line_bundle_1">First line bundle degree $a$:</label>
+                            <input type="number" id="line_bundle_1" name="line_bundle_1" placeholder="e.g. -1" required>
+                            <br/>
+                            <label for="line_bundle_2">Second line bundle degree $b$:</label>
+                            <input type="number" id="line_bundle_2" name="line_bundle_2" placeholder="e.g. 1" required>
+                            <br/>
+                            <label for="line_bundle_3">Third line bundle degree $c$:</label>
+                            <input type="number" id="line_bundle_3" name="line_bundle_3" placeholder="e.g. 2" required>
+                            <br/>
+                            <button type="submit">Get Prediction</button>
+                        </form>
+                    </div> 
+                </div>
             </div>
-
-            <!-- <div class="container-background">
-                <div class="container" id="second-container">
-                    <h2 style="color: #4d4d4d;">Single Spherical Twist Computation</h2>
-                    <p>Compute the mass of $\operatorname{Tw}_{i_\ast \mathcal{O}(a)} i_\ast \mathcal{O}(b)$, where</p>
-                    <br/>
-                    <form id="double-twist-form" action="/plot_sph_twist_P2" method="POST">
-                        <label for="line_bundle_1">First line bundle degree $a$ (integer):</label>
-                        <input type="number" id="line_bundle_1" name="line_bundle_1" placeholder="e.g. -1" required>
-                        <br/>
-                        <label for="line_bundle_2">Second line bundle degree $b$ (integer):</label>
-                        <input type="number" id="line_bundle_2" name="line_bundle_2" placeholder="e.g. 1" required>
-                        <br/>
-                        <button type="submit">Get Prediction</button>
-                    </form>
-                </div> 
-            </div> -->
         </div>
-    </div>
 
 </body>
 
 <script>
-    var DLP_2d_json = {{ DLP_2d_json | safe }};
-        var chamber_struct = {{ chamber_struct | safe }};
-        Plotly.newPlot('plot1', DLP_2d_json.data, DLP_2d_json.layout, {scrollZoom: true});
-        Plotly.newPlot('plot2', chamber_struct.data, chamber_struct.layout);
+    var k3_plot_json = {{ k3_plot_json | safe }};
+    var  K3_alpha_beta_json = {{ K3_alpha_beta_json | safe }};
+    Plotly.newPlot('plot_k3', k3_plot_json.data, k3_plot_json.layout);
+    Plotly.newPlot('plot_alpha_beta', K3_alpha_beta_json.data, K3_alpha_beta_json.layout);
 
     document.addEventListener('DOMContentLoaded', () => {
             const canvas = document.getElementById('xy-plane');

@@ -2,7 +2,7 @@
 <html lang="en">
   
 <head>
-    <title>Flask + PyTorch Prediction</title>
+    <title>Local P1</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
@@ -177,6 +177,20 @@
             text-align: center;
         }
 
+        /* Hidden image on page 5 */
+        #page-5-content {
+            display: flex; /* Keeps elements inside aligned */
+            width: auto; /* Shrinks wrapper to fit the image */
+            height: auto;
+            justify-content: center;  /* Centers elements horizontally */
+            align-items: center;  /* Aligns elements vertically */
+            gap: 50px;  /* Adds 50px space between elements */
+            
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
         /* Initially position .container fully off-screen */
         .container {
             background: white;
@@ -184,7 +198,26 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             text-align: center;
-            width: 400px;
+            width: 500px;
+            max-width: 100%;
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        /* Initially position .container fully off-screen */
+        .container-background {
+            background: black;
+            padding: 20px;
+            width: fit-content; /* Shrinks wrapper to fit the image */
+            height: fit-content;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 500px;
+            box-sizing: border-box;
+            margin: 0;
+            display: flex;
+            justify-content: center;
         }
         input, button {
             width: 30%;
@@ -348,19 +381,45 @@
 
         <!-- Giving title of the first parallax -->
         <div class="parallax-1">
-            <!-- The Main Container (Initially Off-Screen) -->
-            <div class="container" id="main-container">
-                <h2 style="color: #4d4d4d;">Single Spherical Twist Computation</h2>
-                <p>Compute the mass of $\operatorname{Tw}_{i_\ast \mathcal{O}(a)} i_\ast \mathcal{O}(b)$, where</p>
-                <form id="sph-twist-form" action="/plot_sph_twist_P1" method="POST">
-                    <label for="line_bundle_1">First line bundle degree $a$ (integer):</label>
-                    <input type="number" id="line_bundle_1" name="line_bundle_1" placeholder="e.g. -1" required>
-                    <label for="line_bundle_2">Second line bundle degree $b$ (integer):</label>
-                    <input type="number" id="line_bundle_2" name="line_bundle_2" placeholder="e.g. 1" required>
-                    <br/>
-                    <button type="submit">Get Prediction</button>
-                </form>
-            </div> 
+            <div id="page-5-content">
+                <!-- The First Container (Initially Off-Screen) -->
+                <div class="container-background">
+                    <div class="container" id="first-container">
+                        <h2 style="color: #4d4d4d;">Single Spherical Twist Computation</h2>
+                        <p>Compute the mass of $\operatorname{Tw}_{i_\ast \mathcal{O}(a)} i_\ast \mathcal{O}(b)$, where</p>
+                        <br/>
+                        <form id="sph-twist-form" action="/plot_sph_twist_P1" method="POST">
+                            <label for="line_bundle_1">First line bundle degree $a$ (integer):</label>
+                            <input type="number" id="line_bundle_1" name="line_bundle_1" placeholder="e.g. -1" required>
+                            <br/>
+                            <label for="line_bundle_2">Second line bundle degree $b$ (integer):</label>
+                            <input type="number" id="line_bundle_2" name="line_bundle_2" placeholder="e.g. 1" required>
+                            <br/>
+                            <button type="submit">Get Prediction</button>
+                        </form>
+                    </div> 
+                </div>
+    
+                <!-- <div class="container-background">
+                    <div class="container" id="second-container">
+                        <h2 style="color: #4d4d4d;">Single Spherical Twist Computation</h2>
+                        <p>Compute the mass of $\operatorname{Tw}_{i_\ast \mathcal{O}(a)} \operatorname{Tw}_{i_\ast \mathcal{O}(b)} i_\ast \mathcal{O}(c)$, where</p>
+                        <br/>
+                        <form id="double-twist-form" action="/plot_double_sph_twist_P1" method="POST">
+                            <label for="line_bundle_1">First line bundle degree $a$:</label>
+                            <input type="number" id="line_bundle_1" name="line_bundle_1" placeholder="e.g. -1" required>
+                            <br/>
+                            <label for="line_bundle_2">Second line bundle degree $b$:</label>
+                            <input type="number" id="line_bundle_2" name="line_bundle_2" placeholder="e.g. 1" required>
+                            <br/>
+                            <label for="line_bundle_3">Third line bundle degree $c$:</label>
+                            <input type="number" id="line_bundle_3" name="line_bundle_3" placeholder="e.g. 2" required>
+                            <br/>
+                            <button type="submit">Get Prediction</button>
+                        </form>
+                    </div> 
+                </div> -->
+            </div>
         </div>
 
 </body>

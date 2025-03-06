@@ -13,6 +13,10 @@ from plotly.graph_objs import *
 
 
 
+__CURRENT_DOUBLE_TWIST_IMPLEMENTED__ = ['K3']
+
+
+
 
 
 ###############################################################################
@@ -34,7 +38,16 @@ from plotly.graph_objs import *
 #  Narasimhan filtrations. At the moment, this is only computed up to two     #
 #  successive spherical twists.                                               #
 #                                                                             #   
-###############################################################################      
+###############################################################################   
+
+
+
+class HarderNarasimhanError(Exception):
+    """ Exception raised when the correct Harder-Narasimhan filtration cannot be found """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args)
+        self.message = kwargs.get('message')
+        self.stability_parameters = kwargs.get('stability_parameters')
 
 
 
@@ -337,8 +350,11 @@ class SphericalTwist(DerivedCategoryObject):
         else:
             raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
 
-
-        return len(self.get_HN_factors(*args)) == 1
+        try:
+            return len(self.get_HN_factors(*args)) == 1
+        except HarderNarasimhanError as e:
+            print(f"Could not determine if {self} is semistable at {e.stability_parameters}: {e.message}")
+            return False
     
 
 
@@ -402,13 +418,20 @@ class SphericalTwist(DerivedCategoryObject):
             raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
         
 
-        HN_filtration = self.get_HN_factors(*args)
+        try :
+            HN_filtration = self.get_HN_factors(*args)
 
-        mass = 0
-        for (derived_cat_obj, _) in HN_filtration:
-            mass += abs(derived_cat_obj.central_charge(*args))
+            mass = 0
+            for (derived_cat_obj, _) in HN_filtration:
+                mass += abs(derived_cat_obj.central_charge(*args))
 
-        return mass
+            return mass
+        except HarderNarasimhanError as e:
+            print(f"Could not determine mass of {self} at {e.stability_parameters}: {e.message}")
+            return -1
+
+        
+       
 
 
 
@@ -461,6 +484,18 @@ class SphericalTwist(DerivedCategoryObject):
             representing the phase of the object. The list is always returned in such a way that the largest phase
             HN factor is first and smallest is last.
 
+        Raises:
+        -------
+        TypeError
+            If the args are not of the correct type
+        ValueError
+            If the number of args is incorrect
+        NotImplementedError
+            If the catagory of the object is not P1, P2, or K3
+        HarderNarasimhanError
+            If the spherical twist is stable but the phase cannot be found
+            If the phase of the cone object cannot be found
+
         """
         if self.catagory == 'P1':
             if len(args) != 1:
@@ -505,7 +540,8 @@ class SphericalTwist(DerivedCategoryObject):
                     return [(self, potential_phase + n)]
             
             
-            raise ValueError("Could not find phase of spherical twist object; this should not happen")
+            raise HarderNarasimhanError(message=f"{self} should theoretically be stable, but could not find phase",
+                                        stability_parameters=args)
 
             
 
@@ -571,27 +607,22 @@ class SphericalTwist(DerivedCategoryObject):
                 
                 # Need to compute phase of cone to make a StableObject
                 phase_cone = cmath.phase(central_charge_cone) / math.pi
-                for n in [-4,-2,0,2,4]:
+                # TODO: This is a temporary fix to the problem of finding the phase of the spherical twist object
+                #       when the object is stable. We really shouldnt be considering odd dimensional shifts, but
+                #       we run into an error when the phase of the twist is larger than both the subobject an quotient;
+                #       this is a temporary fix to this occurse when the subobject and quotient differ by phase > 1 so 
+                #       that they no longer lie in the same heart. In particular, this causes a discontinuity for the
+                #       algebraic regions of the stability manifold.
+                for n in range(-3,3):
                     if phase_subobject <= phase_cone + n and phase_cone + n <= phase_larger_complex:
                         return [(cone_triangle.object2, phase_cone + n),
                                 (smaller_phase_complex, smaller_phase_complex.get_smallest_phase(*args))]
                     
-                # print(modified_defining_triangle)
-                # print("\n\n---------------------\n\n")
-                # print(cone_triangle)
-            
-                # print("\n\n")
-                # print(f"Central Charge of {modified_defining_triangle.object1} = {modified_defining_triangle.object1.central_charge(*args)}")
-                # print(f"Phase of {modified_defining_triangle.object1} = {modified_defining_triangle.object1.get_smallest_phase(*args)}")
-                # print("\n\n")
-                # print(f"Central Charge of {cone_object} = {central_charge_cone}")
-                # print(f"Predicted phase of {cone_object} = {phase_cone}")
-                # print("\n\n")
-                # print(f"Central Charge of {smaller_phase_complex} = {smaller_phase_complex.central_charge(*args)}")
-                # print(f"Phase of {smaller_phase_complex} = {smaller_phase_complex.get_smallest_phase(*args)}")
 
-                # print(f"\n\nPhase 'quotient_complex.smallest': {quotient_complex.get_smallest_phase(*args)}\n\n")
-                # raise ValueError("Could not find phase of cone object; this should not happen")
+
+                raise HarderNarasimhanError(message=f"Could not find phase of cone {cone_object} in \n{cone_triangle}",
+                                            stability_parameters=args)
+                
                 
                 
                 
@@ -680,6 +711,12 @@ class SphericalTwistSum(DerivedCategoryObject):
             raise TypeError("line_bundle_pairs_vector must be a list of tuples where both objects are line bundles")
         if not all(x[0].catagory == x[1].catagory for x in line_bundle_pairs_vector):
             raise ValueError("Line bundles must be defined on the same variety; not all catagories currently match.")
+        
+        self.catagory = line_bundle_pairs_vector[0][0].catagory
+
+        if not all(x[0].catagory == self.catagory for x in line_bundle_pairs_vector):
+            raise ValueError("All line bundles pairs must be defined on the same catagory")
+
         if not all(isinstance(x, int) for x in dimension_vector):
             raise TypeError("dimension_vector must be a list of integers")
         if not all( x >= 0 for x in dimension_vector):
@@ -698,7 +735,7 @@ class SphericalTwistSum(DerivedCategoryObject):
         self.dimension_vector = dimension_vector
         self.shift_vector = shift_vector
         self.degree = degree
-        self.catagory = line_bundle_pairs_vector[0][0].catagory
+
 
         self._remove_zeros_from_dimension_vector()
         self._combine_repeats()
@@ -954,7 +991,17 @@ class SphericalTwistSum(DerivedCategoryObject):
             If the catagory of the object is not P1, P2, or K3
         """
 
-        if self.catagory == 'K3':
+        if self.catagory == 'P1':
+            if len(args) != 1:
+                raise ValueError("Central charge of P1 requires single complex number parameter")
+            if not isinstance(args[0], complex):
+                raise TypeError("P1 objects should have a single complex parameter")
+        elif self.catagory == 'P2':
+            if len(args) != 2:
+                raise ValueError("Central charge of P2 requires two real number parameters")
+            if not all(isinstance(x, (float, int)) for x in args):
+                raise TypeError("P2 objects should have two real number parameters")
+        elif self.catagory == 'K3':
 
             if len(args) != 3:
                 raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
@@ -962,6 +1009,8 @@ class SphericalTwistSum(DerivedCategoryObject):
                 raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
             if not isinstance(args[2], int):
                 raise TypeError("The degree of the K3 surface must be an integer")
+        else:
+            raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
             
             
         return len(self.get_HN_factors_ordered(*args)) == 1 
@@ -998,7 +1047,17 @@ class SphericalTwistSum(DerivedCategoryObject):
             If the catagory of the object is not P1, P2, or K3
         """
 
-        if self.catagory == 'K3':
+        if self.catagory == 'P1':
+            if len(args) != 1:
+                raise ValueError("Central charge of P1 requires single complex number parameter")
+            if not isinstance(args[0], complex):
+                raise TypeError("P1 objects should have a single complex parameter")
+        elif self.catagory == 'P2':
+            if len(args) != 2:
+                raise ValueError("Central charge of P2 requires two real number parameters")
+            if not all(isinstance(x, (float, int)) for x in args):
+                raise TypeError("P2 objects should have two real number parameters")
+        elif self.catagory == 'K3':
 
             if len(args) != 3:
                 raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
@@ -1006,6 +1065,8 @@ class SphericalTwistSum(DerivedCategoryObject):
                 raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
             if not isinstance(args[2], int):
                 raise TypeError("The degree of the K3 surface must be an integer")
+        else:
+            raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
         
 
         HN_factors = []
@@ -1162,8 +1223,10 @@ class DoubleSphericalTwist(DerivedCategoryObject):
 
         self.defining_triangle = self._sph_twist_DoubleLineBundles(line_bundle_1, line_bundle_2, line_bundle_3)
 
-        if self.catagory != 'K3':
-            raise ValueError("Double spherical twists are currently only implemented for K3 surfaces")
+
+        # UPDATE AS MORE CATAGORIES ARE IMPLEMENTED
+        if self.catagory not in __CURRENT_DOUBLE_TWIST_IMPLEMENTED__:
+            raise ValueError(f"Double spherical twists are currently only implemented for {__CURRENT_DOUBLE_TWIST_IMPLEMENTED__ }")
         
 
     def _sph_twist_DoubleLineBundles(self, line_bundle_1, line_bundle_2, line_bundle_3):
@@ -1217,6 +1280,9 @@ class DoubleSphericalTwist(DerivedCategoryObject):
             shift_vector.append(1 - i)
             bundle_vector.append(LineBundle(line_bundle_1.degree, self.catagory))
 
+        if not bundle_vector:
+            print(f"line_bundle_1 = {line_bundle_1}\nline_bundle_2={line_bundle_2}\nline_bundle_3={line_bundle_3}\n_dimHom_Line_and_SingleTwist={homDims}")
+
         object1 = ChainComplex(sheaf_vector=bundle_vector, shift_vector=shift_vector, dimension_vector=dimension_vector)
 
         object2 = SphericalTwistSum([(line_bundle_2, line_bundle_3)], dimension_vector=[1], shift_vector=[0], degree=self.degree)
@@ -1245,7 +1311,9 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         Parameters:
         ----------
         args : tuple
-            The parameters for the stability condition. The number of parameters depends on the catagory of the object
+            The parameters for the stability condition. The number of parameters depends on the catagory of the object.
+            For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers 
+            and an integer representing the degree of the K3 surface.
 
         Returns:
         -------
@@ -1255,10 +1323,37 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         Raises:
         -------
         TypeError
-            If w is not a complex number
+            If the type of arguments is not correct for the catagory
+        ValueError
+            If the number of arguments is not correct for the catagory
+        NotImplementedError
+            If the catagory is not in __CURRENT_DOUBLE_TWIST_IMPLEMENTED__
         """
 
-        if self.catagory == 'K3':
+        if self.catagory == 'P1':
+            if len(args) != 1:
+                raise ValueError("Central charge of P1 requires single complex number parameter")
+            if not isinstance(args[0], complex):
+                raise TypeError("P1 objects should have a single complex parameter")
+            
+            ch = self.chernCharacter()
+            
+            return -1*ch[1] + args[0]*ch[0]
+
+        # elif self.catagory == 'P2':
+        #     if len(args) != 2:
+        #         raise ValueError("Central charge of P2 requires two real number parameters")
+        #     if not all(isinstance(x, (float, int)) for x in args):
+        #         raise TypeError("P2 objects should have two real number parameters")
+            
+        #     ch = self.chernCharacter()
+            
+        #     return complex(-1*ch[2] +
+        #                     args[1] * ch[0],
+        #                       ch[1] - args[0] * ch[0])
+            
+
+        elif self.catagory == 'K3':
 
             if len(args) != 3:
                 raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
@@ -1276,7 +1371,7 @@ class DoubleSphericalTwist(DerivedCategoryObject):
             return complex(2*d*alpha * ch[1] - ch[2] - ch[0] + (beta**2 - alpha**2)*d*ch[0], 
                            2*d*ch[1] - 2*d*alpha*beta*ch[0])
         else:
-            raise NotImplementedError("Only P1, P2 and K3 catagories are implemented")
+            raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
 
         
     
@@ -1329,7 +1424,7 @@ class DoubleSphericalTwist(DerivedCategoryObject):
             
 
         
-    def is_semistable(self, *args):
+    def is_semistable(self, *args, logging=False, log_file=None):
         """
         Method to check if the double spherical twist is semistable. The double spherical twist is semistable
         if the Harder-Narasimhan factorization is trivial.
@@ -1356,25 +1451,42 @@ class DoubleSphericalTwist(DerivedCategoryObject):
             If the catagory of the object is not P1, P2, or K3
         """
 
-        if self.catagory == 'K3':
-
+        if self.catagory == 'P1':
+            if len(args) != 1:
+                raise ValueError("Central charge of P1 requires single complex number parameter")
+            if not isinstance(args[0], complex):
+                raise TypeError("P1 objects should have a single complex parameter")
+        # elif self.catagory == 'P2':
+        #     if len(args) != 2:
+        #         raise ValueError("Central charge of P2 requires two real number parameters")
+        #     if not all(isinstance(x, (float, int)) for x in args):
+        #         raise TypeError("P2 objects should have two real number parameters")
+        elif self.catagory == 'K3':
             if len(args) != 3:
                 raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
             if not all(isinstance(x, (float, int)) for x in args):
                 raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
             if not isinstance(args[2], int):
                 raise TypeError("The degree of the K3 surface must be an integer")
-            
         else:
-            raise NotImplementedError("Only K3 catagories are implemented")
+            raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
         
-        HN_factors = self.get_HN_factors(*args)
-        if HN_factors == None:
-            raise NotImplementedError("The HN factors of the double spherical twist are not implemented")
 
-        return len(HN_factors) == 1
+        try:
+            return len(self.get_HN_factors(*args)) == 1
+        except HarderNarasimhanError as e:
+            
+            if logging and log_file:
+                with open(log_file, 'a') as log_file:
+                    msg_str = e.message + f"@ {e.stability_parameters}"
+                    log_file.write(msg_str)
+            elif logging:
+                msg_str = e.message + f"@ {e.stability_parameters}"
+                print(msg_str)
+            
+            return False
     
-    def mass(self, *args):
+    def mass(self, *args, logging=False, log_file=None):
         """
         The mass of the double spherical twist is the sum of the masses of the Harder-Narasimhan factors; the 
         Harder-Narasimhan factors are assumed to come from either the defining triangle or secondary canonical triangle.
@@ -1403,30 +1515,50 @@ class DoubleSphericalTwist(DerivedCategoryObject):
             If the catagory of the object is not P1, P2, or K3
         """
 
-        if self.catagory == 'K3':
-
+        if self.catagory == 'P1':
+            if len(args) != 1:
+                raise ValueError("Central charge of P1 requires single complex number parameter")
+            if not isinstance(args[0], complex):
+                raise TypeError("P1 objects should have a single complex parameter")
+        # elif self.catagory == 'P2':
+        #     if len(args) != 2:
+        #         raise ValueError("Central charge of P2 requires two real number parameters")
+        #     if not all(isinstance(x, (float, int)) for x in args):
+        #         raise TypeError("P2 objects should have two real number parameters")
+        elif self.catagory == 'K3':
             if len(args) != 3:
                 raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
             if not all(isinstance(x, (float, int)) for x in args):
                 raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
             if not isinstance(args[2], int):
                 raise TypeError("The degree of the K3 surface must be an integer")
-            
         else:
-            raise NotImplementedError("Only K3 catagories are implemented")
+            raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
         
         
-        
-        HN_factors = self.get_HN_factors(*args)
 
-        if HN_factors == None:
+        try:
+            HN_factors = self.get_HN_factors(*args)
+
+            mass = 0
+            for (derived_cat_obj, _) in HN_factors:
+                mass += abs(derived_cat_obj.central_charge(*args))
+
+            return mass
+        except HarderNarasimhanError as e:
+            if logging and log_file:
+                with open(log_file, 'a') as log_file:
+                    msg_str = e.message + f"@ {e.stability_parameters}"
+                    log_file.write(msg_str)
+            elif logging:
+                msg_str = e.message + f"@ {e.stability_parameters}"
+                print(msg_str)
             return -1
 
-        mass = 0
-        for (derived_cat_obj, _) in HN_factors:
-            mass += abs(derived_cat_obj.central_charge(*args))
 
-        return mass
+        
+
+       
         
 
     
@@ -1467,8 +1599,17 @@ class DoubleSphericalTwist(DerivedCategoryObject):
             If the catagory of the object is not P1, P2, or K3
         """
         
-        if self.catagory == 'K3':
-
+        if self.catagory == 'P1':
+            if len(args) != 1:
+                raise ValueError("Central charge of P1 requires single complex number parameter")
+            if not isinstance(args[0], complex):
+                raise TypeError("P1 objects should have a single complex parameter")
+        # elif self.catagory == 'P2':
+        #     if len(args) != 2:
+        #         raise ValueError("Central charge of P2 requires two real number parameters")
+        #     if not all(isinstance(x, (float, int)) for x in args):
+        #         raise TypeError("P2 objects should have two real number parameters")
+        elif self.catagory == 'K3':
             if len(args) != 3:
                 raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
             if not all(isinstance(x, (float, int)) for x in args):
@@ -1476,7 +1617,8 @@ class DoubleSphericalTwist(DerivedCategoryObject):
             if not isinstance(args[2], int):
                 raise TypeError("The degree of the K3 surface must be an integer")
         else:
-            raise NotImplementedError("Only K3 catagories are implemented")
+            raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
+        
 
         
         ###########
@@ -1501,8 +1643,10 @@ class DoubleSphericalTwist(DerivedCategoryObject):
                 for n in range(-4,4):
                     if left_side_phase <= potential_phase + n and potential_phase + n <= right_side_min_phase:
                         return [(self, potential_phase + n)]
-                    if n == 6:
-                        raise ValueError("The phase of the subobject is not in the range of the quotient; this should not happen")
+                    
+                raise HarderNarasimhanError(message=f"{subobject} is semistable and its phase is smaller than {quotient_complex}, but cannot correctly find the phase", 
+                                            stability_parameters=args)
+                    
 
                 
             elif left_side_phase > right_side_max_phase:
@@ -1533,8 +1677,14 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         else:
             # Subobject (i.e. Tw_b O(c)) is not semistable, so we must
             # first look at its HN filtration to see if anything can be salvaged
-            
-            HN_factors_subobject = subobject.get_HN_factors(*args)
+            HN_factors_subobject = None
+            try:
+                HN_factors_subobject = subobject.get_HN_factors(*args)
+            except HarderNarasimhanError as e:
+                ## Add context to the raised error message
+                raise HarderNarasimhanError(message=f"Subobject {subobject} in defining triangle of {self} is not semistable, cannot find its HN factors:\n{e.message}", 
+                                            stability_parameters=args)
+
             right_side_min_phase = quotient_complex.get_smallest_phase(*args)
             right_side_max_phase = quotient_complex.get_largest_phase(*args)
 
@@ -1575,10 +1725,22 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         
 
         first_twist = SphericalTwist(secondary_canonical_triangle.object1.line_bundle_pairs_vector[0][0],
-                                     secondary_canonical_triangle.object1.line_bundle_pairs_vector[0][1], self.degree)
+                                     secondary_canonical_triangle.object1.line_bundle_pairs_vector[0][1],
+                                    self.degree)
         
-        HN_factors_first_term = first_twist.get_HN_factors(*args)
-        HN_factors_last_term = secondary_canonical_triangle.object3.get_HN_factors_ordered(*args)
+        HN_factors_first_term = None
+        try:
+            HN_factors_first_term = first_twist.get_HN_factors(*args)
+        except HarderNarasimhanError as e:
+            raise HarderNarasimhanError(message=f"Subobject {first_twist} in secondary canonical triangle of {self} is not semistable, cannot find its HN factors:\n{e.message}", 
+                                        stability_parameters=args)
+        HN_factors_last_term = None
+        try:
+            HN_factors_last_term = secondary_canonical_triangle.object3.get_HN_factors_ordered(*args)
+        except HarderNarasimhanError as e:
+            raise HarderNarasimhanError(message=f"Quotient {secondary_canonical_triangle.object3} in secondary canonical triangle of {self} is not semistable, cannot find its HN factors:\n{e.message}", 
+                                        stability_parameters=args)
+        
 
         smallest_HN_phase_first = HN_factors_first_term[-1][1]
         largest_HN_phase_first = HN_factors_first_term[0][1]
@@ -1594,7 +1756,9 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         elif smallest_HN_phase_first > largest_HN_phase_last:
             return HN_factors_first_term + HN_factors_last_term
         
-        return None
+
+        raise HarderNarasimhanError(message=f"The Harder-Narasimhan factors of both quotients and both subobjects do not match any of 4 known scenarios; their HN factors necessarily intertwine.",
+                                     stability_parameters=args)
         
 
 
@@ -1892,6 +2056,8 @@ def _dimHom_Line_and_SingleTwistK3(line_bundle_1, line_bundle_2, line_bundle_3, 
         The first line bundle to twist around: i.e. O(b) where we are computing Tw_a Tw_b O(c)
     line_bundle_3 : LineBundle
         The line bundle which the spherical twists are being applied to: i.e. O(c) where we are computing Tw_a Tw_b O(c)
+    degree_K3 : int
+        The degree of the K3 surface.
 
     """
 
@@ -1907,9 +2073,9 @@ def _dimHom_Line_and_SingleTwistK3(line_bundle_1, line_bundle_2, line_bundle_3, 
     if not isinstance(line_bundle_3, LineBundle):
         raise TypeError("line_bundle_3 must be an instance of LineBundleP2.")
 
-    dif_12 = degree_K3 * (line_bundle_2.degree - line_bundle_1.degree)**2 + 1
-    dif_23 = degree_K3 * (line_bundle_3.degree - line_bundle_2.degree)**2 + 1
-    dif_13 = degree_K3 * (line_bundle_3.degree - line_bundle_1.degree)**2 + 1
+    dif_12 = degree_K3 * (line_bundle_2.degree - line_bundle_1.degree)**2 + 2
+    dif_23 = degree_K3 * (line_bundle_3.degree - line_bundle_2.degree)**2 + 2
+    dif_13 = degree_K3 * (line_bundle_3.degree - line_bundle_1.degree)**2 + 2
 
     if line_bundle_2.degree < line_bundle_3.degree:
 
@@ -2022,8 +2188,7 @@ if __name__ == "__main__":
 
     lb6 = LineBundle(1, catagory='K3')
     lb7 = LineBundle(2, catagory='K3')
-    lb8 = LineBundle(3, catagory='K3')
-    lb9 = LineBundle(5, catagory='K3')
+    lb8 = LineBundle(4, catagory='K3')
 
     # sph_sum = SphericalTwistSum([(lb6, lb7), (lb8, lb9), (lb6, lb9), (lb6, lb7)], [1, 5, 0, 10], [-1, 2, -5, -1], degree=1)
     # print(sph_sum)
@@ -2041,7 +2206,6 @@ if __name__ == "__main__":
     # print("Is semistable: ", sph3.is_semistable(1, 2, 1))
 
     K3_deg = 1
-
     
 
     sph4 = DoubleSphericalTwist(lb6, lb7, lb8, degree=K3_deg)
@@ -2060,7 +2224,7 @@ if __name__ == "__main__":
     y_vals = np.array(y_vals).flatten()  # Flatten the y array
 
     # Repeat x values to match the shape of y
-    x_vals = np.repeat(x_vals, 160)  # Each x value repeats 10 times
+    x_vals = np.repeat(x_vals, 100)  # Each x value repeats 10 times
 
     masses = np.array([sph4.mass(x, y, K3_deg) for x, y in zip(x_vals, y_vals)])
 

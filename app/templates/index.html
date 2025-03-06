@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask + PyTorch Prediction</title>
+    <title>Derived Category Mass</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -32,7 +32,7 @@
     <!-- Welcome Message (Initially Hidden) -->
     <div id="Center_Container">
         <div id="welcome-message" style="opacity: 0; font-size: 24px; font-weight: bold; margin-top: 20px;">
-            Welcome to Local Projective Space Mass Predictor
+            Welcome to Derived Catagory Mass Predictor
         </div>
 
         <div id="button-container">
@@ -41,6 +41,9 @@
             </form>
             <form action="/local-P2" method="POST">
                 <button type="submit" class="transparent-button" id="LocalP2Button">Local $\mathbb{P}^2$</button>
+            </form>
+            <form action="/K3-surface" method="POST">
+                <button type="submit" class="transparent-button" id="K3Button">K3 Surface</button>
             </form>
         </div>
     </div>
@@ -60,10 +63,12 @@
        setTimeout(function() {
             let LocalP1Button = document.getElementById("LocalP1Button");
             let LocalP2Button = document.getElementById("LocalP2Button");
+            let K3Button = document.getElementById("K3Button");
 
 
             LocalP1Button.style.opacity = "1";  // Smooth fade-in
             LocalP2Button.style.opacity = "1";  // Smooth fade-in
+            K3Button.style.opacity = "1";  // Smooth fade-in
 
         }, 2000);
     </script>
