@@ -3,23 +3,13 @@ import numbers
 from collections.abc import Sequence
 
 
-###############################################################################
-#                                                                             #
-#                           Numerical Characters                              #
-# ----------------------------------------------------------------------------#
-#  These objects are used to represent Chern classes of coherent sheaves /    #
-#  vector bundles / line bundles, as well as more abstract constructions      #
-#  in the derived category of coherent sheaves on some variety. As most       #
-#  stability conditions will be numerical stability conditions, they will     #
-#  only rely on the information of Chern characters as opposed to more        #
-#  arbitrary geometric data.                                                  #
-#                                                                             #
-###############################################################################
+
+
 
 
 class ChernCharacter():
     """!
-    Generic parent class for the chern character. Chern characters should operate like
+    Generic parent class for the Chern character. Chern characters should operate like
     lists of floating point numbers, since they are graded objects concentrated in degrees 
     going from 0 to the dimension of the variety. 
 

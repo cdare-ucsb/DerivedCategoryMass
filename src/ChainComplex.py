@@ -25,14 +25,6 @@ class ChainComplex(DerivedCategoryObject):
     For the purposes of this project, only finite complexes will be considered. Such a complex can be
     stored in a similar way to a DenseVector object --- namely, since the majority of entries in the
     complex will be zero, we can store the complex as a list of coherent sheaves and a shift vector.
-
-    Attributes:
-    ----------------
-        sheaf_vector (list) : A list of coherent sheaves in the complex
-
-        shift_vector (list) : A list of homological shifts in the complex
-
-        dimension_vector (list) : A list of the number of direct sums of each coherent sheaf in the complex
     
     """
 
