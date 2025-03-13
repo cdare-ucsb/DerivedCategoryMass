@@ -11,8 +11,8 @@ import plotly.utils
 import json
 from numbers import Number
 
-from .SphericalTwist import SphericalTwist
-from .CoherentSheaf import LineBundle
+from SphericalTwist import SphericalTwist
+from CoherentSheaf import LineBundle
 
 
 

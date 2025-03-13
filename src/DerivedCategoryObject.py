@@ -1,10 +1,13 @@
-from .ChernCharacter import ChernCharacter
+from ChernCharacter import ChernCharacter
 import re
 
 
+from dotenv import load_dotenv
+import os
 
-IMPLEMENTED_CATAGORIES = ['P1', 'P2', 'K3']
-
+# Load .env file
+load_dotenv()
+IMPLEMENTED_CATAGORIES = os.getenv("IMPLEMENTED_CATAGORIES").split(",") # ['P1', 'P2', 'K3']
 
 
 class DerivedCategoryObject():

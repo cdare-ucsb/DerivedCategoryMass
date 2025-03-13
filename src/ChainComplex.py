@@ -1,14 +1,14 @@
-from .DerivedCategoryObject import DerivedCategoryObject
-from .CoherentSheaf import CoherentSheaf
-from .ChernCharacter import ChernCharacter
+from DerivedCategoryObject import DerivedCategoryObject
+from CoherentSheaf import CoherentSheaf
+from ChernCharacter import ChernCharacter
 import math
 
+from dotenv import load_dotenv
+import os
 
-
-
-
-
-IMPLEMENTED_CATAGORIES = ['P1', 'P2', 'K3']
+# Load .env file
+load_dotenv()
+IMPLEMENTED_CATAGORIES = os.getenv("IMPLEMENTED_CATAGORIES").split(",") # ['P1', 'P2', 'K3']
 
 
 class ChainComplex(DerivedCategoryObject):

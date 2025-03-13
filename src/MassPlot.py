@@ -5,16 +5,20 @@ import json
 import plotly
 
 
-from .SphericalTwist import SphericalTwist, DoubleSphericalTwist
-from .CoherentSheaf import LineBundle
-from .LocalP2 import LePotier
+from SphericalTwist import SphericalTwist, DoubleSphericalTwist
+from CoherentSheaf import LineBundle
+from LocalP2 import LePotier
 
 
 
+from dotenv import load_dotenv
+import os
 
+# Load .env file
+load_dotenv()
+IMPLEMENTED_CATAGORIES = os.getenv("IMPLEMENTED_CATAGORIES").split(",") # ['P1', 'P2', 'K3']
+__CURRENT_DOUBLE_TWIST_IMPLEMENTED__ = os.getenv("CURRENT_DOUBLE_TWIST_IMPLEMENTED").split(",") # ['K3']
 
-__CURRENT_DOUBLE_TWIST_IMPLEMENTED__ = ['K3']
-IMPLEMENTED_CATAGORIES = ['P1', 'P2', 'K3']
 
 
 
@@ -107,7 +111,7 @@ class MassPlot():
 
         self._yvals = [] ## The list of y values for the plot
 
-        if self.catagory is not 'P2':
+        if self.catagory != 'P2':
             for _ in self._xvals:
                 self._yvals.append(  np.arange(y_min, y_max, y_granularity)  )
 
@@ -164,11 +168,11 @@ class MassPlot():
         else:
             raise ValueError("Invalid number of twists")
         
-        if self.catagory is 'P2':
+        if self.catagory == 'P2':
             return np.array([sph.mass(x, y) for x, y in zip(self._xvals, self._yvals)])
-        elif self.catagory is 'P1':
+        elif self.catagory == 'P1':
             return np.array([sph.mass(complex(x, y)) for x, y in zip(self._xvals, self._yvals)])
-        elif self.catagory is 'K3':
+        elif self.catagory == 'K3':
             return np.array([sph.mass(x, y, self.degree) for x, y in zip(self._xvals, self._yvals)])
         else:
             raise ValueError("Invalid catagory")
@@ -237,3 +241,115 @@ class MassPlot():
 
         fig = self.to_plotly_figure(color_scale=color_scale, marker_size=marker_size)
         return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    
+
+
+    
+    def get_discretized_Laplacian_values(self):
+
+
+        sph = None
+        
+        if self._num_twists == 1:
+            sph = SphericalTwist(LineBundle(self.line_bundle_1, catagory=self.catagory),
+                          LineBundle(self.line_bundle_2, catagory=self.catagory),
+                          degree=self.degree)
+
+        elif self._num_twists == 2:
+            sph = DoubleSphericalTwist(LineBundle(self.line_bundle_1, catagory=self.catagory),
+                        LineBundle(self.line_bundle_2, catagory=self.catagory),
+                        LineBundle(self.line_bundle_3, catagory=self.catagory),
+                        degree=self.degree)
+        else:
+            raise ValueError("Invalid number of twists")
+        
+
+        def _disc_Lapl(x, y):
+            if self.catagory == 'P2':
+                return sph.mass(x + self.x_granularity, y) + sph.mass(x - self.x_granularity, y) + sph.mass(x, y + self.y_granularity) + sph.mass(x, y - self.y_granularity) - 4*sph.mass(x, y)
+            elif self.catagory == 'P1':
+                return sph.mass(complex(x + self.x_granularity, y)) + sph.mass(complex(x - self.x_granularity, y)) + sph.mass(complex(x, y + self.y_granularity)) + sph.mass(complex(x, y - self.y_granularity)) - 4*sph.mass(complex(x, y))
+            elif self.catagory == 'K3':
+                return sph.mass(x + self.x_granularity, y, self.degree) + sph.mass(x - self.x_granularity, y, self.degree) + sph.mass(x, y + self.y_granularity, self.degree) + sph.mass(x, y - self.y_granularity, self.degree) - 4*sph.mass(x, y, self.degree)
+            else:
+                raise ValueError("Invalid catagory")
+            
+
+        return np.array([_disc_Lapl(x, y) for x, y in zip(self._xvals, self._yvals)])
+    
+
+    def discretized_Laplacian_to_plotly_figure(self, color_scale='Plasma', marker_size=3):
+
+        disc_vals = self.get_discretized_Laplacian_values()
+        disc_vals_mean = np.mean(disc_vals)
+
+        colors = np.abs(disc_vals - disc_vals_mean)  # Highlight stronger discontinuities
+        fig = go.Figure(data=[go.Scatter3d(z=disc_vals, x=self._xvals, y=self._yvals,
+                                        mode='markers', marker=dict(size=marker_size, color=colors, colorscale=color_scale))])
+
+        fig.update_layout(
+            title="",
+            autosize=True,
+            margin=dict(l=0, r=0, b=0, t=30),
+            scene=dict(
+                
+                bgcolor="white",  # Changes the 3D plot background ,
+
+                xaxis = dict(
+                    backgroundcolor="white",
+                    gridcolor="white",
+                    showbackground =True,
+                    zerolinecolor="white",),
+                yaxis = dict(
+                    backgroundcolor="white",
+                    gridcolor="white",
+                    showbackground =True,
+                    zerolinecolor="white"),
+                zaxis = dict(
+                    backgroundcolor="white",
+                    gridcolor="white",
+                    showbackground =True,
+                    zerolinecolor="white"
+                )
+            )
+        )
+
+        return fig
+
+
+
+
+    
+    def find_discontinuities(self, std_dev_threshold=1):
+
+        disc_vals = self.get_discretized_Laplacian_values()
+        disc_vals_mean = np.mean(disc_vals)
+        disc_vals_std = np.std(disc_vals)
+
+
+        ##############################
+        #    Find Discontinuities    #
+        ##############################
+
+        discontinuities = []
+        for x, y, disc_val in zip(self._xvals, self._yvals, disc_vals):
+            # Our threshold will be 1 standard deviation above the mean
+            if abs(disc_val - disc_vals_mean) > std_dev_threshold*disc_vals_std:
+                discontinuities.append((x, y))
+
+        return discontinuities
+
+
+if __name__ == "__main__":
+    
+    mp = MassPlot(line_bundle_1=1, line_bundle_2=5,
+                x_min=-10, x_max=10,
+                y_min=0, y_max = 20,
+                catagory='K3', degree=1)
+
+    fig1 = mp.to_plotly_figure()
+    fig1.show()
+
+    fig2 = mp.discretized_Laplacian_to_plotly_figure()
+    fig2.show()
+

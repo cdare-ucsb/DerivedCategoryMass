@@ -1,5 +1,5 @@
-from .ChernCharacter import ChernCharacter
-from .DerivedCategoryObject import DerivedCategoryObject
+from ChernCharacter import ChernCharacter
+from DerivedCategoryObject import DerivedCategoryObject
 import math
 import cmath
 
@@ -18,7 +18,12 @@ import cmath
 ###############################################################################
 
 
-IMPLEMENTED_CATAGORIES = ['P1', 'P2', 'K3']
+from dotenv import load_dotenv
+import os
+
+# Load .env file
+load_dotenv()
+IMPLEMENTED_CATAGORIES = os.getenv("IMPLEMENTED_CATAGORIES").split(",") # ['P1', 'P2', 'K3']
 
 
 

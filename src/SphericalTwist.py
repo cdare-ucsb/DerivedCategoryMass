@@ -1,8 +1,8 @@
-from .CoherentSheaf import LineBundle
-from .DerivedCategoryObject import DerivedCategoryObject
-from .DistinguishedTriangle import DistinguishedTriangle
-from .ChainComplex import ChainComplex
-from .ChernCharacter import ChernCharacter
+from CoherentSheaf import LineBundle
+from DerivedCategoryObject import DerivedCategoryObject
+from DistinguishedTriangle import DistinguishedTriangle
+from ChainComplex import ChainComplex
+from ChernCharacter import ChernCharacter
 
 import math
 import cmath
@@ -13,8 +13,15 @@ import plotly.graph_objects as go
 from plotly.graph_objs import *
 
 
+from dotenv import load_dotenv
+import os
 
-__CURRENT_DOUBLE_TWIST_IMPLEMENTED__ = ['K3']
+# Load .env file
+load_dotenv()
+IMPLEMENTED_CATAGORIES = os.getenv("IMPLEMENTED_CATAGORIES").split(",") # ['P1', 'P2', 'K3']
+__CURRENT_DOUBLE_TWIST_IMPLEMENTED__ = os.getenv("CURRENT_DOUBLE_TWIST_IMPLEMENTED").split(",") # ['K3']
+
+
 
 
 
