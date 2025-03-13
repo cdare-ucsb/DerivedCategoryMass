@@ -7,6 +7,7 @@ from .ChernCharacter import ChernCharacter
 import math
 import cmath
 import numpy as np
+import json
 
 import plotly.graph_objects as go
 from plotly.graph_objs import *
@@ -43,16 +44,12 @@ __CURRENT_DOUBLE_TWIST_IMPLEMENTED__ = ['K3']
 class HarderNarasimhanError(Exception):
     r"""!
     Exception raised when the correct Harder-Narasimhan filtration cannot be found 
-
-    Attributes:
-    ----------
-        message (str) : The error message
-
-        stability_parameters (tuple) : The stability parameters used to compute the Harder-Narasimhan factors
     """
     def __init__(self, *args, **kwargs):
         super().__init__(*args)
+
         self.message = kwargs.get('message') ## The error message
+
         self.stability_parameters = kwargs.get('stability_parameters') ## The stability parameters used to compute the Harder-Narasimhan factors
 
 
@@ -78,7 +75,6 @@ class SphericalTwist(DerivedCategoryObject):
     since they always yield examples of spherical objects for Local P^n and K3 surfaces. On K3 surfaces, it is not
     true that the spherical twists account for all spherical objects, but they are still provide a rich source of
     examples to help predict mass growth.
-
     """
     
     def __init__(self, line_bundle_1, line_bundle_2, degree=1):
@@ -134,6 +130,35 @@ class SphericalTwist(DerivedCategoryObject):
         """
 
         return str(self.defining_triangle.object3)
+    
+
+    def defining_triangle_to_json(self):
+        r"""!
+        Method to convert the spherical twist to a JSON string. This is used to pass the chain complex
+        data of the spherical twist in the browser. Since a spherical twist is defined by its defining
+        triangle, 
+        
+                RHom(O(a), O(b)) ⊗ O(a) ----> O(b) ----> Tw_O(a) O(b)
+
+        and Tw_O(a) O(b) is merely a symbol, the only data we really need to pass is what the first RHom
+        object looks like (dimension, shifts, etc) and the degrees [a,b].
+
+        \return str A JSON string representation of the chain complex. The first object contains the information
+                    of the first RHom object, and the degrees of the line bundles are stored in the degrees key.
+        """
+
+        object1 = {
+            "shift_vector" : self.defining_triangle.object1.shift_vector,
+            "dimension_vector" : self.defining_triangle.object1.dimension_vector
+        }
+
+        chain_complex_data = {
+            "object1" : object1,
+            "degrees" : [self.line_bundle_1.degree,
+                        self.line_bundle_2.degree]
+        }
+
+        return json.dumps(chain_complex_data)
     
 
     
@@ -375,6 +400,8 @@ class SphericalTwist(DerivedCategoryObject):
         except HarderNarasimhanError as e:
             print(f"Could not determine mass of {self} at {e.stability_parameters}: {e.message}")
             return -1
+        
+    
 
         
        
@@ -1009,11 +1036,11 @@ class DoubleSphericalTwist(DerivedCategoryObject):
     functionality that this class provides is the ability to account for both triangles when computing the Harder-
     Narasimhan filtration of the object. Specifically, one must account for the defining triangle
 
-    Hom(O(a), Tw_b O(c)) ⊗ O(a) ---->  Tw_b O(c) ----> Tw_a Tw_b O(c)
+        RHom(O(a), Tw_b O(c)) ⊗ O(a) ---->  Tw_b O(c) ----> Tw_a Tw_b O(c)
 
     as well as what we refer to as the 'secondary canonical triangle' given by
 
-    Tw_a (Hom(O(b), O(c)) ⊗ O(b)) ----> Tw_a O(c) ----> Tw_a Tw_b O(c)
+        Tw_a (RHom(O(b), O(c)) ⊗ O(b)) ----> Tw_a O(c) ----> Tw_a Tw_b O(c)
 
     The Harder-Narasimhan factors of the double spherical twist are computed by first computing the Harder-Narasimhan
     factors of the defining triangle, and then the secondary canonical triangle. Unlike the single SphericalTwist class,
@@ -1027,13 +1054,13 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         Initialize an instance of DoubleSphericalTwist with the specified line bundles. The spherical twist
         is defined as the cone of the evaluation morphism 
 
-                Hom(O(a), Tw_b O(c)) ⊗ O(a) ---->  Tw_b O(c) ----> Tw_a Tw_b O(c)
+                RHom(O(a), Tw_b O(c)) ⊗ O(a) ---->  Tw_b O(c) ----> Tw_a Tw_b O(c)
 
         where O(a), O(b), and O(c) denote line bundles. 
         The double spherical twist is represented as a distinguished triangle in the derived category of coherent
         sheaves. 
 
-        Several helper methods are used to compute the dimensions of the Hom spaces between the pushforwards
+        Several helper methods are used to compute the dimensions of the RHom spaces between the pushforwards
         of the line bundles, and then to construct the distinguished triangle.
 
         \param LineBundleline_bundle_1 The last line bundle twisted around; i.e. O(a) where we are computing Tw_a Tw_b O(c)
@@ -1080,7 +1107,7 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         Helper method to compute the distinguished triangle of the double spherical twist. The distinguished triangle
         is given by the cone of the evaluation morphism 
 
-            Hom(O(a), Tw_b O(c)) ⊗ O(a) ---->  Tw_b O(c) ----> Tw_a Tw_b O(c)
+            RHom(O(a), Tw_b O(c)) ⊗ O(a) ---->  Tw_b O(c) ----> Tw_a Tw_b O(c)
 
         \param LineBundle line_bundle_1 The last line bundle twisted around; i.e. O(a) where we are computing Tw_a Tw_b O(c)
         \param LineBundle line_bundle_2 The first line bundle twisted around; i.e. O(b) where we are computing Tw_a Tw_b O(c)
@@ -1207,6 +1234,33 @@ class DoubleSphericalTwist(DerivedCategoryObject):
 
         return str(self.defining_triangle.object3)
     
+
+    def defining_triangle_to_json(self):
+        r"""!
+        Helper function to convert the data of the canonical triangle for a double spherical twist to a JSON string.
+        The data includes the dimensions, shifts, and line bundles from the first object of the triangle (i.e. the SphericalTwistSum
+        object), as well as a triple of the line bundle integers.
+
+        \return str A JSON string representation of the spherical twist triangle data
+        """
+
+        object1 = {
+            "shift_vector" : self.defining_triangle.object1.shift_vector,
+            "dimension_vector" : self.defining_triangle.object1.dimension_vector
+        }
+
+        chain_complex_data = {
+            "object1" : object1,
+            "degrees" : [self.line_bundle_1.degree,
+                        self.line_bundle_2.degree,
+                        self.line_bundle_3.degree]
+        }
+
+        return json.dumps(chain_complex_data)  
+
+
+
+    
     def secondary_canonical_triangle(self):
         r"""!
         Method to compute the secondary canonical triangle of the spherical twist. The secondary canonical triangle
@@ -1239,6 +1293,33 @@ class DoubleSphericalTwist(DerivedCategoryObject):
         object1 = SphericalTwistSum(line_bundle_pair_vec, dimension_vec, shift_vec, self.degree)
 
         return DistinguishedTriangle(object1, object2, object3)
+    
+
+
+    def secondary_triangle_to_json(self):
+        r"""!
+        Helper function to convert the data of the secondary canonical triangle to a JSON string. The data includes
+        the first object of the secondary canonical trianle encoded as a triple of lists, as well as an integer triple
+        consisting of the degrees of the three line bundles.
+
+        \return str A JSON string representation of the spherical twist triangle data
+        """
+
+        secondary_canonical_triangle = self.secondary_canonical_triangle()
+
+        object1 = {
+            "shift_vector" : secondary_canonical_triangle.object1.shift_vector,
+            "dimension_vector" : secondary_canonical_triangle.object1.dimension_vector
+        }
+
+        secondary_complex_data = {
+            "object1" : object1,
+            "degrees" : [self.line_bundle_1.degree,
+                        self.line_bundle_2.degree,
+                        self.line_bundle_3.degree]
+        }
+
+        return json.dumps(secondary_complex_data)    
             
             
 

@@ -137,8 +137,9 @@
 
         var shift_vector = chainComplex["object1"]["shift_vector"];
         var dimension_vector = chainComplex["object1"]["dimension_vector"];
-        var lb_1_deg = chainComplex["object1"]["sheaf_vector"][0];
-        var lb_2_deg = chainComplex["object2"]["sheaf_vector"][0];
+        
+        var lb_1_deg = chainComplex["degrees"][0];
+        var lb_2_deg = chainComplex["degrees"][1];
 
         if (shift_vector.length == 1 && shift_vector[0] == -1) {
 

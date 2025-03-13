@@ -9,8 +9,9 @@ import plotly.graph_objects as go
 from plotly.graph_objs import *
 import plotly.utils
 import json
+from numbers import Number
 
-from .SphericalTwist import SphericalTwist, DoubleSphericalTwist
+from .SphericalTwist import SphericalTwist
 from .CoherentSheaf import LineBundle
 
 
@@ -23,8 +24,6 @@ class K3GeometricChamber():
     This class represents the geometric chamber of a general projective K3 surface of picard rank 1. Since the geometric chamber consists of a Cantor-set of walls associated to the spherical vector bundles on it, there is no accurate way to simultaneously represent all walls at once. Thus, this class provides a method to plot such walls in the (α,β) plane up to some accuracy (i.e. granularity).
 
     """
-   
-    
 
     def __init__(self, degree=1, granularity=15):
         r"""!
@@ -351,269 +350,168 @@ def complex_hypersurface_plotly_ex1(degree, filename="hypersurface.html",
 #####################################################
 
 
+    
 
 
+        
 
-def ints_to_mass_plot_K3_sing_twist(line_bundle_1, line_bundle_2, degree=1, return_json=False):
+    
+
+def find_discontinuities_disc_Lapl_in_single_twist_mass_K3(line_bundle_1, line_bundle_2, degree=1,
+                                                plot=False, colorscale='plasma',
+                                                x_min=-5, x_max=5, x_granularity=0.1,
+                                                y_min=0, y_max=5, y_granularity=0.05):
+    
+
     r"""!
-    Helper method to plot the mass of a single spherical twist on a K3 surface, and potentially pass the output as a JSON string. This is primarily used for the Flask application, which feeds it to an HTML template.
+    Method to find the discontinuities in the mass of a single spherical twist on a K3 surface using the discretized
+    Laplacian. The method computes the discretized Laplacian values at each point in the (x,y) plane, and then
+    computes the average and standard deviation of the discretized Laplacian values. The method then highlights
+    the points in the (x,y) plane that have a discretized Laplacian value greater than the average plus the standard
+    deviation.
 
     \param int line_bundle_1 The line bundle of the object being twisted
     \param int line_bundle_2 The line bundle of the object being twisted by
-    \param int degree: The degree of the K3 surface
-    \param bool return_json: A flag indicating whether the plot should be returned as a JSON string
-
-    \return str A JSON string representation of the plot
-
-    \throws ValueError If the input data is not an integer
-    """
-
-    if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
-        raise ValueError("Input data must be integers")
-
-    sph = SphericalTwist(LineBundle(line_bundle_1, catagory='K3'),
-                          LineBundle(line_bundle_2, catagory='K3'),
-                          degree=degree)
-
-
-    
-
-    # Define x values (spread around a region)
-    x_vals = np.linspace(-5, 5, 200)  # X values from -2 to 2
-
-    # Generate y values satisfying y > x^2
-    y_vals = []
-    for x in x_vals:
-        y_range = np.linspace(0.1, 10, 160)  # 50 points per x value
-        y_vals.append(y_range)
-
-    # Convert to numpy array
-    y_vals = np.array(y_vals).flatten()  # Flatten the y array
-
-    # Repeat x values to match the shape of y
-    x_vals = np.repeat(x_vals, 160)  # Each x value repeats 10 times
-
-    masses = np.array([sph.mass(x, y, degree) for x, y in zip(x_vals, y_vals)])
-
-    # Plot the surface
-    fig = go.Figure(data=[go.Scatter3d(z=masses, x=x_vals, y=y_vals,
-                                    mode='markers', marker=dict(size=3, color=masses, colorscale='viridis'))])
-
-    fig.update_layout(
-        title="",
-        autosize=True,
-        margin=dict(l=0, r=0, b=0, t=30),
-        scene=dict(
-            
-            bgcolor="white",  # Changes the 3D plot background,
-
-            xaxis = dict(
-                backgroundcolor="white",
-                gridcolor="white",
-                showbackground=True,
-                zerolinecolor="white",),
-            yaxis = dict(
-                backgroundcolor="white",
-                gridcolor="white",
-                showbackground=True,
-                zerolinecolor="white"),
-            zaxis = dict(
-                backgroundcolor="white",
-                gridcolor="white",
-                showbackground=True,
-                zerolinecolor="white"
-            )
-        )
-    )
-
-    if return_json:
-        return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    else:
-        fig.show()
-
-
-
-def ints_to_mass_plot_K3_double_twist(line_bundle_1, line_bundle_2, line_bundle_3, degree=1, return_json=False):
-    r"""!
-    Helper method to plot the mass of a double spherical twist on a K3 surface, and potentially pass the output as a JSON string. This is primarily used for the Flask application, which feeds it to an HTML template.
-
-    \param int line_bundle_1 The line bundle of the object being twisted
-    \param int line_bundle_2 The line bundle of the object being twisted by
-    \param int line_bundle_3: The line bundle of the object being twisted by    
-
-    \param int degree: The degree of the K3 surface
-
-    \param bool return_json A flag indicating whether the plot should be returned as a JSON string
-
-    \return str A JSON string representation of the plot
-
-    \throws ValueError If the input data is not an integer
-    """
-
-    if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int) or not isinstance(line_bundle_3, int):
-        raise ValueError("Input data must be integers")
-
-    sph = DoubleSphericalTwist(LineBundle(line_bundle_1, catagory='K3'),
-                          LineBundle(line_bundle_2, catagory='K3'),
-                          LineBundle(line_bundle_3, catagory='K3'),
-                          degree=degree)
-
-
-    
-
-    # Define x values (spread around a region)
-    x_vals = np.linspace(-5, 5, 150)  # X values from -5 to 5
-    _NUM_Y_VALS_ = 100
-
-    # Generate y values satisfying y > x^2
-    y_vals = []
-    for x in x_vals:
-        y_range = np.linspace(0.1, 5, _NUM_Y_VALS_)  # 50 points per x value
-        y_vals.append(y_range)
-
-    # Convert to numpy array
-    y_vals = np.array(y_vals).flatten()  # Flatten the y array
-
-    # Repeat x values to match the shape of y
-    x_vals = np.repeat(x_vals, _NUM_Y_VALS_)  # Each x value repeats 10 times
-
-    masses = np.array([sph.mass(x, y, degree) for x, y in zip(x_vals, y_vals)])
-
-    # Plot the surface
-    fig = go.Figure(data=[go.Scatter3d(z=masses, x=x_vals, y=y_vals,
-                                    mode='markers', marker=dict(size=3, color=masses, colorscale='viridis'))])
-
-    fig.update_layout(
-        title="",
-        autosize=True,
-        margin=dict(l=0, r=0, b=0, t=30),
-        scene=dict(
-            
-            bgcolor="white",  # Changes the 3D plot background,
-
-            xaxis = dict(
-                backgroundcolor="white",
-                gridcolor="white",
-                showbackground=True,
-                zerolinecolor="white",),
-            yaxis = dict(
-                backgroundcolor="white",
-                gridcolor="white",
-                showbackground=True,
-                zerolinecolor="white"),
-            zaxis = dict(
-                backgroundcolor="white",
-                gridcolor="white",
-                showbackground=True,
-                zerolinecolor="white"
-            )
-        )
-    )
-
-    if return_json:
-        return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    else:
-        fig.show()
-
-
-
-
-def single_twist_triangle_to_json_K3(line_bundle_1, line_bundle_2, degree=1):
-    r"""!
-    Helper function to convert the data of a spherical twist triangle to a JSON string. The data includes the
-     sheaf vectors, shift vectors, and dimension vectors of the objects in the triangle. This is primarily used
-     for the front-end visualization of the spherical twist triangle in a Flask application.
-
-     \param int line_bundle_1 The line bundle of the first object in the spherical twist triangle
-     \param int line_bundle_2 The line bundle of the second object in the spherical twist triangle
-     \param int degree The degree of the K3 surface
-
-    \throws ValueError: If the input data is not an integer
-
-    """
-    
-    if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
-        raise ValueError("Input data must be integers")
-
-    sph = SphericalTwist(LineBundle(line_bundle_1, catagory='K3'),
-                          LineBundle(line_bundle_2, catagory='K3'),
-                          degree=degree)
-    first_sheaf_vector = []
-
-    if len(sph.defining_triangle.object1.sheaf_vector) == 1:
-        first_sheaf_vector = [line_bundle_1]
-    else:
-        first_sheaf_vector = [line_bundle_1, line_bundle_1]
-
-
-    object1 = {
-        "sheaf_vector" : first_sheaf_vector,
-        "shift_vector" : sph.defining_triangle.object1.shift_vector,
-        "dimension_vector" : sph.defining_triangle.object1.dimension_vector
-    }
-
-    object2 = {
-        "sheaf_vector" : [line_bundle_2],
-        "shift_vector" : sph.defining_triangle.object2.shift_vector,
-        "dimension_vector" : sph.defining_triangle.object2.dimension_vector
-    }
-
-    chain_complex_data = {
-        "object1" : object1,
-        "object2" : object2
-    }
-
-    
-    return json.dumps(chain_complex_data)        
-
-
-def double_twist_triangle_to_json_K3(line_bundle_1, line_bundle_2, line_bundle_3, degree=1):
-    r"""!
-    Helper function to convert the data of a spherical twist triangle to a JSON string. The data includes the
-    sheaf vectors, shift vectors, and dimension vectors of the objects in the triangle. This is primarily used
-    for the front-end visualization of the spherical twist triangle in a Flask application.
-
-    \param int line_bundle_1 The line bundle of the first object in the spherical twist triangle
-    \param int line_bundle_2 The line bundle of the second object in the spherical twist triangle
-    \param int line_bundle_3: The line bundle of the third object in the spherical twist triangle
     \param int degree The degree of the K3 surface
+    \param plot A flag indicating whether the discontinuities should be plotted
+    \param str colorscale The colorscale to be used in the plot
+    \param float x_min The minimum x value for the plot
+    \param float x_max The maximum x value for the plot
+    \param float x_granularity The granularity of the x-axis
+    \param float y_min The minimum y value for the plot
+    \param float y_max The maximum y value for the plot
+    \param float y_granularity The granularity of the y-axis
 
     \throws ValueError If the input data is not an integer
 
-    \return str A JSON string representation of the spherical twist triangle data
+    \return list A list of tuples representing the discontinuities in the mass of the spherical twist
     """
     
-    if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int) or not isinstance(line_bundle_3, int):
-        raise ValueError("Input data must be integers")
+    ##############################
+    #   Input data validation    #
+    ##############################
 
-    sph = DoubleSphericalTwist(LineBundle(line_bundle_1, catagory='K3'),
-                          LineBundle(line_bundle_2, catagory='K3'),
-                          LineBundle(line_bundle_3, catagory='K3'),
-                          degree=degree)
-    first_sheaf_vector = []
+    if not isinstance(line_bundle_1, int) or not isinstance(line_bundle_2, int):
+        raise ValueError("Line bundles must be integers")
 
-    if len(sph.defining_triangle.object1) == 1:
-        first_sheaf_vector = [line_bundle_1]
-    elif len(sph.defining_triangle.object1) == 2:
-        first_sheaf_vector = [line_bundle_1, line_bundle_1]
-    else:
-        first_sheaf_vector = [line_bundle_1, line_bundle_1, line_bundle_1]
-
-
-    object1 = {
-        "sheaf_vector" : first_sheaf_vector,
-        "shift_vector" : sph.defining_triangle.object1.shift_vector,
-        "dimension_vector" : sph.defining_triangle.object1.dimension_vector
-    }
-
-
-    chain_complex_data = {
-        "object1" : object1,
-        "degrees" : [line_bundle_1, line_bundle_2, line_bundle_3]
-    }
+    if not isinstance(degree, int):
+        raise ValueError("Degree must be an integer")
+    
+    if not isinstance(plot, bool):
+        raise ValueError("Plot must be a boolean")
+    
+    if not isinstance(x_granularity, Number) or not isinstance(y_granularity, Number):
+        raise ValueError("Granularity must be a number")
+    
+    if y_granularity <= 0 or x_granularity <= 0:
+        raise ValueError("Granularity must be a positive number")
 
     
-    return json.dumps(chain_complex_data)        
+    if y_min - y_granularity <=0:
+        # We will ultimately need to compute the neighbors for the discrete Laplacian
+        y_min = y_granularity
+
+    
+    ##############################
+    #        Build Grid          #
+    ##############################     
+    
+    # Define x values (spread evenly over numpy aregion)
+    x_vals = np.arange(x_min, x_max, x_granularity)  
+    y_vals = []
+    
+    for x in x_vals:
+        y_range = np.arange(y_min, y_max, y_granularity)  
+        y_vals.append(y_range)
+
+    y_vals = np.array(y_vals).flatten()  # Flatten the y array to be 1 dimensional
+    x_vals = np.repeat(x_vals, len(np.arange(y_min, y_max, y_granularity)))  # Each x value repeats y_vals_len number of times to make a grid.
+
+
+
+    ##############################
+    #    Compute Discretized     #
+    #         Laplacian          #
+    ##############################
+
+    sph = SphericalTwist(LineBundle(line_bundle_1, catagory='K3'),
+                          LineBundle(line_bundle_2, catagory='K3'),
+                          degree=degree)
+
+    def _disc_Lapl(x, y, degree):
+        return sph.mass(x + x_granularity, y, degree) + sph.mass(x - x_granularity, y, degree) + sph.mass(x, y + y_granularity, degree) + sph.mass(x, y - y_granularity, degree) - 4*sph.mass(x, y, degree)
+    
+
+    disc_vals = np.array([_disc_Lapl(x, y, degree) for x, y in zip(x_vals, y_vals)])
+    disc_vals_mean = np.mean(disc_vals)
+    disc_vals_std = np.std(disc_vals)
+
+
+    ##############################
+    #    Find Discontinuities    #
+    ##############################
+
+    discontinuities = []
+    for x, y, disc_val in zip(x_vals, y_vals, disc_vals):
+        # Our threshold will be 1 standard deviation above the mean
+        if abs(disc_val - disc_vals_mean) > disc_vals_std:
+            discontinuities.append((x, y))
+
+
+
+
+    if plot:
+
+        ##############################
+        #         Plot Data          #
+        ##############################
+
+        colors = np.abs(disc_vals - disc_vals_mean)  # Highlight stronger discontinuities
+        fig = go.Figure(data=[go.Scatter3d(z=disc_vals, x=x_vals, y=y_vals,
+                                        mode='markers', marker=dict(size=3, color=colors, colorscale=colorscale))])
+
+        fig.update_layout(
+            title="",
+            autosize=True,
+            margin=dict(l=0, r=0, b=0, t=30),
+            scene=dict(
+                
+                bgcolor="white",  # Changes the 3D plot background ,
+
+                xaxis = dict(
+                    backgroundcolor="white",
+                    gridcolor="white",
+                    showbackground =True,
+                    zerolinecolor="white",),
+                yaxis = dict(
+                    backgroundcolor="white",
+                    gridcolor="white",
+                    showbackground =True,
+                    zerolinecolor="white"),
+                zaxis = dict(
+                    backgroundcolor="white",
+                    gridcolor="white",
+                    showbackground =True,
+                    zerolinecolor="white"
+                )
+            )
+        )
+
+        fig.show()
+    
+    return discontinuities
+
+
+        
+        
+
+    
+
+    
+    
+
+
+    
 
 
 
@@ -622,8 +520,75 @@ def double_twist_triangle_to_json_K3(line_bundle_1, line_bundle_2, line_bundle_3
 
 if __name__ == "__main__":
 
-    K3 = K3GeometricChamber(degree=1)
+    # K3 = K3GeometricChamber(degree=1)
     
-    complex_hypersurface_matplot_animation_ex1(filename='CY3fold.gif', degree=5, to_gif=True)
+    # complex_hypersurface_matplot_animation_ex1(filename='CY3fold.gif', degree=5, to_gif=True)
 
     # complex_hypersurface_plotly_ex1(degree=4)
+
+    y_granularity=0.05
+    x_granularity=0.1
+
+    # discontinuities, colors = find_discontinuities_std_dev_in_single_twist_mass_K3(1, 2, degree=1)
+
+
+    sph = SphericalTwist(LineBundle(1, catagory='K3'),
+                          LineBundle(2, catagory='K3'),
+                          degree=1)
+    
+    # Define x values (spread a  a region)
+    x_vals = np.arange(-5, 5, x_granularity)  # X values from -5 to 5
+
+    y_vals = []
+    
+
+    for x in x_vals:
+        y_range = np.arange(0.1, 5, y_granularity)  # 50 points per x value
+        y_vals_len = len(y_range)
+
+        y_vals.append(y_range)
+
+    y_vals = np.array(y_vals).flatten()  # Flatten the y array
+    x_vals = np.repeat(x_vals, y_vals_len)  # Each x value repeats 10 times
+
+    
+    masses = np.array([sph.mass(x, y, 1) for x, y in zip(x_vals, y_vals)])
+
+    # Plot the surface
+    fig = go.Figure(data=[go.Scatter3d(z=masses, x=x_vals, y=y_vals,
+                                    mode='markers', marker=dict(size=3, color=masses, colorscale='viridis' ))])
+
+    fig.update_layout(
+        title="",
+        autosize=True,
+        margin=dict(l=0, r=0, b=0, t=30),
+        scene=dict(
+            
+            bgcolor="white",  # Changes the 3D plot background ,
+
+            xaxis = dict(
+                backgroundcolor="white",
+                gridcolor="white",
+                showbackground =True,
+                zerolinecolor="white",),
+            yaxis = dict(
+                backgroundcolor="white",
+                gridcolor="white",
+                showbackground =True,
+                zerolinecolor="white"),
+            zaxis = dict(
+                backgroundcolor="white",
+                gridcolor="white",
+                showbackground =True,
+                zerolinecolor="white"
+            )
+        )
+    )
+
+    fig.show()
+
+
+    discont = find_discontinuities_disc_Lapl_in_single_twist_mass_K3(1, 2, degree=1,
+                                                                    plot=True, colorscale='Viridis')
+
+    print(discont)

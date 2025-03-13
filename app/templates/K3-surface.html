@@ -244,20 +244,20 @@
             border-radius: 4px;
         }
         button {
-            background-color: #28a745;
+            background-color: rgba(173, 216, 230, 0.3);
             color: white;
             border: none;
             cursor: pointer;
         }
         button:hover {
-            background-color: #218838;
+            background-color: rgba(80, 118, 130, 0.3);
         }
 
         #switch-button {
             position: absolute;
             top: 10px;
             left: 10px;
-            background-color: gray;
+            background-color: rgba(173, 216, 230, 0.3);
             color: white;
             border: none;
             padding: 8px 12px;
@@ -372,48 +372,58 @@
     
 
 
-        <!-- Giving title of the first parallax -->
-        <div class="parallax-1">
-            <div id="page-5-content">
-                <!-- The First Container (Initially Off-Screen) -->
-                <div class="container-background">
-                    <div class="container" id="first-container">
-                        <h2 style="color: #4d4d4d;">Single Spherical Twist Computation</h2>
-                        <p>Compute the mass of $\operatorname{Tw}_{ \mathcal{O}(a)}  \mathcal{O}(b)$, where</p>
+    <!-- Giving title of the first parallax -->
+    <div class="parallax-1">
+        <div id="page-5-content">
+            <!-- The First Container (Initially Off-Screen) -->
+            <div class="container-background">
+                <div class="container" id="first-container">
+                    <h2 style="color: #4d4d4d;">Single Spherical Twist Computation</h2>
+                    <p>Compute the mass of $\operatorname{Tw}_{ \mathcal{O}(a)}  \mathcal{O}(b)$, where</p>
+                    <br/>
+                    <form id="sph-twist-form" action="/plot_sing_sph_twist_K3" method="POST">
+                        <label for="line_bundle_1">First line bundle degree $a$ (integer):</label>
+                        <input type="number" id="line_bundle_1" name="line_bundle_1" placeholder="e.g. -1" required>
                         <br/>
-                        <form id="sph-twist-form" action="/plot_sing_sph_twist_K3" method="POST">
-                            <label for="line_bundle_1">First line bundle degree $a$ (integer):</label>
-                            <input type="number" id="line_bundle_1" name="line_bundle_1" placeholder="e.g. -1" required>
-                            <br/>
-                            <label for="line_bundle_2">Second line bundle degree $b$ (integer):</label>
-                            <input type="number" id="line_bundle_2" name="line_bundle_2" placeholder="e.g. 1" required>
-                            <br/>
-                            <button type="submit">Get Prediction</button>
-                        </form>
-                    </div> 
-                </div>
-    
-                <div class="container-background">
-                    <div class="container" id="second-container">
-                        <h2 style="color: #4d4d4d;">Double Spherical Twist Computation</h2>
-                        <p>Compute the mass of $\operatorname{Tw}_{\mathcal{O}(a)} \operatorname{Tw}_{\mathcal{O}(b)} \mathcal{O}(c)$, where</p>
+                        <label for="line_bundle_2">Second line bundle degree $b$ (integer):</label>
+                        <input type="number" id="line_bundle_2" name="line_bundle_2" placeholder="e.g. 1" required>
                         <br/>
-                        <form id="double-twist-form" action="/plot_double_sph_twist_K3" method="POST">
-                            <label for="line_bundle_1">First line bundle degree $a$:</label>
-                            <input type="number" id="line_bundle_1" name="line_bundle_1" placeholder="e.g. -1" required>
-                            <br/>
-                            <label for="line_bundle_2">Second line bundle degree $b$:</label>
-                            <input type="number" id="line_bundle_2" name="line_bundle_2" placeholder="e.g. 1" required>
-                            <br/>
-                            <label for="line_bundle_3">Third line bundle degree $c$:</label>
-                            <input type="number" id="line_bundle_3" name="line_bundle_3" placeholder="e.g. 2" required>
-                            <br/>
-                            <button type="submit">Get Prediction</button>
-                        </form>
-                    </div> 
-                </div>
+                        <button type="submit">Get Prediction</button>
+                    </form>
+                </div> 
+            </div>
+
+            <div class="container-background">
+                <div class="container" id="second-container">
+                    <h2 style="color: #4d4d4d;">Double Spherical Twist Computation</h2>
+                    <p>Compute the mass of $\operatorname{Tw}_{\mathcal{O}(a)} \operatorname{Tw}_{\mathcal{O}(b)} \mathcal{O}(c)$, where</p>
+                    <br/>
+                    <form id="double-twist-form" action="/plot_double_sph_twist_K3" method="POST">
+                        <label for="line_bundle_1">First line bundle degree $a$:</label>
+                        <input type="number" id="line_bundle_1" name="line_bundle_1" placeholder="e.g. -1" required>
+                        <br/>
+                        <label for="line_bundle_2">Second line bundle degree $b$:</label>
+                        <input type="number" id="line_bundle_2" name="line_bundle_2" placeholder="e.g. 1" required>
+                        <br/>
+                        <label for="line_bundle_3">Third line bundle degree $c$:</label>
+                        <input type="number" id="line_bundle_3" name="line_bundle_3" placeholder="e.g. 2" required>
+                        <br/>
+                        <button type="submit">Get Prediction</button>
+                    </form>
+                </div> 
             </div>
         </div>
+    </div>
+
+    <div class="para-4">
+        <p id="page-5-text">
+            After playing with a few of these computations, the user may note that there are some odd discontinuities in the plots where the mass does not behave the same that it does locally. These jumps should in fact <emph>not happen</emph> — a simple fact of the topology Bridgeland defined on stability manifolds in his seminal paper <a href="https://annals.math.princeton.edu/wp-content/uploads/annals-v166-n2-p01.pdf"><emph>Stability Conditions on Triangulated Catagories (2007)</emph></a> is that both the mass function $m_{\sigma}(-)$ and the min/max phase functions $\phi^{\pm}_{\sigma}(-)$ should be continuous as $\sigma$ is varied in the stability manifold. What is in fact happening is that the naive methods used to compute the mass in this program's source files are not detecting that the Harder-Narasimhan filtration of the spherical twist is becoming more complicated than the naive triangles one would expect.
+        </p>
+
+        <p>
+            Since the 
+        </p>
+    </div>
 
 </body>
 
@@ -423,165 +433,10 @@
     Plotly.newPlot('plot_k3', k3_plot_json.data, k3_plot_json.layout);
     Plotly.newPlot('plot_alpha_beta', K3_alpha_beta_json.data, K3_alpha_beta_json.layout);
 
-    document.addEventListener('DOMContentLoaded', () => {
-            const canvas = document.getElementById('xy-plane');
-            const ctx = canvas.getContext('2d');
 
-            // Function to draw the x and y axes
-            function drawAxes() {
-                ctx.beginPath();
-                ctx.moveTo(-canvas.width / 2, 0);
-                ctx.lineTo(canvas.width / 2, 0);
-                ctx.moveTo(0, -canvas.height / 2);
-                ctx.lineTo(0, canvas.height / 2);
-                ctx.strokeStyle = 'gray';
-                ctx.lineWidth = 1;
-                ctx.stroke();
-            }
-
-            // Function to draw a circle at a given position
-            function drawCircle(x, y, radius, color) {
-                ctx.beginPath();
-                ctx.arc(x, y, radius, 0, 2 * Math.PI);
-                ctx.fillStyle = color;
-                ctx.fill();
-            }
-
-            // Initialize the canvas
-            function initializeCanvas() {
-                // Set up the coordinate system: move the origin to the center of the canvas
-                ctx.translate(canvas.width / 2, canvas.height / 2);
-                drawAxes();
-
-                const step_size = canvas.height / 10;
-
-                drawCircle(0,0, 0.1*step_size, 'gray');
-                drawCircle(-1*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(1*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(-2*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(2*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(-3*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(3*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(-3*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(3*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(-4*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(4*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(-5*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(5*step_size,0, 0.1*step_size, 'gray');
-
-                
-
-                ctx.beginPath();
-                ctx.moveTo(0, 0);
-                ctx.lineTo(-1*step_size, 0);
-                ctx.strokeStyle = 'blue';
-                ctx.lineWidth = 2;
-                ctx.stroke();
-
-                 // Draw the label
-                 ctx.font = '16px Arial';
-                ctx.fillStyle = 'blue';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'bottom';
-                ctx.fillText('k(x)', -1.5*step_size, 0 );
-
-            }
-
-            // Function to clear the canvas and redraw the axes
-            function clearCanvas() {
-                // Clear the entire canvas
-                ctx.clearRect(-canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
-                drawAxes();
-            }
-
-            // Function to draw a line from the origin to the clicked point
-            function drawLineTo(x, y, label) {
-                const step_size = canvas.height / 10;
-
-                ctx.beginPath();
-                ctx.moveTo(0, 0);
-                ctx.lineTo(x, y);
-                ctx.strokeStyle = 'red';
-                ctx.lineWidth = 2;
-                ctx.stroke();
-
-                 // Draw the label
-                ctx.font = '16px Arial';
-                ctx.fillStyle = 'red';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = y > 0 ? 'bottom' : 'top';
-                if (y > 0) {
-                    ctx.fillText(label, x , y + 0.5*step_size);
-                }
-                else {
-                    ctx.fillText(label, x , y - 0.5*step_size);
-                }
-                
-            }
-
-            
-
-            // Event listener for mouse clicks
-            canvas.addEventListener('click', (event) => {
-                // Get the click position relative to the canvas
-                const rect = canvas.getBoundingClientRect();
-                const x = event.clientX - rect.left - canvas.width / 2;
-                const y = event.clientY - rect.top - canvas.height / 2;
-
-                const step_size = canvas.height / 10;
-
-                // Clear the canvas, redraw the axes, and draw a line to the clicked point
-                clearCanvas();
-
-                
-                drawLineTo(x, y, 'O');
-                drawLineTo(x - step_size, y, 'O(-1)'); 
-                drawLineTo(x + step_size, y, 'O(1)');
-                drawLineTo(x-2*step_size, y, 'O(-2)');
-                drawLineTo(x+2*step_size, y, 'O(2)');
-                drawLineTo(x+3*step_size, y, 'O(3)');
-                drawLineTo(x-3*step_size, y, 'O(-3)');
-                drawLineTo(x-4*step_size, y, 'O(-4)');
-                drawLineTo(x+4*step_size, y, 'O(4)');
-
-                drawCircle(0,0, 0.1*step_size, 'gray');
-                drawCircle(-1*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(1*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(-2*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(2*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(-3*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(3*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(-3*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(3*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(-4*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(4*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(-5*step_size,0, 0.1*step_size, 'gray');
-                drawCircle(5*step_size,0, 0.1*step_size, 'gray');
-
-                
-
-                ctx.beginPath();
-                ctx.moveTo(0, 0);
-                ctx.lineTo(-1*step_size, 0);
-                ctx.strokeStyle = 'blue';
-                ctx.lineWidth = 2;
-                ctx.stroke();
-
-                 // Draw the label
-                 ctx.font = '16px Arial';
-                ctx.fillStyle = 'blue';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'bottom';
-                ctx.fillText('k(x)', -1.5*step_size, 0 );
-            });
-
-            // Initialize the canvas on page load
-            initializeCanvas();
-        });
-
-        function returnHome() {
-            window.location.href = "/"; // Redirect to Flask route
-        }
+    function returnHome() {
+        window.location.href = "/"; // Redirect to Flask route
+    }
 </script>
   
 </html>

@@ -1,9 +1,10 @@
 from flask import Blueprint, request, jsonify, render_template
-from app.models import load_simple_model,  preprocess_input, predict
-from src.LocalP2 import LePotier, plot_successive_neighbors_ex1, ints_to_mass_plot_P2_sing_twist, twist_triangle_to_json_P2
-from src.LocalP1 import ints_to_mass_plot_P1_sing_twist, twist_triangle_to_json_P1
-from src.ProjectiveCY import complex_hypersurface_plotly_ex1, ints_to_mass_plot_K3_sing_twist, single_twist_triangle_to_json_K3, ints_to_mass_plot_K3_double_twist, double_twist_triangle_to_json_K3
-import src.ProjectiveCY
+# from app.models import load_simple_model,  preprocess_input, predict
+from src.LocalP2 import LePotier, plot_successive_neighbors_ex1
+from src.ProjectiveCY import K3GeometricChamber, complex_hypersurface_plotly_ex1
+from src.SphericalTwist import SphericalTwist, DoubleSphericalTwist
+from src.MassPlot import MassPlot
+from src.CoherentSheaf import LineBundle
 
 import traceback
 
@@ -36,7 +37,7 @@ def LocalP1():
 
 @bp.route('/K3-surface', methods=['GET', 'POST'])
 def K3Surface():
-    K3 = src.ProjectiveCY.K3GeometricChamber(degree=1) # Create double cover of P2.
+    K3 = K3GeometricChamber(degree=1) # Create double cover of P2.
 
     K3_alpha_beta_json = K3.plot_alpha_beta_plane(return_json=True)
 
@@ -57,8 +58,17 @@ def plot_sph_twist_P2():
         line_bundle_1 = int(line_bundle_1)
         line_bundle_2 = int(line_bundle_2)
 
-        plot_json = ints_to_mass_plot_P2_sing_twist(line_bundle_1, line_bundle_2, return_json=True)
-        chain_complex_data = twist_triangle_to_json_P2(line_bundle_1, line_bundle_2)
+        sph = SphericalTwist(LineBundle(line_bundle_1, catagory='P2'),
+                             LineBundle(line_bundle_2, catagory='P2'),
+                             degree=1)
+        
+        mp = MassPlot(line_bundle_1=line_bundle_1,
+                      line_bundle_2=line_bundle_2,
+                      catagory='P2',
+                      degree=1)
+
+        plot_json = mp.to_plotly_json()
+        chain_complex_data = sph.defining_triangle_to_json()
         
         
         return render_template('plot_P2.html', plot_json=plot_json, chain_complex=chain_complex_data)
@@ -80,11 +90,17 @@ def plot_sph_twist_P1():
         line_bundle_1 = int(line_bundle_1)
         line_bundle_2 = int(line_bundle_2)
 
-        plot_json = ints_to_mass_plot_P1_sing_twist(line_bundle_1,
-                                                            line_bundle_2,
-                                                            return_json=True)
-        chain_complex_data = twist_triangle_to_json_P1(line_bundle_1,
-                                                                line_bundle_2)
+        sph = SphericalTwist(LineBundle(line_bundle_1, catagory='P1'),
+                             LineBundle(line_bundle_2, catagory='P1'),
+                             degree=1)
+        
+        mp = MassPlot(line_bundle_1=line_bundle_1,
+                      line_bundle_2=line_bundle_2,
+                      catagory='P1',
+                      degree=1)
+
+        plot_json = mp.to_plotly_json() 
+        chain_complex_data = sph.defining_triangle_to_json()
         
         
         return render_template('plot_P1.html',
@@ -105,18 +121,22 @@ def plot_sing_sph_twist_K3():
         line_bundle_1 = int(line_bundle_1)
         line_bundle_2 = int(line_bundle_2)
 
-        plot_json = ints_to_mass_plot_K3_sing_twist(line_bundle_1,
-                                                    line_bundle_2,
-                                                    degree=1,
-                                                    return_json=True)
-        chain_complex_data = single_twist_triangle_to_json_K3(line_bundle_1,
-                                                        line_bundle_2,
-                                                        degree=1)
+        sph = SphericalTwist(LineBundle(line_bundle_1, catagory='K3'),
+                             LineBundle(line_bundle_2, catagory='K3'),
+                             degree=1)
         
+        mp = MassPlot(line_bundle_1=line_bundle_1,
+                      line_bundle_2=line_bundle_2,
+                      catagory='K3',
+                      degree=1)
+
+        plot_json = mp.to_plotly_json()
+        chain_complex_data = sph.defining_triangle_to_json()
         
         return render_template('plot_K3_sing.html',
                                 plot_json=plot_json,
                                 chain_complex=chain_complex_data)
+    
 
     except ValueError:
         print(traceback.format_exc())
@@ -133,20 +153,26 @@ def plot_double_sph_twist_K3():
         line_bundle_2 = int(line_bundle_2)
         line_bundle_3 = int(line_bundle_3)
 
-        plot_json = ints_to_mass_plot_K3_double_twist(line_bundle_1,
-                                                    line_bundle_2,
-                                                    line_bundle_3,
-                                                    degree=1,
-                                                    return_json=True)
-        chain_complex_data = double_twist_triangle_to_json_K3(line_bundle_1,
-                                                        line_bundle_2,
-                                                        line_bundle_3,
-                                                        degree=1)
+        sph = DoubleSphericalTwist(LineBundle(line_bundle_1, catagory='K3'),
+                                    LineBundle(line_bundle_2, catagory='K3'),
+                                    LineBundle(line_bundle_3, catagory='K3'),
+                                    degree=1)
+
+        mp = MassPlot(line_bundle_1=line_bundle_1,
+                      line_bundle_2=line_bundle_2,
+                      line_bundle_3=line_bundle_3,
+                      catagory='K3',
+                      degree=1)
+
+        plot_json = mp.to_plotly_json()
+        chain_complex_data = sph.defining_triangle_to_json()
+        secondary_complex_data = sph.secondary_triangle_to_json()
         
         
         return render_template('plot_K3_double.html',
                                 plot_json=plot_json,
-                                chain_complex=chain_complex_data)
+                                chain_complex=chain_complex_data,
+                                secondary_complex=secondary_complex_data)
 
     except ValueError:
         print(traceback.format_exc())

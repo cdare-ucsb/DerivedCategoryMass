@@ -1,5 +1,5 @@
 import torch
-from app.models.model import SimpleModel, AdvancedModel
+from src.model import SimpleModel, AdvancedModel
 import os
 
 # Global variable to store the loaded model
