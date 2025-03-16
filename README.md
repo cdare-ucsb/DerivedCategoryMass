@@ -32,7 +32,8 @@ Most current supersymmetric models require 3 compactified complex dimensions for
 ### Installation of Python
 If you are interested in trying out the current implementation, the first step is making sure that you have a recent installation of Python 3 on your system. 
 
-- For Windows, this requires obtaining the most recent [Python Installation](https://www.python.org/downloads/) from the site, opening the `.exe` file, and checking the box for "Add Python to PATH" (important!). Next, verify the installation by running either
+#### Windows
+ this requires obtaining the most recent [Python Installation](https://www.python.org/downloads/) from the site, opening the `.exe` file, and checking the box for "Add Python to PATH" (important!). Next, verify the installation by running either
 
 ```
 python --version
@@ -43,7 +44,8 @@ python3 --version
 ```
 in your command prompt. Whichever one produces a valid output will affect the first command / term you use in the `Usage` step.
 
-- For MacOS, simply run
+#### MacOS
+ simply run
 ```
 brew install python
 ```
@@ -57,7 +59,9 @@ python3 --version
 ```
 to determine how to run the executable.
 
-- For Linux (Ubuntu/Debian), run
+#### Linux (Ubuntu/Debian)
+
+Run
 ```
 sudo apt update
 sudo apt install python3
