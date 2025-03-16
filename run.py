@@ -3,7 +3,7 @@ from threading import Timer
 import os
 import importlib
 import sys
-from app import create_app
+from app import create_app, socketio
 
 
 # Define required dependencies and their versions
@@ -55,8 +55,9 @@ if __name__ == "__main__":
     check_dependencies()
     
     # Only open the browser if not reloading (prevents opening twice in debug mode)
-    if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
-        # Use a timer to give the server time to start before opening the browser
-        Timer(0.5, open_browser).start()
+    # if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+    #     # Use a timer to give the server time to start before opening the browser
+    #     Timer(0.5, open_browser).start()
 
-    app.run(debug=False)
+    # Use socketio.run instead of app.run()
+    socketio.run(app, debug=True)

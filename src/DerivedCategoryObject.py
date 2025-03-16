@@ -1,4 +1,4 @@
-from ChernCharacter import ChernCharacter
+from .ChernCharacter import ChernCharacter
 import re
 
 

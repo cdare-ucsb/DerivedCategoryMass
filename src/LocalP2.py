@@ -1,6 +1,6 @@
-from ChernCharacter import ChernCharacter
-from SphericalTwist import SphericalTwist
-from CoherentSheaf import LineBundle
+from .ChernCharacter import ChernCharacter
+from .SphericalTwist import SphericalTwist
+from .CoherentSheaf import LineBundle
 
 import math
 import numpy as np

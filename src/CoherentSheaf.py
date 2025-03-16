@@ -1,5 +1,5 @@
-from ChernCharacter import ChernCharacter
-from DerivedCategoryObject import DerivedCategoryObject
+from .ChernCharacter import ChernCharacter
+from .DerivedCategoryObject import DerivedCategoryObject
 import math
 import cmath
 

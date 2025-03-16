@@ -1,6 +1,6 @@
-from DerivedCategoryObject import DerivedCategoryObject
-from CoherentSheaf import CoherentSheaf
-from ChernCharacter import ChernCharacter
+from .DerivedCategoryObject import DerivedCategoryObject
+from .CoherentSheaf import CoherentSheaf
+from .ChernCharacter import ChernCharacter
 import math
 
 from dotenv import load_dotenv

@@ -1,6 +1,9 @@
 from flask import Flask
-import torch  # Import PyTorch for later use
+from flask_socketio import SocketIO
 import os
+
+# Initialize SocketIO globally (without app yet)
+socketio = SocketIO(cors_allowed_origins="*")  # CORS is required for cross-origin requests
 
 def create_app(config_class=None):
     """
@@ -21,5 +24,8 @@ def create_app(config_class=None):
     with app.app_context():
         from app import routes  # Ensure routes are registered
         app.register_blueprint(routes.bp)
+
+    # Attach SocketIO to the app
+    socketio.init_app(app, async_mode="threading")  
 
     return app

@@ -10,9 +10,9 @@ import itertools
 from tqdm import tqdm
 
 
-from SphericalTwist import SphericalTwist
-from CoherentSheaf import LineBundle
-from LocalP2 import LePotier
+from .SphericalTwist import SphericalTwist
+from .CoherentSheaf import LineBundle
+from .LocalP2 import LePotier
 
 
 from dotenv import load_dotenv
@@ -23,6 +23,7 @@ import os
 load_dotenv()
 IMPLEMENTED_CATAGORIES = os.getenv("IMPLEMENTED_CATAGORIES").split(",") # ['P1', 'P2', 'K3']
 __CURRENT_DOUBLE_TWIST_IMPLEMENTED__ = os.getenv("CURRENT_DOUBLE_TWIST_IMPLEMENTED").split(",") # ['K3']
+NN_MODEL_MODES = os.getenv("NN_MODEL_MODES").split(",") # ['mass', 'disc']
 
 
 
@@ -35,7 +36,10 @@ class SingleTwistModel():
                 catagory, 
                 degree=1,
                 x_min=-5, x_max=5, y_min=0, y_max=5,
-                  data_size=20000):
+                data_size=20000,
+                mode='mass',
+                x_granularity=0.1,
+                y_granularity=0.05):
         
         if catagory not in IMPLEMENTED_CATAGORIES:
             raise ValueError(f'Invalid catagory. Choose from {IMPLEMENTED_CATAGORIES}')
@@ -64,8 +68,15 @@ class SingleTwistModel():
         
         if catagory != 'P2' and y_min < 0:
             y_min = 0
+
+        if mode not in NN_MODEL_MODES:
+            raise ValueError(f'Invalid mode. Choose from {NN_MODEL_MODES}')
         
+        self.mode = mode
+
+        self.catagory = catagory
         
+        self.degree = degree
     
         # Construct the xy-input data
         x_train, y_train = [], []
@@ -84,35 +95,59 @@ class SingleTwistModel():
                           LineBundle(line_bundle_2, catagory=catagory),
                           degree=degree)
         
-        if catagory == 'K3':
-        # Format input data for K3 case
+        def _disc_Lapl(x, y):
+            if self.catagory == 'P2':
+                return sph.mass(x + x_granularity, y) + sph.mass(x - x_granularity, y) + sph.mass(x, y + y_granularity) + sph.mass(x, y - y_granularity) - 4*sph.mass(x, y)
+            elif self.catagory == 'P1':
+                return sph.mass(complex(x + x_granularity, y)) + sph.mass(complex(x - x_granularity, y)) + sph.mass(complex(x, y + y_granularity)) + sph.mass(complex(x, y - y_granularity)) - 4*sph.mass(complex(x, y))
+            elif self.catagory == 'K3':
+                return sph.mass(x + x_granularity, y, self.degree) + sph.mass(x - x_granularity, y, self.degree) + sph.mass(x, y + y_granularity, self.degree) + sph.mass(x, y - y_granularity, self.degree) - 4*sph.mass(x, y, self.degree)
+            else:
+                raise ValueError("Invalid catagory")
+            
+        z_train = []
+        
+        if mode == 'mass':
+            if catagory == 'K3':
+                # Format input data for K3 case
 
-            z_train = np.array([sph.mass(x_train[i, 0],
-                                        y_train[i, 0],
-                                        degree) for i in range(data_size)])
-            z_train = z_train.reshape(-1, 1)  # Converts (1000,) → (1000,1)
+                z_train = np.array([sph.mass(x_train[i, 0],
+                                            y_train[i, 0],
+                                            degree) for i in range(data_size)])
+                z_train = z_train.reshape(-1, 1)  # Converts (1000,) → (1000,1)
 
-            self.output_tensor = torch.tensor(z_train, dtype=torch.float32)
-            self.input_tensor = torch.cat([x_tensor, y_tensor], dim=1)
-        elif catagory == 'P2':
-            # Format input data for P2 case
+                self.output_tensor = torch.tensor(z_train, dtype=torch.float32)
+                self.input_tensor = torch.cat([x_tensor, y_tensor], dim=1)
+            elif catagory == 'P2':
+                # Format input data for P2 case
 
-            z_train = np.array([sph.mass(x_train[i, 0], y_train[i, 0]) for i in range(data_size)])
-            z_train = z_train.reshape(-1, 1)  # Converts (1000,) → (1000,1)
+                z_train = np.array([sph.mass(x_train[i, 0], y_train[i, 0]) for i in range(data_size)])
+                z_train = z_train.reshape(-1, 1)  # Converts (1000,) → (1000,1)
 
-            self.output_tensor = torch.tensor(z_train, dtype=torch.float32)
-            self.input_tensor = torch.cat([x_tensor, y_tensor], dim=1)
-        elif catagory == 'P1':
-            # Format input data for P1 case
+                self.output_tensor = torch.tensor(z_train, dtype=torch.float32)
+                self.input_tensor = torch.cat([x_tensor, y_tensor], dim=1)
+            elif catagory == 'P1':
+                # Format input data for P1 case
 
-            z_train = np.array([sph.mass(complex(x_train[i, 0], y_train[i, 0])) for i in range(data_size)])
+                z_train = np.array([sph.mass(complex(x_train[i, 0], y_train[i, 0])) for i in range(data_size)])
+                z_train = z_train.reshape(-1, 1)  # Converts (1000,) → (1000,1)
+
+                self.output_tensor = torch.tensor(z_train, dtype=torch.float32)
+                self.input_tensor = torch.cat([x_tensor, y_tensor], dim=1)
+            else:
+                raise ValueError('Somehow an invalid catagory was passed to generate_training_data_single_twist; this should have been caught earlier')
+        
+
+        elif mode == 'disc':
+            z_train = np.array([_disc_Lapl(x_train[i, 0], y_train[i, 0]) for i in range(data_size)])
             z_train = z_train.reshape(-1, 1)  # Converts (1000,) → (1000,1)
 
             self.output_tensor = torch.tensor(z_train, dtype=torch.float32)
             self.input_tensor = torch.cat([x_tensor, y_tensor], dim=1)
         else:
-            raise ValueError('Somehow an invalid catagory was passed to generate_training_data_single_twist; this should have been caught earlier')
-        
+            raise ValueError('Somehow an invalid mode was passed to generate_training_data_single_twist; this should have been caught earlier')
+
+
         class FNN_model_3(nn.Module):
             def __init__(self):
                 super(FNN_model_3, self).__init__()
@@ -181,6 +216,8 @@ class SingleTwistModel():
 
     def load_model(self, filename):
         self.model.load_state_dict(torch.load(filename))
+
+    
 
     def predictions_to_plotly(self, color_scale='viridis'):
 
@@ -310,7 +347,7 @@ class SingleTwistCollectionModel():
         
         #Define loss function and optimizer
         criterion = nn.MSELoss()  # Mean Squared Error loss
-        optimizer = optim.Adam(model.parameters(), lr=0.01)
+        optimizer = optim.Adam(self.model.parameters(), lr=0.01)
 
         # Use learning rate scheduler
         scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=20, verbose=True)
@@ -318,14 +355,14 @@ class SingleTwistCollectionModel():
         outer_progress = tqdm(range(num_epochs), desc="Training Progress", unit="epoch")
 
         for epoch in outer_progress:
-            inner_progress = tqdm(self.dataloader, desc=f"Epoch {epoch+1}/{epochs}", unit="batch", leave=False)
+            inner_progress = tqdm(self.dataloader, desc=f"Epoch {epoch+1}/{num_epochs}", unit="batch", leave=False)
 
             for batch in inner_progress:
                 input_tensor, output_tensor = batch
                 optimizer.zero_grad()
                 
                 # Forward pass
-                pred = model(input_tensor)
+                pred = self.model(input_tensor)
                 
                 # Compute loss
                 loss = criterion(pred, output_tensor.view(-1, 1))
@@ -496,6 +533,9 @@ class FNN_model_3(nn.Module):
 #         STATIC HELPER FUNCTIONS             #
 ###############################################
 
+
+
+
 def _generate_xy_tensors_P2(x_min, x_max, y_max, data_size):
     """
     Generate x and y tensors for the P2 category.
@@ -613,11 +653,37 @@ def _append_training_data_to_CSV_single_twist(filename, line_bundle_1, line_bund
 
 if __name__ == '__main__':
 
-    st_model = SingleTwistModel(line_bundle_1=1, line_bundle_2=2, catagory='K3', data_size=25000)
+
+    lb_1_range = range(-1, 15+1)
+    lb_2_range = range(-15, 15+1)
+
+    for lb1, lb2 in itertools.product(lb_1_range, lb_2_range):
+
+        print("\n\n\n\n---------------------------------------------")
+        print(f'Traning model for discontinuities of Tw_{lb1} O({lb2})')
+        print("---------------------------------------------\n\n")
+
+        st_model = SingleTwistModel(line_bundle_1=lb1,
+                                    line_bundle_2=lb2,
+                                    catagory='K3',
+                                    data_size=25000,
+                                    mode='disc',
+                                    x_min=-10,
+                                    x_max=10,
+                                    y_min=0,
+                                    y_max=10)
+        
+        st_model.train(num_epochs=5000)
+        
+        filename =  os.path.abspath(os.path.join(os.path.dirname(__file__), f'../app/models/disc_K3_deg{1}_{lb1}_{lb2}.pth'))
+        print(f"Saving model at {filename} .............")
+        st_model.save_model(filename)
+        print("Model saved successfully!")
+        print("\n\n\n\n---------------------------------------------")
+
     
-    st_model.train(num_epochs=5000)
-    fig = st_model.predictions_to_plotly()
-    fig.show()
+    
+    
 
 
 

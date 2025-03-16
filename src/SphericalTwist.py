@@ -1,8 +1,8 @@
-from CoherentSheaf import LineBundle
-from DerivedCategoryObject import DerivedCategoryObject
-from DistinguishedTriangle import DistinguishedTriangle
-from ChainComplex import ChainComplex
-from ChernCharacter import ChernCharacter
+from .CoherentSheaf import LineBundle
+from .DerivedCategoryObject import DerivedCategoryObject
+from .DistinguishedTriangle import DistinguishedTriangle
+from .ChainComplex import ChainComplex
+from .ChernCharacter import ChernCharacter
 
 import math
 import cmath
