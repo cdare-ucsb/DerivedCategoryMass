@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-  
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Local P1 Mass</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
-
-     <!-- Load MathJax v3 with AMS package -->
-     <script>
+    
+    <!-- Load MathJax v3 with AMS package -->
+    <script>
         window.MathJax = {
             loader: {load: ['[tex]/amscd']},
             tex: {
@@ -26,343 +25,72 @@
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 
 
-    
+
+
 
     <style>
-
-        /* Styling the body */
-        * {
-            margin: 0px;
-            padding: 0px;
-        }
-
-        /* Styling the first parallax's 
-        height, width and background color */
-        .parallax-1 {
-            width: 100%;
-            height: 800px;
-            background: linear-gradient(135deg, #1a1a1a, #333333, #4d4d4d);
-            animation: gradientAnimation 10s infinite alternate ease-in-out;
-            background-size: 300% 300%;
-            background-position: 0% 50%;
-
-            display: flex;
-            justify-content: center;  /* Centers child horizontally */
-            align-items: center;  /* Centers child vertically */
-            flex-direction: column; /* Ensures children are stacked */
-            text-align: center; /* Centers text */
-        }
-
-        /* Gradient Animation */
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        /* Styling the title of first parallax */
-        .parallax-1 h2 {
-            margin: auto;
-            position: relative;
-            /* left: 500x;
-            top: 300px;
-            width: 250px;
-            height: 32px; */
-            padding: 10px;
-            color: white;
-            text-align: center;
-
-            /* Fade-in effect */
-            opacity: 0; /* Initially hidden */
-            animation: fadeIn 1s ease-in-out forwards;
-            animation-delay: 1s; /* Delay appearance by 1 second */
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        /* Styling the second parallax's 
-        height, width and background color */
-        .parallax-2 {
-            width: 100%;
-            height: 600px;
-            background: url("{{ url_for('static', filename='images/CY3fold.gif') }}") no-repeat center center fixed;
-            background-size: 100% 100%;
-            background-attachment: fixed;
-        }
-
-        /* Styling the title of second parallax */
-        .parallax-2 h2 {
-            margin: auto;
-            position: relative;
-            left: 500x;
-            top: 300px;
-            width: 250px;
-            height: 37px;
-            padding: 10px;
-            background-color: white;
-            text-align: center;
-            font-size: 30px;
-            font-family: Verdana;
-        }
-
-        /* Styling the second parallax's 
-        height, width and background color */
-        .parallax-3 {
-            width: 100%;
-            height: 550px;
-            background: url("{{ url_for('static', filename='images/naive_local_P1.png') }}") center fixed;
-            background-size: 100% 100%;
-            background-attachment: fixed;
-        }
-
-        /* Styling the content or paragraph */
-        .para-1 {
-            padding: 50px;
-            background-color: black;
-            color: white;
-            font-size: 17px;
-        }
-
-        /* Styling the content or paragraph */
-        .para-2 {
-            padding: 25px;
-            font-size: 17px;
-            background-color: black;
-            color: white;
-        }
-
-        /* Styling the content or paragraph */
-        .para-3 {
-            padding: 25px;
-            font-size: 17px;
-            background-color: black;
-            color: white;
-        }
-
-        /* Styling the content or paragraph */
-        .para-4 {
-            padding: 25px;
-            font-size: 17px;
-            background-color: black;
-            color: white;
-        }
-
-        .para-5 {
-            padding: 25px;
-            font-size: 17px;
-            background-color: black;
-            color: white;
-        }
-
-
-        #page-2-content {
-            /* position: fixed; */
-            display: flex; /* Keeps elements inside aligned */
-            justify-content: center;  /* Centers horizontally */
-            align-items: center;  /* Centers vertically */
-            max-width: 50%; /* Prevents it from being too large */
-            width: fit-content; /* Shrinks wrapper to fit the image */
-            height: fit-content;
-            position: relative; /* Ensures it remains within normal flow */
-            color: white;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        #page-3-content {
-            /* position: fixed; */
-            display: flex; /* Keeps elements inside aligned */
-            justify-content: center;  /* Centers horizontally */
-            align-items: center;  /* Centers vertically */
-            max-width: 50%; /* Prevents it from being too large */
-            width: fit-content; /* Shrinks wrapper to fit the image */
-            height: fit-content;
-            position: relative; /* Ensures it remains within normal flow */
-            color: white;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        /* Hidden image on page 5 */
-        #page-5-content {
-            display: flex; /* Keeps elements inside aligned */
-            width: auto; /* Shrinks wrapper to fit the image */
-            height: auto;
-            justify-content: center;  /* Centers elements horizontally */
-            align-items: center;  /* Aligns elements vertically */
-            gap: 50px;  /* Adds 50px space between elements */
-            
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        #page-6-content {
-            width: 45%;  /* Make each div take up 45% of the screen */
-            min-width: 300px;  /* Prevents divs from collapsing */
-        }
-
-        #page-7-content {
-            /* position: fixed; */
-            display: flex; /* Keeps elements inside aligned */
-            justify-content: center;  /* Centers horizontally */
-            align-items: center;  /* Centers vertically */
-            max-width: 50%; /* Prevents it from being too large */
-            width: fit-content; /* Shrinks wrapper to fit the image */
-            height: fit-content;
-            position: relative; /* Ensures it remains within normal flow */
-            color: white;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        #page-6-and-7-container {
-            display: flex;  /* Enables horizontal row layout */
-            flex-direction: row;  /* Explicitly set row direction */
-            justify-content: center;  /* Centers the divs */
-            align-items: flex-start;  /* Aligns them to the top */
-
-            gap: 40px;  /* Adds spacing between them */
-            width: 100%;  /* Ensures it spans the full width */
-        }
-        
-
-        /* Initially position .container fully off-screen */
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 500px;
-            max-width: 100%;
-            box-sizing: border-box;
-            margin: 0;
-        }
-
-        /* Initially position .container fully off-screen */
-        .container-background {
-            background: black;
-            padding: 20px;
-            width: fit-content; /* Shrinks wrapper to fit the image */
-            height: fit-content;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 500px;
-            box-sizing: border-box;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-        }
-        input, button {
-            width: 30%;
-            padding: 10px;
-            font-size: 14px; /* Adjusts the font size */
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        button {
-            background-color: rgba(67, 121, 138, 0.3);
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: rgba(29, 77, 92, 0.3);
-        }
-
-        #home-button {
+        /* Style for the return button */
+        .return-button {
             position: absolute;
             top: 10px;
             left: 10px;
-            background-color: rgba(173, 216, 230, 0.3);
+            padding: 10px 15px;
+            background-color: #007bff;
             color: white;
             border: none;
-            padding: 8px 12px;
+            border-radius: 5px;
             font-size: 14px;
             cursor: pointer;
-            border-radius: 4px;
-            width: auto; /* Let the button size itself based on text */
-            min-width: fit-content; /* Ensures it is only as wide as the text */
-            white-space: nowrap; /* Prevents text from wrapping */
-            transition: transform 0.7s ease-in-out, opacity 0.8s ease-in-out;
+            text-decoration: none;
+            z-index: 1000;  /* Ensure it's on top */
+            display: block;  /* Ensure it's not hidden */
+        }
+        .return-button:hover {
+            background-color: #0056b3;
+        }
+        /* LaTeX equation container */
+        .latex-container {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
         }
 
-        #home-button:hover {
-            background-color: darkgray;
+        .form_wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        #third-container{
-            width:850px;
+        .container {
+            margin: 0 auto;
+            max-width: calc(100% - 2in); /* Ensures 1-inch margin on both sides */
+            padding: 20px;
         }
 
-        #third-container-background {
-            width: 850px;
-        }
-
-        #progress-container {
-            display: none;
-            flex-direction: column;  /* Stack items vertically */
-            align-items: center;  /* Center horizontally */
-            justify-content: center;  /* Center vertically */
-            width: 75%;  /* Ensure it spans the width */
-            margin: 10px auto;  /* Center it with margin */
-            text-align: center;  /* Center text */
-        }
-        #progress-bar {
-            width: 100%;
-            height: 25px;
+        form {
+            display: inline;
         }
     </style>
-
-    <script>
-
-
-        function returnHome() {
-            window.location.href = "/K3-surface"; // Redirect to Flask route
-        }
-    </script>
 </head>
-
 <body>
-
-    <button id="home-button" onclick="returnHome()" style="font-size: 20px;">Back</button>
-
-
-
-    <!-- Giving title of the first parallax -->
-    <div class="parallax-1">
-        <div id="page-2-content">
-            <div id="plot" style="width: 40vw;"></div>
-        </div>
+     <!-- Return Home Button -->
+      <div id="form_wrapper">
+        <form action="/local-P1" method="POST">
+            <button type="submit" class="return-button">Go Back</a>
+        </form>
     </div>
 
-    <!--Content of first parallax -->
-    <div class="para-1">
+
+    <div class="container">
+        <!--plotly object-->
+        <div id="plot"></div>
+        <br/>
+        <hr/>
+        <br/>
+        <br/>
+
         <p>
             Up to the $\mathbb{C}$-action, every geometric stability condition is of the form $\sigma_{w} = ( \langle i_\ast \mathcal{O}_{\mathbb{P}^1}(n), i_\ast \mathcal{O}_{\mathbb{P}^1}(n-1)[1]\rangle , Z_{w} )$ 
             with $w \in \mathbb{C}$ strictly above the real line and
@@ -395,16 +123,12 @@
         <p id="exposition-2">
 
         </p>
+
+
     </div>
 
-   
-
-    
-
-</body>
-
-<script>
-var plot_data = {{ plot_json | safe }};
+    <script>
+        var plot_data = {{ plot_json | safe }};
         Plotly.newPlot('plot', plot_data.data, plot_data.layout);
 
         // Convert ChainComplex JSON into a JavaScript object
@@ -572,7 +296,8 @@ var plot_data = {{ plot_json | safe }};
 
     document.getElementById("exposition-1").innerHTML = `The mass of the spherical twist $\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} )$, as shown in the above figure, is the sum of the masses of its Harder-Narasimhan factors. For a single twist, we may simply use the defining triangle`;
 
-</script>
+    </script>
 
-  
+     
+</body>
 </html>
