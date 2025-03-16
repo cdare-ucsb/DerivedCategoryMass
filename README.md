@@ -14,7 +14,7 @@ DerivedCategoryMass is a project stemming from my Ph.D. work on the mass evoluti
 
 ## Introduction
 
-In physics we typically contextualize the setting in which large-scale events occur as 4D-spacetime, which is typically modeled using some Lorentzian manifold. Field theories (such as QFTs, CFTs) additionally describe the data of quantum / local fields over the spacetime manifold as sections of tensor bundles (e.g. scalar fields = Higgs bundle, spinor fields = electrons, quarks), along with some symmetry data. Motivated by the Kaluza-Klein model — which predicts that at low energies a dimension unifying electromagnetism and gravity should be undetectable — we assume that the fundamental forces arise from dimensions too small to observe directly, and thus must be mathematially _compact_. This is the first geometrically significant property we need to extract before moving on.
+In physics we typically contextualize the setting in which large-scale events occur as 4D-spacetime, which is often modeled using some Lorentzian manifold. Field theories (such as QFTs, CFTs) additionally describe the data of quantum / local fields over the spacetime manifold as sections of tensor bundles (e.g. scalar fields = Higgs bundle, spinor fields = electrons, quarks), along with some symmetry data. Motivated by the Kaluza-Klein model — which predicts that at low energies a dimension unifying electromagnetism and gravity should be undetectable — we assume that the fundamental forces arise from dimensions too small to observe directly, and thus must be mathematially _compact_. This is the first geometrically significant property we need to extract before moving on.
 
 Next, it turns out that in current models there exist notable issues caused by the fact that the Higgs boson directly couples to every non-massless particle (this ultimately leading to large loop corrections). In theory, this should cause the Higgs boson's mass to grow as larger as the Plank mass; however, experimentally the Higgs boson's mass stays far below the Plank-scale thus causing the <a href="https://en.wikipedia.org/wiki/Hierarchy_problem">Hierarchy Problem</a>. One of the currently solutions is an added "graded" symmetry on the compactified space, known as supersymmetry (SUSY). In particular, the assumption that our theory survives at least __N__=1 supersymmetry in low energies requires that the compactified dimensions admit a covariantly constant spinor, and thus has a _SU(n)_ holonomy — in other words, our compactified dimensions are Calabi-Yau.
 
@@ -23,19 +23,68 @@ In the gauge theory setting of this compactified space, not all gauge fields in 
 
 Most current supersymmetric models require 3 compactified complex dimensions for anomaly cancellation to mathematically work; unfortunately, only one example of a complex compact Kahler threefold that admits geometric Bridgeland stability conditions is known [Li (2019)](https://link.springer.com/article/10.1007/s00222-019-00888-z). There are two ways to simplify the above problem: one one hand, we can look at fewer compactified dimensions than are currently expected. In particular, if we assume that there are only two complex dimensions (as opposed to three in current supersymmetric models), our problem reduces to predicting mass on a __projective K3 surface__ — since a very general projective K3 surface has Picard rank 1, we add this to the assumption in the program to make interactions between divisors easier. On the other hand, we can also look at "local models" of our compactified Calabi-Yau manifolds, which are non-compact quasi-projective Calabi-Yau's whose derived category behaves like the derived category of our original Calabi-Yau in an open neighborhhood. Under the assumption that our 3 compactified dimensions contain a projective plane, this leads to the __"Local P2"__ model. We also provide a __"Local P1"__ model which behaves as an even simpler approximation of our projective K3 surfaces.
 
+-------------------------------------------
+
+
 ## Installation
 
-If you are interested in trying out the current implementation, you first want to move local directory of your choosing and clone the repository via
 
+### Installation of Python
+If you are interested in trying out the current implementation, the first step is making sure that you have a recent installation of Python 3 on your system. 
+
+- For Windows, this requires obtaining the most recent [Python Installation](https://www.python.org/downloads/) from the site, opening the `.exe` file, and checking the box for "Add Python to PATH" (important!). Next, verify the installation by running either
+
+```
+python --version
+```
+or
+```
+python3 --version
+```
+in your command prompt. Whichever one produces a valid output will affect the first command / term you use in the `Usage` step.
+
+- For MacOS, simply run
+```
+brew install python
+```
+again, make sure to verify the installation by running either 
+```
+python --version
+```
+or
+```
+python3 --version
+```
+to determine how to run the executable.
+
+- For Linux (Ubuntu/Debian), run
+```
+sudo apt update
+sudo apt install python3
+```
+and again verify the installation.
+
+
+### Clone the repository from GitHub (or Download)
+
+The user may notice that the code is readily available on this webpage, but not on their local machine. There are effectively two options to move the code to your local machine to run the program
+
+1. Download the director as a `.zip` file by finding the green "<> Code" button on the repository webpage and selecting "Download ZIP". Next, unzip the directory and move it to a location you can easily navigate to from the command line.
+
+2. Clone via `git` using the command line. This requires that the `git` package be installed on the local machine — one can follow similar steps to the installation of python to install the `git` package (e.g. for MacOS, one would simply run `brew install git` and verify installation by running `git --version`). Again, move to a local directory that is easy to navigate to from the command line and run
 ```
 cd path/of/your/choosing && git clone https://github.com/cdare-ucsb/DerivedCategoryMass.git
 ```
 
-Once the files are installed locally, there are some prerequisite Python libraries that are needed. To install the required dependencies, run:
+### Install Python dependencies
 
+While there is a decent amount of standalone code present, this program also heavily utilizes other libraries to handle front-end tasks such as translation of user inputs (via `Flask`) and training of neural networks (via `PyTorch`). Thus, in order to run this program the user must also have the same dependencies installed — to do this, run
 ```sh
 pip install -r requirements.txt
 ```
+(for some users who already have these packages installed, it may be judicious to simply install these requirements in a virtual Python environment so as to not adjust current installations).
+
+-------------------------------------------
 
 ## Usage
 
