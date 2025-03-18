@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['boundary_5fpoints_0',['boundary_points',['../classsrc_1_1_local_p2_1_1_le_potier.html#a22d323544cc496f65793489d1929e3f7',1,'src::LocalP2::LePotier']]]
+  ['autosize_0',['autosize',['../namespacesrc_1_1_projective_c_y.html#a8926f8c7f11505e74e9a7c0f7138926d',1,'src::ProjectiveCY']]]
 ];

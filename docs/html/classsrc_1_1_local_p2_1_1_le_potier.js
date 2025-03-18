@@ -10,5 +10,6 @@ var classsrc_1_1_local_p2_1_1_le_potier =
     [ "is_above_curve", "classsrc_1_1_local_p2_1_1_le_potier.html#a0cb51e30a5da5e950c29853b96e06cb4", null ],
     [ "plot_region", "classsrc_1_1_local_p2_1_1_le_potier.html#a98c74228cc90ec340155a87a1faed22f", null ],
     [ "boundary_points", "classsrc_1_1_local_p2_1_1_le_potier.html#a22d323544cc496f65793489d1929e3f7", null ],
-    [ "granularity", "classsrc_1_1_local_p2_1_1_le_potier.html#a65cd054cbf766d2fe5a51d13a3921840", null ]
+    [ "granularity", "classsrc_1_1_local_p2_1_1_le_potier.html#a65cd054cbf766d2fe5a51d13a3921840", null ],
+    [ "width", "classsrc_1_1_local_p2_1_1_le_potier.html#a60c614144a2cf3383465e6021b619658", null ]
 ];

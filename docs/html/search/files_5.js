@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['sphericaltwist_2epy_0',['SphericalTwist.py',['../_spherical_twist_8py.html',1,'']]]
+  ['projectivecy_2epy_0',['ProjectiveCY.py',['../_projective_c_y_8py.html',1,'']]]
 ];

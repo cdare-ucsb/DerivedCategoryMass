@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="classsrc_1_1model_1_1_single_twist_collection_model" kind="class" language="Python" prot="public">
+    <compoundname>src::model::SingleTwistCollectionModel</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classsrc_1_1model_1_1_single_twist_collection_model_1a1944b9a7311de2def2e5920f89a2fef4" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.model.SingleTwistCollectionModel::csv_file</definition>
+        <argsstring></argsstring>
+        <name>csv_file</name>
+        <qualifiedname>src.model.SingleTwistCollectionModel.csv_file</qualifiedname>
+        <initializer>=  csv_file</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="380" column="1" bodyfile="src/model.py" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1model_1_1_single_twist_collection_model_1afe95899010562e277c07975542e1c252" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int src.model.SingleTwistCollectionModel::total_samples</definition>
+        <argsstring></argsstring>
+        <name>total_samples</name>
+        <qualifiedname>src.model.SingleTwistCollectionModel.total_samples</qualifiedname>
+        <initializer>=  sum(1 for _ in open(<ref refid="classsrc_1_1model_1_1_single_twist_collection_model_1a1944b9a7311de2def2e5920f89a2fef4" kindref="member">csv_file</ref>)) - 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="381" column="1" bodyfile="src/model.py" bodystart="381" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1model_1_1_single_twist_collection_model_1ad198e020606ed968ca6554d03ea44794" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.model.SingleTwistCollectionModel::dataloader</definition>
+        <argsstring></argsstring>
+        <name>dataloader</name>
+        <qualifiedname>src.model.SingleTwistCollectionModel.dataloader</qualifiedname>
+        <initializer>=  DataLoader(dataset, batch_size=64, shuffle=<ref refid="namespacesrc_1_1_local_p2_1a6b6506e483df735954e483bf0e8bf95a" kindref="member">True</ref>, num_workers=4, pin_memory=<ref refid="namespacesrc_1_1_local_p2_1a6b6506e483df735954e483bf0e8bf95a" kindref="member">True</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="398" column="1" bodyfile="src/model.py" bodystart="398" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1model_1_1_single_twist_collection_model_1ad644e6c38407d668840d1542826851bb" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.model.SingleTwistCollectionModel::model</definition>
+        <argsstring></argsstring>
+        <name>model</name>
+        <qualifiedname>src.model.SingleTwistCollectionModel.model</qualifiedname>
+        <initializer>=  nn.Sequential(
+                    nn.Linear(self._input_size, 64),  # Input: (x, y)
+                    nn.SiLU(),
+                    nn.Linear(64, 64),
+                    nn.SiLU(),
+                    nn.Linear(64, 1)  # Output: z
+                )</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="417" column="1" bodyfile="src/model.py" bodystart="417" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1model_1_1_single_twist_collection_model_1a7d6bb984923b9dae218b41f946f015d4" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.model.SingleTwistCollectionModel::catagory</definition>
+        <argsstring></argsstring>
+        <name>catagory</name>
+        <qualifiedname>src.model.SingleTwistCollectionModel.catagory</qualifiedname>
+        <initializer>=  FNN_model_3(catagory)</initializer>
+        <briefdescription>
+<para>The catagory of the model; this is either &apos;P1&apos;, &apos;P2&apos;, or &apos;K3&apos;. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The PyTorch neural network model for the <ref refid="classsrc_1_1model_1_1_single_twist_model" kindref="compound">SingleTwistModel</ref> class. The model is a simple feedforward neural network with 3 layers. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="428" column="1" bodyfile="src/model.py" bodystart="428" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classsrc_1_1model_1_1_single_twist_collection_model_1a83c4c80b9a0d77ea7226797cbb5ccf6e" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int src.model.SingleTwistCollectionModel::_input_size</definition>
+        <argsstring></argsstring>
+        <name>_input_size</name>
+        <qualifiedname>src.model.SingleTwistCollectionModel._input_size</qualifiedname>
+        <initializer>=  5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="408" column="1" bodyfile="src/model.py" bodystart="408" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsrc_1_1model_1_1_single_twist_collection_model_1ac5108d2c6613d35ffd62592fa9af9658" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.model.SingleTwistCollectionModel.__init__</definition>
+        <argsstring>(self, filename, catagory)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>src.model.SingleTwistCollectionModel.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1model_1a147e42d5724688650c476630def97857" kindref="member">filename</ref></type>
+          <defname>filename</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1model_1_1_single_twist_collection_model_1a7d6bb984923b9dae218b41f946f015d4" kindref="member">catagory</ref></type>
+          <defname>catagory</defname>
+        </param>
+        <briefdescription>
+<para>Creates the <ref refid="classsrc_1_1model_1_1_single_twist_collection_model" kindref="compound">SingleTwistCollectionModel</ref> object with the specified filename and catagory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The constructor reads the CSV file and creates a PyTorch Dataset and DataLoader object from the data. The constructor also initializes the neural network model with the specified catagory.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The name of the CSV file that contains the training data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>catagory</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The catagory of the model; this is either &apos;P1&apos;, &apos;P2&apos;, or &apos;K3&apos; </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="365" column="1" bodyfile="src/model.py" bodystart="365" bodyend="430"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1model_1_1_single_twist_collection_model_1a43412b2faed87d2ca4fb33f9aeca9d5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.model.SingleTwistCollectionModel.train</definition>
+        <argsstring>(self, num_epochs=50)</argsstring>
+        <name>train</name>
+        <qualifiedname>src.model.SingleTwistCollectionModel.train</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1model_1ad502fc00685d9096578d978cd1e2b5da" kindref="member">num_epochs</ref></type>
+          <defname>num_epochs</defname>
+          <defval>50</defval>
+        </param>
+        <briefdescription>
+<para>Method to train the neural network model for the <ref refid="classsrc_1_1model_1_1_single_twist_collection_model" kindref="compound">SingleTwistCollectionModel</ref> class. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The method uses the Adam optimizer and the Mean Squared Error loss function. The method also uses a learning rate scheduler to adjust the learning rate during training. The method prints the loss every 10% of the total number of epochs.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>num_epochs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of epochs to train the model for (default is 50) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="431" column="1" bodyfile="src/model.py" bodystart="431" bodyend="475"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>This class implements the functionality required to train a neural network model to predict the mass or the discrete Laplacian of a collection of single spherical twists, so that PyTorch does not directly need to be imported into the main application file for the Flask app. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The <ref refid="classsrc_1_1model_1_1_single_twist_collection_model" kindref="compound">SingleTwistCollectionModel</ref> class acts as a wrapper for a general PyTorch neural network model, and saves the training data as a member variabe. The class also provides methods to train the model, save the model, load the model, and plot the predictions of the model using Plotly. Unlike the <ref refid="classsrc_1_1model_1_1_single_twist_model" kindref="compound">SingleTwistModel</ref>, this class does not actually create any of the data, but instead takes in a filename to a CSV file that contains the training data. The format of the CSV file should be as follows:</para>
+<para>x, y, line bundle 1, line bundle 2, (optional) degree, mass</para>
+<para>The create_training_data_single_twist_collection method in the <ref refid="namespacesrc_1_1_spherical_twist" kindref="compound">SphericalTwist</ref> module can be used to generate the training data and save it to a CSV file. </para>
+    </detaileddescription>
+    <location file="src/model.py" line="351" column="1" bodyfile="src/model.py" bodystart="351" bodyend="476"/>
+    <listofallmembers>
+      <member refid="classsrc_1_1model_1_1_single_twist_collection_model_1ac5108d2c6613d35ffd62592fa9af9658" prot="public" virt="non-virtual"><scope>src::model::SingleTwistCollectionModel</scope><name>__init__</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_collection_model_1a83c4c80b9a0d77ea7226797cbb5ccf6e" prot="protected" virt="non-virtual"><scope>src::model::SingleTwistCollectionModel</scope><name>_input_size</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_collection_model_1a7d6bb984923b9dae218b41f946f015d4" prot="public" virt="non-virtual"><scope>src::model::SingleTwistCollectionModel</scope><name>catagory</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_collection_model_1a1944b9a7311de2def2e5920f89a2fef4" prot="public" virt="non-virtual"><scope>src::model::SingleTwistCollectionModel</scope><name>csv_file</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_collection_model_1ad198e020606ed968ca6554d03ea44794" prot="public" virt="non-virtual"><scope>src::model::SingleTwistCollectionModel</scope><name>dataloader</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_collection_model_1ad644e6c38407d668840d1542826851bb" prot="public" virt="non-virtual"><scope>src::model::SingleTwistCollectionModel</scope><name>model</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_collection_model_1afe95899010562e277c07975542e1c252" prot="public" virt="non-virtual"><scope>src::model::SingleTwistCollectionModel</scope><name>total_samples</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_collection_model_1a43412b2faed87d2ca4fb33f9aeca9d5f" prot="public" virt="non-virtual"><scope>src::model::SingleTwistCollectionModel</scope><name>train</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

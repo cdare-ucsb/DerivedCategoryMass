@@ -4,20 +4,20 @@
     <compoundname>src::DerivedCategoryObject</compoundname>
     <innerclass refid="classsrc_1_1_derived_category_object_1_1_derived_category_object" prot="public">src::DerivedCategoryObject::DerivedCategoryObject</innerclass>
     <sectiondef kind="var">
-      <memberdef kind="variable" id="namespacesrc_1_1_derived_category_object_1add67028b6086ddbc2ab544bba772cd3c" prot="public" static="no" mutable="no">
-        <type>list</type>
-        <definition>list src::DerivedCategoryObject.IMPLEMENTED_CATAGORIES</definition>
+      <memberdef kind="variable" id="namespacesrc_1_1_derived_category_object_1abbbfc27d9a4e02bae4f2e93868a0994d" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::DerivedCategoryObject.IMPLEMENTED_CATAGORIES</definition>
         <argsstring></argsstring>
         <name>IMPLEMENTED_CATAGORIES</name>
         <qualifiedname>src.DerivedCategoryObject.IMPLEMENTED_CATAGORIES</qualifiedname>
-        <initializer>=  [&apos;P1&apos;, &apos;P2&apos;, &apos;<ref refid="namespacesrc_1_1_projective_c_y_1ae24dbe6f91328befda2836d4a4b311b7" kindref="member">K3</ref>&apos;]</initializer>
+        <initializer>=  os.getenv(&quot;IMPLEMENTED_CATAGORIES&quot;).split(&quot;,&quot;)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/DerivedCategoryObject.py" line="6" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="6" bodyend="-1"/>
+        <location file="src/DerivedCategoryObject.py" line="10" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="10" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <briefdescription>

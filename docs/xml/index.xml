@@ -75,7 +75,9 @@
     <member refid="classsrc_1_1_spherical_twist_1_1_double_spherical_twist_1ab9e9e5ae6673b64365efe14c77bab864" kind="function"><name>chernCharacter</name></member>
     <member refid="classsrc_1_1_spherical_twist_1_1_double_spherical_twist_1a68d54bee26b992863d77725861e0ec2c" kind="function"><name>central_charge</name></member>
     <member refid="classsrc_1_1_spherical_twist_1_1_double_spherical_twist_1a6cc185f90c2474199cc64957beb5f2bb" kind="function"><name>__str__</name></member>
+    <member refid="classsrc_1_1_spherical_twist_1_1_double_spherical_twist_1ae43321d74a3a99d2a90f95621f6f50c5" kind="function"><name>defining_triangle_to_json</name></member>
     <member refid="classsrc_1_1_spherical_twist_1_1_double_spherical_twist_1a4d600ef4b8ee2b4ca1473c15ce61c177" kind="function"><name>secondary_canonical_triangle</name></member>
+    <member refid="classsrc_1_1_spherical_twist_1_1_double_spherical_twist_1ac80f49e4ef00d29cafa8864aa8b19a32" kind="function"><name>secondary_triangle_to_json</name></member>
     <member refid="classsrc_1_1_spherical_twist_1_1_double_spherical_twist_1a1511075ab30c69c00130bc3e3b1820fb" kind="function"><name>is_semistable</name></member>
     <member refid="classsrc_1_1_spherical_twist_1_1_double_spherical_twist_1a4daf8f6e1a2470c949ac3e49ca099977" kind="function"><name>mass</name></member>
     <member refid="classsrc_1_1_spherical_twist_1_1_double_spherical_twist_1ae8b0a91cede767ce6188b18686b431c0" kind="function"><name>get_HN_factors</name></member>
@@ -83,6 +85,7 @@
   </compound>
   <compound refid="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error" kind="class"><name>src::SphericalTwist::HarderNarasimhanError</name>
     <member refid="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error_1a247019cf436761ee38e1dd7b11e6c8c1" kind="variable"><name>message</name></member>
+    <member refid="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error_1aca7b4be76f1a052bec2ddd427b317ac3" kind="variable"><name>stability_parameters</name></member>
     <member refid="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error_1ad8666384a318fb06e069988617438d63" kind="function"><name>__init__</name></member>
   </compound>
   <compound refid="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber" kind="class"><name>src::ProjectiveCY::K3GeometricChamber</name>
@@ -96,6 +99,7 @@
   </compound>
   <compound refid="classsrc_1_1_local_p2_1_1_le_potier" kind="class"><name>src::LocalP2::LePotier</name>
     <member refid="classsrc_1_1_local_p2_1_1_le_potier_1a65cd054cbf766d2fe5a51d13a3921840" kind="variable"><name>granularity</name></member>
+    <member refid="classsrc_1_1_local_p2_1_1_le_potier_1a60c614144a2cf3383465e6021b619658" kind="variable"><name>width</name></member>
     <member refid="classsrc_1_1_local_p2_1_1_le_potier_1a22d323544cc496f65793489d1929e3f7" kind="variable"><name>boundary_points</name></member>
     <member refid="classsrc_1_1_local_p2_1_1_le_potier_1a8fb86a6de5ba7866c61fa4ec1d3be584" kind="function"><name>__init__</name></member>
     <member refid="classsrc_1_1_local_p2_1_1_le_potier_1a0cb51e30a5da5e950c29853b96e06cb4" kind="function"><name>is_above_curve</name></member>
@@ -114,6 +118,56 @@
     <member refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle_1a9d5184ea52c4a3af33dc81ffc090cfba" kind="function"><name>__eq__</name></member>
     <member refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle_1a7e799278c25e792c35c856c1a1d45ebb" kind="function"><name>__hash__</name></member>
   </compound>
+  <compound refid="classsrc_1_1_mass_plot_1_1_mass_plot" kind="class"><name>src::MassPlot::MassPlot</name>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a2bc5eab4670559d2c553e78295fd41fe" kind="variable"><name>line_bundle_1</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a493024a72fb9bb9c2a98861ea8ea6224" kind="variable"><name>line_bundle_2</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a3713d45d8db138720243c72a820611a7" kind="variable"><name>line_bundle_3</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1aafd8e9c0aa1d0835615976dcf557e787" kind="variable"><name>degree</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a2dd27d5e9bbbc4d48244766303efe86f" kind="variable"><name>catagory</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a16af102415c7f7ca7703f769193693d9" kind="variable"><name>x_min</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1afe71021c0e2340d965768a55d96d1689" kind="variable"><name>x_max</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1ae48365d979173558aec788a500909bdc" kind="variable"><name>x_granularity</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a66e8ca865c2ca66f106cde2ad3127a77" kind="variable"><name>y_min</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a352ca54ac815e031cb1bf910bf2eabf4" kind="variable"><name>y_max</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1af39891621318772ff10e26524f19d293" kind="variable"><name>y_granularity</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a1020853732496df8e8d8c67d8e166156" kind="variable"><name>_num_twists</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a0c6501bd5875afd2b5bd085813f42e5e" kind="variable"><name>_xvals</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a25ea848ba3d4751bfc89fa1761fd1da4" kind="variable"><name>_yvals</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a54bf2dc2d546f8be3cc3ea1ff7e466c9" kind="function"><name>__init__</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a89a74b4b90383de72b9e2d44ddc381fa" kind="function"><name>get_mass_values</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1ab41d45af85b48d7e8b70e8e983869211" kind="function"><name>to_plotly_figure</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a9dd42ce63527140fbe41eed6009a5544" kind="function"><name>to_plotly_json</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1ae4280772d8d39404953f177ce6161bb1" kind="function"><name>get_discretized_Laplacian_values</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a210348d37db75853f20f51b54ebfb97a" kind="function"><name>discretized_Laplacian_to_plotly_figure</name></member>
+    <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a51be2ce6195a8a25edb2785d0552dbcf" kind="function"><name>find_discontinuities</name></member>
+  </compound>
+  <compound refid="classsrc_1_1model_1_1_single_twist_collection_model" kind="class"><name>src::model::SingleTwistCollectionModel</name>
+    <member refid="classsrc_1_1model_1_1_single_twist_collection_model_1a1944b9a7311de2def2e5920f89a2fef4" kind="variable"><name>csv_file</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_collection_model_1afe95899010562e277c07975542e1c252" kind="variable"><name>total_samples</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_collection_model_1ad198e020606ed968ca6554d03ea44794" kind="variable"><name>dataloader</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_collection_model_1ad644e6c38407d668840d1542826851bb" kind="variable"><name>model</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_collection_model_1a7d6bb984923b9dae218b41f946f015d4" kind="variable"><name>catagory</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_collection_model_1a83c4c80b9a0d77ea7226797cbb5ccf6e" kind="variable"><name>_input_size</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_collection_model_1ac5108d2c6613d35ffd62592fa9af9658" kind="function"><name>__init__</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_collection_model_1a43412b2faed87d2ca4fb33f9aeca9d5f" kind="function"><name>train</name></member>
+  </compound>
+  <compound refid="classsrc_1_1model_1_1_single_twist_model" kind="class"><name>src::model::SingleTwistModel</name>
+    <member refid="classsrc_1_1model_1_1_single_twist_model_1a18944c3cb3cd921fefd35d49b34a7379" kind="variable"><name>mode</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_model_1a4374efbc6eaec60a713a341a2b09a0cb" kind="variable"><name>catagory</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_model_1a921c2f0d57fa5a239607341025683ec6" kind="variable"><name>degree</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_model_1a8dba0c5610085964a6adb8deb4e2b9f8" kind="variable"><name>x_min</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_model_1a2213d430a538104f0b5e837747d406dc" kind="variable"><name>x_max</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_model_1ad8518961fae89a1cc4d47fb8e45be248" kind="variable"><name>y_min</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_model_1ad8c3d5984b717a0d222f56ea6a0e5948" kind="variable"><name>y_max</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_model_1ad80da39d87df5c78cc2c1f5780f89089" kind="variable"><name>output_tensor</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_model_1acc6e13cc905d1d832bcc063a0357b5d8" kind="variable"><name>input_tensor</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_model_1a1ca3cbc6fdddd71263e4b9f9fe333dee" kind="variable"><name>model</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_model_1a11f29edc9ceb1fccfbbe2746feb0eaf8" kind="function"><name>__init__</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_model_1aeb4778059b8403db41537bf8c71d8ce2" kind="function"><name>train</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_model_1ad100356b600526964a2183e70fa8036c" kind="function"><name>save_model</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_model_1a958d3fe65a9a1357eb759d863cd4a732" kind="function"><name>load_model</name></member>
+    <member refid="classsrc_1_1model_1_1_single_twist_model_1ab9485c6d3eca6678afbdb471cc6bae8b" kind="function"><name>predictions_to_plotly</name></member>
+  </compound>
   <compound refid="classsrc_1_1_spherical_twist_1_1_spherical_twist" kind="class"><name>src::SphericalTwist::SphericalTwist</name>
     <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a16387ebcbf8065fea959f9b1f2c96185" kind="variable"><name>line_bundle_1</name></member>
     <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1ac3e080e6277d060fcc6b56c076461e27" kind="variable"><name>line_bundle_2</name></member>
@@ -121,6 +175,7 @@
     <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a45bab068cfcf3ed76462c137df88cd4b" kind="variable"><name>defining_triangle</name></member>
     <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a9a67efb1d59e905c5e7cfdb7cc309daa" kind="function"><name>__init__</name></member>
     <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a2dbfba1b1b215dfdb4e58bd160819479" kind="function"><name>__str__</name></member>
+    <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a1fa8888025453c9958d00f6ac7552682" kind="function"><name>defining_triangle_to_json</name></member>
     <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a183209b78a4202824b036ab2ebe40b91" kind="function"><name>chernCharacter</name></member>
     <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a0cae017d37b0e69454f7d039b77f3a54" kind="function"><name>shift</name></member>
     <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_1a3548c15b0993329cebd465170cb78c00" kind="function"><name>central_charge</name></member>
@@ -153,22 +208,17 @@
     <member refid="namespacesrc_1ae6c4b21c7310e6ded7486acae404bc3c" kind="variable"><name>__all__</name></member>
   </compound>
   <compound refid="namespacesrc_1_1_chain_complex" kind="namespace"><name>src::ChainComplex</name>
-    <member refid="namespacesrc_1_1_chain_complex_1a66a0e46feeb8ea4e1ef632e7857e1abf" kind="variable"><name>IMPLEMENTED_CATAGORIES</name></member>
+    <member refid="namespacesrc_1_1_chain_complex_1a6a7f9b079f669c9113d44ed74956310e" kind="variable"><name>IMPLEMENTED_CATAGORIES</name></member>
   </compound>
   <compound refid="namespacesrc_1_1_chern_character" kind="namespace"><name>src::ChernCharacter</name>
   </compound>
   <compound refid="namespacesrc_1_1_coherent_sheaf" kind="namespace"><name>src::CoherentSheaf</name>
-    <member refid="namespacesrc_1_1_coherent_sheaf_1a96dc18afaa9dd4165c3ebc85ab9c1106" kind="variable"><name>IMPLEMENTED_CATAGORIES</name></member>
+    <member refid="namespacesrc_1_1_coherent_sheaf_1a7049f9ac49b8ccba0b61377c15d94b8c" kind="variable"><name>IMPLEMENTED_CATAGORIES</name></member>
   </compound>
   <compound refid="namespacesrc_1_1_derived_category_object" kind="namespace"><name>src::DerivedCategoryObject</name>
-    <member refid="namespacesrc_1_1_derived_category_object_1add67028b6086ddbc2ab544bba772cd3c" kind="variable"><name>IMPLEMENTED_CATAGORIES</name></member>
+    <member refid="namespacesrc_1_1_derived_category_object_1abbbfc27d9a4e02bae4f2e93868a0994d" kind="variable"><name>IMPLEMENTED_CATAGORIES</name></member>
   </compound>
   <compound refid="namespacesrc_1_1_distinguished_triangle" kind="namespace"><name>src::DistinguishedTriangle</name>
-  </compound>
-  <compound refid="namespacesrc_1_1_local_p1" kind="namespace"><name>src::LocalP1</name>
-    <member refid="namespacesrc_1_1_local_p1_1a672b2478ed63bd51ebc9acb6569c754b" kind="variable"><name>return_json</name></member>
-    <member refid="namespacesrc_1_1_local_p1_1aaf150e1cf83dedef44ba9db30b29a0b2" kind="function"><name>ints_to_mass_plot_P1_sing_twist</name></member>
-    <member refid="namespacesrc_1_1_local_p1_1a847328623c2db7151196507a5374dcd8" kind="function"><name>twist_triangle_to_json_P1</name></member>
   </compound>
   <compound refid="namespacesrc_1_1_local_p2" kind="namespace"><name>src::LocalP2</name>
     <member refid="namespacesrc_1_1_local_p2_1a43573e56e18e52559a2d31128936f558" kind="variable"><name>line_bundle_1</name></member>
@@ -182,14 +232,42 @@
     <member refid="namespacesrc_1_1_local_p2_1aba7ed3df7babb37325bbadaeef0e9f91" kind="variable"><name>return_json</name></member>
     <member refid="namespacesrc_1_1_local_p2_1a2d7bd416d61b0268a8227d0c4632ddf0" kind="function"><name>plot_multiple_neighbors_ex1</name></member>
     <member refid="namespacesrc_1_1_local_p2_1a0b3d4fc574da697a6c978d7b28a2c573" kind="function"><name>plot_successive_neighbors_ex1</name></member>
-    <member refid="namespacesrc_1_1_local_p2_1a2146da7042c0fc3e897850fd1f6a7893" kind="function"><name>ints_to_mass_plot_P2_sing_twist</name></member>
-    <member refid="namespacesrc_1_1_local_p2_1a2b97a79900dbdf7eb21a9ccd4cc23745" kind="function"><name>twist_triangle_to_json_P2</name></member>
+  </compound>
+  <compound refid="namespacesrc_1_1_mass_plot" kind="namespace"><name>src::MassPlot</name>
+    <member refid="namespacesrc_1_1_mass_plot_1ad7da09c67adb889fa32aebb243768e95" kind="variable"><name>IMPLEMENTED_CATAGORIES</name></member>
+    <member refid="namespacesrc_1_1_mass_plot_1aefd5e6f1971d6847678ac6cc9723e52b" kind="variable"><name>__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</name></member>
+    <member refid="namespacesrc_1_1_mass_plot_1aec67dfb86af33f925fe6f0c59a88ad1a" kind="variable"><name>mp</name></member>
+    <member refid="namespacesrc_1_1_mass_plot_1a992c2f843487e19ac3babe503a04c703" kind="variable"><name>fig1</name></member>
+    <member refid="namespacesrc_1_1_mass_plot_1a2fbfb4e7b498c76b57a5c3ab772aadb3" kind="variable"><name>fig2</name></member>
+  </compound>
+  <compound refid="namespacesrc_1_1model" kind="namespace"><name>src::model</name>
+    <member refid="namespacesrc_1_1model_1ae83441da711431aadc3751986527332f" kind="variable"><name>IMPLEMENTED_CATAGORIES</name></member>
+    <member refid="namespacesrc_1_1model_1a6ab07e53074c687aacf807bb020c0917" kind="variable"><name>__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</name></member>
+    <member refid="namespacesrc_1_1model_1aa688a051c9b25983ed4f92b19552d8c7" kind="variable"><name>NN_MODEL_MODES</name></member>
+    <member refid="namespacesrc_1_1model_1a3b9670c40bf5710dc0d5a5d8e61a0939" kind="variable"><name>lb_1_range</name></member>
+    <member refid="namespacesrc_1_1model_1a4470132bf10fa689e6974a03d0ff780d" kind="variable"><name>lb_2_range</name></member>
+    <member refid="namespacesrc_1_1model_1a284e430ea6f114dd04d759b98b58a884" kind="variable"><name>st_model</name></member>
+    <member refid="namespacesrc_1_1model_1ad502fc00685d9096578d978cd1e2b5da" kind="variable"><name>num_epochs</name></member>
+    <member refid="namespacesrc_1_1model_1a147e42d5724688650c476630def97857" kind="variable"><name>filename</name></member>
+    <member refid="namespacesrc_1_1model_1a9492c028e6cc55675f69d0dffdc9c963" kind="function"><name>create_training_data_single_twist_collection</name></member>
+    <member refid="namespacesrc_1_1model_1a606f0a55cd3826daac9e76e88d630eed" kind="function"><name>_generate_xy_grid</name></member>
+    <member refid="namespacesrc_1_1model_1a6db1376bab86fc9b39269a1c6b75d81b" kind="function"><name>_append_training_data_to_CSV_single_twist</name></member>
   </compound>
   <compound refid="namespacesrc_1_1_projective_c_y" kind="namespace"><name>src::ProjectiveCY</name>
-    <member refid="namespacesrc_1_1_projective_c_y_1ae24dbe6f91328befda2836d4a4b311b7" kind="variable"><name>K3</name></member>
-    <member refid="namespacesrc_1_1_projective_c_y_1a0b25b62d9c476894439d5e912c42bb2b" kind="variable"><name>filename</name></member>
-    <member refid="namespacesrc_1_1_projective_c_y_1ada9e2125f4ff45cabe142cf18d906fad" kind="variable"><name>degree</name></member>
-    <member refid="namespacesrc_1_1_projective_c_y_1ac22e9c42413a02b1821177c0d7ac1f45" kind="variable"><name>to_gif</name></member>
+    <member refid="namespacesrc_1_1_projective_c_y_1ad35f697e36426d705f0dc1ceb67f0c06" kind="variable"><name>y_granularity</name></member>
+    <member refid="namespacesrc_1_1_projective_c_y_1a8f348febba300e233ff77986391cb251" kind="variable"><name>x_granularity</name></member>
+    <member refid="namespacesrc_1_1_projective_c_y_1aa92379c0bb5f992e92abb7c3dca6457d" kind="variable"><name>sph</name></member>
+    <member refid="namespacesrc_1_1_projective_c_y_1a76e1746a1f25f4e68e30b19e2630a526" kind="variable"><name>x_vals</name></member>
+    <member refid="namespacesrc_1_1_projective_c_y_1aa2b823038df258d3351efc1511eaa8f3" kind="variable"><name>y_vals</name></member>
+    <member refid="namespacesrc_1_1_projective_c_y_1a8841dad3b57212d7e8a91db0d1b6047f" kind="variable"><name>y_range</name></member>
+    <member refid="namespacesrc_1_1_projective_c_y_1aa5a6ce53f0145648ace652be8d534758" kind="variable"><name>y_vals_len</name></member>
+    <member refid="namespacesrc_1_1_projective_c_y_1a1766d6363ff5d3bc61ca52c3b67c215f" kind="variable"><name>masses</name></member>
+    <member refid="namespacesrc_1_1_projective_c_y_1afbd776198d2d1c90666074f484fcf511" kind="variable"><name>fig</name></member>
+    <member refid="namespacesrc_1_1_projective_c_y_1a9a5620909a4c3277fc4706370be26b0f" kind="variable"><name>title</name></member>
+    <member refid="namespacesrc_1_1_projective_c_y_1a8926f8c7f11505e74e9a7c0f7138926d" kind="variable"><name>autosize</name></member>
+    <member refid="namespacesrc_1_1_projective_c_y_1a70dd5337c1f46f42148a94a80c907dd8" kind="variable"><name>margin</name></member>
+    <member refid="namespacesrc_1_1_projective_c_y_1a30fc1a649ebfbbe9ca2a645103ac90fc" kind="variable"><name>scene</name></member>
+    <member refid="namespacesrc_1_1_projective_c_y_1a46264cbc316720c5312f9af95df79d46" kind="variable"><name>discont</name></member>
     <member refid="namespacesrc_1_1_projective_c_y_1a39d571956330fa6f279661f1b91ba167" kind="function"><name>_calcZ1</name></member>
     <member refid="namespacesrc_1_1_projective_c_y_1a2db5a8aacda64885e275d3f7793e6fa7" kind="function"><name>_calcZ2</name></member>
     <member refid="namespacesrc_1_1_projective_c_y_1a331c9adbbb19c1823efa42e532207e3d" kind="function"><name>_calcZ1Real</name></member>
@@ -198,13 +276,11 @@
     <member refid="namespacesrc_1_1_projective_c_y_1a00145c543b8939445e77cf8c1f0dd8d1" kind="function"><name>_calcZ_alt</name></member>
     <member refid="namespacesrc_1_1_projective_c_y_1aa28a5c422a4962906cbfa11eb9d6cbd8" kind="function"><name>complex_hypersurface_matplot_animation_ex1</name></member>
     <member refid="namespacesrc_1_1_projective_c_y_1aeda1da0b5fd93a28cf76877ec9b091d8" kind="function"><name>complex_hypersurface_plotly_ex1</name></member>
-    <member refid="namespacesrc_1_1_projective_c_y_1af09b185bc17262d77193a3eb0f1ae585" kind="function"><name>ints_to_mass_plot_K3_sing_twist</name></member>
-    <member refid="namespacesrc_1_1_projective_c_y_1ac8416ebf9e2300e333b4d25adc0f0fd5" kind="function"><name>ints_to_mass_plot_K3_double_twist</name></member>
-    <member refid="namespacesrc_1_1_projective_c_y_1ac16597928445d3dac8faf9f75d50cd76" kind="function"><name>single_twist_triangle_to_json_K3</name></member>
-    <member refid="namespacesrc_1_1_projective_c_y_1af154259f38f2331aa0a3de807231e893" kind="function"><name>double_twist_triangle_to_json_K3</name></member>
+    <member refid="namespacesrc_1_1_projective_c_y_1a05fbaf86af1a8953eeefb5599d6cb5fd" kind="function"><name>find_discontinuities_disc_Lapl_in_single_twist_mass_K3</name></member>
   </compound>
   <compound refid="namespacesrc_1_1_spherical_twist" kind="namespace"><name>src::SphericalTwist</name>
-    <member refid="namespacesrc_1_1_spherical_twist_1a6adb5f1c02cdb6c62340a1e45e5c1f3c" kind="variable"><name>__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</name></member>
+    <member refid="namespacesrc_1_1_spherical_twist_1a92d496d2229e940de79adce0d9c7dc87" kind="variable"><name>IMPLEMENTED_CATAGORIES</name></member>
+    <member refid="namespacesrc_1_1_spherical_twist_1a530977c9b8562ee01c7ca21667ba719d" kind="variable"><name>__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</name></member>
     <member refid="namespacesrc_1_1_spherical_twist_1ad60fa80652e6ca4ef6c6cb8658f23e19" kind="variable"><name>lb6</name></member>
     <member refid="namespacesrc_1_1_spherical_twist_1a551e481eec0d20b002128676f68ea940" kind="variable"><name>lb7</name></member>
     <member refid="namespacesrc_1_1_spherical_twist_1a55f6d2af3496d6d3f2e1b82dfe628dc2" kind="variable"><name>lb8</name></member>
@@ -235,9 +311,11 @@
   </compound>
   <compound refid="_distinguished_triangle_8py" kind="file"><name>DistinguishedTriangle.py</name>
   </compound>
-  <compound refid="_local_p1_8py" kind="file"><name>LocalP1.py</name>
-  </compound>
   <compound refid="_local_p2_8py" kind="file"><name>LocalP2.py</name>
+  </compound>
+  <compound refid="_mass_plot_8py" kind="file"><name>MassPlot.py</name>
+  </compound>
+  <compound refid="model_8py" kind="file"><name>model.py</name>
   </compound>
   <compound refid="_projective_c_y_8py" kind="file"><name>ProjectiveCY.py</name>
   </compound>

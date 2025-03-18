@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['y_5frange_0',['y_range',['../namespacesrc_1_1_spherical_twist.html#ac2c121df4f006e959c856d7d64130240',1,'src::SphericalTwist']]],
-  ['y_5fvals_1',['y_vals',['../namespacesrc_1_1_spherical_twist.html#a711446b175a82fb756eefac305b42428',1,'src::SphericalTwist']]]
+  ['width_0',['width',['../classsrc_1_1_local_p2_1_1_le_potier.html#a60c614144a2cf3383465e6021b619658',1,'src.LocalP2.LePotier.width'],['../namespacesrc_1_1_local_p2.html#a25915f5179e1c16a57ff5a08d7ec7aac',1,'src.LocalP2.width']]]
 ];

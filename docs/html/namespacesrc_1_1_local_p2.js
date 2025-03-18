@@ -1,10 +1,8 @@
 var namespacesrc_1_1_local_p2 =
 [
     [ "LePotier", "classsrc_1_1_local_p2_1_1_le_potier.html", "classsrc_1_1_local_p2_1_1_le_potier" ],
-    [ "ints_to_mass_plot_P2_sing_twist", "namespacesrc_1_1_local_p2.html#a2146da7042c0fc3e897850fd1f6a7893", null ],
     [ "plot_multiple_neighbors_ex1", "namespacesrc_1_1_local_p2.html#a2d7bd416d61b0268a8227d0c4632ddf0", null ],
     [ "plot_successive_neighbors_ex1", "namespacesrc_1_1_local_p2.html#a0b3d4fc574da697a6c978d7b28a2c573", null ],
-    [ "twist_triangle_to_json_P2", "namespacesrc_1_1_local_p2.html#a2b97a79900dbdf7eb21a9ccd4cc23745", null ],
     [ "DLP", "namespacesrc_1_1_local_p2.html#acc9adae7bcc12d7bb69b9ee5f5f6cd3d", null ],
     [ "granularity", "namespacesrc_1_1_local_p2.html#a1c1f34fd485831cda6b2621f2a18f523", null ],
     [ "line_bundle_1", "namespacesrc_1_1_local_p2.html#a43573e56e18e52559a2d31128936f558", null ],

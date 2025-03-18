@@ -7,20 +7,35 @@
     <innerclass refid="classsrc_1_1_spherical_twist_1_1_spherical_twist" prot="public">src::SphericalTwist::SphericalTwist</innerclass>
     <innerclass refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum" prot="public">src::SphericalTwist::SphericalTwistSum</innerclass>
     <sectiondef kind="var">
-      <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a6adb5f1c02cdb6c62340a1e45e5c1f3c" prot="private" static="no" mutable="no">
-        <type>list</type>
-        <definition>list src::SphericalTwist.__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</definition>
+      <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a92d496d2229e940de79adce0d9c7dc87" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::SphericalTwist.IMPLEMENTED_CATAGORIES</definition>
         <argsstring></argsstring>
-        <name>__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</name>
-        <qualifiedname>src.SphericalTwist.__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</qualifiedname>
-        <initializer>=  [&apos;<ref refid="namespacesrc_1_1_projective_c_y_1ae24dbe6f91328befda2836d4a4b311b7" kindref="member">K3</ref>&apos;]</initializer>
+        <name>IMPLEMENTED_CATAGORIES</name>
+        <qualifiedname>src.SphericalTwist.IMPLEMENTED_CATAGORIES</qualifiedname>
+        <initializer>=  os.getenv(&quot;IMPLEMENTED_CATAGORIES&quot;).split(&quot;,&quot;)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="16" column="1" bodyfile="src/SphericalTwist.py" bodystart="16" bodyend="-1"/>
+        <location file="src/SphericalTwist.py" line="21" column="1" bodyfile="src/SphericalTwist.py" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a530977c9b8562ee01c7ca21667ba719d" prot="private" static="no" mutable="no">
+        <type></type>
+        <definition>src::SphericalTwist.__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</definition>
+        <argsstring></argsstring>
+        <name>__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</name>
+        <qualifiedname>src.SphericalTwist.__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</qualifiedname>
+        <initializer>=  os.getenv(&quot;CURRENT_DOUBLE_TWIST_IMPLEMENTED&quot;).split(&quot;,&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="22" column="1" bodyfile="src/SphericalTwist.py" bodystart="22" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1ad60fa80652e6ca4ef6c6cb8658f23e19" prot="public" static="no" mutable="no">
         <type></type>
@@ -28,14 +43,14 @@
         <argsstring></argsstring>
         <name>lb6</name>
         <qualifiedname>src.SphericalTwist.lb6</qualifiedname>
-        <initializer>=  <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref>(1, catagory=&apos;<ref refid="namespacesrc_1_1_projective_c_y_1ae24dbe6f91328befda2836d4a4b311b7" kindref="member">K3</ref>&apos;)</initializer>
+        <initializer>=  <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref>(1, catagory=&apos;K3&apos;)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="1922" column="1" bodyfile="src/SphericalTwist.py" bodystart="1922" bodyend="-1"/>
+        <location file="src/SphericalTwist.py" line="2010" column="1" bodyfile="src/SphericalTwist.py" bodystart="2010" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a551e481eec0d20b002128676f68ea940" prot="public" static="no" mutable="no">
         <type></type>
@@ -43,14 +58,14 @@
         <argsstring></argsstring>
         <name>lb7</name>
         <qualifiedname>src.SphericalTwist.lb7</qualifiedname>
-        <initializer>=  <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref>(2, catagory=&apos;<ref refid="namespacesrc_1_1_projective_c_y_1ae24dbe6f91328befda2836d4a4b311b7" kindref="member">K3</ref>&apos;)</initializer>
+        <initializer>=  <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref>(2, catagory=&apos;K3&apos;)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="1923" column="1" bodyfile="src/SphericalTwist.py" bodystart="1923" bodyend="-1"/>
+        <location file="src/SphericalTwist.py" line="2011" column="1" bodyfile="src/SphericalTwist.py" bodystart="2011" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a55f6d2af3496d6d3f2e1b82dfe628dc2" prot="public" static="no" mutable="no">
         <type></type>
@@ -58,14 +73,14 @@
         <argsstring></argsstring>
         <name>lb8</name>
         <qualifiedname>src.SphericalTwist.lb8</qualifiedname>
-        <initializer>=  <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref>(4, catagory=&apos;<ref refid="namespacesrc_1_1_projective_c_y_1ae24dbe6f91328befda2836d4a4b311b7" kindref="member">K3</ref>&apos;)</initializer>
+        <initializer>=  <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref>(4, catagory=&apos;K3&apos;)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="1924" column="1" bodyfile="src/SphericalTwist.py" bodystart="1924" bodyend="-1"/>
+        <location file="src/SphericalTwist.py" line="2012" column="1" bodyfile="src/SphericalTwist.py" bodystart="2012" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a057fe29da15b1472a927881b6dbcba3d" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -80,7 +95,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="1941" column="1" bodyfile="src/SphericalTwist.py" bodystart="1941" bodyend="-1"/>
+        <location file="src/SphericalTwist.py" line="2029" column="1" bodyfile="src/SphericalTwist.py" bodystart="2029" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a4c6ca7b43f9daf9a902a7d8cbf03b44e" prot="public" static="no" mutable="no">
         <type></type>
@@ -88,14 +103,14 @@
         <argsstring></argsstring>
         <name>sph4</name>
         <qualifiedname>src.SphericalTwist.sph4</qualifiedname>
-        <initializer>=  <ref refid="classsrc_1_1_spherical_twist_1_1_double_spherical_twist" kindref="compound">DoubleSphericalTwist</ref>(<ref refid="namespacesrc_1_1_spherical_twist_1ad60fa80652e6ca4ef6c6cb8658f23e19" kindref="member">lb6</ref>, <ref refid="namespacesrc_1_1_spherical_twist_1a551e481eec0d20b002128676f68ea940" kindref="member">lb7</ref>, <ref refid="namespacesrc_1_1_spherical_twist_1a55f6d2af3496d6d3f2e1b82dfe628dc2" kindref="member">lb8</ref>, <ref refid="namespacesrc_1_1_projective_c_y_1ada9e2125f4ff45cabe142cf18d906fad" kindref="member">degree</ref>=<ref refid="namespacesrc_1_1_spherical_twist_1a057fe29da15b1472a927881b6dbcba3d" kindref="member">K3_deg</ref>)</initializer>
+        <initializer>=  <ref refid="classsrc_1_1_spherical_twist_1_1_double_spherical_twist" kindref="compound">DoubleSphericalTwist</ref>(<ref refid="namespacesrc_1_1_spherical_twist_1ad60fa80652e6ca4ef6c6cb8658f23e19" kindref="member">lb6</ref>, <ref refid="namespacesrc_1_1_spherical_twist_1a551e481eec0d20b002128676f68ea940" kindref="member">lb7</ref>, <ref refid="namespacesrc_1_1_spherical_twist_1a55f6d2af3496d6d3f2e1b82dfe628dc2" kindref="member">lb8</ref>, degree=<ref refid="namespacesrc_1_1_spherical_twist_1a057fe29da15b1472a927881b6dbcba3d" kindref="member">K3_deg</ref>)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="1944" column="1" bodyfile="src/SphericalTwist.py" bodystart="1944" bodyend="-1"/>
+        <location file="src/SphericalTwist.py" line="2032" column="1" bodyfile="src/SphericalTwist.py" bodystart="2032" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a689a91ee93ec6b6371ea8daacb0bb3ac" prot="public" static="no" mutable="no">
         <type></type>
@@ -110,7 +125,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="1948" column="1" bodyfile="src/SphericalTwist.py" bodystart="1948" bodyend="-1"/>
+        <location file="src/SphericalTwist.py" line="2036" column="1" bodyfile="src/SphericalTwist.py" bodystart="2036" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a711446b175a82fb756eefac305b42428" prot="public" static="no" mutable="no">
         <type>list</type>
@@ -125,7 +140,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="1951" column="1" bodyfile="src/SphericalTwist.py" bodystart="1951" bodyend="-1"/>
+        <location file="src/SphericalTwist.py" line="2039" column="1" bodyfile="src/SphericalTwist.py" bodystart="2039" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1ac2c121df4f006e959c856d7d64130240" prot="public" static="no" mutable="no">
         <type></type>
@@ -140,7 +155,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="1953" column="1" bodyfile="src/SphericalTwist.py" bodystart="1953" bodyend="-1"/>
+        <location file="src/SphericalTwist.py" line="2041" column="1" bodyfile="src/SphericalTwist.py" bodystart="2041" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1ad2b4eeebd6eb183d13666ec15fdb6634" prot="public" static="no" mutable="no">
         <type></type>
@@ -155,7 +170,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="1962" column="1" bodyfile="src/SphericalTwist.py" bodystart="1962" bodyend="-1"/>
+        <location file="src/SphericalTwist.py" line="2050" column="1" bodyfile="src/SphericalTwist.py" bodystart="2050" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a0019d0dc829ecd5586a727b073225b34" prot="public" static="no" mutable="no">
         <type></type>
@@ -171,7 +186,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="1965" column="1" bodyfile="src/SphericalTwist.py" bodystart="1965" bodyend="-1"/>
+        <location file="src/SphericalTwist.py" line="2053" column="1" bodyfile="src/SphericalTwist.py" bodystart="2053" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacesrc_1_1_spherical_twist_1a702de543b542d8cbccd91cf7eed902ff" prot="public" static="no" mutable="no">
         <type></type>
@@ -185,7 +200,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="1968" column="1" bodyfile="src/SphericalTwist.py" bodystart="1968" bodyend="-1"/>
+        <location file="src/SphericalTwist.py" line="2056" column="1" bodyfile="src/SphericalTwist.py" bodystart="2056" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="func">
@@ -277,7 +292,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="1566" column="1" bodyfile="src/SphericalTwist.py" bodystart="1566" bodyend="1606"/>
+        <location file="src/SphericalTwist.py" line="1654" column="1" bodyfile="src/SphericalTwist.py" bodystart="1654" bodyend="1694"/>
       </memberdef>
       <memberdef kind="function" id="namespacesrc_1_1_spherical_twist_1adcd60e481039de6c60d8a2d37f5c63c9" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -340,7 +355,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="1607" column="1" bodyfile="src/SphericalTwist.py" bodystart="1607" bodyend="1643"/>
+        <location file="src/SphericalTwist.py" line="1695" column="1" bodyfile="src/SphericalTwist.py" bodystart="1695" bodyend="1731"/>
       </memberdef>
       <memberdef kind="function" id="namespacesrc_1_1_spherical_twist_1aff5a06c58e0e3b1d744af87d52053c4f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -403,7 +418,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="1644" column="1" bodyfile="src/SphericalTwist.py" bodystart="1644" bodyend="1684"/>
+        <location file="src/SphericalTwist.py" line="1732" column="1" bodyfile="src/SphericalTwist.py" bodystart="1732" bodyend="1772"/>
       </memberdef>
       <memberdef kind="function" id="namespacesrc_1_1_spherical_twist_1ad116867ac212aa843b4e6d6051436472" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -486,7 +501,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="1685" column="1" bodyfile="src/SphericalTwist.py" bodystart="1685" bodyend="1727"/>
+        <location file="src/SphericalTwist.py" line="1773" column="1" bodyfile="src/SphericalTwist.py" bodystart="1773" bodyend="1815"/>
       </memberdef>
       <memberdef kind="function" id="namespacesrc_1_1_spherical_twist_1a8d4c5f90a3a32982ba929fae740b1736" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -595,7 +610,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="1728" column="1" bodyfile="src/SphericalTwist.py" bodystart="1728" bodyend="1769"/>
+        <location file="src/SphericalTwist.py" line="1816" column="1" bodyfile="src/SphericalTwist.py" bodystart="1816" bodyend="1857"/>
       </memberdef>
       <memberdef kind="function" id="namespacesrc_1_1_spherical_twist_1ace1a7dca89c709b900186dca644a49da" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -706,7 +721,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="1770" column="1" bodyfile="src/SphericalTwist.py" bodystart="1770" bodyend="1871"/>
+        <location file="src/SphericalTwist.py" line="1858" column="1" bodyfile="src/SphericalTwist.py" bodystart="1858" bodyend="1959"/>
       </memberdef>
     </sectiondef>
     <briefdescription>

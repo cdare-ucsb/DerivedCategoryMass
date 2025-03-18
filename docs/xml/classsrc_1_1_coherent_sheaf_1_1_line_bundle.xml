@@ -56,7 +56,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/CoherentSheaf.py" line="265" column="1" bodyfile="src/CoherentSheaf.py" bodystart="265" bodyend="284"/>
+        <location file="src/CoherentSheaf.py" line="270" column="1" bodyfile="src/CoherentSheaf.py" bodystart="270" bodyend="289"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_coherent_sheaf_1_1_line_bundle_1a2c2e8cc0d0fe3614eb73642e2da9444c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -79,7 +79,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/CoherentSheaf.py" line="285" column="1" bodyfile="src/CoherentSheaf.py" bodystart="285" bodyend="295"/>
+        <location file="src/CoherentSheaf.py" line="290" column="1" bodyfile="src/CoherentSheaf.py" bodystart="290" bodyend="300"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_coherent_sheaf_1_1_line_bundle_1a9d5184ea52c4a3af33dc81ffc090cfba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -115,7 +115,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/CoherentSheaf.py" line="296" column="1" bodyfile="src/CoherentSheaf.py" bodystart="296" bodyend="310"/>
+        <location file="src/CoherentSheaf.py" line="301" column="1" bodyfile="src/CoherentSheaf.py" bodystart="301" bodyend="315"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_coherent_sheaf_1_1_line_bundle_1a7e799278c25e792c35c856c1a1d45ebb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -138,7 +138,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/CoherentSheaf.py" line="311" column="1" bodyfile="src/CoherentSheaf.py" bodystart="311" bodyend="322"/>
+        <location file="src/CoherentSheaf.py" line="316" column="1" bodyfile="src/CoherentSheaf.py" bodystart="316" bodyend="327"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -184,7 +184,7 @@
         <link refid="classsrc_1_1_derived_category_object_1_1_derived_category_object"/>
       </node>
     </collaborationgraph>
-    <location file="src/CoherentSheaf.py" line="218" column="1" bodyfile="src/CoherentSheaf.py" bodystart="218" bodyend="322"/>
+    <location file="src/CoherentSheaf.py" line="223" column="1" bodyfile="src/CoherentSheaf.py" bodystart="223" bodyend="327"/>
     <listofallmembers>
       <member refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle_1a9d5184ea52c4a3af33dc81ffc090cfba" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::LineBundle</scope><name>__eq__</name></member>
       <member refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle_1a7e799278c25e792c35c856c1a1d45ebb" prot="public" virt="non-virtual"><scope>src::CoherentSheaf::LineBundle</scope><name>__hash__</name></member>

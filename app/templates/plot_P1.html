@@ -343,7 +343,7 @@
 
 
         function returnHome() {
-            window.location.href = "/K3-surface"; // Redirect to Flask route
+            window.location.href = "/local-P1"; // Redirect to Flask route
         }
     </script>
 </head>
@@ -404,173 +404,173 @@
 </body>
 
 <script>
-var plot_data = {{ plot_json | safe }};
-        Plotly.newPlot('plot', plot_data.data, plot_data.layout);
+    var plot_data = {{ plot_json | safe }};
+    Plotly.newPlot('plot', plot_data.data, plot_data.layout);
 
-        // Convert ChainComplex JSON into a JavaScript object
-        var chainComplex = JSON.parse({{ chain_complex | tojson | safe }});
-        console.log("Chain Complex Data:", chainComplex);
+    // Convert ChainComplex JSON into a JavaScript object
+    var chainComplex = JSON.parse({{ chain_complex | tojson | safe }});
+    console.log("Chain Complex Data:", chainComplex);
 
-        var shift_vector = chainComplex["object1"]["shift_vector"];
-        var dimension_vector = chainComplex["object1"]["dimension_vector"];
+    var shift_vector = chainComplex["object1"]["shift_vector"];
+    var dimension_vector = chainComplex["object1"]["dimension_vector"];
+    
+    var lb_1_deg = chainComplex["degrees"][0];
+    var lb_2_deg = chainComplex["degrees"][1];
+
+    if (shift_vector.length == 1 && shift_vector[0] == -1) {
+
+        // Update the TikZ diagram dynamically
+        document.getElementById("commutative-diagram").innerHTML = `$$ 
+                \\begin{CD}
+                        i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>>  \\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}}
+                \\end{CD}
+                $$`;
         
-        var lb_1_deg = chainComplex["degrees"][0];
-        var lb_2_deg = chainComplex["degrees"][1];
+    } else if (shift_vector.length == 1) {
 
-        if (shift_vector.length == 1 && shift_vector[0] == -1) {
-
-            // Update the TikZ diagram dynamically
-            document.getElementById("commutative-diagram").innerHTML = `$$ 
-                    \\begin{CD}
-                         i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>>  \\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}}
-                    \\end{CD}
-                    $$`;
-            
-        } else if (shift_vector.length == 1) {
-
-            // Update the TikZ diagram dynamically
-            document.getElementById("commutative-diagram").innerHTML = `$$ 
-                    \\begin{CD}
-                         i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> \\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}}[ ${shift_vector[0] + 1} ]
-                    \\end{CD}
-                    $$`;
-
-            document.getElementById("exposition-2").innerHTML = `
-                Since $\\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} )$ falls between two stable line bundles, its stability is completely determined by the order of the phases between the two line bundles. In particular, when 
-                $\\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg} )) < \\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} ) [${shift_vector[0] + 1}])$, the mass of the twist is given by the norm of the central charge
-                $$
-                m_{w} (\\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) ) = |Z_{w}(\\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) )  | = |Z_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) )  + Z_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}} [${shift_vector[0] + 1}]) |
-                $$
-                Otherwise, the two line bundles form a Harder-Narasimhan filtration so that
-                $$
-                m_{w} (\\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) ) = |Z_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) )| + |Z_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}} [${shift_vector[0] + 1}]) |
-                $$
-                `;
-            
-        } else {
-
-            //shift_vector is length two.
-            
-            if (shift_vector[0] == -1) {
-                
-                // Update the TikZ diagram dynamically
-                document.getElementById("commutative-diagram").innerHTML = `$$ 
-                        \\begin{CD}
-                              i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> \\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}} \\oplus i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[1]}}[ ${shift_vector[1] + 1} ]
-                        \\end{CD}
-                        $$`;
-
-            } else if (shift_vector[1] == -1) {
-                // Update the TikZ diagram dynamically
-                document.getElementById("commutative-diagram").innerHTML = `$$ 
-                                        \\begin{CD}
-                                         i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> \\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}}[ ${shift_vector[0]+1} ] \\oplus i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[1]}}
-                                        \\end{CD}
-                                        $$`;
-            } else {
-                // Update the TikZ diagram dynamically
-                document.getElementById("commutative-diagram").innerHTML = `$$ 
-                        \\begin{CD}
-                        i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> \\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}}[ ${shift_vector[0] + 1} ] \\oplus i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[1]}}[ ${shift_vector[1] + 1} ]
-                        \\end{CD}
-                        $$`;
-
-            }
-
-            var min_shift = 0;
-            var max_shift = 0;
-            var dim_max_shift = 0;
-            var dim_min_shift = 0;
-
-            if (shift_vector[0] < shift_vector[1]) {
-                min_shift = shift_vector[0];
-                max_shift = shift_vector[1];
-                dim_max_shift = dimension_vector[1];
-                dim_min_shift = dimension_vector[0];
-            } else {
-                min_shift = shift_vector[1];
-                max_shift = shift_vector[0];
-                dim_max_shift = dimension_vector[0];
-                dim_min_shift = dimension_vector[1];
-            }
-
-            if (min_shift == -1) {
-                document.getElementById("exposition-2").innerHTML = `
-                Since the last object in this triangle is a direct sum of stable objects of different phases, this object will never be stable. Thus, the stability of $\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} )$
-                is determined by whether $\\phi_{w}(i_{\\ast}\\mathcal{O}(${ lb_2_deg }) )$ is smaller than $\\phi_{w}(i_{\\ast}\\mathcal{O}(${lb_1_deg} ) ) $. In the case that $\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} )$ is indeed stable, the mass is
-            trivial to compute since it is simply the norm of the central charge 
-            $$
-            m_{w} (\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) ) = |Z_{w}(\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) )  |
-            $$
-            However, when $\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) $ destabilizes, determining the mass becomes much more subtle; in particular, one must distinguish between the cases of <br/><br/> (i) $\\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg} )) < \\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} ) [${max_shift + 1}])$ 
-            and <br/>(ii) $\\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg} )) > \\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} ) [${max_shift + 1}])$. 
-
-            <br/>
-            <br/>
-            There is a commuting diagram of the form
-            $$
+        // Update the TikZ diagram dynamically
+        document.getElementById("commutative-diagram").innerHTML = `$$ 
                 \\begin{CD}
-                    0 @>>> i_{\\ast} \\mathcal{O}(${lb_1_deg})^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ] \\\\
-                    @VVV @VVV \\\\
-                    \\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )} i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}} \\oplus i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ] \\\\
-                    @VVV @VVV \\\\
-                    \\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )} i_{\\ast} \\mathcal{O}( ${lb_2_deg} )@>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}} \\\\
+                        i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> \\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}}[ ${shift_vector[0] + 1} ]
                 \\end{CD}
+                $$`;
+
+        document.getElementById("exposition-2").innerHTML = `
+            Since $\\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} )$ falls between two stable line bundles, its stability is completely determined by the order of the phases between the two line bundles. In particular, when 
+            $\\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg} )) < \\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} ) [${shift_vector[0] + 1}])$, the mass of the twist is given by the norm of the central charge
             $$
-            <br/>
-            <br/>
-            By (TR4), we have that the co-cone (or fibre) of the bottom morphism — call it $C$ — fits into a triangle of the form
+            m_{w} (\\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) ) = |Z_{w}(\\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) )  | = |Z_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) )  + Z_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}} [${shift_vector[0] + 1}]) |
             $$
-            \\begin{CD}
-                i_{\\ast} \\mathcal{O}( ${lb_2_deg}) @>>> C @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ]
-            \\end{CD}
+            Otherwise, the two line bundles form a Harder-Narasimhan filtration so that
             $$
-            When $\\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg})) < \\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} )[ ${max_shift + 1} ])$, the object $C$ is stable and thus a semi-stable factor, so that
-            $$
-                m_{w} (\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) ) = |Z_{w}( i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}} [${max_shift + 1}] )  | + | Z_{w}( i_{\\ast} \\mathcal{O} (${lb_2_deg}) ) + Z_{w}(i_{\\ast } \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}}  )  |
-            $$
-                `;
-            } else {
-                document.getElementById("exposition-2").innerHTML = `
-            Since the last object in this triangle is a direct sum of stable objects of different phases, this object will never be stable. Thus, the stability of $\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} )$
-            is determined by whether $\\phi_{w}(i_{\\ast}\\mathcal{O}(${ lb_2_deg }) )$ is smaller than $\\phi_{w}(i_{\\ast} \\mathcal{O}(${lb_1_deg} )[ ${ min_shift + 1 } ] ) $. In the case that $\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} )$ is indeed stable, the mass is
-            trivial to compute since it is simply the norm of the central charge 
-            $$
-            m_{w} (\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) ) = |Z_{w}(\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) )  |
-            $$
-            However, when $\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) $ destabilizes, determining the mass becomes much more subtle; in particular, one must distinguish between the cases of<br/><br/> (i) $\\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg} )) < \\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} ) [${max_shift + 1}])$ 
-            and<br/> (ii) $\\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg} )) > \\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} ) [${max_shift + 1}])$.  
-            <br/>
-            <br/>
-            There is a commuting diagram of the form
-            $$
-                \\begin{CD}
-                    0 @>>> i_{\\ast} \\mathcal{O}(${lb_1_deg})^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ] \\\\
-                    @VVV @VVV \\\\
-                    \\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )} i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}}[ ${min_shift + 1} ] \\oplus i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ] \\\\
-                    @VVV @VVV \\\\
-                    \\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )} i_{\\ast} \\mathcal{O}( ${lb_2_deg} )@>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}}[ ${min_shift + 1} ] \\\\
-                \\end{CD}
-            $$
-            <br/>
-            <br/>
-            By (TR4), we have that the co-cone (or fibre) of the bottom morphism — call it $C$ — fits into a triangle of the form
-            $$
-            \\begin{CD}
-                i_{\\ast} \\mathcal{O}( ${lb_2_deg}) @>>> C @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ]
-            \\end{CD}
-            $$
-            When $\\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg})) < \\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} )[ ${max_shift + 1} ])$, the object $C$ is stable and thus a semi-stable factor, so that
-            $$
-                m_{w} (\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) ) = |Z_{w}( i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}} [${max_shift + 1}] )  | + | Z_{w}( i_{\\ast} \\mathcal{O} (${lb_2_deg}) ) + Z_{w}(i_{\\ast } \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}} [${min_shift + 1}] )  |
+            m_{w} (\\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) ) = |Z_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) )| + |Z_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}} [${shift_vector[0] + 1}]) |
             $$
             `;
-            }
+        
+    } else {
+
+        //shift_vector is length two.
+        
+        if (shift_vector[0] == -1) {
             
+            // Update the TikZ diagram dynamically
+            document.getElementById("commutative-diagram").innerHTML = `$$ 
+                    \\begin{CD}
+                            i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> \\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}} \\oplus i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[1]}}[ ${shift_vector[1] + 1} ]
+                    \\end{CD}
+                    $$`;
+
+        } else if (shift_vector[1] == -1) {
+            // Update the TikZ diagram dynamically
+            document.getElementById("commutative-diagram").innerHTML = `$$ 
+                                    \\begin{CD}
+                                        i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> \\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}}[ ${shift_vector[0]+1} ] \\oplus i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[1]}}
+                                    \\end{CD}
+                                    $$`;
+        } else {
+            // Update the TikZ diagram dynamically
+            document.getElementById("commutative-diagram").innerHTML = `$$ 
+                    \\begin{CD}
+                    i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> \\operatorname{Tw}_{ ${lb_1_deg} } i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[0]}}[ ${shift_vector[0] + 1} ] \\oplus i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dimension_vector[1]}}[ ${shift_vector[1] + 1} ]
+                    \\end{CD}
+                    $$`;
 
         }
 
-    document.getElementById("exposition-1").innerHTML = `The mass of the spherical twist $\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} )$, as shown in the above figure, is the sum of the masses of its Harder-Narasimhan factors. For a single twist, we may simply use the defining triangle`;
+        var min_shift = 0;
+        var max_shift = 0;
+        var dim_max_shift = 0;
+        var dim_min_shift = 0;
+
+        if (shift_vector[0] < shift_vector[1]) {
+            min_shift = shift_vector[0];
+            max_shift = shift_vector[1];
+            dim_max_shift = dimension_vector[1];
+            dim_min_shift = dimension_vector[0];
+        } else {
+            min_shift = shift_vector[1];
+            max_shift = shift_vector[0];
+            dim_max_shift = dimension_vector[0];
+            dim_min_shift = dimension_vector[1];
+        }
+
+        if (min_shift == -1) {
+            document.getElementById("exposition-2").innerHTML = `
+            Since the last object in this triangle is a direct sum of stable objects of different phases, this object will never be stable. Thus, the stability of $\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} )$
+            is determined by whether $\\phi_{w}(i_{\\ast}\\mathcal{O}(${ lb_2_deg }) )$ is smaller than $\\phi_{w}(i_{\\ast}\\mathcal{O}(${lb_1_deg} ) ) $. In the case that $\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} )$ is indeed stable, the mass is
+        trivial to compute since it is simply the norm of the central charge 
+        $$
+        m_{w} (\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) ) = |Z_{w}(\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) )  |
+        $$
+        However, when $\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) $ destabilizes, determining the mass becomes much more subtle; in particular, one must distinguish between the cases of <br/><br/> (i) $\\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg} )) < \\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} ) [${max_shift + 1}])$ 
+        and <br/>(ii) $\\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg} )) > \\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} ) [${max_shift + 1}])$. 
+
+        <br/>
+        <br/>
+        There is a commuting diagram of the form
+        $$
+            \\begin{CD}
+                0 @>>> i_{\\ast} \\mathcal{O}(${lb_1_deg})^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ] \\\\
+                @VVV @VVV \\\\
+                \\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )} i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}} \\oplus i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ] \\\\
+                @VVV @VVV \\\\
+                \\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )} i_{\\ast} \\mathcal{O}( ${lb_2_deg} )@>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}} \\\\
+            \\end{CD}
+        $$
+        <br/>
+        <br/>
+        By (TR4), we have that the co-cone (or fibre) of the bottom morphism — call it $C$ — fits into a triangle of the form
+        $$
+        \\begin{CD}
+            i_{\\ast} \\mathcal{O}( ${lb_2_deg}) @>>> C @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ]
+        \\end{CD}
+        $$
+        When $\\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg})) < \\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} )[ ${max_shift + 1} ])$, the object $C$ is stable and thus a semi-stable factor, so that
+        $$
+            m_{w} (\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) ) = |Z_{w}( i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}} [${max_shift + 1}] )  | + | Z_{w}( i_{\\ast} \\mathcal{O} (${lb_2_deg}) ) + Z_{w}(i_{\\ast } \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}}  )  |
+        $$
+            `;
+        } else {
+            document.getElementById("exposition-2").innerHTML = `
+        Since the last object in this triangle is a direct sum of stable objects of different phases, this object will never be stable. Thus, the stability of $\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} )$
+        is determined by whether $\\phi_{w}(i_{\\ast}\\mathcal{O}(${ lb_2_deg }) )$ is smaller than $\\phi_{w}(i_{\\ast} \\mathcal{O}(${lb_1_deg} )[ ${ min_shift + 1 } ] ) $. In the case that $\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} )$ is indeed stable, the mass is
+        trivial to compute since it is simply the norm of the central charge 
+        $$
+        m_{w} (\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) ) = |Z_{w}(\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) )  |
+        $$
+        However, when $\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) $ destabilizes, determining the mass becomes much more subtle; in particular, one must distinguish between the cases of<br/><br/> (i) $\\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg} )) < \\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} ) [${max_shift + 1}])$ 
+        and<br/> (ii) $\\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg} )) > \\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} ) [${max_shift + 1}])$.  
+        <br/>
+        <br/>
+        There is a commuting diagram of the form
+        $$
+            \\begin{CD}
+                0 @>>> i_{\\ast} \\mathcal{O}(${lb_1_deg})^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ] \\\\
+                @VVV @VVV \\\\
+                \\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )} i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}}[ ${min_shift + 1} ] \\oplus i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ] \\\\
+                @VVV @VVV \\\\
+                \\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )} i_{\\ast} \\mathcal{O}( ${lb_2_deg} )@>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}}[ ${min_shift + 1} ] \\\\
+            \\end{CD}
+        $$
+        <br/>
+        <br/>
+        By (TR4), we have that the co-cone (or fibre) of the bottom morphism — call it $C$ — fits into a triangle of the form
+        $$
+        \\begin{CD}
+            i_{\\ast} \\mathcal{O}( ${lb_2_deg}) @>>> C @>>> i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}}[ ${max_shift + 1} ]
+        \\end{CD}
+        $$
+        When $\\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_2_deg})) < \\phi_{w}(i_{\\ast} \\mathcal{O}( ${lb_1_deg} )[ ${max_shift + 1} ])$, the object $C$ is stable and thus a semi-stable factor, so that
+        $$
+            m_{w} (\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} ) ) = |Z_{w}( i_{\\ast} \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_max_shift}} [${max_shift + 1}] )  | + | Z_{w}( i_{\\ast} \\mathcal{O} (${lb_2_deg}) ) + Z_{w}(i_{\\ast } \\mathcal{O}( ${lb_1_deg} )^{\\oplus ${dim_min_shift}} [${min_shift + 1}] )  |
+        $$
+        `;
+        }
+        
+
+    }
+
+document.getElementById("exposition-1").innerHTML = `The mass of the spherical twist $\\operatorname{Tw}_{ i_{\\ast} \\mathcal{O}( ${lb_1_deg} )}  i_{\\ast} \\mathcal{O}( ${lb_2_deg} )$, as shown in the above figure, is the sum of the masses of its Harder-Narasimhan factors. For a single twist, we may simply use the defining triangle`;
 
 </script>
 

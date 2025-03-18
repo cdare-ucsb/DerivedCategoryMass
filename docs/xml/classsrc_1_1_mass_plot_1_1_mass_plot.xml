@@ -1,0 +1,621 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="classsrc_1_1_mass_plot_1_1_mass_plot" kind="class" language="Python" prot="public">
+    <compoundname>src::MassPlot::MassPlot</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classsrc_1_1_mass_plot_1_1_mass_plot_1a2bc5eab4670559d2c553e78295fd41fe" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.MassPlot.MassPlot::line_bundle_1</definition>
+        <argsstring></argsstring>
+        <name>line_bundle_1</name>
+        <qualifiedname>src.MassPlot.MassPlot.line_bundle_1</qualifiedname>
+        <initializer>=  line_bundle_1</initializer>
+        <briefdescription>
+<para>The degree of the outermost line bundle in the spherical twist. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="65" column="1" bodyfile="src/MassPlot.py" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_mass_plot_1_1_mass_plot_1a493024a72fb9bb9c2a98861ea8ea6224" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.MassPlot.MassPlot::line_bundle_2</definition>
+        <argsstring></argsstring>
+        <name>line_bundle_2</name>
+        <qualifiedname>src.MassPlot.MassPlot.line_bundle_2</qualifiedname>
+        <initializer>=  line_bundle_2</initializer>
+        <briefdescription>
+<para>Either the degree of the line bundle being twisted (if line_bundle_3 is None) or the degree of the middle line bundle in the double twist. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="67" column="1" bodyfile="src/MassPlot.py" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_mass_plot_1_1_mass_plot_1a3713d45d8db138720243c72a820611a7" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.MassPlot.MassPlot::line_bundle_3</definition>
+        <argsstring></argsstring>
+        <name>line_bundle_3</name>
+        <qualifiedname>src.MassPlot.MassPlot.line_bundle_3</qualifiedname>
+        <initializer>=  line_bundle_3</initializer>
+        <briefdescription>
+<para>Optional argument that allows the flexibility of double spherical twists. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="78" column="1" bodyfile="src/MassPlot.py" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_mass_plot_1_1_mass_plot_1aafd8e9c0aa1d0835615976dcf557e787" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.MassPlot.MassPlot::degree</definition>
+        <argsstring></argsstring>
+        <name>degree</name>
+        <qualifiedname>src.MassPlot.MassPlot.degree</qualifiedname>
+        <initializer>=  degree</initializer>
+        <briefdescription>
+<para>Optional argument used for the degree of a K3 surface; default is 1. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Not used for P1 and P2 </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="85" column="1" bodyfile="src/MassPlot.py" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_mass_plot_1_1_mass_plot_1a2dd27d5e9bbbc4d48244766303efe86f" prot="public" static="no" mutable="no">
+        <type>str</type>
+        <definition>str src.MassPlot.MassPlot::catagory</definition>
+        <argsstring></argsstring>
+        <name>catagory</name>
+        <qualifiedname>src.MassPlot.MassPlot.catagory</qualifiedname>
+        <initializer>=  catagory</initializer>
+        <briefdescription>
+<para>Catagory of the stability manifold. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="98" column="1" bodyfile="src/MassPlot.py" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_mass_plot_1_1_mass_plot_1a16af102415c7f7ca7703f769193693d9" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.MassPlot.MassPlot::x_min</definition>
+        <argsstring></argsstring>
+        <name>x_min</name>
+        <qualifiedname>src.MassPlot.MassPlot.x_min</qualifiedname>
+        <initializer>=  x_min</initializer>
+        <briefdescription>
+<para>The minimum x value for the plot. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="110" column="1" bodyfile="src/MassPlot.py" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_mass_plot_1_1_mass_plot_1afe71021c0e2340d965768a55d96d1689" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.MassPlot.MassPlot::x_max</definition>
+        <argsstring></argsstring>
+        <name>x_max</name>
+        <qualifiedname>src.MassPlot.MassPlot.x_max</qualifiedname>
+        <initializer>=  x_max</initializer>
+        <briefdescription>
+<para>The maximum x value for the plot. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="112" column="1" bodyfile="src/MassPlot.py" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_mass_plot_1_1_mass_plot_1ae48365d979173558aec788a500909bdc" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.MassPlot.MassPlot::x_granularity</definition>
+        <argsstring></argsstring>
+        <name>x_granularity</name>
+        <qualifiedname>src.MassPlot.MassPlot.x_granularity</qualifiedname>
+        <initializer>=  x_granularity</initializer>
+        <briefdescription>
+<para>The distance between points horizontally for the plot. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="114" column="1" bodyfile="src/MassPlot.py" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_mass_plot_1_1_mass_plot_1a66e8ca865c2ca66f106cde2ad3127a77" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.MassPlot.MassPlot::y_min</definition>
+        <argsstring></argsstring>
+        <name>y_min</name>
+        <qualifiedname>src.MassPlot.MassPlot.y_min</qualifiedname>
+        <initializer>=  y_min</initializer>
+        <briefdescription>
+<para>The minimum y value for the plot. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="116" column="1" bodyfile="src/MassPlot.py" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_mass_plot_1_1_mass_plot_1a352ca54ac815e031cb1bf910bf2eabf4" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.MassPlot.MassPlot::y_max</definition>
+        <argsstring></argsstring>
+        <name>y_max</name>
+        <qualifiedname>src.MassPlot.MassPlot.y_max</qualifiedname>
+        <initializer>=  y_max</initializer>
+        <briefdescription>
+<para>The maximum y value for the plot. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="118" column="1" bodyfile="src/MassPlot.py" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_mass_plot_1_1_mass_plot_1af39891621318772ff10e26524f19d293" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.MassPlot.MassPlot::y_granularity</definition>
+        <argsstring></argsstring>
+        <name>y_granularity</name>
+        <qualifiedname>src.MassPlot.MassPlot.y_granularity</qualifiedname>
+        <initializer>=  y_granularity</initializer>
+        <briefdescription>
+<para>The distance between points vertically for the plot. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="120" column="1" bodyfile="src/MassPlot.py" bodystart="120" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classsrc_1_1_mass_plot_1_1_mass_plot_1a1020853732496df8e8d8c67d8e166156" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int src.MassPlot.MassPlot::_num_twists</definition>
+        <argsstring></argsstring>
+        <name>_num_twists</name>
+        <qualifiedname>src.MassPlot.MassPlot._num_twists</qualifiedname>
+        <initializer>=  2         else:</initializer>
+        <briefdescription>
+<para>Number of twists in the spherical twist. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="74" column="1" bodyfile="src/MassPlot.py" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_mass_plot_1_1_mass_plot_1a0c6501bd5875afd2b5bd085813f42e5e" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>src.MassPlot.MassPlot::_xvals</definition>
+        <argsstring></argsstring>
+        <name>_xvals</name>
+        <qualifiedname>src.MassPlot.MassPlot._xvals</qualifiedname>
+        <initializer>=  np.arange(<ref refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a16af102415c7f7ca7703f769193693d9" kindref="member">x_min</ref>, <ref refid="classsrc_1_1_mass_plot_1_1_mass_plot_1afe71021c0e2340d965768a55d96d1689" kindref="member">x_max</ref>, <ref refid="classsrc_1_1_mass_plot_1_1_mass_plot_1ae48365d979173558aec788a500909bdc" kindref="member">x_granularity</ref>)</initializer>
+        <briefdescription>
+<para>The list of x values for the plot. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="122" column="1" bodyfile="src/MassPlot.py" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_mass_plot_1_1_mass_plot_1a25ea848ba3d4751bfc89fa1761fd1da4" prot="protected" static="no" mutable="no">
+        <type>list</type>
+        <definition>src.MassPlot.MassPlot::_yvals</definition>
+        <argsstring></argsstring>
+        <name>_yvals</name>
+        <qualifiedname>src.MassPlot.MassPlot._yvals</qualifiedname>
+        <initializer>=  []</initializer>
+        <briefdescription>
+<para>The list of y values for the plot. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="124" column="1" bodyfile="src/MassPlot.py" bodystart="124" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsrc_1_1_mass_plot_1_1_mass_plot_1a54bf2dc2d546f8be3cc3ea1ff7e466c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.MassPlot.MassPlot.__init__</definition>
+        <argsstring>(self, line_bundle_1, line_bundle_2, catagory, line_bundle_3=None, degree=1, x_min=-5, x_max=5, x_granularity=0.1, y_min=0, y_max=5, y_granularity=0.05)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>src.MassPlot.MassPlot.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a2bc5eab4670559d2c553e78295fd41fe" kindref="member">line_bundle_1</ref></type>
+          <defname>line_bundle_1</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a493024a72fb9bb9c2a98861ea8ea6224" kindref="member">line_bundle_2</ref></type>
+          <defname>line_bundle_2</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a2dd27d5e9bbbc4d48244766303efe86f" kindref="member">catagory</ref></type>
+          <defname>catagory</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a3713d45d8db138720243c72a820611a7" kindref="member">line_bundle_3</ref></type>
+          <defname>line_bundle_3</defname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_mass_plot_1_1_mass_plot_1aafd8e9c0aa1d0835615976dcf557e787" kindref="member">degree</ref></type>
+          <defname>degree</defname>
+          <defval>1</defval>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a16af102415c7f7ca7703f769193693d9" kindref="member">x_min</ref></type>
+          <defname>x_min</defname>
+          <defval>-5</defval>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_mass_plot_1_1_mass_plot_1afe71021c0e2340d965768a55d96d1689" kindref="member">x_max</ref></type>
+          <defname>x_max</defname>
+          <defval>5</defval>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_mass_plot_1_1_mass_plot_1ae48365d979173558aec788a500909bdc" kindref="member">x_granularity</ref></type>
+          <defname>x_granularity</defname>
+          <defval>0.1</defval>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a66e8ca865c2ca66f106cde2ad3127a77" kindref="member">y_min</ref></type>
+          <defname>y_min</defname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a352ca54ac815e031cb1bf910bf2eabf4" kindref="member">y_max</ref></type>
+          <defname>y_max</defname>
+          <defval>5</defval>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1_mass_plot_1_1_mass_plot_1af39891621318772ff10e26524f19d293" kindref="member">y_granularity</ref></type>
+          <defname>y_granularity</defname>
+          <defval>0.05</defval>
+        </param>
+        <briefdescription>
+<para>Initialize the <ref refid="classsrc_1_1_mass_plot_1_1_mass_plot" kindref="compound">MassPlot</ref> object with the given parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The required parameters are the line bundles for the spherical twist, the catagory of the stability manifold, and the x and y ranges and granularities for the plot. The optional parameters are the degree of the K3 surface (default is 1), and a third line bundle for the double spherical twist (default is None).</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_1 The degree of the outermost line bundle in the spherical twist </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_2 The degree of the line bundle being twisted (if line_bundle_3 is None) or the degree of the middle line bundle in the double twist </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>catagory The catagory of the stability manifold </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>line_bundle_3 The degree of the line bundle being twisted in the double twist (default is None; setting this will cause the object to compute a double twist) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>degree The degree of the K3 surface (default is 1) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Number</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>x_min The minimum x value for the plot (default is -5) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Number</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>x_max The maximum x value for the plot (default is 5) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Number</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>x_granularity The distance between points horizontally for the plot (default is 0.1) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Number</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>y_min The minimum y value for the plot (default is 0) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Number</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>y_max The maximum y value for the plot (default is 5) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Number</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>y_granularity The distance between points vertically for the plot (default is 0.05) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="38" column="1" bodyfile="src/MassPlot.py" bodystart="41" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_mass_plot_1_1_mass_plot_1a89a74b4b90383de72b9e2d44ddc381fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.MassPlot.MassPlot.get_mass_values</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_mass_values</name>
+        <qualifiedname>src.MassPlot.MassPlot.get_mass_values</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Compute the mass values for each point in the grid formed by the x and y values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is done by creating an instance of the <ref refid="namespacesrc_1_1_spherical_twist" kindref="compound">SphericalTwist</ref> class and then calling the mass method for each point in the grid.</para>
+<para><simplesect kind="return"><para>np.array The mass values for each point in the grid </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="162" column="1" bodyfile="src/MassPlot.py" bodystart="162" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_mass_plot_1_1_mass_plot_1ab41d45af85b48d7e8b70e8e983869211" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.MassPlot.MassPlot.to_plotly_figure</definition>
+        <argsstring>(self, color_scale=&apos;viridis&apos;, marker_size=3)</argsstring>
+        <name>to_plotly_figure</name>
+        <qualifiedname>src.MassPlot.MassPlot.to_plotly_figure</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>color_scale</type>
+          <defname>color_scale</defname>
+          <defval>&apos;viridis&apos;</defval>
+        </param>
+        <param>
+          <type>marker_size</type>
+          <defname>marker_size</defname>
+          <defval>3</defval>
+        </param>
+        <briefdescription>
+<para>The primariy functionality of this class; generate a plotly figure of the mass function for the given spherical twist in the given chamber of the stability manifold. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The mass values are computed for each point in the grid formed by the x and y values, and then plotted as a 3D scatter plot.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>color_scale The color scale to use for the plot </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>marker_size The size of the markers in the plot</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>go.Figure The plotly figure of the mass function </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="196" column="1" bodyfile="src/MassPlot.py" bodystart="196" bodyend="245"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_mass_plot_1_1_mass_plot_1a9dd42ce63527140fbe41eed6009a5544" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.MassPlot.MassPlot.to_plotly_json</definition>
+        <argsstring>(self, color_scale=&apos;viridis&apos;, marker_size=3)</argsstring>
+        <name>to_plotly_json</name>
+        <qualifiedname>src.MassPlot.MassPlot.to_plotly_json</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>color_scale</type>
+          <defname>color_scale</defname>
+          <defval>&apos;viridis&apos;</defval>
+        </param>
+        <param>
+          <type>marker_size</type>
+          <defname>marker_size</defname>
+          <defval>3</defval>
+        </param>
+        <briefdescription>
+<para>Function to convert the plotly figure to a JSON string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is useful for rendering the plot in a web application.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>color_scale The color scale to use for the plot </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>marker_size The size of the markers in the plot</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>str The JSON string of the plotly figure </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="246" column="1" bodyfile="src/MassPlot.py" bodystart="246" bodyend="262"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_mass_plot_1_1_mass_plot_1ae4280772d8d39404953f177ce6161bb1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.MassPlot.MassPlot.get_discretized_Laplacian_values</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_discretized_Laplacian_values</name>
+        <qualifiedname>src.MassPlot.MassPlot.get_discretized_Laplacian_values</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="263" column="1" bodyfile="src/MassPlot.py" bodystart="263" bodyend="295"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_mass_plot_1_1_mass_plot_1a210348d37db75853f20f51b54ebfb97a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.MassPlot.MassPlot.discretized_Laplacian_to_plotly_figure</definition>
+        <argsstring>(self, color_scale=&apos;Plasma&apos;, marker_size=3)</argsstring>
+        <name>discretized_Laplacian_to_plotly_figure</name>
+        <qualifiedname>src.MassPlot.MassPlot.discretized_Laplacian_to_plotly_figure</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>color_scale</type>
+          <defname>color_scale</defname>
+          <defval>&apos;Plasma&apos;</defval>
+        </param>
+        <param>
+          <type>marker_size</type>
+          <defname>marker_size</defname>
+          <defval>3</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="296" column="1" bodyfile="src/MassPlot.py" bodystart="296" bodyend="337"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1_mass_plot_1_1_mass_plot_1a51be2ce6195a8a25edb2785d0552dbcf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.MassPlot.MassPlot.find_discontinuities</definition>
+        <argsstring>(self, std_dev_threshold=1)</argsstring>
+        <name>find_discontinuities</name>
+        <qualifiedname>src.MassPlot.MassPlot.find_discontinuities</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>std_dev_threshold</type>
+          <defname>std_dev_threshold</defname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="338" column="1" bodyfile="src/MassPlot.py" bodystart="338" bodyend="359"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>As the purpose of the library is to compute the mass of spherical twists in certain chambers of stability manifolds, a useful functionality is to plot a certain 3D slice of the graph of the mass function. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Since the <ref refid="namespacesrc_1_1_spherical_twist" kindref="compound">SphericalTwist</ref> class allows significant flexibiliy with its catagory parameter (which effectively dictates the stability manifold we wish to graph), the majority of the plotting functionality will look the same for each catagory (currently &apos;P1&apos;, &apos;P2&apos;, and &apos;K3&apos;). The only difference will be the way the x and y values are generated for the plot. Thus, this class acts as wrapper to remove that redundancy and allow for easy plotting of the mass function for a given spherical twist in a given chamber of a stability manifold. </para>
+    </detaileddescription>
+    <location file="src/MassPlot.py" line="25" column="1" bodyfile="src/MassPlot.py" bodystart="25" bodyend="364"/>
+    <listofallmembers>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a54bf2dc2d546f8be3cc3ea1ff7e466c9" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>__init__</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a1020853732496df8e8d8c67d8e166156" prot="protected" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>_num_twists</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a0c6501bd5875afd2b5bd085813f42e5e" prot="protected" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>_xvals</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a25ea848ba3d4751bfc89fa1761fd1da4" prot="protected" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>_yvals</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a2dd27d5e9bbbc4d48244766303efe86f" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>catagory</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1aafd8e9c0aa1d0835615976dcf557e787" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>degree</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a210348d37db75853f20f51b54ebfb97a" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>discretized_Laplacian_to_plotly_figure</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a51be2ce6195a8a25edb2785d0552dbcf" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>find_discontinuities</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1ae4280772d8d39404953f177ce6161bb1" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>get_discretized_Laplacian_values</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a89a74b4b90383de72b9e2d44ddc381fa" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>get_mass_values</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a2bc5eab4670559d2c553e78295fd41fe" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>line_bundle_1</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a493024a72fb9bb9c2a98861ea8ea6224" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>line_bundle_2</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a3713d45d8db138720243c72a820611a7" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>line_bundle_3</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1ab41d45af85b48d7e8b70e8e983869211" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>to_plotly_figure</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a9dd42ce63527140fbe41eed6009a5544" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>to_plotly_json</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1ae48365d979173558aec788a500909bdc" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>x_granularity</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1afe71021c0e2340d965768a55d96d1689" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>x_max</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a16af102415c7f7ca7703f769193693d9" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>x_min</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1af39891621318772ff10e26524f19d293" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>y_granularity</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a352ca54ac815e031cb1bf910bf2eabf4" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>y_max</name></member>
+      <member refid="classsrc_1_1_mass_plot_1_1_mass_plot_1a66e8ca865c2ca66f106cde2ad3127a77" prot="public" virt="non-virtual"><scope>src::MassPlot::MassPlot</scope><name>y_min</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

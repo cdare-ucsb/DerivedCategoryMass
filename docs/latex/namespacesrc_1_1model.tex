@@ -1,0 +1,215 @@
+\doxysection{src.\+model Namespace Reference}
+\hypertarget{namespacesrc_1_1model}{}\label{namespacesrc_1_1model}\index{src.model@{src.model}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_collection_model}{Single\+Twist\+Collection\+Model}}
+\begin{DoxyCompactList}\small\item\em This class implements the functionality required to train a neural network model to predict the mass or the discrete Laplacian of a collection of single spherical twists, so that Py\+Torch does not directly need to be imported into the main application file for the Flask app. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model}{Single\+Twist\+Model}}
+\begin{DoxyCompactList}\small\item\em This class implements the functionality required to train a neural network model to predict the mass or the discrete Laplacian of a single spherical twist, so that Py\+Torch does not directly need to be imported into the main application file for the Flask app. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_a9492c028e6cc55675f69d0dffdc9c963}{create\+\_\+training\+\_\+data\+\_\+single\+\_\+twist\+\_\+collection}} (\mbox{\hyperlink{namespacesrc_1_1model_a147e42d5724688650c476630def97857}{filename}}, catagory, degree=1, x\+\_\+min=-\/10, x\+\_\+max=10, y\+\_\+min=0, y\+\_\+max=10, lb\+\_\+1\+\_\+min=-\/2, lb\+\_\+1\+\_\+max=2, lb\+\_\+2\+\_\+min=-\/3, lb\+\_\+2\+\_\+max=3, data\+\_\+size=5000)
+\begin{DoxyCompactList}\small\item\em Method to construct a CSV file with training data for a collection of single spherical twists. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesrc_1_1model_a606f0a55cd3826daac9e76e88d630eed}{\+\_\+generate\+\_\+xy\+\_\+grid}} (x\+\_\+min, x\+\_\+max, y\+\_\+min, y\+\_\+max, catagory, random\+\_\+dist=\mbox{\hyperlink{namespacesrc_1_1_local_p2_a6b6506e483df735954e483bf0e8bf95a}{True}}, data\+\_\+size=20000)
+\begin{DoxyCompactList}\small\item\em STATIC HELPER FUNCTIONS \#. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesrc_1_1model_a6db1376bab86fc9b39269a1c6b75d81b}{\+\_\+append\+\_\+training\+\_\+data\+\_\+to\+\_\+\+CSV\+\_\+single\+\_\+twist}} (\mbox{\hyperlink{namespacesrc_1_1model_a147e42d5724688650c476630def97857}{filename}}, \mbox{\hyperlink{namespacesrc_1_1_local_p2_a43573e56e18e52559a2d31128936f558}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{namespacesrc_1_1_local_p2_ae9dd2ce41559bc7d27aeebcd188761d1}{line\+\_\+bundle\+\_\+2}}, catagory, degree=1, x\+\_\+min=-\/5, x\+\_\+max=5, y\+\_\+min=0, y\+\_\+max=10, data\+\_\+size=20000)
+\begin{DoxyCompactList}\small\item\em Helper function to append training data for a single spherical twist to a CSV file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_ae83441da711431aadc3751986527332f}{IMPLEMENTED\+\_\+\+CATAGORIES}} = os.\+getenv("{}IMPLEMENTED\+\_\+\+CATAGORIES"{}).split("{},"{})
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_a6ab07e53074c687aacf807bb020c0917}{\+\_\+\+\_\+\+CURRENT\+\_\+\+DOUBLE\+\_\+\+TWIST\+\_\+\+IMPLEMENTED\+\_\+\+\_\+}} = os.\+getenv("{}CURRENT\+\_\+\+DOUBLE\+\_\+\+TWIST\+\_\+\+IMPLEMENTED"{}).split("{},"{})
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_aa688a051c9b25983ed4f92b19552d8c7}{NN\+\_\+\+MODEL\+\_\+\+MODES}} = os.\+getenv("{}NN\+\_\+\+MODEL\+\_\+\+MODES"{}).split("{},"{})
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_a3b9670c40bf5710dc0d5a5d8e61a0939}{lb\+\_\+1\+\_\+range}} = range(-\/1, 15+1)
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_a4470132bf10fa689e6974a03d0ff780d}{lb\+\_\+2\+\_\+range}} = range(-\/15, 15+1)
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_a284e430ea6f114dd04d759b98b58a884}{st\+\_\+model}}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_ad502fc00685d9096578d978cd1e2b5da}{num\+\_\+epochs}}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_a147e42d5724688650c476630def97857}{filename}} = os.\+path.\+abspath(os.\+path.\+join(os.\+path.\+dirname(\+\_\+\+\_\+file\+\_\+\+\_\+), f\textquotesingle{}../app/models/disc\+\_\+\+K3\+\_\+deg\{1\}\+\_\+\{lb1\}\+\_\+\{lb2\}.pth\textquotesingle{}))
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacesrc_1_1model_a6db1376bab86fc9b39269a1c6b75d81b}\index{src.model@{src.model}!\_append\_training\_data\_to\_CSV\_single\_twist@{\_append\_training\_data\_to\_CSV\_single\_twist}}
+\index{\_append\_training\_data\_to\_CSV\_single\_twist@{\_append\_training\_data\_to\_CSV\_single\_twist}!src.model@{src.model}}
+\doxysubsubsection{\texorpdfstring{\_append\_training\_data\_to\_CSV\_single\_twist()}{\_append\_training\_data\_to\_CSV\_single\_twist()}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1model_a6db1376bab86fc9b39269a1c6b75d81b} 
+src.\+model.\+\_\+append\+\_\+training\+\_\+data\+\_\+to\+\_\+\+CSV\+\_\+single\+\_\+twist (\begin{DoxyParamCaption}\item[{}]{filename}{, }\item[{}]{line\+\_\+bundle\+\_\+1}{, }\item[{}]{line\+\_\+bundle\+\_\+2}{, }\item[{}]{catagory}{, }\item[{}]{degree}{ = {\ttfamily 1}, }\item[{}]{x\+\_\+min}{ = {\ttfamily -\/5}, }\item[{}]{x\+\_\+max}{ = {\ttfamily 5}, }\item[{}]{y\+\_\+min}{ = {\ttfamily 0}, }\item[{}]{y\+\_\+max}{ = {\ttfamily 10}, }\item[{}]{data\+\_\+size}{ = {\ttfamily 20000}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Helper function to append training data for a single spherical twist to a CSV file. 
+
+The function generates the input data and the output data for the spherical twist and appends the data to the CSV file. The function checks the validity of the input arguments and raises a Value\+Error if any of the input arguments are invalid. The function uses the \doxylink{namespacesrc_1_1_spherical_twist}{Spherical\+Twist} class to compute the mass of the spherical twist at each point in the grid specified by the input data.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the CSV file to save the training data to \\
+\hline
+{\em line\+\_\+bundle\+\_\+1} & The first line bundle in the spherical twist \\
+\hline
+{\em line\+\_\+bundle\+\_\+2} & The second line bundle in the spherical twist ~\newline
+ \\
+\hline
+{\em catagory} & The catagory of the model; this is either \textquotesingle{}P1\textquotesingle{}, \textquotesingle{}P2\textquotesingle{}, or \textquotesingle{}K3\textquotesingle{} \\
+\hline
+{\em degree} & The degree of the K3 surface; this is only used when the catagory is \textquotesingle{}K3\textquotesingle{} \\
+\hline
+{\em x\+\_\+min} & The minimum x value for the input data \\
+\hline
+{\em x\+\_\+max} & The maximum x value for the input data \\
+\hline
+{\em y\+\_\+min} & The minimum y value for the input data \\
+\hline
+{\em y\+\_\+max} & The maximum y value for the input data \\
+\hline
+{\em data\+\_\+size} & The number of data points to generate for the training data \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacesrc_1_1model_a606f0a55cd3826daac9e76e88d630eed}\index{src.model@{src.model}!\_generate\_xy\_grid@{\_generate\_xy\_grid}}
+\index{\_generate\_xy\_grid@{\_generate\_xy\_grid}!src.model@{src.model}}
+\doxysubsubsection{\texorpdfstring{\_generate\_xy\_grid()}{\_generate\_xy\_grid()}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1model_a606f0a55cd3826daac9e76e88d630eed} 
+src.\+model.\+\_\+generate\+\_\+xy\+\_\+grid (\begin{DoxyParamCaption}\item[{}]{x\+\_\+min}{, }\item[{}]{x\+\_\+max}{, }\item[{}]{y\+\_\+min}{, }\item[{}]{y\+\_\+max}{, }\item[{}]{catagory}{, }\item[{}]{random\+\_\+dist}{ = {\ttfamily \mbox{\hyperlink{namespacesrc_1_1_local_p2_a6b6506e483df735954e483bf0e8bf95a}{True}}}, }\item[{}]{data\+\_\+size}{ = {\ttfamily 20000}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+STATIC HELPER FUNCTIONS \#. 
+
+Helper function to create a grid of x and y values for the input data. The function generates the x and y values either randomly or from a linear grid, depending on the value of the random\+\_\+dist argument. The function also checks the validity of the input arguments and raises a Value\+Error if any of the input arguments are invalid
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+\_\+min} & The minimum x value for the input data \\
+\hline
+{\em x\+\_\+max} & The maximum x value for the input data \\
+\hline
+{\em y\+\_\+min} & The minimum y value for the input data \\
+\hline
+{\em y\+\_\+max} & The maximum y value for the input data \\
+\hline
+{\em catagory} & The catagory of the model; this is either \textquotesingle{}P1\textquotesingle{}, \textquotesingle{}P2\textquotesingle{}, or \textquotesingle{}K3\textquotesingle{} \\
+\hline
+{\em random\+\_\+dist} & A boolean flag to determine whether the x and y values should be generated randomly or from a linear grid \\
+\hline
+{\em data\+\_\+size} & The number of data points to generate for the training data\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+x\+\_\+vals The x values for the input data 
+
+y\+\_\+vals The y values for the input data 
+\end{DoxyReturn}
+\Hypertarget{namespacesrc_1_1model_a9492c028e6cc55675f69d0dffdc9c963}\index{src.model@{src.model}!create\_training\_data\_single\_twist\_collection@{create\_training\_data\_single\_twist\_collection}}
+\index{create\_training\_data\_single\_twist\_collection@{create\_training\_data\_single\_twist\_collection}!src.model@{src.model}}
+\doxysubsubsection{\texorpdfstring{create\_training\_data\_single\_twist\_collection()}{create\_training\_data\_single\_twist\_collection()}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1model_a9492c028e6cc55675f69d0dffdc9c963} 
+src.\+model.\+create\+\_\+training\+\_\+data\+\_\+single\+\_\+twist\+\_\+collection (\begin{DoxyParamCaption}\item[{}]{filename}{, }\item[{}]{catagory}{, }\item[{}]{degree}{ = {\ttfamily 1}, }\item[{}]{x\+\_\+min}{ = {\ttfamily -\/10}, }\item[{}]{x\+\_\+max}{ = {\ttfamily 10}, }\item[{}]{y\+\_\+min}{ = {\ttfamily 0}, }\item[{}]{y\+\_\+max}{ = {\ttfamily 10}, }\item[{}]{lb\+\_\+1\+\_\+min}{ = {\ttfamily -\/2}, }\item[{}]{lb\+\_\+1\+\_\+max}{ = {\ttfamily 2}, }\item[{}]{lb\+\_\+2\+\_\+min}{ = {\ttfamily -\/3}, }\item[{}]{lb\+\_\+2\+\_\+max}{ = {\ttfamily 3}, }\item[{}]{data\+\_\+size}{ = {\ttfamily 5000}}\end{DoxyParamCaption})}
+
+
+
+Method to construct a CSV file with training data for a collection of single spherical twists. 
+
+The method generates data for all possible combinations of line bundles lb\+\_\+1 and lb\+\_\+2 in the specified ranges. The method generates data for the specified catagory and degree, and saves the data to the specified filename. The method uses the \+\_\+append\+\_\+training\+\_\+data\+\_\+to\+\_\+\+CSV\+\_\+single\+\_\+twist method to append the training data to the CSV file.
+
+WARNING\+: Every iteration of append\+\_\+training\+\_\+data\+\_\+to\+\_\+\+CSV\+\_\+single\+\_\+twist with the default 20,000 samples makes a file that is roughly 1.\+5\+MB and takes about 1.\+83s (on 8 Intel I9 cores). Thus, ranging over all spherical twists Tw\+\_\+a O(b) with -\/5≤ a ≤ 5 and -\/5 ≤ b ≤ 5 will produce a file that is roughly 150MB and will take roughly 3 and a half minutes (on 8 Intel I9 cores).
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the CSV file to save the training data to \\
+\hline
+{\em catagory} & The catagory of the model; this is either \textquotesingle{}P1\textquotesingle{}, \textquotesingle{}P2\textquotesingle{}, or \textquotesingle{}K3\textquotesingle{} \\
+\hline
+{\em degree} & The degree of the K3 surface; this is only used when the catagory is \textquotesingle{}K3\textquotesingle{} \\
+\hline
+{\em x\+\_\+min} & The minimum x value for the input data \\
+\hline
+{\em x\+\_\+max} & The maximum x value for the input data \\
+\hline
+{\em y\+\_\+min} & The minimum y value for the input data \\
+\hline
+{\em y\+\_\+max} & The maximum y value for the input data \\
+\hline
+{\em lb\+\_\+1\+\_\+min} & The minimum value for the first line bundle in the spherical twist \\
+\hline
+{\em lb\+\_\+1\+\_\+max} & The maximum value for the first line bundle in the spherical twist \\
+\hline
+{\em lb\+\_\+2\+\_\+min} & The minimum value for the second line bundle in the spherical twist \\
+\hline
+{\em lb\+\_\+2\+\_\+max} & The maximum value for the second line bundle in the spherical twist \\
+\hline
+{\em data\+\_\+size} & The number of data points to generate for the training data \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacesrc_1_1model_a6ab07e53074c687aacf807bb020c0917}\index{src.model@{src.model}!\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_@{\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_}}
+\index{\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_@{\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_}!src.model@{src.model}}
+\doxysubsubsection{\texorpdfstring{\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_}{\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1model_a6ab07e53074c687aacf807bb020c0917} 
+src.\+model.\+\_\+\+\_\+\+CURRENT\+\_\+\+DOUBLE\+\_\+\+TWIST\+\_\+\+IMPLEMENTED\+\_\+\+\_\+ = os.\+getenv("{}CURRENT\+\_\+\+DOUBLE\+\_\+\+TWIST\+\_\+\+IMPLEMENTED"{}).split("{},"{})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacesrc_1_1model_a147e42d5724688650c476630def97857}\index{src.model@{src.model}!filename@{filename}}
+\index{filename@{filename}!src.model@{src.model}}
+\doxysubsubsection{\texorpdfstring{filename}{filename}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1model_a147e42d5724688650c476630def97857} 
+src.\+model.\+filename = os.\+path.\+abspath(os.\+path.\+join(os.\+path.\+dirname(\+\_\+\+\_\+file\+\_\+\+\_\+), f\textquotesingle{}../app/models/disc\+\_\+\+K3\+\_\+deg\{1\}\+\_\+\{lb1\}\+\_\+\{lb2\}.pth\textquotesingle{}))}
+
+\Hypertarget{namespacesrc_1_1model_ae83441da711431aadc3751986527332f}\index{src.model@{src.model}!IMPLEMENTED\_CATAGORIES@{IMPLEMENTED\_CATAGORIES}}
+\index{IMPLEMENTED\_CATAGORIES@{IMPLEMENTED\_CATAGORIES}!src.model@{src.model}}
+\doxysubsubsection{\texorpdfstring{IMPLEMENTED\_CATAGORIES}{IMPLEMENTED\_CATAGORIES}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1model_ae83441da711431aadc3751986527332f} 
+src.\+model.\+IMPLEMENTED\+\_\+\+CATAGORIES = os.\+getenv("{}IMPLEMENTED\+\_\+\+CATAGORIES"{}).split("{},"{})}
+
+\Hypertarget{namespacesrc_1_1model_a3b9670c40bf5710dc0d5a5d8e61a0939}\index{src.model@{src.model}!lb\_1\_range@{lb\_1\_range}}
+\index{lb\_1\_range@{lb\_1\_range}!src.model@{src.model}}
+\doxysubsubsection{\texorpdfstring{lb\_1\_range}{lb\_1\_range}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1model_a3b9670c40bf5710dc0d5a5d8e61a0939} 
+src.\+model.\+lb\+\_\+1\+\_\+range = range(-\/1, 15+1)}
+
+\Hypertarget{namespacesrc_1_1model_a4470132bf10fa689e6974a03d0ff780d}\index{src.model@{src.model}!lb\_2\_range@{lb\_2\_range}}
+\index{lb\_2\_range@{lb\_2\_range}!src.model@{src.model}}
+\doxysubsubsection{\texorpdfstring{lb\_2\_range}{lb\_2\_range}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1model_a4470132bf10fa689e6974a03d0ff780d} 
+src.\+model.\+lb\+\_\+2\+\_\+range = range(-\/15, 15+1)}
+
+\Hypertarget{namespacesrc_1_1model_aa688a051c9b25983ed4f92b19552d8c7}\index{src.model@{src.model}!NN\_MODEL\_MODES@{NN\_MODEL\_MODES}}
+\index{NN\_MODEL\_MODES@{NN\_MODEL\_MODES}!src.model@{src.model}}
+\doxysubsubsection{\texorpdfstring{NN\_MODEL\_MODES}{NN\_MODEL\_MODES}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1model_aa688a051c9b25983ed4f92b19552d8c7} 
+src.\+model.\+NN\+\_\+\+MODEL\+\_\+\+MODES = os.\+getenv("{}NN\+\_\+\+MODEL\+\_\+\+MODES"{}).split("{},"{})}
+
+\Hypertarget{namespacesrc_1_1model_ad502fc00685d9096578d978cd1e2b5da}\index{src.model@{src.model}!num\_epochs@{num\_epochs}}
+\index{num\_epochs@{num\_epochs}!src.model@{src.model}}
+\doxysubsubsection{\texorpdfstring{num\_epochs}{num\_epochs}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1model_ad502fc00685d9096578d978cd1e2b5da} 
+src.\+model.\+num\+\_\+epochs}
+
+\Hypertarget{namespacesrc_1_1model_a284e430ea6f114dd04d759b98b58a884}\index{src.model@{src.model}!st\_model@{st\_model}}
+\index{st\_model@{st\_model}!src.model@{src.model}}
+\doxysubsubsection{\texorpdfstring{st\_model}{st\_model}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1model_a284e430ea6f114dd04d759b98b58a884} 
+src.\+model.\+st\+\_\+model}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ SingleTwistModel(line\_bundle\_1=lb1,}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ line\_bundle\_2=lb2,}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ catagory=\textcolor{stringliteral}{'K3'},}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data\_size=25000,}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mode=\textcolor{stringliteral}{'disc'},}
+\DoxyCodeLine{00006\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\_min=-\/10,}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\_max=10,}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y\_min=0,}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y\_max=10)}
+
+\end{DoxyCode}

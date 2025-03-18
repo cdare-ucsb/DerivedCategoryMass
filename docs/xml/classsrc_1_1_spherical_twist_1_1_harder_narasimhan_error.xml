@@ -10,16 +10,31 @@
         <argsstring></argsstring>
         <name>message</name>
         <qualifiedname>src.SphericalTwist.HarderNarasimhanError.message</qualifiedname>
-        <initializer>=  kwargs.get(&apos;stability_parameters&apos;)</initializer>
+        <initializer>=  kwargs.get(&apos;message&apos;)</initializer>
         <briefdescription>
 <para>The error message. </para>
         </briefdescription>
         <detaileddescription>
-<para>The stability parameters used to compute the Harder-Narasimhan factors </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="55" column="1" bodyfile="src/SphericalTwist.py" bodystart="55" bodyend="-1"/>
+        <location file="src/SphericalTwist.py" line="58" column="1" bodyfile="src/SphericalTwist.py" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error_1aca7b4be76f1a052bec2ddd427b317ac3" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.SphericalTwist.HarderNarasimhanError::stability_parameters</definition>
+        <argsstring></argsstring>
+        <name>stability_parameters</name>
+        <qualifiedname>src.SphericalTwist.HarderNarasimhanError.stability_parameters</qualifiedname>
+        <initializer>=  kwargs.get(&apos;stability_parameters&apos;)</initializer>
+        <briefdescription>
+<para>The stability parameters used to compute the Harder-Narasimhan factors. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/SphericalTwist.py" line="60" column="1" bodyfile="src/SphericalTwist.py" bodystart="60" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -47,17 +62,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="53" column="1" bodyfile="src/SphericalTwist.py" bodystart="53" bodyend="60"/>
+        <location file="src/SphericalTwist.py" line="55" column="1" bodyfile="src/SphericalTwist.py" bodystart="55" bodyend="64"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
 <para>Exception raised when the correct Harder-Narasimhan filtration cannot be found. </para>
     </briefdescription>
     <detaileddescription>
-<sect1 id="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error_1autotoc_md4_1s1"><sect2 id="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error_1autotoc_md4">
-<title>Attributes:</title><para>message (str) : The error message</para>
-<para>stability_parameters (tuple) : The stability parameters used to compute the Harder-Narasimhan factors </para>
-</sect2></sect1>
     </detaileddescription>
     <inheritancegraph>
       <node id="2">
@@ -81,10 +92,11 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="src/SphericalTwist.py" line="43" column="1" bodyfile="src/SphericalTwist.py" bodystart="43" bodyend="60"/>
+    <location file="src/SphericalTwist.py" line="51" column="1" bodyfile="src/SphericalTwist.py" bodystart="51" bodyend="64"/>
     <listofallmembers>
       <member refid="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error_1ad8666384a318fb06e069988617438d63" prot="public" virt="non-virtual"><scope>src::SphericalTwist::HarderNarasimhanError</scope><name>__init__</name></member>
       <member refid="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error_1a247019cf436761ee38e1dd7b11e6c8c1" prot="public" virt="non-virtual"><scope>src::SphericalTwist::HarderNarasimhanError</scope><name>message</name></member>
+      <member refid="classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error_1aca7b4be76f1a052bec2ddd427b317ac3" prot="public" virt="non-virtual"><scope>src::SphericalTwist::HarderNarasimhanError</scope><name>stability_parameters</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

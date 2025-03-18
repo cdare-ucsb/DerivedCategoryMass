@@ -1,0 +1,514 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="classsrc_1_1model_1_1_single_twist_model" kind="class" language="Python" prot="public">
+    <compoundname>src::model::SingleTwistModel</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classsrc_1_1model_1_1_single_twist_model_1a18944c3cb3cd921fefd35d49b34a7379" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.model.SingleTwistModel::mode</definition>
+        <argsstring></argsstring>
+        <name>mode</name>
+        <qualifiedname>src.model.SingleTwistModel.mode</qualifiedname>
+        <initializer>=  mode</initializer>
+        <briefdescription>
+<para>The mode of the model dictates what the model is trained to predict; this is either &apos;mass&apos; for when the model should be predicting the mass, or &apos;disc&apos; for when the model should be predicting the discrete Lagrangian. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="100" column="1" bodyfile="src/model.py" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1model_1_1_single_twist_model_1a4374efbc6eaec60a713a341a2b09a0cb" prot="public" static="no" mutable="no">
+        <type>str</type>
+        <definition>str src.model.SingleTwistModel::catagory</definition>
+        <argsstring></argsstring>
+        <name>catagory</name>
+        <qualifiedname>src.model.SingleTwistModel.catagory</qualifiedname>
+        <initializer>=  catagory</initializer>
+        <briefdescription>
+<para>The catagory of the model; this is either &apos;P1&apos;, &apos;P2&apos;, or &apos;K3&apos;. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="102" column="1" bodyfile="src/model.py" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1model_1_1_single_twist_model_1a921c2f0d57fa5a239607341025683ec6" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.model.SingleTwistModel::degree</definition>
+        <argsstring></argsstring>
+        <name>degree</name>
+        <qualifiedname>src.model.SingleTwistModel.degree</qualifiedname>
+        <initializer>=  degree</initializer>
+        <briefdescription>
+<para>An optional argument for the degree of the K3 surface; this is only used when the catagory is &apos;K3&apos;. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="104" column="1" bodyfile="src/model.py" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1model_1_1_single_twist_model_1a8dba0c5610085964a6adb8deb4e2b9f8" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.model.SingleTwistModel::x_min</definition>
+        <argsstring></argsstring>
+        <name>x_min</name>
+        <qualifiedname>src.model.SingleTwistModel.x_min</qualifiedname>
+        <initializer>=  x_min</initializer>
+        <briefdescription>
+<para>The catagory of the model; this is either &apos;P1&apos;, &apos;P2&apos;, or &apos;K3&apos;. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The minimum x value for the input data </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="108" column="1" bodyfile="src/model.py" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1model_1_1_single_twist_model_1a2213d430a538104f0b5e837747d406dc" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.model.SingleTwistModel::x_max</definition>
+        <argsstring></argsstring>
+        <name>x_max</name>
+        <qualifiedname>src.model.SingleTwistModel.x_max</qualifiedname>
+        <initializer>=  x_max</initializer>
+        <briefdescription>
+<para>The maximum x value for the input data. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="110" column="1" bodyfile="src/model.py" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1model_1_1_single_twist_model_1ad8518961fae89a1cc4d47fb8e45be248" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.model.SingleTwistModel::y_min</definition>
+        <argsstring></argsstring>
+        <name>y_min</name>
+        <qualifiedname>src.model.SingleTwistModel.y_min</qualifiedname>
+        <initializer>=  y_min</initializer>
+        <briefdescription>
+<para>The minimum y value for the input data. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="112" column="1" bodyfile="src/model.py" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1model_1_1_single_twist_model_1ad8c3d5984b717a0d222f56ea6a0e5948" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.model.SingleTwistModel::y_max</definition>
+        <argsstring></argsstring>
+        <name>y_max</name>
+        <qualifiedname>src.model.SingleTwistModel.y_max</qualifiedname>
+        <initializer>=  y_max</initializer>
+        <briefdescription>
+<para>The maximum y value for the input data. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="114" column="1" bodyfile="src/model.py" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1model_1_1_single_twist_model_1ad80da39d87df5c78cc2c1f5780f89089" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.model.SingleTwistModel::output_tensor</definition>
+        <argsstring></argsstring>
+        <name>output_tensor</name>
+        <qualifiedname>src.model.SingleTwistModel.output_tensor</qualifiedname>
+        <initializer>=  torch.tensor(z_train, dtype=torch.float32)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="141" column="1" bodyfile="src/model.py" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1model_1_1_single_twist_model_1acc6e13cc905d1d832bcc063a0357b5d8" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.model.SingleTwistModel::input_tensor</definition>
+        <argsstring></argsstring>
+        <name>input_tensor</name>
+        <qualifiedname>src.model.SingleTwistModel.input_tensor</qualifiedname>
+        <initializer>=  torch.cat([x_tensor, y_tensor], dim=1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="143" column="1" bodyfile="src/model.py" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1model_1_1_single_twist_model_1a1ca3cbc6fdddd71263e4b9f9fe333dee" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.model.SingleTwistModel::model</definition>
+        <argsstring></argsstring>
+        <name>model</name>
+        <qualifiedname>src.model.SingleTwistModel.model</qualifiedname>
+        <initializer>=  nn.Sequential(
+                    nn.Linear(2, 64),  # Input: (x, y)
+                    nn.SiLU(),
+                    nn.Linear(64, 64),
+                    nn.SiLU(),
+                    nn.Linear(64, 1)  # Output: z
+                )</initializer>
+        <briefdescription>
+<para>The PyTorch neural network model for the <ref refid="classsrc_1_1model_1_1_single_twist_model" kindref="compound">SingleTwistModel</ref> class. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The model is a simple feedforward neural network with 3 layers. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="202" column="1" bodyfile="src/model.py" bodystart="202" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsrc_1_1model_1_1_single_twist_model_1a11f29edc9ceb1fccfbbe2746feb0eaf8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.model.SingleTwistModel.__init__</definition>
+        <argsstring>(self, line_bundle_1, line_bundle_2, catagory, degree=1, x_min=-5, x_max=5, y_min=0, y_max=5, data_size=20000, mode=&apos;mass&apos;, x_granularity=0.1, y_granularity=0.05)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>src.model.SingleTwistModel.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1a43573e56e18e52559a2d31128936f558" kindref="member">line_bundle_1</ref></type>
+          <defname>line_bundle_1</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1ae9dd2ce41559bc7d27aeebcd188761d1" kindref="member">line_bundle_2</ref></type>
+          <defname>line_bundle_2</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1model_1_1_single_twist_model_1a4374efbc6eaec60a713a341a2b09a0cb" kindref="member">catagory</ref></type>
+          <defname>catagory</defname>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1model_1_1_single_twist_model_1a921c2f0d57fa5a239607341025683ec6" kindref="member">degree</ref></type>
+          <defname>degree</defname>
+          <defval>1</defval>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1model_1_1_single_twist_model_1a8dba0c5610085964a6adb8deb4e2b9f8" kindref="member">x_min</ref></type>
+          <defname>x_min</defname>
+          <defval>-5</defval>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1model_1_1_single_twist_model_1a2213d430a538104f0b5e837747d406dc" kindref="member">x_max</ref></type>
+          <defname>x_max</defname>
+          <defval>5</defval>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1model_1_1_single_twist_model_1ad8518961fae89a1cc4d47fb8e45be248" kindref="member">y_min</ref></type>
+          <defname>y_min</defname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1model_1_1_single_twist_model_1ad8c3d5984b717a0d222f56ea6a0e5948" kindref="member">y_max</ref></type>
+          <defname>y_max</defname>
+          <defval>5</defval>
+        </param>
+        <param>
+          <type>data_size</type>
+          <defname>data_size</defname>
+          <defval>20000</defval>
+        </param>
+        <param>
+          <type><ref refid="classsrc_1_1model_1_1_single_twist_model_1a18944c3cb3cd921fefd35d49b34a7379" kindref="member">mode</ref></type>
+          <defname>mode</defname>
+          <defval>&apos;mass&apos;</defval>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_projective_c_y_1a8f348febba300e233ff77986391cb251" kindref="member">x_granularity</ref></type>
+          <defname>x_granularity</defname>
+          <defval>0.1</defval>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_projective_c_y_1ad35f697e36426d705f0dc1ceb67f0c06" kindref="member">y_granularity</ref></type>
+          <defname>y_granularity</defname>
+          <defval>0.05</defval>
+        </param>
+        <briefdescription>
+<para>The constructor for the <ref refid="classsrc_1_1model_1_1_single_twist_model" kindref="compound">SingleTwistModel</ref> class. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The constructor initializes the model, the training data, and the model mode. By default, the model mode is set to &apos;mass&apos;, which means that the model is trained to predict the mass of the spherical twist. The model mode can also be set to &apos;disc&apos;, which means that the model is trained to predict the discrete Laplacian of the spherical twist. The constructor also checks the validity of the input arguments and raises a ValueError if any of the input arguments are invalid</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>line_bundle_1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The first line bundle in the spherical twist </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>line_bundle_2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The second line bundle in the spherical twist </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>catagory</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The catagory of the model; this is either &apos;P1&apos;, &apos;P2&apos;, or &apos;K3&apos; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>degree</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The degree of the K3 surface; this is only used when the catagory is &apos;K3&apos; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x_min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The minimum x value for the input data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The maximum x value for the input data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y_min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The minimum y value for the input data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The maximum y value for the input data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of data points to generate for the training data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The mode of the model; this is either &apos;mass&apos; for when the model should be predicting the mass, or &apos;disc&apos; for when the model should be predicting the discrete Laplacian </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x_granularity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The granularity of the x values for the discrete Laplacian; this is only used when the mode is &apos;disc&apos; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y_granularity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The granularity of the y values for the discrete Laplacian; this is only used when the mode is &apos;disc&apos; </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="40" column="1" bodyfile="src/model.py" bodystart="48" bodyend="221"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1model_1_1_single_twist_model_1aeb4778059b8403db41537bf8c71d8ce2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.model.SingleTwistModel.train</definition>
+        <argsstring>(self, num_epochs)</argsstring>
+        <name>train</name>
+        <qualifiedname>src.model.SingleTwistModel.train</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1model_1ad502fc00685d9096578d978cd1e2b5da" kindref="member">num_epochs</ref></type>
+          <defname>num_epochs</defname>
+        </param>
+        <briefdescription>
+<para>Method to train the neural network model for the <ref refid="classsrc_1_1model_1_1_single_twist_model" kindref="compound">SingleTwistModel</ref> class. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The method uses the Adam optimizer and the Mean Squared Error loss function. The method also uses a learning rate scheduler to adjust the learning rate during training. The method prints the loss every 10% of the total number of epochs.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>num_epochs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of epochs to train the model for </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="222" column="1" bodyfile="src/model.py" bodystart="222" bodyend="264"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1model_1_1_single_twist_model_1ad100356b600526964a2183e70fa8036c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.model.SingleTwistModel.save_model</definition>
+        <argsstring>(self, filename)</argsstring>
+        <name>save_model</name>
+        <qualifiedname>src.model.SingleTwistModel.save_model</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1model_1a147e42d5724688650c476630def97857" kindref="member">filename</ref></type>
+          <defname>filename</defname>
+        </param>
+        <briefdescription>
+<para>Method to save the PyTorch neural network&apos;s state to a file specified by the filename argument. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This simply calls the torch.save method with the model&apos;s state dictionary and the filename argument.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The name of the file to save the model&apos;s state to </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="265" column="1" bodyfile="src/model.py" bodystart="265" bodyend="273"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1model_1_1_single_twist_model_1a958d3fe65a9a1357eb759d863cd4a732" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.model.SingleTwistModel.load_model</definition>
+        <argsstring>(self, filename)</argsstring>
+        <name>load_model</name>
+        <qualifiedname>src.model.SingleTwistModel.load_model</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1model_1a147e42d5724688650c476630def97857" kindref="member">filename</ref></type>
+          <defname>filename</defname>
+        </param>
+        <briefdescription>
+<para>Method to load the PyTorch neural network&apos;s state from a file specified by the filename argument. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This simply calls the torch.load method with the filename argument and sets the model&apos;s state dictionary to the loaded state dictionary.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The name of the file to load the model&apos;s state from </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="274" column="1" bodyfile="src/model.py" bodystart="274" bodyend="284"/>
+      </memberdef>
+      <memberdef kind="function" id="classsrc_1_1model_1_1_single_twist_model_1ab9485c6d3eca6678afbdb471cc6bae8b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.model.SingleTwistModel.predictions_to_plotly</definition>
+        <argsstring>(self, color_scale=&apos;viridis&apos;)</argsstring>
+        <name>predictions_to_plotly</name>
+        <qualifiedname>src.model.SingleTwistModel.predictions_to_plotly</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>color_scale</type>
+          <defname>color_scale</defname>
+          <defval>&apos;viridis&apos;</defval>
+        </param>
+        <briefdescription>
+<para>Method to plot the predictions of the neural network model using Plotly. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The method generates a grid of x and y values and passes them through the neural network model to get the predicted z values. The method then creates a Plotly 3D scatter plot of the predicted z values with the x and y values as the x and y coordinates. The method returns the Plotly figure object.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>color_scale</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The color scale to use for the Plotly 3D scatter plot; the default is &apos;viridis&apos;</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The Plotly figure object of the 3D scatter plot of the predicted z values </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="285" column="1" bodyfile="src/model.py" bodystart="285" bodyend="350"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>This class implements the functionality required to train a neural network model to predict the mass or the discrete Laplacian of a single spherical twist, so that PyTorch does not directly need to be imported into the main application file for the Flask app. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The <ref refid="classsrc_1_1model_1_1_single_twist_model" kindref="compound">SingleTwistModel</ref> class acts as a wrapper for a general PyTorch neural network model, and saves the training data as a member variabe. The class also provides methods to train the model, save the model, load the model, and plot the predictions of the model using Plotly. </para>
+    </detaileddescription>
+    <location file="src/model.py" line="32" column="1" bodyfile="src/model.py" bodystart="32" bodyend="350"/>
+    <listofallmembers>
+      <member refid="classsrc_1_1model_1_1_single_twist_model_1a11f29edc9ceb1fccfbbe2746feb0eaf8" prot="public" virt="non-virtual"><scope>src::model::SingleTwistModel</scope><name>__init__</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_model_1a4374efbc6eaec60a713a341a2b09a0cb" prot="public" virt="non-virtual"><scope>src::model::SingleTwistModel</scope><name>catagory</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_model_1a921c2f0d57fa5a239607341025683ec6" prot="public" virt="non-virtual"><scope>src::model::SingleTwistModel</scope><name>degree</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_model_1acc6e13cc905d1d832bcc063a0357b5d8" prot="public" virt="non-virtual"><scope>src::model::SingleTwistModel</scope><name>input_tensor</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_model_1a958d3fe65a9a1357eb759d863cd4a732" prot="public" virt="non-virtual"><scope>src::model::SingleTwistModel</scope><name>load_model</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_model_1a18944c3cb3cd921fefd35d49b34a7379" prot="public" virt="non-virtual"><scope>src::model::SingleTwistModel</scope><name>mode</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_model_1a1ca3cbc6fdddd71263e4b9f9fe333dee" prot="public" virt="non-virtual"><scope>src::model::SingleTwistModel</scope><name>model</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_model_1ad80da39d87df5c78cc2c1f5780f89089" prot="public" virt="non-virtual"><scope>src::model::SingleTwistModel</scope><name>output_tensor</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_model_1ab9485c6d3eca6678afbdb471cc6bae8b" prot="public" virt="non-virtual"><scope>src::model::SingleTwistModel</scope><name>predictions_to_plotly</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_model_1ad100356b600526964a2183e70fa8036c" prot="public" virt="non-virtual"><scope>src::model::SingleTwistModel</scope><name>save_model</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_model_1aeb4778059b8403db41537bf8c71d8ce2" prot="public" virt="non-virtual"><scope>src::model::SingleTwistModel</scope><name>train</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_model_1a2213d430a538104f0b5e837747d406dc" prot="public" virt="non-virtual"><scope>src::model::SingleTwistModel</scope><name>x_max</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_model_1a8dba0c5610085964a6adb8deb4e2b9f8" prot="public" virt="non-virtual"><scope>src::model::SingleTwistModel</scope><name>x_min</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_model_1ad8c3d5984b717a0d222f56ea6a0e5948" prot="public" virt="non-virtual"><scope>src::model::SingleTwistModel</scope><name>y_max</name></member>
+      <member refid="classsrc_1_1model_1_1_single_twist_model_1ad8518961fae89a1cc4d47fb8e45be248" prot="public" virt="non-virtual"><scope>src::model::SingleTwistModel</scope><name>y_min</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

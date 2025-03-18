@@ -1,0 +1,61 @@
+\doxysection{src.\+Mass\+Plot Namespace Reference}
+\hypertarget{namespacesrc_1_1_mass_plot}{}\label{namespacesrc_1_1_mass_plot}\index{src.MassPlot@{src.MassPlot}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot}{Mass\+Plot}}
+\begin{DoxyCompactList}\small\item\em As the purpose of the library is to compute the mass of spherical twists in certain chambers of stability manifolds, a useful functionality is to plot a certain 3D slice of the graph of the mass function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_mass_plot_ad7da09c67adb889fa32aebb243768e95}{IMPLEMENTED\+\_\+\+CATAGORIES}} = os.\+getenv("{}IMPLEMENTED\+\_\+\+CATAGORIES"{}).split("{},"{})
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_mass_plot_aefd5e6f1971d6847678ac6cc9723e52b}{\+\_\+\+\_\+\+CURRENT\+\_\+\+DOUBLE\+\_\+\+TWIST\+\_\+\+IMPLEMENTED\+\_\+\+\_\+}} = os.\+getenv("{}CURRENT\+\_\+\+DOUBLE\+\_\+\+TWIST\+\_\+\+IMPLEMENTED"{}).split("{},"{})
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_mass_plot_aec67dfb86af33f925fe6f0c59a88ad1a}{mp}}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_mass_plot_a992c2f843487e19ac3babe503a04c703}{fig1}} = mp.\+to\+\_\+plotly\+\_\+figure()
+\item 
+\mbox{\hyperlink{namespacesrc_1_1_mass_plot_a2fbfb4e7b498c76b57a5c3ab772aadb3}{fig2}} = mp.\+discretized\+\_\+\+Laplacian\+\_\+to\+\_\+plotly\+\_\+figure()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacesrc_1_1_mass_plot_aefd5e6f1971d6847678ac6cc9723e52b}\index{src.MassPlot@{src.MassPlot}!\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_@{\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_}}
+\index{\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_@{\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_}!src.MassPlot@{src.MassPlot}}
+\doxysubsubsection{\texorpdfstring{\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_}{\_\_CURRENT\_DOUBLE\_TWIST\_IMPLEMENTED\_\_}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_mass_plot_aefd5e6f1971d6847678ac6cc9723e52b} 
+src.\+Mass\+Plot.\+\_\+\+\_\+\+CURRENT\+\_\+\+DOUBLE\+\_\+\+TWIST\+\_\+\+IMPLEMENTED\+\_\+\+\_\+ = os.\+getenv("{}CURRENT\+\_\+\+DOUBLE\+\_\+\+TWIST\+\_\+\+IMPLEMENTED"{}).split("{},"{})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacesrc_1_1_mass_plot_a992c2f843487e19ac3babe503a04c703}\index{src.MassPlot@{src.MassPlot}!fig1@{fig1}}
+\index{fig1@{fig1}!src.MassPlot@{src.MassPlot}}
+\doxysubsubsection{\texorpdfstring{fig1}{fig1}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_mass_plot_a992c2f843487e19ac3babe503a04c703} 
+src.\+Mass\+Plot.\+fig1 = mp.\+to\+\_\+plotly\+\_\+figure()}
+
+\Hypertarget{namespacesrc_1_1_mass_plot_a2fbfb4e7b498c76b57a5c3ab772aadb3}\index{src.MassPlot@{src.MassPlot}!fig2@{fig2}}
+\index{fig2@{fig2}!src.MassPlot@{src.MassPlot}}
+\doxysubsubsection{\texorpdfstring{fig2}{fig2}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_mass_plot_a2fbfb4e7b498c76b57a5c3ab772aadb3} 
+src.\+Mass\+Plot.\+fig2 = mp.\+discretized\+\_\+\+Laplacian\+\_\+to\+\_\+plotly\+\_\+figure()}
+
+\Hypertarget{namespacesrc_1_1_mass_plot_ad7da09c67adb889fa32aebb243768e95}\index{src.MassPlot@{src.MassPlot}!IMPLEMENTED\_CATAGORIES@{IMPLEMENTED\_CATAGORIES}}
+\index{IMPLEMENTED\_CATAGORIES@{IMPLEMENTED\_CATAGORIES}!src.MassPlot@{src.MassPlot}}
+\doxysubsubsection{\texorpdfstring{IMPLEMENTED\_CATAGORIES}{IMPLEMENTED\_CATAGORIES}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_mass_plot_ad7da09c67adb889fa32aebb243768e95} 
+src.\+Mass\+Plot.\+IMPLEMENTED\+\_\+\+CATAGORIES = os.\+getenv("{}IMPLEMENTED\+\_\+\+CATAGORIES"{}).split("{},"{})}
+
+\Hypertarget{namespacesrc_1_1_mass_plot_aec67dfb86af33f925fe6f0c59a88ad1a}\index{src.MassPlot@{src.MassPlot}!mp@{mp}}
+\index{mp@{mp}!src.MassPlot@{src.MassPlot}}
+\doxysubsubsection{\texorpdfstring{mp}{mp}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_mass_plot_aec67dfb86af33f925fe6f0c59a88ad1a} 
+src.\+Mass\+Plot.\+mp}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ MassPlot(line\_bundle\_1=1,\ line\_bundle\_2=5,}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\_min=-\/10,\ x\_max=10,}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y\_min=0,\ y\_max\ =\ 20,}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ catagory=\textcolor{stringliteral}{'K3'},\ degree=1)}
+
+\end{DoxyCode}

@@ -45,7 +45,7 @@ python3 --version
 in your command prompt. Whichever one produces a valid output will affect the first command / term you use in the `Usage` step.
 
 #### MacOS
- simply run
+Simply run
 ```
 brew install python
 ```
@@ -130,8 +130,9 @@ src/
     CoherentSheaf.py
     DerivedCategoryObject.py
     DistinguishedTriangle.py
-    LocalP1.py
     LocalP2.py
+    MassPlot.py
+    model.py
     ProjectiveCY.py
     SphericalTwist.py
 tests/

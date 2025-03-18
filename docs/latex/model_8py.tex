@@ -1,0 +1,44 @@
+\doxysection{src/model.py File Reference}
+\hypertarget{model_8py}{}\label{model_8py}\index{src/model.py@{src/model.py}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model}{src.\+model.\+Single\+Twist\+Model}}
+\begin{DoxyCompactList}\small\item\em This class implements the functionality required to train a neural network model to predict the mass or the discrete Laplacian of a single spherical twist, so that Py\+Torch does not directly need to be imported into the main application file for the Flask app. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_collection_model}{src.\+model.\+Single\+Twist\+Collection\+Model}}
+\begin{DoxyCompactList}\small\item\em This class implements the functionality required to train a neural network model to predict the mass or the discrete Laplacian of a collection of single spherical twists, so that Py\+Torch does not directly need to be imported into the main application file for the Flask app. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacesrc}{src}}
+\item 
+namespace \mbox{\hyperlink{namespacesrc_1_1model}{src.\+model}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_a9492c028e6cc55675f69d0dffdc9c963}{src.\+model.\+create\+\_\+training\+\_\+data\+\_\+single\+\_\+twist\+\_\+collection}} (\mbox{\hyperlink{namespacesrc_1_1model_a147e42d5724688650c476630def97857}{filename}}, catagory, degree=1, x\+\_\+min=-\/10, x\+\_\+max=10, y\+\_\+min=0, y\+\_\+max=10, lb\+\_\+1\+\_\+min=-\/2, lb\+\_\+1\+\_\+max=2, lb\+\_\+2\+\_\+min=-\/3, lb\+\_\+2\+\_\+max=3, data\+\_\+size=5000)
+\begin{DoxyCompactList}\small\item\em Method to construct a CSV file with training data for a collection of single spherical twists. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesrc_1_1model_a606f0a55cd3826daac9e76e88d630eed}{src.\+model.\+\_\+generate\+\_\+xy\+\_\+grid}} (x\+\_\+min, x\+\_\+max, y\+\_\+min, y\+\_\+max, catagory, random\+\_\+dist=\mbox{\hyperlink{namespacesrc_1_1_local_p2_a6b6506e483df735954e483bf0e8bf95a}{True}}, data\+\_\+size=20000)
+\begin{DoxyCompactList}\small\item\em STATIC HELPER FUNCTIONS \#. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesrc_1_1model_a6db1376bab86fc9b39269a1c6b75d81b}{src.\+model.\+\_\+append\+\_\+training\+\_\+data\+\_\+to\+\_\+\+CSV\+\_\+single\+\_\+twist}} (\mbox{\hyperlink{namespacesrc_1_1model_a147e42d5724688650c476630def97857}{filename}}, \mbox{\hyperlink{namespacesrc_1_1_local_p2_a43573e56e18e52559a2d31128936f558}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{namespacesrc_1_1_local_p2_ae9dd2ce41559bc7d27aeebcd188761d1}{line\+\_\+bundle\+\_\+2}}, catagory, degree=1, x\+\_\+min=-\/5, x\+\_\+max=5, y\+\_\+min=0, y\+\_\+max=10, data\+\_\+size=20000)
+\begin{DoxyCompactList}\small\item\em Helper function to append training data for a single spherical twist to a CSV file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_ae83441da711431aadc3751986527332f}{src.\+model.\+IMPLEMENTED\+\_\+\+CATAGORIES}} = os.\+getenv("{}IMPLEMENTED\+\_\+\+CATAGORIES"{}).split("{},"{})
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_a6ab07e53074c687aacf807bb020c0917}{src.\+model.\+\_\+\+\_\+\+CURRENT\+\_\+\+DOUBLE\+\_\+\+TWIST\+\_\+\+IMPLEMENTED\+\_\+\+\_\+}} = os.\+getenv("{}CURRENT\+\_\+\+DOUBLE\+\_\+\+TWIST\+\_\+\+IMPLEMENTED"{}).split("{},"{})
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_aa688a051c9b25983ed4f92b19552d8c7}{src.\+model.\+NN\+\_\+\+MODEL\+\_\+\+MODES}} = os.\+getenv("{}NN\+\_\+\+MODEL\+\_\+\+MODES"{}).split("{},"{})
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_a3b9670c40bf5710dc0d5a5d8e61a0939}{src.\+model.\+lb\+\_\+1\+\_\+range}} = range(-\/1, 15+1)
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_a4470132bf10fa689e6974a03d0ff780d}{src.\+model.\+lb\+\_\+2\+\_\+range}} = range(-\/15, 15+1)
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_a284e430ea6f114dd04d759b98b58a884}{src.\+model.\+st\+\_\+model}}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_ad502fc00685d9096578d978cd1e2b5da}{src.\+model.\+num\+\_\+epochs}}
+\item 
+\mbox{\hyperlink{namespacesrc_1_1model_a147e42d5724688650c476630def97857}{src.\+model.\+filename}} = os.\+path.\+abspath(os.\+path.\+join(os.\+path.\+dirname(\+\_\+\+\_\+file\+\_\+\+\_\+), f\textquotesingle{}../app/models/disc\+\_\+\+K3\+\_\+deg\{1\}\+\_\+\{lb1\}\+\_\+\{lb2\}.pth\textquotesingle{}))
+\end{DoxyCompactItemize}

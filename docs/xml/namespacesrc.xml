@@ -7,8 +7,9 @@
     <innernamespace refid="namespacesrc_1_1_coherent_sheaf">src::CoherentSheaf</innernamespace>
     <innernamespace refid="namespacesrc_1_1_derived_category_object">src::DerivedCategoryObject</innernamespace>
     <innernamespace refid="namespacesrc_1_1_distinguished_triangle">src::DistinguishedTriangle</innernamespace>
-    <innernamespace refid="namespacesrc_1_1_local_p1">src::LocalP1</innernamespace>
     <innernamespace refid="namespacesrc_1_1_local_p2">src::LocalP2</innernamespace>
+    <innernamespace refid="namespacesrc_1_1_mass_plot">src::MassPlot</innernamespace>
+    <innernamespace refid="namespacesrc_1_1model">src::model</innernamespace>
     <innernamespace refid="namespacesrc_1_1_projective_c_y">src::ProjectiveCY</innernamespace>
     <innernamespace refid="namespacesrc_1_1_spherical_twist">src::SphericalTwist</innernamespace>
     <sectiondef kind="var">
@@ -20,14 +21,14 @@
         <qualifiedname>src.__all__</qualifiedname>
         <initializer>=  [&apos;ChernCharacterP2&apos;, &apos;<ref refid="classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf" kindref="compound">CoherentSheaf</ref>&apos;, &apos;<ref refid="classsrc_1_1_derived_category_object_1_1_derived_category_object" kindref="compound">DerivedCategoryObject</ref>&apos;,
            &apos;<ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist" kindref="compound">SphericalTwist</ref>&apos;,  &apos;LocalP2&apos;, &apos;LocalP1&apos;, &apos;<ref refid="classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle" kindref="compound">DistinguishedTriangle</ref>&apos;,
-             &apos;<ref refid="classsrc_1_1_chain_complex_1_1_chain_complex" kindref="compound">ChainComplex</ref>&apos;, &apos;ProjectiveCY&apos;]</initializer>
+             &apos;<ref refid="classsrc_1_1_chain_complex_1_1_chain_complex" kindref="compound">ChainComplex</ref>&apos;, &apos;ProjectiveCY&apos;, &apos;<ref refid="classsrc_1_1_mass_plot_1_1_mass_plot" kindref="compound">MassPlot</ref>&apos;]</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/__init__.py" line="24" column="1" bodyfile="src/__init__.py" bodystart="24" bodyend="-1"/>
+        <location file="src/__init__.py" line="21" column="1" bodyfile="src/__init__.py" bodystart="21" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <briefdescription>

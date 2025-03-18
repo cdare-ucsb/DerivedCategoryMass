@@ -10,20 +10,14 @@ class \mbox{\hyperlink{classsrc_1_1_coherent_sheaf_1_1_line_bundle}{Line\+Bundle
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-list \mbox{\hyperlink{namespacesrc_1_1_coherent_sheaf_a96dc18afaa9dd4165c3ebc85ab9c1106}{IMPLEMENTED\+\_\+\+CATAGORIES}} = \mbox{[}\textquotesingle{}P1\textquotesingle{}, \textquotesingle{}P2\textquotesingle{}, \textquotesingle{}\mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ae24dbe6f91328befda2836d4a4b311b7}{K3}}\textquotesingle{}\mbox{]}
+\mbox{\hyperlink{namespacesrc_1_1_coherent_sheaf_a7049f9ac49b8ccba0b61377c15d94b8c}{IMPLEMENTED\+\_\+\+CATAGORIES}} = os.\+getenv("{}IMPLEMENTED\+\_\+\+CATAGORIES"{}).split("{},"{})
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Variable Documentation}
-\Hypertarget{namespacesrc_1_1_coherent_sheaf_a96dc18afaa9dd4165c3ebc85ab9c1106}\index{src.CoherentSheaf@{src.CoherentSheaf}!IMPLEMENTED\_CATAGORIES@{IMPLEMENTED\_CATAGORIES}}
+\Hypertarget{namespacesrc_1_1_coherent_sheaf_a7049f9ac49b8ccba0b61377c15d94b8c}\index{src.CoherentSheaf@{src.CoherentSheaf}!IMPLEMENTED\_CATAGORIES@{IMPLEMENTED\_CATAGORIES}}
 \index{IMPLEMENTED\_CATAGORIES@{IMPLEMENTED\_CATAGORIES}!src.CoherentSheaf@{src.CoherentSheaf}}
 \doxysubsubsection{\texorpdfstring{IMPLEMENTED\_CATAGORIES}{IMPLEMENTED\_CATAGORIES}}
-{\footnotesize\ttfamily \label{namespacesrc_1_1_coherent_sheaf_a96dc18afaa9dd4165c3ebc85ab9c1106} 
-list src.\+Coherent\+Sheaf.\+IMPLEMENTED\+\_\+\+CATAGORIES = \mbox{[}\textquotesingle{}P1\textquotesingle{}, \textquotesingle{}P2\textquotesingle{}, \textquotesingle{}\mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ae24dbe6f91328befda2836d4a4b311b7}{K3}}\textquotesingle{}\mbox{]}}
+{\footnotesize\ttfamily \label{namespacesrc_1_1_coherent_sheaf_a7049f9ac49b8ccba0b61377c15d94b8c} 
+src.\+Coherent\+Sheaf.\+IMPLEMENTED\+\_\+\+CATAGORIES = os.\+getenv("{}IMPLEMENTED\+\_\+\+CATAGORIES"{}).split("{},"{})}
 
-\begin{DoxyVerb}                                                                        #
-                       Single-Degree Objects                            #
-\end{DoxyVerb}
- -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\# These objects are used to represent coherent sheaves, vector bundles, and \# line bundles. Line bundles (i.\+e. vector bundles of rank 1) will be our \# building blocks for the sake of this project, since every coherent sheaf \# in projective space has a resolution by line bundles. Moreover, all \# ~\newline
- spherical twists that we will consider can be represented as a composition \# of twists around (the pushforward of) line bundles. \# ~\newline
- \# 

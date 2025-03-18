@@ -4,13 +4,13 @@
     <compoundname>src::ChainComplex</compoundname>
     <innerclass refid="classsrc_1_1_chain_complex_1_1_chain_complex" prot="public">src::ChainComplex::ChainComplex</innerclass>
     <sectiondef kind="var">
-      <memberdef kind="variable" id="namespacesrc_1_1_chain_complex_1a66a0e46feeb8ea4e1ef632e7857e1abf" prot="public" static="no" mutable="no">
-        <type>list</type>
-        <definition>list src::ChainComplex.IMPLEMENTED_CATAGORIES</definition>
+      <memberdef kind="variable" id="namespacesrc_1_1_chain_complex_1a6a7f9b079f669c9113d44ed74956310e" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::ChainComplex.IMPLEMENTED_CATAGORIES</definition>
         <argsstring></argsstring>
         <name>IMPLEMENTED_CATAGORIES</name>
         <qualifiedname>src.ChainComplex.IMPLEMENTED_CATAGORIES</qualifiedname>
-        <initializer>=  [&apos;P1&apos;, &apos;P2&apos;, &apos;<ref refid="namespacesrc_1_1_projective_c_y_1ae24dbe6f91328befda2836d4a4b311b7" kindref="member">K3</ref>&apos;]</initializer>
+        <initializer>=  os.getenv(&quot;IMPLEMENTED_CATAGORIES&quot;).split(&quot;,&quot;)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>

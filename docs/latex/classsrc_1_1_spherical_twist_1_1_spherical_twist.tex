@@ -18,6 +18,8 @@ Inheritance diagram for src.\+Spherical\+Twist.\+Spherical\+Twist\+:\begin{figur
 \begin{DoxyCompactList}\small\item\em Initialize an instance of \doxylink{classsrc_1_1_spherical_twist_1_1_spherical_twist}{Spherical\+Twist} with the specified line bundles. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a2dbfba1b1b215dfdb4e58bd160819479}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
 \begin{DoxyCompactList}\small\item\em Returns a string representation of the spherical twist by printing the defining triangle. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a1fa8888025453c9958d00f6ac7552682}{defining\+\_\+triangle\+\_\+to\+\_\+json}} (self)
+\begin{DoxyCompactList}\small\item\em Method to convert the spherical twist to a JSON string. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a183209b78a4202824b036ab2ebe40b91}{chern\+Character}} (self)
 \begin{DoxyCompactList}\small\item\em Method to compute the Chern Character of the spherical twist. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_spherical_twist_a0cae017d37b0e69454f7d039b77f3a54}{shift}} (self, n)
@@ -206,6 +208,25 @@ The Chern Character of the spherical twist is the Chern Character of the third o
 
 Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a1f4aac18056360d11918b709dc341937}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
 
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_a1fa8888025453c9958d00f6ac7552682}\index{src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}!defining\_triangle\_to\_json@{defining\_triangle\_to\_json}}
+\index{defining\_triangle\_to\_json@{defining\_triangle\_to\_json}!src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}}
+\doxysubsubsection{\texorpdfstring{defining\_triangle\_to\_json()}{defining\_triangle\_to\_json()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_spherical_twist_a1fa8888025453c9958d00f6ac7552682} 
+src.\+Spherical\+Twist.\+Spherical\+Twist.\+defining\+\_\+triangle\+\_\+to\+\_\+json (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Method to convert the spherical twist to a JSON string. 
+
+This is used to pass the chain complex data of the spherical twist in the browser. Since a spherical twist is defined by its defining triangle, \begin{DoxyVerb}RHom(O(a), O(b)) ⊗ O(a) ----> O(b) ----> Tw_O(a) O(b)
+\end{DoxyVerb}
+
+
+and Tw\+\_\+\+O(a) O(b) is merely a symbol, the only data we really need to pass is what the first RHom object looks like (dimension, shifts, etc) and the degrees \mbox{[}a,b\mbox{]}.
+
+\begin{DoxyReturn}{Returns}
+str A JSON string representation of the chain complex. The first object contains the information of the first RHom object, and the degrees of the line bundles are stored in the degrees key. 
+\end{DoxyReturn}
 \Hypertarget{classsrc_1_1_spherical_twist_1_1_spherical_twist_a68f7b3d2761fa842f86e7e6405ce7fb4}\index{src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}!get\_HN\_factors@{get\_HN\_factors}}
 \index{get\_HN\_factors@{get\_HN\_factors}!src.SphericalTwist.SphericalTwist@{src.SphericalTwist.SphericalTwist}}
 \doxysubsubsection{\texorpdfstring{get\_HN\_factors()}{get\_HN\_factors()}}

@@ -1,26 +1,9 @@
 var searchData=
 [
-  ['s_20vanish_20this_20gives_0',['&lt; exp(αΗ + ι βΗ) , (r, lH, s) &gt; vanish. This gives',['../classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber.html#autotoc_md3',1,'']]],
-  ['scene_1',['scene',['../namespacesrc_1_1_spherical_twist.html#a702de543b542d8cbccd91cf7eed902ff',1,'src::SphericalTwist']]],
-  ['secondary_5fcanonical_5ftriangle_2',['secondary_canonical_triangle',['../classsrc_1_1_spherical_twist_1_1_double_spherical_twist.html#a4d600ef4b8ee2b4ca1473c15ce61c177',1,'src::SphericalTwist::DoubleSphericalTwist']]],
-  ['sheaf_5fvector_3',['sheaf_vector',['../classsrc_1_1_chain_complex_1_1_chain_complex.html#a864ac31fa0d9fe9a4c50f803cc6023b8',1,'src::ChainComplex::ChainComplex']]],
-  ['shift_4',['shift',['../classsrc_1_1_chain_complex_1_1_chain_complex.html#a06ddcc7b614880bd8889c944f76237ee',1,'src.ChainComplex.ChainComplex.shift()'],['../classsrc_1_1_coherent_sheaf_1_1_coherent_sheaf.html#a1bbe30e98a954561f98ea916a6dd5b77',1,'src.CoherentSheaf.CoherentSheaf.shift()'],['../classsrc_1_1_derived_category_object_1_1_derived_category_object.html#a6c1dfa5772ffeae4bf5f1e6a7a2de496',1,'src.DerivedCategoryObject.DerivedCategoryObject.shift()'],['../classsrc_1_1_spherical_twist_1_1_spherical_twist.html#a0cae017d37b0e69454f7d039b77f3a54',1,'src.SphericalTwist.SphericalTwist.shift()'],['../classsrc_1_1_spherical_twist_1_1_spherical_twist_sum.html#ad3caf5216dee2ed1482c9494632cca7f',1,'src.SphericalTwist.SphericalTwistSum.shift()']]],
-  ['shift_5fvector_5',['shift_vector',['../classsrc_1_1_chain_complex_1_1_chain_complex.html#ad30a876c85094c7347ea6180fb058171',1,'src.ChainComplex.ChainComplex.shift_vector'],['../classsrc_1_1_spherical_twist_1_1_spherical_twist_sum.html#adba9836083c0ee5b2654eeb970065315',1,'src.SphericalTwist.SphericalTwistSum.shift_vector']]],
-  ['single_5ftwist_5ftriangle_5fto_5fjson_5fk3_6',['single_twist_triangle_to_json_K3',['../namespacesrc_1_1_projective_c_y.html#ac16597928445d3dac8faf9f75d50cd76',1,'src::ProjectiveCY']]],
-  ['sph_7',['sph',['../namespacesrc_1_1_local_p2.html#a3199691f13fdd6bfda434b56df4a9e1c',1,'src::LocalP2']]],
-  ['sph4_8',['sph4',['../namespacesrc_1_1_spherical_twist.html#a4c6ca7b43f9daf9a902a7d8cbf03b44e',1,'src::SphericalTwist']]],
-  ['sphericaltwist_9',['SphericalTwist',['../classsrc_1_1_spherical_twist_1_1_spherical_twist.html',1,'src::SphericalTwist']]],
-  ['sphericaltwist_2epy_10',['SphericalTwist.py',['../_spherical_twist_8py.html',1,'']]],
-  ['sphericaltwistsum_11',['SphericalTwistSum',['../classsrc_1_1_spherical_twist_1_1_spherical_twist_sum.html',1,'src::SphericalTwist']]],
-  ['src_12',['src',['../namespacesrc.html',1,'']]],
-  ['src_3a_3achaincomplex_13',['ChainComplex',['../namespacesrc_1_1_chain_complex.html',1,'src']]],
-  ['src_3a_3acherncharacter_14',['ChernCharacter',['../namespacesrc_1_1_chern_character.html',1,'src']]],
-  ['src_3a_3acoherentsheaf_15',['CoherentSheaf',['../namespacesrc_1_1_coherent_sheaf.html',1,'src']]],
-  ['src_3a_3aderivedcategoryobject_16',['DerivedCategoryObject',['../namespacesrc_1_1_derived_category_object.html',1,'src']]],
-  ['src_3a_3adistinguishedtriangle_17',['DistinguishedTriangle',['../namespacesrc_1_1_distinguished_triangle.html',1,'src']]],
-  ['src_3a_3alocalp1_18',['LocalP1',['../namespacesrc_1_1_local_p1.html',1,'src']]],
-  ['src_3a_3alocalp2_19',['LocalP2',['../namespacesrc_1_1_local_p2.html',1,'src']]],
-  ['src_3a_3aprojectivecy_20',['ProjectiveCY',['../namespacesrc_1_1_projective_c_y.html',1,'src']]],
-  ['src_3a_3asphericaltwist_21',['SphericalTwist',['../namespacesrc_1_1_spherical_twist.html',1,'src']]],
-  ['string_22',['string',['../classsrc_1_1_derived_category_object_1_1_derived_category_object.html#ab7174b1273139ac7d0c2bc6f7c4d1789',1,'src::DerivedCategoryObject::DerivedCategoryObject']]]
+  ['r_20lh_20s_20vanish_20this_20gives_0',['&lt; exp(αΗ + ι βΗ) , (r, lH, s) &gt; vanish. This gives',['../classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber.html#autotoc_md1',1,'']]],
+  ['real_20and_20imaginary_20part_20of_1',['dl^2 - rs = -1. For a corresponding hole in the (α,β) plane, we must have the real and imaginary part of',['../classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber.html#autotoc_md0',1,'']]],
+  ['return_5fjson_2',['return_json',['../namespacesrc_1_1_local_p2.html#aba7ed3df7babb37325bbadaeef0e9f91',1,'src::LocalP2']]],
+  ['rotateleft_3',['rotateLeft',['../classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle.html#ac401471ba6b81248c7dc5e2cee5c7177',1,'src::DistinguishedTriangle::DistinguishedTriangle']]],
+  ['rotateright_4',['rotateRight',['../classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle.html#a3a36239e4c076cc5627d95af48d7435f',1,'src::DistinguishedTriangle::DistinguishedTriangle']]],
+  ['rs_201_20for_20a_20corresponding_20hole_20in_20the_20α_20β_20plane_20we_20must_20have_20the_20real_20and_20imaginary_20part_20of_5',['dl^2 - rs = -1. For a corresponding hole in the (α,β) plane, we must have the real and imaginary part of',['../classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber.html#autotoc_md0',1,'']]]
 ];

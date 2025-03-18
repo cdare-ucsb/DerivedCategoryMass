@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="namespacesrc_1_1_mass_plot" kind="namespace" language="Python">
+    <compoundname>src::MassPlot</compoundname>
+    <innerclass refid="classsrc_1_1_mass_plot_1_1_mass_plot" prot="public">src::MassPlot::MassPlot</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacesrc_1_1_mass_plot_1ad7da09c67adb889fa32aebb243768e95" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::MassPlot.IMPLEMENTED_CATAGORIES</definition>
+        <argsstring></argsstring>
+        <name>IMPLEMENTED_CATAGORIES</name>
+        <qualifiedname>src.MassPlot.IMPLEMENTED_CATAGORIES</qualifiedname>
+        <initializer>=  os.getenv(&quot;IMPLEMENTED_CATAGORIES&quot;).split(&quot;,&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="19" column="1" bodyfile="src/MassPlot.py" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_mass_plot_1aefd5e6f1971d6847678ac6cc9723e52b" prot="private" static="no" mutable="no">
+        <type></type>
+        <definition>src::MassPlot.__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</definition>
+        <argsstring></argsstring>
+        <name>__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</name>
+        <qualifiedname>src.MassPlot.__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</qualifiedname>
+        <initializer>=  os.getenv(&quot;CURRENT_DOUBLE_TWIST_IMPLEMENTED&quot;).split(&quot;,&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="20" column="1" bodyfile="src/MassPlot.py" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_mass_plot_1aec67dfb86af33f925fe6f0c59a88ad1a" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::MassPlot.mp</definition>
+        <argsstring></argsstring>
+        <name>mp</name>
+        <qualifiedname>src.MassPlot.mp</qualifiedname>
+        <initializer>=  <ref refid="classsrc_1_1_mass_plot_1_1_mass_plot" kindref="compound">MassPlot</ref>(<ref refid="namespacesrc_1_1_local_p2_1a43573e56e18e52559a2d31128936f558" kindref="member">line_bundle_1</ref>=1, <ref refid="namespacesrc_1_1_local_p2_1ae9dd2ce41559bc7d27aeebcd188761d1" kindref="member">line_bundle_2</ref>=5,
+                x_min=-10, x_max=10,
+                y_min=0, y_max = 20,
+                catagory=&apos;K3&apos;, degree=1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="367" column="1" bodyfile="src/MassPlot.py" bodystart="367" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_mass_plot_1a992c2f843487e19ac3babe503a04c703" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::MassPlot.fig1</definition>
+        <argsstring></argsstring>
+        <name>fig1</name>
+        <qualifiedname>src.MassPlot.fig1</qualifiedname>
+        <initializer>=  mp.to_plotly_figure()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="372" column="1" bodyfile="src/MassPlot.py" bodystart="372" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_mass_plot_1a2fbfb4e7b498c76b57a5c3ab772aadb3" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::MassPlot.fig2</definition>
+        <argsstring></argsstring>
+        <name>fig2</name>
+        <qualifiedname>src.MassPlot.fig2</qualifiedname>
+        <initializer>=  mp.discretized_Laplacian_to_plotly_figure()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MassPlot.py" line="375" column="1" bodyfile="src/MassPlot.py" bodystart="375" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/MassPlot.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

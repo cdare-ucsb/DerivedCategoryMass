@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['twist_5ftriangle_5fto_5fjson_5fp1_0',['twist_triangle_to_json_P1',['../namespacesrc_1_1_local_p1.html#a847328623c2db7151196507a5374dcd8',1,'src::LocalP1']]],
-  ['twist_5ftriangle_5fto_5fjson_5fp2_1',['twist_triangle_to_json_P2',['../namespacesrc_1_1_local_p2.html#a2b97a79900dbdf7eb21a9ccd4cc23745',1,'src::LocalP2']]]
+  ['rotateleft_0',['rotateLeft',['../classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle.html#ac401471ba6b81248c7dc5e2cee5c7177',1,'src::DistinguishedTriangle::DistinguishedTriangle']]],
+  ['rotateright_1',['rotateRight',['../classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle.html#a3a36239e4c076cc5627d95af48d7435f',1,'src::DistinguishedTriangle::DistinguishedTriangle']]]
 ];

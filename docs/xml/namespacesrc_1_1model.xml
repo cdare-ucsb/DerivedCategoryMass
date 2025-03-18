@@ -1,0 +1,570 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="namespacesrc_1_1model" kind="namespace" language="Python">
+    <compoundname>src::model</compoundname>
+    <innerclass refid="classsrc_1_1model_1_1_single_twist_collection_model" prot="public">src::model::SingleTwistCollectionModel</innerclass>
+    <innerclass refid="classsrc_1_1model_1_1_single_twist_model" prot="public">src::model::SingleTwistModel</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacesrc_1_1model_1ae83441da711431aadc3751986527332f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::model.IMPLEMENTED_CATAGORIES</definition>
+        <argsstring></argsstring>
+        <name>IMPLEMENTED_CATAGORIES</name>
+        <qualifiedname>src.model.IMPLEMENTED_CATAGORIES</qualifiedname>
+        <initializer>=  os.getenv(&quot;IMPLEMENTED_CATAGORIES&quot;).split(&quot;,&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="24" column="1" bodyfile="src/model.py" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1model_1a6ab07e53074c687aacf807bb020c0917" prot="private" static="no" mutable="no">
+        <type></type>
+        <definition>src::model.__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</definition>
+        <argsstring></argsstring>
+        <name>__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</name>
+        <qualifiedname>src.model.__CURRENT_DOUBLE_TWIST_IMPLEMENTED__</qualifiedname>
+        <initializer>=  os.getenv(&quot;CURRENT_DOUBLE_TWIST_IMPLEMENTED&quot;).split(&quot;,&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="25" column="1" bodyfile="src/model.py" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1model_1aa688a051c9b25983ed4f92b19552d8c7" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::model.NN_MODEL_MODES</definition>
+        <argsstring></argsstring>
+        <name>NN_MODEL_MODES</name>
+        <qualifiedname>src.model.NN_MODEL_MODES</qualifiedname>
+        <initializer>=  os.getenv(&quot;NN_MODEL_MODES&quot;).split(&quot;,&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="26" column="1" bodyfile="src/model.py" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1model_1a3b9670c40bf5710dc0d5a5d8e61a0939" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::model.lb_1_range</definition>
+        <argsstring></argsstring>
+        <name>lb_1_range</name>
+        <qualifiedname>src.model.lb_1_range</qualifiedname>
+        <initializer>=  range(-1, 15+1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="860" column="1" bodyfile="src/model.py" bodystart="860" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1model_1a4470132bf10fa689e6974a03d0ff780d" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::model.lb_2_range</definition>
+        <argsstring></argsstring>
+        <name>lb_2_range</name>
+        <qualifiedname>src.model.lb_2_range</qualifiedname>
+        <initializer>=  range(-15, 15+1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="861" column="1" bodyfile="src/model.py" bodystart="861" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1model_1a284e430ea6f114dd04d759b98b58a884" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::model.st_model</definition>
+        <argsstring></argsstring>
+        <name>st_model</name>
+        <qualifiedname>src.model.st_model</qualifiedname>
+        <initializer>=  <ref refid="classsrc_1_1model_1_1_single_twist_model" kindref="compound">SingleTwistModel</ref>(<ref refid="namespacesrc_1_1_local_p2_1a43573e56e18e52559a2d31128936f558" kindref="member">line_bundle_1</ref>=lb1,
+                                    <ref refid="namespacesrc_1_1_local_p2_1ae9dd2ce41559bc7d27aeebcd188761d1" kindref="member">line_bundle_2</ref>=lb2,
+                                    catagory=&apos;K3&apos;,
+                                    data_size=25000,
+                                    mode=&apos;disc&apos;,
+                                    x_min=-10,
+                                    x_max=10,
+                                    y_min=0,
+                                    y_max=10)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="869" column="1" bodyfile="src/model.py" bodystart="869" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1model_1ad502fc00685d9096578d978cd1e2b5da" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::model.num_epochs</definition>
+        <argsstring></argsstring>
+        <name>num_epochs</name>
+        <qualifiedname>src.model.num_epochs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="879" column="1" bodyfile="src/model.py" bodystart="879" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1model_1a147e42d5724688650c476630def97857" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::model.filename</definition>
+        <argsstring></argsstring>
+        <name>filename</name>
+        <qualifiedname>src.model.filename</qualifiedname>
+        <initializer>=   os.path.abspath(os.path.join(os.path.dirname(__file__), f&apos;../app/models/disc_K3_deg{1}_{lb1}_{lb2}.pth&apos;))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="881" column="1" bodyfile="src/model.py" bodystart="881" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacesrc_1_1model_1a9492c028e6cc55675f69d0dffdc9c963" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.model.create_training_data_single_twist_collection</definition>
+        <argsstring>(filename, catagory, degree=1, x_min=-10, x_max=10, y_min=0, y_max=10, lb_1_min=-2, lb_1_max=2, lb_2_min=-3, lb_2_max=3, data_size=5000)</argsstring>
+        <name>create_training_data_single_twist_collection</name>
+        <qualifiedname>src.model.create_training_data_single_twist_collection</qualifiedname>
+        <param>
+          <type><ref refid="namespacesrc_1_1model_1a147e42d5724688650c476630def97857" kindref="member">filename</ref></type>
+          <defname>filename</defname>
+        </param>
+        <param>
+          <type>catagory</type>
+          <defname>catagory</defname>
+        </param>
+        <param>
+          <type>degree</type>
+          <defname>degree</defname>
+          <defval>1</defval>
+        </param>
+        <param>
+          <type>x_min</type>
+          <defname>x_min</defname>
+          <defval>-10</defval>
+        </param>
+        <param>
+          <type>x_max</type>
+          <defname>x_max</defname>
+          <defval>10</defval>
+        </param>
+        <param>
+          <type>y_min</type>
+          <defname>y_min</defname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>y_max</type>
+          <defname>y_max</defname>
+          <defval>10</defval>
+        </param>
+        <param>
+          <type>lb_1_min</type>
+          <defname>lb_1_min</defname>
+          <defval>-2</defval>
+        </param>
+        <param>
+          <type>lb_1_max</type>
+          <defname>lb_1_max</defname>
+          <defval>2</defval>
+        </param>
+        <param>
+          <type>lb_2_min</type>
+          <defname>lb_2_min</defname>
+          <defval>-3</defval>
+        </param>
+        <param>
+          <type>lb_2_max</type>
+          <defname>lb_2_max</defname>
+          <defval>3</defval>
+        </param>
+        <param>
+          <type>data_size</type>
+          <defname>data_size</defname>
+          <defval>5000</defval>
+        </param>
+        <briefdescription>
+<para>Method to construct a CSV file with training data for a collection of single spherical twists. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The method generates data for all possible combinations of line bundles lb_1 and lb_2 in the specified ranges. The method generates data for the specified catagory and degree, and saves the data to the specified filename. The method uses the _append_training_data_to_CSV_single_twist method to append the training data to the CSV file.</para>
+<para>WARNING: Every iteration of append_training_data_to_CSV_single_twist with the default 20,000 samples makes a file that is roughly 1.5MB and takes about 1.83s (on 8 Intel I9 cores). Thus, ranging over all spherical twists Tw_a O(b) with -5≤ a ≤ 5 and -5 ≤ b ≤ 5 will produce a file that is roughly 150MB and will take roughly 3 and a half minutes (on 8 Intel I9 cores).</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The name of the CSV file to save the training data to </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>catagory</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The catagory of the model; this is either &apos;P1&apos;, &apos;P2&apos;, or &apos;K3&apos; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>degree</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The degree of the K3 surface; this is only used when the catagory is &apos;K3&apos; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x_min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The minimum x value for the input data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The maximum x value for the input data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y_min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The minimum y value for the input data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The maximum y value for the input data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lb_1_min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The minimum value for the first line bundle in the spherical twist </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lb_1_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The maximum value for the first line bundle in the spherical twist </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lb_2_min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The minimum value for the second line bundle in the spherical twist </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lb_2_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The maximum value for the second line bundle in the spherical twist </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of data points to generate for the training data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="477" column="1" bodyfile="src/model.py" bodystart="480" bodyend="637"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacesrc_1_1model_1a606f0a55cd3826daac9e76e88d630eed" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.model._generate_xy_grid</definition>
+        <argsstring>(x_min, x_max, y_min, y_max, catagory, random_dist=True, data_size=20000)</argsstring>
+        <name>_generate_xy_grid</name>
+        <qualifiedname>src.model._generate_xy_grid</qualifiedname>
+        <param>
+          <type>x_min</type>
+          <defname>x_min</defname>
+        </param>
+        <param>
+          <type>x_max</type>
+          <defname>x_max</defname>
+        </param>
+        <param>
+          <type>y_min</type>
+          <defname>y_min</defname>
+        </param>
+        <param>
+          <type>y_max</type>
+          <defname>y_max</defname>
+        </param>
+        <param>
+          <type>catagory</type>
+          <defname>catagory</defname>
+        </param>
+        <param>
+          <type>random_dist</type>
+          <defname>random_dist</defname>
+          <defval><ref refid="namespacesrc_1_1_local_p2_1a6b6506e483df735954e483bf0e8bf95a" kindref="member">True</ref></defval>
+        </param>
+        <param>
+          <type>data_size</type>
+          <defname>data_size</defname>
+          <defval>20000</defval>
+        </param>
+        <briefdescription>
+<para>STATIC HELPER FUNCTIONS #. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Helper function to create a grid of x and y values for the input data. The function generates the x and y values either randomly or from a linear grid, depending on the value of the random_dist argument. The function also checks the validity of the input arguments and raises a ValueError if any of the input arguments are invalid</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x_min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The minimum x value for the input data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The maximum x value for the input data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y_min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The minimum y value for the input data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The maximum y value for the input data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>catagory</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The catagory of the model; this is either &apos;P1&apos;, &apos;P2&apos;, or &apos;K3&apos; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>random_dist</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A boolean flag to determine whether the x and y values should be generated randomly or from a linear grid </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of data points to generate for the training data</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>x_vals The x values for the input data </para>
+</simplesect>
+<simplesect kind="return"><para>y_vals The y values for the input data </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="645" column="1" bodyfile="src/model.py" bodystart="645" bodyend="747"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacesrc_1_1model_1a6db1376bab86fc9b39269a1c6b75d81b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>src.model._append_training_data_to_CSV_single_twist</definition>
+        <argsstring>(filename, line_bundle_1, line_bundle_2, catagory, degree=1, x_min=-5, x_max=5, y_min=0, y_max=10, data_size=20000)</argsstring>
+        <name>_append_training_data_to_CSV_single_twist</name>
+        <qualifiedname>src.model._append_training_data_to_CSV_single_twist</qualifiedname>
+        <param>
+          <type><ref refid="namespacesrc_1_1model_1a147e42d5724688650c476630def97857" kindref="member">filename</ref></type>
+          <defname>filename</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1a43573e56e18e52559a2d31128936f558" kindref="member">line_bundle_1</ref></type>
+          <defname>line_bundle_1</defname>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_local_p2_1ae9dd2ce41559bc7d27aeebcd188761d1" kindref="member">line_bundle_2</ref></type>
+          <defname>line_bundle_2</defname>
+        </param>
+        <param>
+          <type>catagory</type>
+          <defname>catagory</defname>
+        </param>
+        <param>
+          <type>degree</type>
+          <defname>degree</defname>
+          <defval>1</defval>
+        </param>
+        <param>
+          <type>x_min</type>
+          <defname>x_min</defname>
+          <defval>-5</defval>
+        </param>
+        <param>
+          <type>x_max</type>
+          <defname>x_max</defname>
+          <defval>5</defval>
+        </param>
+        <param>
+          <type>y_min</type>
+          <defname>y_min</defname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>y_max</type>
+          <defname>y_max</defname>
+          <defval>10</defval>
+        </param>
+        <param>
+          <type>data_size</type>
+          <defname>data_size</defname>
+          <defval>20000</defval>
+        </param>
+        <briefdescription>
+<para>Helper function to append training data for a single spherical twist to a CSV file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The function generates the input data and the output data for the spherical twist and appends the data to the CSV file. The function checks the validity of the input arguments and raises a ValueError if any of the input arguments are invalid. The function uses the <ref refid="namespacesrc_1_1_spherical_twist" kindref="compound">SphericalTwist</ref> class to compute the mass of the spherical twist at each point in the grid specified by the input data.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The name of the CSV file to save the training data to </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>line_bundle_1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The first line bundle in the spherical twist </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>line_bundle_2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The second line bundle in the spherical twist <linebreak/>
+ </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>catagory</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The catagory of the model; this is either &apos;P1&apos;, &apos;P2&apos;, or &apos;K3&apos; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>degree</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The degree of the K3 surface; this is only used when the catagory is &apos;K3&apos; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x_min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The minimum x value for the input data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The maximum x value for the input data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y_min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The minimum y value for the input data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The maximum y value for the input data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of data points to generate for the training data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/model.py" line="748" column="1" bodyfile="src/model.py" bodystart="750" bodyend="852"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/model.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

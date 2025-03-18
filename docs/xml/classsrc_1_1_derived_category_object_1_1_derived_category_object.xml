@@ -23,7 +23,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/DerivedCategoryObject.py" line="56" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="56" bodyend="-1"/>
+        <location file="src/DerivedCategoryObject.py" line="59" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a111bf62635e3a204488ca33689d296e6" prot="public" static="no" mutable="no">
         <type></type>
@@ -40,7 +40,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/DerivedCategoryObject.py" line="58" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="58" bodyend="-1"/>
+        <location file="src/DerivedCategoryObject.py" line="61" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classsrc_1_1_derived_category_object_1_1_derived_category_object_1ab7174b1273139ac7d0c2bc6f7c4d1789" prot="public" static="no" mutable="no">
         <type></type>
@@ -56,7 +56,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/DerivedCategoryObject.py" line="60" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="60" bodyend="-1"/>
+        <location file="src/DerivedCategoryObject.py" line="63" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="63" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -135,7 +135,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/DerivedCategoryObject.py" line="36" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="36" bodyend="61"/>
+        <location file="src/DerivedCategoryObject.py" line="39" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="39" bodyend="64"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_derived_category_object_1_1_derived_category_object_1ac086dabebbde64c028446348301011f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -157,7 +157,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/DerivedCategoryObject.py" line="62" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="62" bodyend="73"/>
+        <location file="src/DerivedCategoryObject.py" line="65" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="65" bodyend="76"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a1f4aac18056360d11918b709dc341937" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -184,7 +184,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/DerivedCategoryObject.py" line="74" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="74" bodyend="82"/>
+        <location file="src/DerivedCategoryObject.py" line="77" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="77" bodyend="85"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a6c1dfa5772ffeae4bf5f1e6a7a2de496" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -223,7 +223,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/DerivedCategoryObject.py" line="83" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="83" bodyend="102"/>
+        <location file="src/DerivedCategoryObject.py" line="86" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="86" bodyend="105"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a181bcb14152a914997c7990b33b51c18" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -281,7 +281,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/DerivedCategoryObject.py" line="103" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="103" bodyend="158"/>
+        <location file="src/DerivedCategoryObject.py" line="106" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="106" bodyend="161"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a95bc29833249e58a920c3454110125d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -339,7 +339,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/DerivedCategoryObject.py" line="159" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="159" bodyend="182"/>
+        <location file="src/DerivedCategoryObject.py" line="162" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="162" bodyend="185"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a9ffd63e97c717dd171b7d1c7ef26e16d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -396,7 +396,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/DerivedCategoryObject.py" line="183" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="183" bodyend="237"/>
+        <location file="src/DerivedCategoryObject.py" line="186" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="186" bodyend="240"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -451,7 +451,7 @@
         </childnode>
       </node>
     </inheritancegraph>
-    <location file="src/DerivedCategoryObject.py" line="10" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="10" bodyend="237"/>
+    <location file="src/DerivedCategoryObject.py" line="13" column="1" bodyfile="src/DerivedCategoryObject.py" bodystart="13" bodyend="240"/>
     <listofallmembers>
       <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1a5b917d2624a9a499671f11e809397d71" prot="public" virt="non-virtual"><scope>src::DerivedCategoryObject::DerivedCategoryObject</scope><name>__init__</name></member>
       <member refid="classsrc_1_1_derived_category_object_1_1_derived_category_object_1ac086dabebbde64c028446348301011f2" prot="public" virt="non-virtual"><scope>src::DerivedCategoryObject::DerivedCategoryObject</scope><name>__str__</name></member>

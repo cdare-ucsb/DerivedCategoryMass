@@ -131,6 +131,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2dbfba1b1b215dfdb4e58bd160819479" id="r_a2dbfba1b1b215dfdb4e58bd160819479"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2dbfba1b1b215dfdb4e58bd160819479">__str__</a> (self)</td></tr>
 <tr class="memdesc:a2dbfba1b1b215dfdb4e58bd160819479"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string representation of the spherical twist by printing the defining triangle.  <br /></td></tr>
 <tr class="separator:a2dbfba1b1b215dfdb4e58bd160819479"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fa8888025453c9958d00f6ac7552682" id="r_a1fa8888025453c9958d00f6ac7552682"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1fa8888025453c9958d00f6ac7552682">defining_triangle_to_json</a> (self)</td></tr>
+<tr class="memdesc:a1fa8888025453c9958d00f6ac7552682"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to convert the spherical twist to a JSON string.  <br /></td></tr>
+<tr class="separator:a1fa8888025453c9958d00f6ac7552682"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a183209b78a4202824b036ab2ebe40b91" id="r_a183209b78a4202824b036ab2ebe40b91"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a183209b78a4202824b036ab2ebe40b91">chernCharacter</a> (self)</td></tr>
 <tr class="memdesc:a183209b78a4202824b036ab2ebe40b91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to compute the Chern Character of the spherical twist.  <br /></td></tr>
 <tr class="separator:a183209b78a4202824b036ab2ebe40b91"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -377,6 +380,28 @@ Protected Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespacesrc_1_1_chern_character.html">ChernCharacter</a> The Chern Character of the spherical twist </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classsrc_1_1_derived_category_object_1_1_derived_category_object.html#a1f4aac18056360d11918b709dc341937">src.DerivedCategoryObject.DerivedCategoryObject</a>.</p>
+
+</div>
+</div>
+<a id="a1fa8888025453c9958d00f6ac7552682" name="a1fa8888025453c9958d00f6ac7552682"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fa8888025453c9958d00f6ac7552682">&#9670;&#160;</a></span>defining_triangle_to_json()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">src.SphericalTwist.SphericalTwist.defining_triangle_to_json </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Method to convert the spherical twist to a JSON string. </p>
+<p>This is used to pass the chain complex data of the spherical twist in the browser. Since a spherical twist is defined by its defining triangle, </p><pre class="fragment">RHom(O(a), O(b)) ⊗ O(a) ----&gt; O(b) ----&gt; Tw_O(a) O(b)
+</pre><p>and Tw_O(a) O(b) is merely a symbol, the only data we really need to pass is what the first RHom object looks like (dimension, shifts, etc) and the degrees [a,b].</p>
+<dl class="section return"><dt>Returns</dt><dd>str A JSON string representation of the chain complex. The first object contains the information of the first RHom object, and the degrees of the line bundles are stored in the degrees key. </dd></dl>
 
 </div>
 </div>

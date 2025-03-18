@@ -15,5 +15,8 @@ var hierarchy =
       [ "src.SphericalTwist.HarderNarasimhanError", "classsrc_1_1_spherical_twist_1_1_harder_narasimhan_error.html", null ]
     ] ],
     [ "src.ProjectiveCY.K3GeometricChamber", "classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber.html", null ],
-    [ "src.LocalP2.LePotier", "classsrc_1_1_local_p2_1_1_le_potier.html", null ]
+    [ "src.LocalP2.LePotier", "classsrc_1_1_local_p2_1_1_le_potier.html", null ],
+    [ "src.MassPlot.MassPlot", "classsrc_1_1_mass_plot_1_1_mass_plot.html", null ],
+    [ "src.model.SingleTwistCollectionModel", "classsrc_1_1model_1_1_single_twist_collection_model.html", null ],
+    [ "src.model.SingleTwistModel", "classsrc_1_1model_1_1_single_twist_model.html", null ]
 ];

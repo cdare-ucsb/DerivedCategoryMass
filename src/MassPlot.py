@@ -44,6 +44,18 @@ class MassPlot():
         for the spherical twist, the catagory of the stability manifold, and the x and y ranges and granularities
         for the plot. The optional parameters are the degree of the K3 surface (default is 1), and a third line
         bundle for the double spherical twist (default is None).
+
+        \param int line_bundle_1 The degree of the outermost line bundle in the spherical twist
+        \param int line_bundle_2 The degree of the line bundle being twisted (if line_bundle_3 is None) or the degree of the middle line bundle in the double twist
+        \param str catagory The catagory of the stability manifold
+        \param int line_bundle_3 The degree of the line bundle being twisted in the double twist (default is None; setting this will cause the object to compute a double twist)
+        \param int degree The degree of the K3 surface (default is 1)
+        \param Number x_min The minimum x value for the plot (default is -5)
+        \param Number x_max The maximum x value for the plot (default is 5)
+        \param Number x_granularity The distance between points horizontally for the plot (default is 0.1)
+        \param Number y_min The minimum y value for the plot (default is 0)
+        \param Number y_max The maximum y value for the plot (default is 5)
+        \param Number y_granularity The distance between points vertically for the plot (default is 0.05)
         """
         
 
@@ -112,6 +124,7 @@ class MassPlot():
         self._yvals = [] ## The list of y values for the plot
 
         if self.catagory != 'P2':
+            # Catagory is P1 or K3, use a rectangular grid
             for _ in self._xvals:
                 self._yvals.append(  np.arange(y_min, y_max, y_granularity)  )
 
@@ -120,16 +133,18 @@ class MassPlot():
         else:
             # Catagory is P2, have to use DLP curve
             # We will no longer use y_min and y_max here since we know the shape of the DLP curve
-            
-            max_abs_x = max(abs(x_min), abs(x_max))
-            y_max = max(max_abs_x**2, y_max)  # y_max must be greater than x^2 for all x in xvals
 
             DLP = LePotier()
+            
+            max_abs_x = max(abs(x_min), abs(x_max))
+            y_max = max(DLP.curve_estimate(max_abs_x), y_max)  # y_max must be greater than the Drezet-LePotier curve over the x-values chosen
+
+            
             _lin_sp_const = int( (y_max + 0.5) / y_granularity )  # Linear space constant
             
             for x in self._xvals:
                 y = float(DLP.curve_estimate(x)) # Get corresponding boundary point on Drezet-LePotier Curve
-                if y_max - y <= 0:
+                if y_max - y < 0:
                     raise ValueError("y_max must be greater than the Drezet-LePotier curve over the x-values chosen")
 
             
@@ -338,6 +353,13 @@ class MassPlot():
                 discontinuities.append((x, y))
 
         return discontinuities
+    
+
+
+
+########################################
+#               Main                   #
+########################################
 
 
 if __name__ == "__main__":

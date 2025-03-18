@@ -5,5 +5,6 @@ var searchData=
   ['complex_5fhypersurface_5fmatplot_5fanimation_5fex1_2',['complex_hypersurface_matplot_animation_ex1',['../namespacesrc_1_1_projective_c_y.html#aa28a5c422a4962906cbfa11eb9d6cbd8',1,'src::ProjectiveCY']]],
   ['complex_5fhypersurface_5fplotly_5fex1_3',['complex_hypersurface_plotly_ex1',['../namespacesrc_1_1_projective_c_y.html#aeda1da0b5fd93a28cf76877ec9b091d8',1,'src::ProjectiveCY']]],
   ['create_5fmukai_5fvectors_4',['create_mukai_vectors',['../classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber.html#add32d6d1a97f246e8e6918eb847d6fea',1,'src::ProjectiveCY::K3GeometricChamber']]],
-  ['curve_5festimate_5',['curve_estimate',['../classsrc_1_1_local_p2_1_1_le_potier.html#ae0dc36c60dc5c66eb1b8400934432910',1,'src::LocalP2::LePotier']]]
+  ['create_5ftraining_5fdata_5fsingle_5ftwist_5fcollection_5',['create_training_data_single_twist_collection',['../namespacesrc_1_1model.html#a9492c028e6cc55675f69d0dffdc9c963',1,'src::model']]],
+  ['curve_5festimate_6',['curve_estimate',['../classsrc_1_1_local_p2_1_1_le_potier.html#ae0dc36c60dc5c66eb1b8400934432910',1,'src::LocalP2::LePotier']]]
 ];

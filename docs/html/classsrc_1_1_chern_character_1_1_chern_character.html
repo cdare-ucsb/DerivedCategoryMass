@@ -110,7 +110,7 @@ $(function(){initNavTree('classsrc_1_1_chern_character_1_1_chern_character.html'
 </div><!--header-->
 <div class="contents">
 
-<p>Generic parent class for the chern character.  
+<p>Generic parent class for the Chern character.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -162,15 +162,9 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a2fc8384e7523d58bfef9daea2663d9d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Generic parent class for the chern character. </p>
-<pre class="fragment">                                                                        #
-                      Numerical Characters                              #
-</pre><p> -------------------------------------------------------------------------&mdash;# These objects are used to represent Chern classes of coherent sheaves / # vector bundles / line bundles, as well as more abstract constructions # in the derived category of coherent sheaves on some variety. As most # stability conditions will be numerical stability conditions, they will # only rely on the information of Chern characters as opposed to more # arbitrary geometric data. # #</p>
-<p>Chern characters should operate like lists of floating point numbers, since they are graded objects concentrated in degrees going from 0 to the dimension of the variety.</p>
-<h2><a class="anchor" id="autotoc_md1"></a>
-Attributes:</h2>
-<pre class="fragment">graded_element (np.array): The graded element of the Chern Character object. This is a numpy array of floats or integers
-</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<div class="textblock"><p>Generic parent class for the Chern character. </p>
+<p>Chern characters should operate like lists of floating point numbers, since they are graded objects concentrated in degrees going from 0 to the dimension of the variety. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a21c3d3a3f6bdd7bae5e10d786c67bcc3" name="a21c3d3a3f6bdd7bae5e10d786c67bcc3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a21c3d3a3f6bdd7bae5e10d786c67bcc3">&#9670;&#160;</a></span>__init__()</h2>
 
@@ -232,14 +226,14 @@ Attributes:</h2>
 <p>The Chern Character objects must have the same length in order to add them together. Since the addition of numpy vectors is already defined, this method simply calls the addition of the numpy arrays.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname"><a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the chern character.">ChernCharacter</a></td><td>other The Chern Character object to add to the current Chern Character object</td></tr>
+    <tr><td class="paramname"><a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the Chern character.">ChernCharacter</a></td><td>other The Chern Character object to add to the current Chern Character object</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the chern character.">ChernCharacter</a> The sum of the two Chern Character objects, which is simply the element-wise sum of the graded elements</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the Chern character.">ChernCharacter</a> The sum of the two Chern Character objects, which is simply the element-wise sum of the graded elements</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">TypeError</td><td>If other is not a <a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the chern character.">ChernCharacter</a> object </td></tr>
+    <tr><td class="paramname">TypeError</td><td>If other is not a <a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the Chern character.">ChernCharacter</a> object </td></tr>
     <tr><td class="paramname">ValueError</td><td>If the Chern Character objects do not have the same length </td></tr>
   </table>
   </dd>
@@ -301,7 +295,7 @@ Attributes:</h2>
 <p>The Chern Character objects are equal if their graded elements are equal.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname"><a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the chern character.">ChernCharacter</a></td><td>other The Chern Character object to compare to the current Chern Character object</td></tr>
+    <tr><td class="paramname"><a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the Chern character.">ChernCharacter</a></td><td>other The Chern Character object to compare to the current Chern Character object</td></tr>
   </table>
   </dd>
 </dl>
@@ -415,7 +409,7 @@ Attributes:</h2>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the chern character.">ChernCharacter</a> The Chern Character object multiplied by the scalar. This is simply the element-wise multiplication of the graded element by the scalar</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the Chern character.">ChernCharacter</a> The Chern Character object multiplied by the scalar. This is simply the element-wise multiplication of the graded element by the scalar</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">TypeError</td><td>If scalar is not an integer </td></tr>
@@ -472,7 +466,7 @@ Attributes:</h2>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the chern character.">ChernCharacter</a> The Chern Character object multiplied by the scalar. This is simply the element-wise multiplication of the graded element by the scalar</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the Chern character.">ChernCharacter</a> The Chern Character object multiplied by the scalar. This is simply the element-wise multiplication of the graded element by the scalar</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">TypeError</td><td>If scalar is not an integer </td></tr>
@@ -571,14 +565,14 @@ Attributes:</h2>
 <p>The Chern Character objects must have the same length in order to subtract them. Since the subtraction of numpy vectors is already defined, this method simply calls the subtraction of the numpy arrays.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname"><a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the chern character.">ChernCharacter</a></td><td>other The Chern Character object to subtract from the current Chern Character object</td></tr>
+    <tr><td class="paramname"><a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the Chern character.">ChernCharacter</a></td><td>other The Chern Character object to subtract from the current Chern Character object</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the chern character.">ChernCharacter</a> The difference of the two Chern Character objects, which is simply the element-wise difference of the graded elements</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the Chern character.">ChernCharacter</a> The difference of the two Chern Character objects, which is simply the element-wise difference of the graded elements</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">TypeError</td><td>If other is not a <a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the chern character.">ChernCharacter</a> object</td></tr>
+    <tr><td class="paramname">TypeError</td><td>If other is not a <a class="el" href="classsrc_1_1_chern_character_1_1_chern_character.html" title="Generic parent class for the Chern character.">ChernCharacter</a> object</td></tr>
     <tr><td class="paramname">ValueError</td><td>If the Chern Character objects do not have the same length </td></tr>
   </table>
   </dd>

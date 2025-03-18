@@ -1,0 +1,275 @@
+\doxysection{src.\+model.\+Single\+Twist\+Model Class Reference}
+\hypertarget{classsrc_1_1model_1_1_single_twist_model}{}\label{classsrc_1_1model_1_1_single_twist_model}\index{src.model.SingleTwistModel@{src.model.SingleTwistModel}}
+
+
+This class implements the functionality required to train a neural network model to predict the mass or the discrete Laplacian of a single spherical twist, so that Py\+Torch does not directly need to be imported into the main application file for the Flask app.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_a11f29edc9ceb1fccfbbe2746feb0eaf8}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{namespacesrc_1_1_local_p2_a43573e56e18e52559a2d31128936f558}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{namespacesrc_1_1_local_p2_ae9dd2ce41559bc7d27aeebcd188761d1}{line\+\_\+bundle\+\_\+2}}, \mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_a4374efbc6eaec60a713a341a2b09a0cb}{catagory}}, \mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_a921c2f0d57fa5a239607341025683ec6}{degree}}=1, \mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_a8dba0c5610085964a6adb8deb4e2b9f8}{x\+\_\+min}}=-\/5, \mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_a2213d430a538104f0b5e837747d406dc}{x\+\_\+max}}=5, \mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_ad8518961fae89a1cc4d47fb8e45be248}{y\+\_\+min}}=0, \mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_ad8c3d5984b717a0d222f56ea6a0e5948}{y\+\_\+max}}=5, data\+\_\+size=20000, \mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_a18944c3cb3cd921fefd35d49b34a7379}{mode}}=\textquotesingle{}mass\textquotesingle{}, \mbox{\hyperlink{namespacesrc_1_1_projective_c_y_a8f348febba300e233ff77986391cb251}{x\+\_\+granularity}}=0.\+1, \mbox{\hyperlink{namespacesrc_1_1_projective_c_y_ad35f697e36426d705f0dc1ceb67f0c06}{y\+\_\+granularity}}=0.\+05)
+\begin{DoxyCompactList}\small\item\em The constructor for the \doxylink{classsrc_1_1model_1_1_single_twist_model}{Single\+Twist\+Model} class. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_aeb4778059b8403db41537bf8c71d8ce2}{train}} (self, \mbox{\hyperlink{namespacesrc_1_1model_ad502fc00685d9096578d978cd1e2b5da}{num\+\_\+epochs}})
+\begin{DoxyCompactList}\small\item\em Method to train the neural network model for the \doxylink{classsrc_1_1model_1_1_single_twist_model}{Single\+Twist\+Model} class. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_ad100356b600526964a2183e70fa8036c}{save\+\_\+model}} (self, \mbox{\hyperlink{namespacesrc_1_1model_a147e42d5724688650c476630def97857}{filename}})
+\begin{DoxyCompactList}\small\item\em Method to save the Py\+Torch neural network\textquotesingle{}s state to a file specified by the filename argument. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_a958d3fe65a9a1357eb759d863cd4a732}{load\+\_\+model}} (self, \mbox{\hyperlink{namespacesrc_1_1model_a147e42d5724688650c476630def97857}{filename}})
+\begin{DoxyCompactList}\small\item\em Method to load the Py\+Torch neural network\textquotesingle{}s state from a file specified by the filename argument. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_ab9485c6d3eca6678afbdb471cc6bae8b}{predictions\+\_\+to\+\_\+plotly}} (self, color\+\_\+scale=\textquotesingle{}viridis\textquotesingle{})
+\begin{DoxyCompactList}\small\item\em Method to plot the predictions of the neural network model using Plotly. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_a18944c3cb3cd921fefd35d49b34a7379}{mode}} = mode
+\begin{DoxyCompactList}\small\item\em The mode of the model dictates what the model is trained to predict; this is either \textquotesingle{}mass\textquotesingle{} for when the model should be predicting the mass, or \textquotesingle{}disc\textquotesingle{} for when the model should be predicting the discrete Lagrangian. \end{DoxyCompactList}\item 
+str \mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_a4374efbc6eaec60a713a341a2b09a0cb}{catagory}} = catagory
+\begin{DoxyCompactList}\small\item\em The catagory of the model; this is either \textquotesingle{}P1\textquotesingle{}, \textquotesingle{}P2\textquotesingle{}, or \textquotesingle{}K3\textquotesingle{}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_a921c2f0d57fa5a239607341025683ec6}{degree}} = degree
+\begin{DoxyCompactList}\small\item\em An optional argument for the degree of the K3 surface; this is only used when the catagory is \textquotesingle{}K3\textquotesingle{}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_a8dba0c5610085964a6adb8deb4e2b9f8}{x\+\_\+min}} = x\+\_\+min
+\begin{DoxyCompactList}\small\item\em The catagory of the model; this is either \textquotesingle{}P1\textquotesingle{}, \textquotesingle{}P2\textquotesingle{}, or \textquotesingle{}K3\textquotesingle{}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_a2213d430a538104f0b5e837747d406dc}{x\+\_\+max}} = x\+\_\+max
+\begin{DoxyCompactList}\small\item\em The maximum x value for the input data. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_ad8518961fae89a1cc4d47fb8e45be248}{y\+\_\+min}} = y\+\_\+min
+\begin{DoxyCompactList}\small\item\em The minimum y value for the input data. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_ad8c3d5984b717a0d222f56ea6a0e5948}{y\+\_\+max}} = y\+\_\+max
+\begin{DoxyCompactList}\small\item\em The maximum y value for the input data. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_ad80da39d87df5c78cc2c1f5780f89089}{output\+\_\+tensor}} = torch.\+tensor(z\+\_\+train, dtype=torch.\+float32)
+\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_acc6e13cc905d1d832bcc063a0357b5d8}{input\+\_\+tensor}} = torch.\+cat(\mbox{[}x\+\_\+tensor, y\+\_\+tensor\mbox{]}, dim=1)
+\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_model_a1ca3cbc6fdddd71263e4b9f9fe333dee}{model}}
+\begin{DoxyCompactList}\small\item\em The Py\+Torch neural network model for the \doxylink{classsrc_1_1model_1_1_single_twist_model}{Single\+Twist\+Model} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class implements the functionality required to train a neural network model to predict the mass or the discrete Laplacian of a single spherical twist, so that Py\+Torch does not directly need to be imported into the main application file for the Flask app. 
+
+The \doxylink{classsrc_1_1model_1_1_single_twist_model}{Single\+Twist\+Model} class acts as a wrapper for a general Py\+Torch neural network model, and saves the training data as a member variabe. The class also provides methods to train the model, save the model, load the model, and plot the predictions of the model using Plotly. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classsrc_1_1model_1_1_single_twist_model_a11f29edc9ceb1fccfbbe2746feb0eaf8}\index{src.model.SingleTwistModel@{src.model.SingleTwistModel}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!src.model.SingleTwistModel@{src.model.SingleTwistModel}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_model_a11f29edc9ceb1fccfbbe2746feb0eaf8} 
+src.\+model.\+Single\+Twist\+Model.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{line\+\_\+bundle\+\_\+1}{, }\item[{}]{line\+\_\+bundle\+\_\+2}{, }\item[{}]{catagory}{, }\item[{}]{degree}{ = {\ttfamily 1}, }\item[{}]{x\+\_\+min}{ = {\ttfamily -\/5}, }\item[{}]{x\+\_\+max}{ = {\ttfamily 5}, }\item[{}]{y\+\_\+min}{ = {\ttfamily 0}, }\item[{}]{y\+\_\+max}{ = {\ttfamily 5}, }\item[{}]{data\+\_\+size}{ = {\ttfamily 20000}, }\item[{}]{mode}{ = {\ttfamily \textquotesingle{}mass\textquotesingle{}}, }\item[{}]{x\+\_\+granularity}{ = {\ttfamily 0.1}, }\item[{}]{y\+\_\+granularity}{ = {\ttfamily 0.05}}\end{DoxyParamCaption})}
+
+
+
+The constructor for the \doxylink{classsrc_1_1model_1_1_single_twist_model}{Single\+Twist\+Model} class. 
+
+The constructor initializes the model, the training data, and the model mode. By default, the model mode is set to \textquotesingle{}mass\textquotesingle{}, which means that the model is trained to predict the mass of the spherical twist. The model mode can also be set to \textquotesingle{}disc\textquotesingle{}, which means that the model is trained to predict the discrete Laplacian of the spherical twist. The constructor also checks the validity of the input arguments and raises a Value\+Error if any of the input arguments are invalid
+
+
+\begin{DoxyParams}{Parameters}
+{\em line\+\_\+bundle\+\_\+1} & The first line bundle in the spherical twist \\
+\hline
+{\em line\+\_\+bundle\+\_\+2} & The second line bundle in the spherical twist \\
+\hline
+{\em catagory} & The catagory of the model; this is either \textquotesingle{}P1\textquotesingle{}, \textquotesingle{}P2\textquotesingle{}, or \textquotesingle{}K3\textquotesingle{} \\
+\hline
+{\em degree} & The degree of the K3 surface; this is only used when the catagory is \textquotesingle{}K3\textquotesingle{} \\
+\hline
+{\em x\+\_\+min} & The minimum x value for the input data \\
+\hline
+{\em x\+\_\+max} & The maximum x value for the input data \\
+\hline
+{\em y\+\_\+min} & The minimum y value for the input data \\
+\hline
+{\em y\+\_\+max} & The maximum y value for the input data \\
+\hline
+{\em data\+\_\+size} & The number of data points to generate for the training data \\
+\hline
+{\em mode} & The mode of the model; this is either \textquotesingle{}mass\textquotesingle{} for when the model should be predicting the mass, or \textquotesingle{}disc\textquotesingle{} for when the model should be predicting the discrete Laplacian \\
+\hline
+{\em x\+\_\+granularity} & The granularity of the x values for the discrete Laplacian; this is only used when the mode is \textquotesingle{}disc\textquotesingle{} \\
+\hline
+{\em y\+\_\+granularity} & The granularity of the y values for the discrete Laplacian; this is only used when the mode is \textquotesingle{}disc\textquotesingle{} \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsrc_1_1model_1_1_single_twist_model_a958d3fe65a9a1357eb759d863cd4a732}\index{src.model.SingleTwistModel@{src.model.SingleTwistModel}!load\_model@{load\_model}}
+\index{load\_model@{load\_model}!src.model.SingleTwistModel@{src.model.SingleTwistModel}}
+\doxysubsubsection{\texorpdfstring{load\_model()}{load\_model()}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_model_a958d3fe65a9a1357eb759d863cd4a732} 
+src.\+model.\+Single\+Twist\+Model.\+load\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{filename}{}\end{DoxyParamCaption})}
+
+
+
+Method to load the Py\+Torch neural network\textquotesingle{}s state from a file specified by the filename argument. 
+
+This simply calls the torch.\+load method with the filename argument and sets the model\textquotesingle{}s state dictionary to the loaded state dictionary.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the file to load the model\textquotesingle{}s state from \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classsrc_1_1model_1_1_single_twist_model_ab9485c6d3eca6678afbdb471cc6bae8b}\index{src.model.SingleTwistModel@{src.model.SingleTwistModel}!predictions\_to\_plotly@{predictions\_to\_plotly}}
+\index{predictions\_to\_plotly@{predictions\_to\_plotly}!src.model.SingleTwistModel@{src.model.SingleTwistModel}}
+\doxysubsubsection{\texorpdfstring{predictions\_to\_plotly()}{predictions\_to\_plotly()}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_model_ab9485c6d3eca6678afbdb471cc6bae8b} 
+src.\+model.\+Single\+Twist\+Model.\+predictions\+\_\+to\+\_\+plotly (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{color\+\_\+scale}{ = {\ttfamily \textquotesingle{}viridis\textquotesingle{}}}\end{DoxyParamCaption})}
+
+
+
+Method to plot the predictions of the neural network model using Plotly. 
+
+The method generates a grid of x and y values and passes them through the neural network model to get the predicted z values. The method then creates a Plotly 3D scatter plot of the predicted z values with the x and y values as the x and y coordinates. The method returns the Plotly figure object.
+
+
+\begin{DoxyParams}{Parameters}
+{\em color\+\_\+scale} & The color scale to use for the Plotly 3D scatter plot; the default is \textquotesingle{}viridis\textquotesingle{}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The Plotly figure object of the 3D scatter plot of the predicted z values 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1model_1_1_single_twist_model_ad100356b600526964a2183e70fa8036c}\index{src.model.SingleTwistModel@{src.model.SingleTwistModel}!save\_model@{save\_model}}
+\index{save\_model@{save\_model}!src.model.SingleTwistModel@{src.model.SingleTwistModel}}
+\doxysubsubsection{\texorpdfstring{save\_model()}{save\_model()}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_model_ad100356b600526964a2183e70fa8036c} 
+src.\+model.\+Single\+Twist\+Model.\+save\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{filename}{}\end{DoxyParamCaption})}
+
+
+
+Method to save the Py\+Torch neural network\textquotesingle{}s state to a file specified by the filename argument. 
+
+This simply calls the torch.\+save method with the model\textquotesingle{}s state dictionary and the filename argument.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the file to save the model\textquotesingle{}s state to \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classsrc_1_1model_1_1_single_twist_model_aeb4778059b8403db41537bf8c71d8ce2}\index{src.model.SingleTwistModel@{src.model.SingleTwistModel}!train@{train}}
+\index{train@{train}!src.model.SingleTwistModel@{src.model.SingleTwistModel}}
+\doxysubsubsection{\texorpdfstring{train()}{train()}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_model_aeb4778059b8403db41537bf8c71d8ce2} 
+src.\+model.\+Single\+Twist\+Model.\+train (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{num\+\_\+epochs}{}\end{DoxyParamCaption})}
+
+
+
+Method to train the neural network model for the \doxylink{classsrc_1_1model_1_1_single_twist_model}{Single\+Twist\+Model} class. 
+
+The method uses the Adam optimizer and the Mean Squared Error loss function. The method also uses a learning rate scheduler to adjust the learning rate during training. The method prints the loss every 10\% of the total number of epochs.
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\+\_\+epochs} & The number of epochs to train the model for \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classsrc_1_1model_1_1_single_twist_model_a4374efbc6eaec60a713a341a2b09a0cb}\index{src.model.SingleTwistModel@{src.model.SingleTwistModel}!catagory@{catagory}}
+\index{catagory@{catagory}!src.model.SingleTwistModel@{src.model.SingleTwistModel}}
+\doxysubsubsection{\texorpdfstring{catagory}{catagory}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_model_a4374efbc6eaec60a713a341a2b09a0cb} 
+str src.\+model.\+Single\+Twist\+Model.\+catagory = catagory}
+
+
+
+The catagory of the model; this is either \textquotesingle{}P1\textquotesingle{}, \textquotesingle{}P2\textquotesingle{}, or \textquotesingle{}K3\textquotesingle{}. 
+
+\Hypertarget{classsrc_1_1model_1_1_single_twist_model_a921c2f0d57fa5a239607341025683ec6}\index{src.model.SingleTwistModel@{src.model.SingleTwistModel}!degree@{degree}}
+\index{degree@{degree}!src.model.SingleTwistModel@{src.model.SingleTwistModel}}
+\doxysubsubsection{\texorpdfstring{degree}{degree}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_model_a921c2f0d57fa5a239607341025683ec6} 
+src.\+model.\+Single\+Twist\+Model.\+degree = degree}
+
+
+
+An optional argument for the degree of the K3 surface; this is only used when the catagory is \textquotesingle{}K3\textquotesingle{}. 
+
+\Hypertarget{classsrc_1_1model_1_1_single_twist_model_acc6e13cc905d1d832bcc063a0357b5d8}\index{src.model.SingleTwistModel@{src.model.SingleTwistModel}!input\_tensor@{input\_tensor}}
+\index{input\_tensor@{input\_tensor}!src.model.SingleTwistModel@{src.model.SingleTwistModel}}
+\doxysubsubsection{\texorpdfstring{input\_tensor}{input\_tensor}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_model_acc6e13cc905d1d832bcc063a0357b5d8} 
+src.\+model.\+Single\+Twist\+Model.\+input\+\_\+tensor = torch.\+cat(\mbox{[}x\+\_\+tensor, y\+\_\+tensor\mbox{]}, dim=1)}
+
+\Hypertarget{classsrc_1_1model_1_1_single_twist_model_a18944c3cb3cd921fefd35d49b34a7379}\index{src.model.SingleTwistModel@{src.model.SingleTwistModel}!mode@{mode}}
+\index{mode@{mode}!src.model.SingleTwistModel@{src.model.SingleTwistModel}}
+\doxysubsubsection{\texorpdfstring{mode}{mode}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_model_a18944c3cb3cd921fefd35d49b34a7379} 
+src.\+model.\+Single\+Twist\+Model.\+mode = mode}
+
+
+
+The mode of the model dictates what the model is trained to predict; this is either \textquotesingle{}mass\textquotesingle{} for when the model should be predicting the mass, or \textquotesingle{}disc\textquotesingle{} for when the model should be predicting the discrete Lagrangian. 
+
+\Hypertarget{classsrc_1_1model_1_1_single_twist_model_a1ca3cbc6fdddd71263e4b9f9fe333dee}\index{src.model.SingleTwistModel@{src.model.SingleTwistModel}!model@{model}}
+\index{model@{model}!src.model.SingleTwistModel@{src.model.SingleTwistModel}}
+\doxysubsubsection{\texorpdfstring{model}{model}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_model_a1ca3cbc6fdddd71263e4b9f9fe333dee} 
+src.\+model.\+Single\+Twist\+Model.\+model}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ nn.Sequential(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.Linear(2,\ 64),\ \ \textcolor{comment}{\#\ Input:\ (x,\ y)}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.SiLU(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.Linear(64,\ 64),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.SiLU(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.Linear(64,\ 1)\ \ \textcolor{comment}{\#\ Output:\ z}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+
+
+The Py\+Torch neural network model for the \doxylink{classsrc_1_1model_1_1_single_twist_model}{Single\+Twist\+Model} class. 
+
+The model is a simple feedforward neural network with 3 layers. \Hypertarget{classsrc_1_1model_1_1_single_twist_model_ad80da39d87df5c78cc2c1f5780f89089}\index{src.model.SingleTwistModel@{src.model.SingleTwistModel}!output\_tensor@{output\_tensor}}
+\index{output\_tensor@{output\_tensor}!src.model.SingleTwistModel@{src.model.SingleTwistModel}}
+\doxysubsubsection{\texorpdfstring{output\_tensor}{output\_tensor}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_model_ad80da39d87df5c78cc2c1f5780f89089} 
+src.\+model.\+Single\+Twist\+Model.\+output\+\_\+tensor = torch.\+tensor(z\+\_\+train, dtype=torch.\+float32)}
+
+\Hypertarget{classsrc_1_1model_1_1_single_twist_model_a2213d430a538104f0b5e837747d406dc}\index{src.model.SingleTwistModel@{src.model.SingleTwistModel}!x\_max@{x\_max}}
+\index{x\_max@{x\_max}!src.model.SingleTwistModel@{src.model.SingleTwistModel}}
+\doxysubsubsection{\texorpdfstring{x\_max}{x\_max}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_model_a2213d430a538104f0b5e837747d406dc} 
+src.\+model.\+Single\+Twist\+Model.\+x\+\_\+max = x\+\_\+max}
+
+
+
+The maximum x value for the input data. 
+
+\Hypertarget{classsrc_1_1model_1_1_single_twist_model_a8dba0c5610085964a6adb8deb4e2b9f8}\index{src.model.SingleTwistModel@{src.model.SingleTwistModel}!x\_min@{x\_min}}
+\index{x\_min@{x\_min}!src.model.SingleTwistModel@{src.model.SingleTwistModel}}
+\doxysubsubsection{\texorpdfstring{x\_min}{x\_min}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_model_a8dba0c5610085964a6adb8deb4e2b9f8} 
+src.\+model.\+Single\+Twist\+Model.\+x\+\_\+min = x\+\_\+min}
+
+
+
+The catagory of the model; this is either \textquotesingle{}P1\textquotesingle{}, \textquotesingle{}P2\textquotesingle{}, or \textquotesingle{}K3\textquotesingle{}. 
+
+The minimum x value for the input data \Hypertarget{classsrc_1_1model_1_1_single_twist_model_ad8c3d5984b717a0d222f56ea6a0e5948}\index{src.model.SingleTwistModel@{src.model.SingleTwistModel}!y\_max@{y\_max}}
+\index{y\_max@{y\_max}!src.model.SingleTwistModel@{src.model.SingleTwistModel}}
+\doxysubsubsection{\texorpdfstring{y\_max}{y\_max}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_model_ad8c3d5984b717a0d222f56ea6a0e5948} 
+src.\+model.\+Single\+Twist\+Model.\+y\+\_\+max = y\+\_\+max}
+
+
+
+The maximum y value for the input data. 
+
+\Hypertarget{classsrc_1_1model_1_1_single_twist_model_ad8518961fae89a1cc4d47fb8e45be248}\index{src.model.SingleTwistModel@{src.model.SingleTwistModel}!y\_min@{y\_min}}
+\index{y\_min@{y\_min}!src.model.SingleTwistModel@{src.model.SingleTwistModel}}
+\doxysubsubsection{\texorpdfstring{y\_min}{y\_min}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_model_ad8518961fae89a1cc4d47fb8e45be248} 
+src.\+model.\+Single\+Twist\+Model.\+y\+\_\+min = y\+\_\+min}
+
+
+
+The minimum y value for the input data. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{model_8py}{model.\+py}}\end{DoxyCompactItemize}

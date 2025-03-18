@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['projectivecy_2epy_0',['ProjectiveCY.py',['../_projective_c_y_8py.html',1,'']]]
+  ['massplot_2epy_0',['MassPlot.py',['../_mass_plot_8py.html',1,'']]],
+  ['model_2epy_1',['model.py',['../model_8py.html',1,'']]]
 ];

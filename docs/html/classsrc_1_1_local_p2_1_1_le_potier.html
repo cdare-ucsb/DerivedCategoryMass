@@ -116,7 +116,7 @@ $(function(){initNavTree('classsrc_1_1_local_p2_1_1_le_potier.html',''); initRes
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8fb86a6de5ba7866c61fa4ec1d3be584" id="r_a8fb86a6de5ba7866c61fa4ec1d3be584"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8fb86a6de5ba7866c61fa4ec1d3be584">__init__</a> (self, <a class="el" href="#a65cd054cbf766d2fe5a51d13a3921840">granularity</a>=5, <a class="el" href="namespacesrc_1_1_local_p2.html#a25915f5179e1c16a57ff5a08d7ec7aac">width</a>=5)</td></tr>
+<tr class="memitem:a8fb86a6de5ba7866c61fa4ec1d3be584" id="r_a8fb86a6de5ba7866c61fa4ec1d3be584"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8fb86a6de5ba7866c61fa4ec1d3be584">__init__</a> (self, <a class="el" href="#a65cd054cbf766d2fe5a51d13a3921840">granularity</a>=5, <a class="el" href="#a60c614144a2cf3383465e6021b619658">width</a>=5)</td></tr>
 <tr class="memdesc:a8fb86a6de5ba7866c61fa4ec1d3be584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="classsrc_1_1_local_p2_1_1_le_potier.html" title="Class which encodes a significant porition of the mathematical information about the Drézet-Le Potier...">LePotier</a> class.  <br /></td></tr>
 <tr class="separator:a8fb86a6de5ba7866c61fa4ec1d3be584"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0cb51e30a5da5e950c29853b96e06cb4" id="r_a0cb51e30a5da5e950c29853b96e06cb4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0cb51e30a5da5e950c29853b96e06cb4">is_above_curve</a> (self, x, y)</td></tr>
@@ -131,9 +131,12 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a65cd054cbf766d2fe5a51d13a3921840" id="r_a65cd054cbf766d2fe5a51d13a3921840"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65cd054cbf766d2fe5a51d13a3921840">granularity</a> = <a class="el" href="namespacesrc_1_1_local_p2.html#a25915f5179e1c16a57ff5a08d7ec7aac">width</a></td></tr>
+<tr class="memitem:a65cd054cbf766d2fe5a51d13a3921840" id="r_a65cd054cbf766d2fe5a51d13a3921840"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65cd054cbf766d2fe5a51d13a3921840">granularity</a> = granularity</td></tr>
 <tr class="memdesc:a65cd054cbf766d2fe5a51d13a3921840"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of bits of precision to use in the calculation of the curve.  <br /></td></tr>
 <tr class="separator:a65cd054cbf766d2fe5a51d13a3921840"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60c614144a2cf3383465e6021b619658" id="r_a60c614144a2cf3383465e6021b619658"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60c614144a2cf3383465e6021b619658">width</a> = width</td></tr>
+<tr class="memdesc:a60c614144a2cf3383465e6021b619658"><td class="mdescLeft">&#160;</td><td class="mdescRight">The width of the curve in terms of the number of dyadic characters.  <br /></td></tr>
+<tr class="separator:a60c614144a2cf3383465e6021b619658"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22d323544cc496f65793489d1929e3f7" id="r_a22d323544cc496f65793489d1929e3f7"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a22d323544cc496f65793489d1929e3f7">boundary_points</a> = []</td></tr>
 <tr class="memdesc:a22d323544cc496f65793489d1929e3f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of tuples containing the coordinates of the boundary points of the curve.  <br /></td></tr>
 <tr class="separator:a22d323544cc496f65793489d1929e3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -576,13 +579,28 @@ Protected Member Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">src.LocalP2.LePotier.granularity = <a class="el" href="namespacesrc_1_1_local_p2.html#a25915f5179e1c16a57ff5a08d7ec7aac">width</a></td>
+          <td class="memname">src.LocalP2.LePotier.granularity = granularity</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>The number of bits of precision to use in the calculation of the curve. </p>
-<p>The width of the curve in terms of the number of dyadic characters </p>
+
+</div>
+</div>
+<a id="a60c614144a2cf3383465e6021b619658" name="a60c614144a2cf3383465e6021b619658"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60c614144a2cf3383465e6021b619658">&#9670;&#160;</a></span>width</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">src.LocalP2.LePotier.width = width</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The width of the curve in terms of the number of dyadic characters. </p>
 
 </div>
 </div>

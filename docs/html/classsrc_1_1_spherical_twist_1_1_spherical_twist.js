@@ -5,6 +5,7 @@ var classsrc_1_1_spherical_twist_1_1_spherical_twist =
     [ "_sph_twist_LineBundles", "classsrc_1_1_spherical_twist_1_1_spherical_twist.html#af4a147a84ede8e924aa4b92f98bede80", null ],
     [ "central_charge", "classsrc_1_1_spherical_twist_1_1_spherical_twist.html#a3548c15b0993329cebd465170cb78c00", null ],
     [ "chernCharacter", "classsrc_1_1_spherical_twist_1_1_spherical_twist.html#a183209b78a4202824b036ab2ebe40b91", null ],
+    [ "defining_triangle_to_json", "classsrc_1_1_spherical_twist_1_1_spherical_twist.html#a1fa8888025453c9958d00f6ac7552682", null ],
     [ "get_HN_factors", "classsrc_1_1_spherical_twist_1_1_spherical_twist.html#a68f7b3d2761fa842f86e7e6405ce7fb4", null ],
     [ "is_semistable", "classsrc_1_1_spherical_twist_1_1_spherical_twist.html#a72577f81014ad8387458603c9fd522f8", null ],
     [ "mass", "classsrc_1_1_spherical_twist_1_1_spherical_twist.html#a729ebfa2e5edd9a786917301cfdaebc1", null ],

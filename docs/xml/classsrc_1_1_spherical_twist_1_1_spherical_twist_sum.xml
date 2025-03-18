@@ -18,7 +18,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="644" column="1" bodyfile="src/SphericalTwist.py" bodystart="644" bodyend="-1"/>
+        <location file="src/SphericalTwist.py" line="678" column="1" bodyfile="src/SphericalTwist.py" bodystart="678" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a7535200f2ff52e1d73c6b6e025515efb" prot="public" static="no" mutable="no">
         <type>list</type>
@@ -34,7 +34,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="646" column="1" bodyfile="src/SphericalTwist.py" bodystart="646" bodyend="-1"/>
+        <location file="src/SphericalTwist.py" line="680" column="1" bodyfile="src/SphericalTwist.py" bodystart="680" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1adba9836083c0ee5b2654eeb970065315" prot="public" static="no" mutable="no">
         <type>list</type>
@@ -50,7 +50,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="648" column="1" bodyfile="src/SphericalTwist.py" bodystart="648" bodyend="-1"/>
+        <location file="src/SphericalTwist.py" line="682" column="1" bodyfile="src/SphericalTwist.py" bodystart="682" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1ab432f436cbc2f95ba86aadfe8dba6a17" prot="public" static="no" mutable="no">
         <type></type>
@@ -66,7 +66,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="650" column="1" bodyfile="src/SphericalTwist.py" bodystart="650" bodyend="-1"/>
+        <location file="src/SphericalTwist.py" line="684" column="1" bodyfile="src/SphericalTwist.py" bodystart="684" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -208,7 +208,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="584" column="1" bodyfile="src/SphericalTwist.py" bodystart="584" bodyend="657"/>
+        <location file="src/SphericalTwist.py" line="618" column="1" bodyfile="src/SphericalTwist.py" bodystart="618" bodyend="691"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a80aae608c3ab615866e4440c35ed2c27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -232,7 +232,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="658" column="1" bodyfile="src/SphericalTwist.py" bodystart="658" bodyend="710"/>
+        <location file="src/SphericalTwist.py" line="692" column="1" bodyfile="src/SphericalTwist.py" bodystart="692" bodyend="744"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a1e6a63a1cccf6359d289a508ec85d23d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -255,7 +255,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="711" column="1" bodyfile="src/SphericalTwist.py" bodystart="711" bodyend="723"/>
+        <location file="src/SphericalTwist.py" line="745" column="1" bodyfile="src/SphericalTwist.py" bodystart="745" bodyend="757"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a513a0c494fb9c82fa3545f8c8fdb3587" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -279,7 +279,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="724" column="1" bodyfile="src/SphericalTwist.py" bodystart="724" bodyend="743"/>
+        <location file="src/SphericalTwist.py" line="758" column="1" bodyfile="src/SphericalTwist.py" bodystart="758" bodyend="777"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1ad3caf5216dee2ed1482c9494632cca7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -317,7 +317,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="744" column="1" bodyfile="src/SphericalTwist.py" bodystart="744" bodyend="759"/>
+        <location file="src/SphericalTwist.py" line="778" column="1" bodyfile="src/SphericalTwist.py" bodystart="778" bodyend="793"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1ac0d03e78d54ff92408bfc5cd26722e23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -379,7 +379,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="760" column="1" bodyfile="src/SphericalTwist.py" bodystart="760" bodyend="804"/>
+        <location file="src/SphericalTwist.py" line="794" column="1" bodyfile="src/SphericalTwist.py" bodystart="794" bodyend="838"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a758bd9107244490ffbef06a73a6c6da2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -402,7 +402,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="805" column="1" bodyfile="src/SphericalTwist.py" bodystart="805" bodyend="824"/>
+        <location file="src/SphericalTwist.py" line="839" column="1" bodyfile="src/SphericalTwist.py" bodystart="839" bodyend="858"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a01c65f64d5c0c516d01310a1c69b6138" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -425,7 +425,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="825" column="1" bodyfile="src/SphericalTwist.py" bodystart="825" bodyend="844"/>
+        <location file="src/SphericalTwist.py" line="859" column="1" bodyfile="src/SphericalTwist.py" bodystart="859" bodyend="878"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a1e49845a4668418bb7cd17c463709223" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -489,7 +489,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="845" column="1" bodyfile="src/SphericalTwist.py" bodystart="845" bodyend="890"/>
+        <location file="src/SphericalTwist.py" line="879" column="1" bodyfile="src/SphericalTwist.py" bodystart="879" bodyend="924"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1abe5b73ad2b84669fc3378f5b5cf9832b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -550,7 +550,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="891" column="1" bodyfile="src/SphericalTwist.py" bodystart="891" bodyend="955"/>
+        <location file="src/SphericalTwist.py" line="925" column="1" bodyfile="src/SphericalTwist.py" bodystart="925" bodyend="989"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="protected-func">
@@ -571,7 +571,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="956" column="1" bodyfile="src/SphericalTwist.py" bodystart="956" bodyend="966"/>
+        <location file="src/SphericalTwist.py" line="990" column="1" bodyfile="src/SphericalTwist.py" bodystart="990" bodyend="1000"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1ac200ed6fbce84c005d2afb81a6e7c1d3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -591,7 +591,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/SphericalTwist.py" line="967" column="1" bodyfile="src/SphericalTwist.py" bodystart="967" bodyend="1003"/>
+        <location file="src/SphericalTwist.py" line="1001" column="1" bodyfile="src/SphericalTwist.py" bodystart="1001" bodyend="1037"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -624,7 +624,7 @@
         <link refid="classsrc_1_1_derived_category_object_1_1_derived_category_object"/>
       </node>
     </collaborationgraph>
-    <location file="src/SphericalTwist.py" line="570" column="1" bodyfile="src/SphericalTwist.py" bodystart="570" bodyend="1003"/>
+    <location file="src/SphericalTwist.py" line="604" column="1" bodyfile="src/SphericalTwist.py" bodystart="604" bodyend="1037"/>
     <listofallmembers>
       <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1aa25c589a6642867e6a6fd9beed0e0f51" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>__init__</name></member>
       <member refid="classsrc_1_1_spherical_twist_1_1_spherical_twist_sum_1a1e6a63a1cccf6359d289a508ec85d23d" prot="public" virt="non-virtual"><scope>src::SphericalTwist::SphericalTwistSum</scope><name>__len__</name></member>

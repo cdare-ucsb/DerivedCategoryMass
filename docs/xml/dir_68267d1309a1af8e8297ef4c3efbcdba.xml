@@ -8,8 +8,9 @@
     <innerfile refid="_coherent_sheaf_8py">CoherentSheaf.py</innerfile>
     <innerfile refid="_derived_category_object_8py">DerivedCategoryObject.py</innerfile>
     <innerfile refid="_distinguished_triangle_8py">DistinguishedTriangle.py</innerfile>
-    <innerfile refid="_local_p1_8py">LocalP1.py</innerfile>
     <innerfile refid="_local_p2_8py">LocalP2.py</innerfile>
+    <innerfile refid="_mass_plot_8py">MassPlot.py</innerfile>
+    <innerfile refid="model_8py">model.py</innerfile>
     <innerfile refid="_projective_c_y_8py">ProjectiveCY.py</innerfile>
     <innerfile refid="_spherical_twist_8py">SphericalTwist.py</innerfile>
     <briefdescription>

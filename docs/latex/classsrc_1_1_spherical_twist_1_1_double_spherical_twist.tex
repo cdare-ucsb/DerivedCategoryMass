@@ -22,8 +22,12 @@ Inheritance diagram for src.\+Spherical\+Twist.\+Double\+Spherical\+Twist\+:\beg
 \begin{DoxyCompactList}\small\item\em Method to compute the central charge of the spherical twist. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a6cc185f90c2474199cc64957beb5f2bb}{\+\_\+\+\_\+str\+\_\+\+\_\+}} (self)
 \begin{DoxyCompactList}\small\item\em Returns a string representation of the spherical twist by printing the defining triangle. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ae43321d74a3a99d2a90f95621f6f50c5}{defining\+\_\+triangle\+\_\+to\+\_\+json}} (self)
+\begin{DoxyCompactList}\small\item\em Helper function to convert the data of the canonical triangle for a double spherical twist to a JSON string. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a4d600ef4b8ee2b4ca1473c15ce61c177}{secondary\+\_\+canonical\+\_\+triangle}} (self)
 \begin{DoxyCompactList}\small\item\em Method to compute the secondary canonical triangle of the spherical twist. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ac80f49e4ef00d29cafa8864aa8b19a32}{secondary\+\_\+triangle\+\_\+to\+\_\+json}} (self)
+\begin{DoxyCompactList}\small\item\em Helper function to convert the data of the secondary canonical triangle to a JSON string. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a1511075ab30c69c00130bc3e3b1820fb}{is\+\_\+semistable}} (self, \texorpdfstring{$\ast$}{*}args, logging=False, log\+\_\+file=None)
 \begin{DoxyCompactList}\small\item\em Method to check if the double spherical twist is semistable. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_a4daf8f6e1a2470c949ac3e49ca099977}{mass}} (self, \texorpdfstring{$\ast$}{*}args, logging=False, log\+\_\+file=None)
@@ -73,13 +77,13 @@ str \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_o
 \doxysubsection{Detailed Description}
 A class to represent the composition of successive spherical twists applied to a line bundle. 
 
-The double spherical twist is given as a distinguished triangle similar to the case of the single spherical twist; however, for higher numbers of spherical twists, there are often multiple triangles that the object fits into. The added functionality that this class provides is the ability to account for both triangles when computing the Harder-\/ Narasimhan filtration of the object. Specifically, one must account for the defining triangle
+The double spherical twist is given as a distinguished triangle similar to the case of the single spherical twist; however, for higher numbers of spherical twists, there are often multiple triangles that the object fits into. The added functionality that this class provides is the ability to account for both triangles when computing the Harder-\/ Narasimhan filtration of the object. Specifically, one must account for the defining triangle \begin{DoxyVerb}RHom(O(a), Tw_b O(c)) ⊗ O(a) ---->  Tw_b O(c) ----> Tw_a Tw_b O(c)
+\end{DoxyVerb}
 
-Hom(O(a), Tw\+\_\+b O(c)) ⊗ O(a) -\/-\/-\/-\/\texorpdfstring{$>$}{>} Tw\+\_\+b O(c) -\/-\/-\/-\/\texorpdfstring{$>$}{>} Tw\+\_\+a Tw\+\_\+b O(c)
 
-as well as what we refer to as the \textquotesingle{}secondary canonical triangle\textquotesingle{} given by
+as well as what we refer to as the \textquotesingle{}secondary canonical triangle\textquotesingle{} given by \begin{DoxyVerb}Tw_a (RHom(O(b), O(c)) ⊗ O(b)) ----> Tw_a O(c) ----> Tw_a Tw_b O(c)
+\end{DoxyVerb}
 
-Tw\+\_\+a (Hom(O(b), O(c)) ⊗ O(b)) -\/-\/-\/-\/\texorpdfstring{$>$}{>} Tw\+\_\+a O(c) -\/-\/-\/-\/\texorpdfstring{$>$}{>} Tw\+\_\+a Tw\+\_\+b O(c)
 
 The Harder-\/\+Narasimhan factors of the double spherical twist are computed by first computing the Harder-\/\+Narasimhan factors of the defining triangle, and then the secondary canonical triangle. Unlike the single \doxylink{classsrc_1_1_spherical_twist_1_1_spherical_twist}{Spherical\+Twist} class, we do not actually provide the Harder-\/\+Narasimhan filtration in all cases; there are edge cases where nothing can currently be said and we must return an empty list leading to a mass of 0. 
 
@@ -94,13 +98,13 @@ src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+\_\+\+\_\+init\+\_\+\+\_\+ (
 
 Initialize an instance of \doxylink{classsrc_1_1_spherical_twist_1_1_double_spherical_twist}{Double\+Spherical\+Twist} with the specified line bundles. 
 
-The spherical twist is defined as the cone of the evaluation morphism \begin{DoxyVerb}Hom(O(a), Tw_b O(c)) ⊗ O(a) ---->  Tw_b O(c) ----> Tw_a Tw_b O(c)
+The spherical twist is defined as the cone of the evaluation morphism \begin{DoxyVerb}RHom(O(a), Tw_b O(c)) ⊗ O(a) ---->  Tw_b O(c) ----> Tw_a Tw_b O(c)
 \end{DoxyVerb}
 
 
 where O(a), O(b), and O(c) denote line bundles. The double spherical twist is represented as a distinguished triangle in the derived category of coherent sheaves.
 
-Several helper methods are used to compute the dimensions of the Hom spaces between the pushforwards of the line bundles, and then to construct the distinguished triangle.
+Several helper methods are used to compute the dimensions of the RHom spaces between the pushforwards of the line bundles, and then to construct the distinguished triangle.
 
 
 \begin{DoxyParams}{Parameters}
@@ -146,7 +150,7 @@ src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+\_\+sph\+\_\+twist\+\_\+\+Do
 
 Helper method to compute the distinguished triangle of the double spherical twist. 
 
-The distinguished triangle is given by the cone of the evaluation morphism \begin{DoxyVerb}Hom(O(a), Tw_b O(c)) ⊗ O(a) ---->  Tw_b O(c) ----> Tw_a Tw_b O(c)
+The distinguished triangle is given by the cone of the evaluation morphism \begin{DoxyVerb}RHom(O(a), Tw_b O(c)) ⊗ O(a) ---->  Tw_b O(c) ----> Tw_a Tw_b O(c)
 \end{DoxyVerb}
 
 
@@ -219,6 +223,21 @@ The Chern character of the double spherical twist is the Chern character of the 
 
 Reimplemented from \mbox{\hyperlink{classsrc_1_1_derived_category_object_1_1_derived_category_object_a1f4aac18056360d11918b709dc341937}{src.\+Derived\+Category\+Object.\+Derived\+Category\+Object}}.
 
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ae43321d74a3a99d2a90f95621f6f50c5}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}!defining\_triangle\_to\_json@{defining\_triangle\_to\_json}}
+\index{defining\_triangle\_to\_json@{defining\_triangle\_to\_json}!src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
+\doxysubsubsection{\texorpdfstring{defining\_triangle\_to\_json()}{defining\_triangle\_to\_json()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ae43321d74a3a99d2a90f95621f6f50c5} 
+src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+defining\+\_\+triangle\+\_\+to\+\_\+json (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Helper function to convert the data of the canonical triangle for a double spherical twist to a JSON string. 
+
+The data includes the dimensions, shifts, and line bundles from the first object of the triangle (i.\+e. the \doxylink{classsrc_1_1_spherical_twist_1_1_spherical_twist_sum}{Spherical\+Twist\+Sum} object), as well as a triple of the line bundle integers.
+
+\begin{DoxyReturn}{Returns}
+str A JSON string representation of the spherical twist triangle data 
+\end{DoxyReturn}
 \Hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ae8b0a91cede767ce6188b18686b431c0}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}!get\_HN\_factors@{get\_HN\_factors}}
 \index{get\_HN\_factors@{get\_HN\_factors}!src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
 \doxysubsubsection{\texorpdfstring{get\_HN\_factors()}{get\_HN\_factors()}}
@@ -336,6 +355,21 @@ Tw\+\_\+a (Hom(O(b), O(c)) ⊗ O(b)) -\/-\/-\/-\/\texorpdfstring{$>$}{>} Tw\+\_\
 
 \begin{DoxyReturn}{Returns}
 \doxylink{namespacesrc_1_1_distinguished_triangle}{Distinguished\+Triangle} The secondary canonical triangle of the spherical twist 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ac80f49e4ef00d29cafa8864aa8b19a32}\index{src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}!secondary\_triangle\_to\_json@{secondary\_triangle\_to\_json}}
+\index{secondary\_triangle\_to\_json@{secondary\_triangle\_to\_json}!src.SphericalTwist.DoubleSphericalTwist@{src.SphericalTwist.DoubleSphericalTwist}}
+\doxysubsubsection{\texorpdfstring{secondary\_triangle\_to\_json()}{secondary\_triangle\_to\_json()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_spherical_twist_1_1_double_spherical_twist_ac80f49e4ef00d29cafa8864aa8b19a32} 
+src.\+Spherical\+Twist.\+Double\+Spherical\+Twist.\+secondary\+\_\+triangle\+\_\+to\+\_\+json (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Helper function to convert the data of the secondary canonical triangle to a JSON string. 
+
+The data includes the first object of the secondary canonical trianle encoded as a triple of lists, as well as an integer triple consisting of the degrees of the three line bundles.
+
+\begin{DoxyReturn}{Returns}
+str A JSON string representation of the spherical twist triangle data 
 \end{DoxyReturn}
 
 

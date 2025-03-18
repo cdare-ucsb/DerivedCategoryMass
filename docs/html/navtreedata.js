@@ -52,7 +52,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "____init_____8py.html",
-"classsrc_1_1_spherical_twist_1_1_spherical_twist_sum.html#a01c65f64d5c0c516d01310a1c69b6138"
+"classsrc_1_1_spherical_twist_1_1_double_spherical_twist.html#ab9e9e5ae6673b64365efe14c77bab864"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

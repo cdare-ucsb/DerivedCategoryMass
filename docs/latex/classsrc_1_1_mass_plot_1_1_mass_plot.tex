@@ -1,0 +1,331 @@
+\doxysection{src.\+Mass\+Plot.\+Mass\+Plot Class Reference}
+\hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot}{}\label{classsrc_1_1_mass_plot_1_1_mass_plot}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+
+
+As the purpose of the library is to compute the mass of spherical twists in certain chambers of stability manifolds, a useful functionality is to plot a certain 3D slice of the graph of the mass function.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a54bf2dc2d546f8be3cc3ea1ff7e466c9}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a2bc5eab4670559d2c553e78295fd41fe}{line\+\_\+bundle\+\_\+1}}, \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a493024a72fb9bb9c2a98861ea8ea6224}{line\+\_\+bundle\+\_\+2}}, \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a2dd27d5e9bbbc4d48244766303efe86f}{catagory}}, \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a3713d45d8db138720243c72a820611a7}{line\+\_\+bundle\+\_\+3}}=None, \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_aafd8e9c0aa1d0835615976dcf557e787}{degree}}=1, \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a16af102415c7f7ca7703f769193693d9}{x\+\_\+min}}=-\/5, \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_afe71021c0e2340d965768a55d96d1689}{x\+\_\+max}}=5, \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_ae48365d979173558aec788a500909bdc}{x\+\_\+granularity}}=0.\+1, \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a66e8ca865c2ca66f106cde2ad3127a77}{y\+\_\+min}}=0, \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a352ca54ac815e031cb1bf910bf2eabf4}{y\+\_\+max}}=5, \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_af39891621318772ff10e26524f19d293}{y\+\_\+granularity}}=0.\+05)
+\begin{DoxyCompactList}\small\item\em Initialize the \doxylink{classsrc_1_1_mass_plot_1_1_mass_plot}{Mass\+Plot} object with the given parameters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a89a74b4b90383de72b9e2d44ddc381fa}{get\+\_\+mass\+\_\+values}} (self)
+\begin{DoxyCompactList}\small\item\em Compute the mass values for each point in the grid formed by the x and y values. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_ab41d45af85b48d7e8b70e8e983869211}{to\+\_\+plotly\+\_\+figure}} (self, color\+\_\+scale=\textquotesingle{}viridis\textquotesingle{}, marker\+\_\+size=3)
+\begin{DoxyCompactList}\small\item\em The primariy functionality of this class; generate a plotly figure of the mass function for the given spherical twist in the given chamber of the stability manifold. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a9dd42ce63527140fbe41eed6009a5544}{to\+\_\+plotly\+\_\+json}} (self, color\+\_\+scale=\textquotesingle{}viridis\textquotesingle{}, marker\+\_\+size=3)
+\begin{DoxyCompactList}\small\item\em Function to convert the plotly figure to a JSON string. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_ae4280772d8d39404953f177ce6161bb1}{get\+\_\+discretized\+\_\+\+Laplacian\+\_\+values}} (self)
+\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a210348d37db75853f20f51b54ebfb97a}{discretized\+\_\+\+Laplacian\+\_\+to\+\_\+plotly\+\_\+figure}} (self, color\+\_\+scale=\textquotesingle{}Plasma\textquotesingle{}, marker\+\_\+size=3)
+\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a51be2ce6195a8a25edb2785d0552dbcf}{find\+\_\+discontinuities}} (self, std\+\_\+dev\+\_\+threshold=1)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a2bc5eab4670559d2c553e78295fd41fe}{line\+\_\+bundle\+\_\+1}} = line\+\_\+bundle\+\_\+1
+\begin{DoxyCompactList}\small\item\em The degree of the outermost line bundle in the spherical twist. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a493024a72fb9bb9c2a98861ea8ea6224}{line\+\_\+bundle\+\_\+2}} = line\+\_\+bundle\+\_\+2
+\begin{DoxyCompactList}\small\item\em Either the degree of the line bundle being twisted (if line\+\_\+bundle\+\_\+3 is None) or the degree of the middle line bundle in the double twist. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a3713d45d8db138720243c72a820611a7}{line\+\_\+bundle\+\_\+3}} = line\+\_\+bundle\+\_\+3
+\begin{DoxyCompactList}\small\item\em Optional argument that allows the flexibility of double spherical twists. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_aafd8e9c0aa1d0835615976dcf557e787}{degree}} = degree
+\begin{DoxyCompactList}\small\item\em Optional argument used for the degree of a K3 surface; default is 1. \end{DoxyCompactList}\item 
+str \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a2dd27d5e9bbbc4d48244766303efe86f}{catagory}} = catagory
+\begin{DoxyCompactList}\small\item\em Catagory of the stability manifold. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a16af102415c7f7ca7703f769193693d9}{x\+\_\+min}} = x\+\_\+min
+\begin{DoxyCompactList}\small\item\em The minimum x value for the plot. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_afe71021c0e2340d965768a55d96d1689}{x\+\_\+max}} = x\+\_\+max
+\begin{DoxyCompactList}\small\item\em The maximum x value for the plot. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_ae48365d979173558aec788a500909bdc}{x\+\_\+granularity}} = x\+\_\+granularity
+\begin{DoxyCompactList}\small\item\em The distance between points horizontally for the plot. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a66e8ca865c2ca66f106cde2ad3127a77}{y\+\_\+min}} = y\+\_\+min
+\begin{DoxyCompactList}\small\item\em The minimum y value for the plot. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a352ca54ac815e031cb1bf910bf2eabf4}{y\+\_\+max}} = y\+\_\+max
+\begin{DoxyCompactList}\small\item\em The maximum y value for the plot. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_af39891621318772ff10e26524f19d293}{y\+\_\+granularity}} = y\+\_\+granularity
+\begin{DoxyCompactList}\small\item\em The distance between points vertically for the plot. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a1020853732496df8e8d8c67d8e166156}{\+\_\+num\+\_\+twists}} = 2 else\+:
+\begin{DoxyCompactList}\small\item\em Number of twists in the spherical twist. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a0c6501bd5875afd2b5bd085813f42e5e}{\+\_\+xvals}} = np.\+arange(\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a16af102415c7f7ca7703f769193693d9}{x\+\_\+min}}, \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_afe71021c0e2340d965768a55d96d1689}{x\+\_\+max}}, \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_ae48365d979173558aec788a500909bdc}{x\+\_\+granularity}})
+\begin{DoxyCompactList}\small\item\em The list of x values for the plot. \end{DoxyCompactList}\item 
+list \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a25ea848ba3d4751bfc89fa1761fd1da4}{\+\_\+yvals}} = \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em The list of y values for the plot. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+As the purpose of the library is to compute the mass of spherical twists in certain chambers of stability manifolds, a useful functionality is to plot a certain 3D slice of the graph of the mass function. 
+
+Since the \doxylink{namespacesrc_1_1_spherical_twist}{Spherical\+Twist} class allows significant flexibiliy with its catagory parameter (which effectively dictates the stability manifold we wish to graph), the majority of the plotting functionality will look the same for each catagory (currently \textquotesingle{}P1\textquotesingle{}, \textquotesingle{}P2\textquotesingle{}, and \textquotesingle{}K3\textquotesingle{}). The only difference will be the way the x and y values are generated for the plot. Thus, this class acts as wrapper to remove that redundancy and allow for easy plotting of the mass function for a given spherical twist in a given chamber of a stability manifold. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_a54bf2dc2d546f8be3cc3ea1ff7e466c9}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_a54bf2dc2d546f8be3cc3ea1ff7e466c9} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{line\+\_\+bundle\+\_\+1}{, }\item[{}]{line\+\_\+bundle\+\_\+2}{, }\item[{}]{catagory}{, }\item[{}]{line\+\_\+bundle\+\_\+3}{ = {\ttfamily None}, }\item[{}]{degree}{ = {\ttfamily 1}, }\item[{}]{x\+\_\+min}{ = {\ttfamily -\/5}, }\item[{}]{x\+\_\+max}{ = {\ttfamily 5}, }\item[{}]{x\+\_\+granularity}{ = {\ttfamily 0.1}, }\item[{}]{y\+\_\+min}{ = {\ttfamily 0}, }\item[{}]{y\+\_\+max}{ = {\ttfamily 5}, }\item[{}]{y\+\_\+granularity}{ = {\ttfamily 0.05}}\end{DoxyParamCaption})}
+
+
+
+Initialize the \doxylink{classsrc_1_1_mass_plot_1_1_mass_plot}{Mass\+Plot} object with the given parameters. 
+
+The required parameters are the line bundles for the spherical twist, the catagory of the stability manifold, and the x and y ranges and granularities for the plot. The optional parameters are the degree of the K3 surface (default is 1), and a third line bundle for the double spherical twist (default is None).
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & line\+\_\+bundle\+\_\+1 The degree of the outermost line bundle in the spherical twist \\
+\hline
+{\em int} & line\+\_\+bundle\+\_\+2 The degree of the line bundle being twisted (if line\+\_\+bundle\+\_\+3 is None) or the degree of the middle line bundle in the double twist \\
+\hline
+{\em str} & catagory The catagory of the stability manifold \\
+\hline
+{\em int} & line\+\_\+bundle\+\_\+3 The degree of the line bundle being twisted in the double twist (default is None; setting this will cause the object to compute a double twist) \\
+\hline
+{\em int} & degree The degree of the K3 surface (default is 1) \\
+\hline
+{\em Number} & x\+\_\+min The minimum x value for the plot (default is -\/5) \\
+\hline
+{\em Number} & x\+\_\+max The maximum x value for the plot (default is 5) \\
+\hline
+{\em Number} & x\+\_\+granularity The distance between points horizontally for the plot (default is 0.\+1) \\
+\hline
+{\em Number} & y\+\_\+min The minimum y value for the plot (default is 0) \\
+\hline
+{\em Number} & y\+\_\+max The maximum y value for the plot (default is 5) \\
+\hline
+{\em Number} & y\+\_\+granularity The distance between points vertically for the plot (default is 0.\+05) \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_a210348d37db75853f20f51b54ebfb97a}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!discretized\_Laplacian\_to\_plotly\_figure@{discretized\_Laplacian\_to\_plotly\_figure}}
+\index{discretized\_Laplacian\_to\_plotly\_figure@{discretized\_Laplacian\_to\_plotly\_figure}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{discretized\_Laplacian\_to\_plotly\_figure()}{discretized\_Laplacian\_to\_plotly\_figure()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_a210348d37db75853f20f51b54ebfb97a} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+discretized\+\_\+\+Laplacian\+\_\+to\+\_\+plotly\+\_\+figure (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{color\+\_\+scale}{ = {\ttfamily \textquotesingle{}Plasma\textquotesingle{}}, }\item[{}]{marker\+\_\+size}{ = {\ttfamily 3}}\end{DoxyParamCaption})}
+
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_a51be2ce6195a8a25edb2785d0552dbcf}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!find\_discontinuities@{find\_discontinuities}}
+\index{find\_discontinuities@{find\_discontinuities}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{find\_discontinuities()}{find\_discontinuities()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_a51be2ce6195a8a25edb2785d0552dbcf} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+find\+\_\+discontinuities (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{std\+\_\+dev\+\_\+threshold}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_ae4280772d8d39404953f177ce6161bb1}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!get\_discretized\_Laplacian\_values@{get\_discretized\_Laplacian\_values}}
+\index{get\_discretized\_Laplacian\_values@{get\_discretized\_Laplacian\_values}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{get\_discretized\_Laplacian\_values()}{get\_discretized\_Laplacian\_values()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_ae4280772d8d39404953f177ce6161bb1} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+get\+\_\+discretized\+\_\+\+Laplacian\+\_\+values (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_a89a74b4b90383de72b9e2d44ddc381fa}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!get\_mass\_values@{get\_mass\_values}}
+\index{get\_mass\_values@{get\_mass\_values}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{get\_mass\_values()}{get\_mass\_values()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_a89a74b4b90383de72b9e2d44ddc381fa} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+get\+\_\+mass\+\_\+values (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Compute the mass values for each point in the grid formed by the x and y values. 
+
+This is done by creating an instance of the \doxylink{namespacesrc_1_1_spherical_twist}{Spherical\+Twist} class and then calling the mass method for each point in the grid.
+
+\begin{DoxyReturn}{Returns}
+np.\+array The mass values for each point in the grid 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_ab41d45af85b48d7e8b70e8e983869211}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!to\_plotly\_figure@{to\_plotly\_figure}}
+\index{to\_plotly\_figure@{to\_plotly\_figure}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{to\_plotly\_figure()}{to\_plotly\_figure()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_ab41d45af85b48d7e8b70e8e983869211} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+to\+\_\+plotly\+\_\+figure (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{color\+\_\+scale}{ = {\ttfamily \textquotesingle{}viridis\textquotesingle{}}, }\item[{}]{marker\+\_\+size}{ = {\ttfamily 3}}\end{DoxyParamCaption})}
+
+
+
+The primariy functionality of this class; generate a plotly figure of the mass function for the given spherical twist in the given chamber of the stability manifold. 
+
+The mass values are computed for each point in the grid formed by the x and y values, and then plotted as a 3D scatter plot.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & color\+\_\+scale The color scale to use for the plot \\
+\hline
+{\em int} & marker\+\_\+size The size of the markers in the plot\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+go.\+Figure The plotly figure of the mass function 
+\end{DoxyReturn}
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_a9dd42ce63527140fbe41eed6009a5544}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!to\_plotly\_json@{to\_plotly\_json}}
+\index{to\_plotly\_json@{to\_plotly\_json}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{to\_plotly\_json()}{to\_plotly\_json()}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_a9dd42ce63527140fbe41eed6009a5544} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+to\+\_\+plotly\+\_\+json (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{color\+\_\+scale}{ = {\ttfamily \textquotesingle{}viridis\textquotesingle{}}, }\item[{}]{marker\+\_\+size}{ = {\ttfamily 3}}\end{DoxyParamCaption})}
+
+
+
+Function to convert the plotly figure to a JSON string. 
+
+This is useful for rendering the plot in a web application.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & color\+\_\+scale The color scale to use for the plot \\
+\hline
+{\em int} & marker\+\_\+size The size of the markers in the plot\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+str The JSON string of the plotly figure 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_a1020853732496df8e8d8c67d8e166156}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!\_num\_twists@{\_num\_twists}}
+\index{\_num\_twists@{\_num\_twists}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{\_num\_twists}{\_num\_twists}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_a1020853732496df8e8d8c67d8e166156} 
+int src.\+Mass\+Plot.\+Mass\+Plot.\+\_\+num\+\_\+twists = 2 else\+:\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Number of twists in the spherical twist. 
+
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_a0c6501bd5875afd2b5bd085813f42e5e}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!\_xvals@{\_xvals}}
+\index{\_xvals@{\_xvals}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{\_xvals}{\_xvals}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_a0c6501bd5875afd2b5bd085813f42e5e} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+\_\+xvals = np.\+arange(\mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_a16af102415c7f7ca7703f769193693d9}{x\+\_\+min}}, \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_afe71021c0e2340d965768a55d96d1689}{x\+\_\+max}}, \mbox{\hyperlink{classsrc_1_1_mass_plot_1_1_mass_plot_ae48365d979173558aec788a500909bdc}{x\+\_\+granularity}})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The list of x values for the plot. 
+
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_a25ea848ba3d4751bfc89fa1761fd1da4}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!\_yvals@{\_yvals}}
+\index{\_yvals@{\_yvals}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{\_yvals}{\_yvals}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_a25ea848ba3d4751bfc89fa1761fd1da4} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+\_\+yvals = \mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The list of y values for the plot. 
+
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_a2dd27d5e9bbbc4d48244766303efe86f}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!catagory@{catagory}}
+\index{catagory@{catagory}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{catagory}{catagory}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_a2dd27d5e9bbbc4d48244766303efe86f} 
+str src.\+Mass\+Plot.\+Mass\+Plot.\+catagory = catagory}
+
+
+
+Catagory of the stability manifold. 
+
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_aafd8e9c0aa1d0835615976dcf557e787}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!degree@{degree}}
+\index{degree@{degree}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{degree}{degree}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_aafd8e9c0aa1d0835615976dcf557e787} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+degree = degree}
+
+
+
+Optional argument used for the degree of a K3 surface; default is 1. 
+
+Not used for P1 and P2 \Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_a2bc5eab4670559d2c553e78295fd41fe}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!line\_bundle\_1@{line\_bundle\_1}}
+\index{line\_bundle\_1@{line\_bundle\_1}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{line\_bundle\_1}{line\_bundle\_1}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_a2bc5eab4670559d2c553e78295fd41fe} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+line\+\_\+bundle\+\_\+1 = line\+\_\+bundle\+\_\+1}
+
+
+
+The degree of the outermost line bundle in the spherical twist. 
+
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_a493024a72fb9bb9c2a98861ea8ea6224}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!line\_bundle\_2@{line\_bundle\_2}}
+\index{line\_bundle\_2@{line\_bundle\_2}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{line\_bundle\_2}{line\_bundle\_2}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_a493024a72fb9bb9c2a98861ea8ea6224} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+line\+\_\+bundle\+\_\+2 = line\+\_\+bundle\+\_\+2}
+
+
+
+Either the degree of the line bundle being twisted (if line\+\_\+bundle\+\_\+3 is None) or the degree of the middle line bundle in the double twist. 
+
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_a3713d45d8db138720243c72a820611a7}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!line\_bundle\_3@{line\_bundle\_3}}
+\index{line\_bundle\_3@{line\_bundle\_3}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{line\_bundle\_3}{line\_bundle\_3}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_a3713d45d8db138720243c72a820611a7} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+line\+\_\+bundle\+\_\+3 = line\+\_\+bundle\+\_\+3}
+
+
+
+Optional argument that allows the flexibility of double spherical twists. 
+
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_ae48365d979173558aec788a500909bdc}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!x\_granularity@{x\_granularity}}
+\index{x\_granularity@{x\_granularity}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{x\_granularity}{x\_granularity}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_ae48365d979173558aec788a500909bdc} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+x\+\_\+granularity = x\+\_\+granularity}
+
+
+
+The distance between points horizontally for the plot. 
+
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_afe71021c0e2340d965768a55d96d1689}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!x\_max@{x\_max}}
+\index{x\_max@{x\_max}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{x\_max}{x\_max}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_afe71021c0e2340d965768a55d96d1689} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+x\+\_\+max = x\+\_\+max}
+
+
+
+The maximum x value for the plot. 
+
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_a16af102415c7f7ca7703f769193693d9}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!x\_min@{x\_min}}
+\index{x\_min@{x\_min}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{x\_min}{x\_min}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_a16af102415c7f7ca7703f769193693d9} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+x\+\_\+min = x\+\_\+min}
+
+
+
+The minimum x value for the plot. 
+
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_af39891621318772ff10e26524f19d293}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!y\_granularity@{y\_granularity}}
+\index{y\_granularity@{y\_granularity}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{y\_granularity}{y\_granularity}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_af39891621318772ff10e26524f19d293} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+y\+\_\+granularity = y\+\_\+granularity}
+
+
+
+The distance between points vertically for the plot. 
+
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_a352ca54ac815e031cb1bf910bf2eabf4}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!y\_max@{y\_max}}
+\index{y\_max@{y\_max}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{y\_max}{y\_max}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_a352ca54ac815e031cb1bf910bf2eabf4} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+y\+\_\+max = y\+\_\+max}
+
+
+
+The maximum y value for the plot. 
+
+\Hypertarget{classsrc_1_1_mass_plot_1_1_mass_plot_a66e8ca865c2ca66f106cde2ad3127a77}\index{src.MassPlot.MassPlot@{src.MassPlot.MassPlot}!y\_min@{y\_min}}
+\index{y\_min@{y\_min}!src.MassPlot.MassPlot@{src.MassPlot.MassPlot}}
+\doxysubsubsection{\texorpdfstring{y\_min}{y\_min}}
+{\footnotesize\ttfamily \label{classsrc_1_1_mass_plot_1_1_mass_plot_a66e8ca865c2ca66f106cde2ad3127a77} 
+src.\+Mass\+Plot.\+Mass\+Plot.\+y\+\_\+min = y\+\_\+min}
+
+
+
+The minimum y value for the plot. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_mass_plot_8py}{Mass\+Plot.\+py}}\end{DoxyCompactItemize}

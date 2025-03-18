@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['rotateleft_0',['rotateLeft',['../classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle.html#ac401471ba6b81248c7dc5e2cee5c7177',1,'src::DistinguishedTriangle::DistinguishedTriangle']]],
-  ['rotateright_1',['rotateRight',['../classsrc_1_1_distinguished_triangle_1_1_distinguished_triangle.html#a3a36239e4c076cc5627d95af48d7435f',1,'src::DistinguishedTriangle::DistinguishedTriangle']]]
+  ['mass_0',['mass',['../classsrc_1_1_spherical_twist_1_1_spherical_twist.html#a729ebfa2e5edd9a786917301cfdaebc1',1,'src.SphericalTwist.SphericalTwist.mass()'],['../classsrc_1_1_spherical_twist_1_1_double_spherical_twist.html#a4daf8f6e1a2470c949ac3e49ca099977',1,'src.SphericalTwist.DoubleSphericalTwist.mass()']]]
 ];

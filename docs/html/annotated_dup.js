@@ -20,6 +20,13 @@ var annotated_dup =
       [ "LocalP2", "namespacesrc_1_1_local_p2.html", [
         [ "LePotier", "classsrc_1_1_local_p2_1_1_le_potier.html", "classsrc_1_1_local_p2_1_1_le_potier" ]
       ] ],
+      [ "MassPlot", "namespacesrc_1_1_mass_plot.html", [
+        [ "MassPlot", "classsrc_1_1_mass_plot_1_1_mass_plot.html", "classsrc_1_1_mass_plot_1_1_mass_plot" ]
+      ] ],
+      [ "model", "namespacesrc_1_1model.html", [
+        [ "SingleTwistCollectionModel", "classsrc_1_1model_1_1_single_twist_collection_model.html", "classsrc_1_1model_1_1_single_twist_collection_model" ],
+        [ "SingleTwistModel", "classsrc_1_1model_1_1_single_twist_model.html", "classsrc_1_1model_1_1_single_twist_model" ]
+      ] ],
       [ "ProjectiveCY", "namespacesrc_1_1_projective_c_y.html", [
         [ "K3GeometricChamber", "classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber.html", "classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber" ]
       ] ],

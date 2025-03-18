@@ -1,0 +1,142 @@
+\doxysection{src.\+model.\+Single\+Twist\+Collection\+Model Class Reference}
+\hypertarget{classsrc_1_1model_1_1_single_twist_collection_model}{}\label{classsrc_1_1model_1_1_single_twist_collection_model}\index{src.model.SingleTwistCollectionModel@{src.model.SingleTwistCollectionModel}}
+
+
+This class implements the functionality required to train a neural network model to predict the mass or the discrete Laplacian of a collection of single spherical twists, so that Py\+Torch does not directly need to be imported into the main application file for the Flask app.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_collection_model_ac5108d2c6613d35ffd62592fa9af9658}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{namespacesrc_1_1model_a147e42d5724688650c476630def97857}{filename}}, \mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_collection_model_a7d6bb984923b9dae218b41f946f015d4}{catagory}})
+\begin{DoxyCompactList}\small\item\em Creates the \doxylink{classsrc_1_1model_1_1_single_twist_collection_model}{Single\+Twist\+Collection\+Model} object with the specified filename and catagory. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_collection_model_a43412b2faed87d2ca4fb33f9aeca9d5f}{train}} (self, \mbox{\hyperlink{namespacesrc_1_1model_ad502fc00685d9096578d978cd1e2b5da}{num\+\_\+epochs}}=50)
+\begin{DoxyCompactList}\small\item\em Method to train the neural network model for the \doxylink{classsrc_1_1model_1_1_single_twist_collection_model}{Single\+Twist\+Collection\+Model} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_collection_model_a1944b9a7311de2def2e5920f89a2fef4}{csv\+\_\+file}} = csv\+\_\+file
+\item 
+int \mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_collection_model_afe95899010562e277c07975542e1c252}{total\+\_\+samples}} = sum(1 for \+\_\+ in open(\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_collection_model_a1944b9a7311de2def2e5920f89a2fef4}{csv\+\_\+file}})) -\/ 1
+\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_collection_model_ad198e020606ed968ca6554d03ea44794}{dataloader}} = Data\+Loader(dataset, batch\+\_\+size=64, shuffle=\mbox{\hyperlink{namespacesrc_1_1_local_p2_a6b6506e483df735954e483bf0e8bf95a}{True}}, num\+\_\+workers=4, pin\+\_\+memory=\mbox{\hyperlink{namespacesrc_1_1_local_p2_a6b6506e483df735954e483bf0e8bf95a}{True}})
+\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_collection_model_ad644e6c38407d668840d1542826851bb}{model}}
+\item 
+\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_collection_model_a7d6bb984923b9dae218b41f946f015d4}{catagory}} = FNN\+\_\+model\+\_\+3(catagory)
+\begin{DoxyCompactList}\small\item\em The catagory of the model; this is either \textquotesingle{}P1\textquotesingle{}, \textquotesingle{}P2\textquotesingle{}, or \textquotesingle{}K3\textquotesingle{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_collection_model_a83c4c80b9a0d77ea7226797cbb5ccf6e}{\+\_\+input\+\_\+size}} = 5
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class implements the functionality required to train a neural network model to predict the mass or the discrete Laplacian of a collection of single spherical twists, so that Py\+Torch does not directly need to be imported into the main application file for the Flask app. 
+
+The \doxylink{classsrc_1_1model_1_1_single_twist_collection_model}{Single\+Twist\+Collection\+Model} class acts as a wrapper for a general Py\+Torch neural network model, and saves the training data as a member variabe. The class also provides methods to train the model, save the model, load the model, and plot the predictions of the model using Plotly. Unlike the \doxylink{classsrc_1_1model_1_1_single_twist_model}{Single\+Twist\+Model}, this class does not actually create any of the data, but instead takes in a filename to a CSV file that contains the training data. The format of the CSV file should be as follows\+:
+
+x, y, line bundle 1, line bundle 2, (optional) degree, mass
+
+The create\+\_\+training\+\_\+data\+\_\+single\+\_\+twist\+\_\+collection method in the \doxylink{namespacesrc_1_1_spherical_twist}{Spherical\+Twist} module can be used to generate the training data and save it to a CSV file. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classsrc_1_1model_1_1_single_twist_collection_model_ac5108d2c6613d35ffd62592fa9af9658}\index{src.model.SingleTwistCollectionModel@{src.model.SingleTwistCollectionModel}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!src.model.SingleTwistCollectionModel@{src.model.SingleTwistCollectionModel}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_collection_model_ac5108d2c6613d35ffd62592fa9af9658} 
+src.\+model.\+Single\+Twist\+Collection\+Model.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{filename}{, }\item[{}]{catagory}{}\end{DoxyParamCaption})}
+
+
+
+Creates the \doxylink{classsrc_1_1model_1_1_single_twist_collection_model}{Single\+Twist\+Collection\+Model} object with the specified filename and catagory. 
+
+The constructor reads the CSV file and creates a Py\+Torch Dataset and Data\+Loader object from the data. The constructor also initializes the neural network model with the specified catagory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the CSV file that contains the training data \\
+\hline
+{\em catagory} & The catagory of the model; this is either \textquotesingle{}P1\textquotesingle{}, \textquotesingle{}P2\textquotesingle{}, or \textquotesingle{}K3\textquotesingle{} \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsrc_1_1model_1_1_single_twist_collection_model_a43412b2faed87d2ca4fb33f9aeca9d5f}\index{src.model.SingleTwistCollectionModel@{src.model.SingleTwistCollectionModel}!train@{train}}
+\index{train@{train}!src.model.SingleTwistCollectionModel@{src.model.SingleTwistCollectionModel}}
+\doxysubsubsection{\texorpdfstring{train()}{train()}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_collection_model_a43412b2faed87d2ca4fb33f9aeca9d5f} 
+src.\+model.\+Single\+Twist\+Collection\+Model.\+train (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{num\+\_\+epochs}{ = {\ttfamily 50}}\end{DoxyParamCaption})}
+
+
+
+Method to train the neural network model for the \doxylink{classsrc_1_1model_1_1_single_twist_collection_model}{Single\+Twist\+Collection\+Model} class. 
+
+The method uses the Adam optimizer and the Mean Squared Error loss function. The method also uses a learning rate scheduler to adjust the learning rate during training. The method prints the loss every 10\% of the total number of epochs.
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\+\_\+epochs} & The number of epochs to train the model for (default is 50) \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classsrc_1_1model_1_1_single_twist_collection_model_a83c4c80b9a0d77ea7226797cbb5ccf6e}\index{src.model.SingleTwistCollectionModel@{src.model.SingleTwistCollectionModel}!\_input\_size@{\_input\_size}}
+\index{\_input\_size@{\_input\_size}!src.model.SingleTwistCollectionModel@{src.model.SingleTwistCollectionModel}}
+\doxysubsubsection{\texorpdfstring{\_input\_size}{\_input\_size}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_collection_model_a83c4c80b9a0d77ea7226797cbb5ccf6e} 
+int src.\+model.\+Single\+Twist\+Collection\+Model.\+\_\+input\+\_\+size = 5\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classsrc_1_1model_1_1_single_twist_collection_model_a7d6bb984923b9dae218b41f946f015d4}\index{src.model.SingleTwistCollectionModel@{src.model.SingleTwistCollectionModel}!catagory@{catagory}}
+\index{catagory@{catagory}!src.model.SingleTwistCollectionModel@{src.model.SingleTwistCollectionModel}}
+\doxysubsubsection{\texorpdfstring{catagory}{catagory}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_collection_model_a7d6bb984923b9dae218b41f946f015d4} 
+src.\+model.\+Single\+Twist\+Collection\+Model.\+catagory = FNN\+\_\+model\+\_\+3(catagory)}
+
+
+
+The catagory of the model; this is either \textquotesingle{}P1\textquotesingle{}, \textquotesingle{}P2\textquotesingle{}, or \textquotesingle{}K3\textquotesingle{}. 
+
+The Py\+Torch neural network model for the \doxylink{classsrc_1_1model_1_1_single_twist_model}{Single\+Twist\+Model} class. The model is a simple feedforward neural network with 3 layers. \Hypertarget{classsrc_1_1model_1_1_single_twist_collection_model_a1944b9a7311de2def2e5920f89a2fef4}\index{src.model.SingleTwistCollectionModel@{src.model.SingleTwistCollectionModel}!csv\_file@{csv\_file}}
+\index{csv\_file@{csv\_file}!src.model.SingleTwistCollectionModel@{src.model.SingleTwistCollectionModel}}
+\doxysubsubsection{\texorpdfstring{csv\_file}{csv\_file}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_collection_model_a1944b9a7311de2def2e5920f89a2fef4} 
+src.\+model.\+Single\+Twist\+Collection\+Model.\+csv\+\_\+file = csv\+\_\+file}
+
+\Hypertarget{classsrc_1_1model_1_1_single_twist_collection_model_ad198e020606ed968ca6554d03ea44794}\index{src.model.SingleTwistCollectionModel@{src.model.SingleTwistCollectionModel}!dataloader@{dataloader}}
+\index{dataloader@{dataloader}!src.model.SingleTwistCollectionModel@{src.model.SingleTwistCollectionModel}}
+\doxysubsubsection{\texorpdfstring{dataloader}{dataloader}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_collection_model_ad198e020606ed968ca6554d03ea44794} 
+src.\+model.\+Single\+Twist\+Collection\+Model.\+dataloader = Data\+Loader(dataset, batch\+\_\+size=64, shuffle=\mbox{\hyperlink{namespacesrc_1_1_local_p2_a6b6506e483df735954e483bf0e8bf95a}{True}}, num\+\_\+workers=4, pin\+\_\+memory=\mbox{\hyperlink{namespacesrc_1_1_local_p2_a6b6506e483df735954e483bf0e8bf95a}{True}})}
+
+\Hypertarget{classsrc_1_1model_1_1_single_twist_collection_model_ad644e6c38407d668840d1542826851bb}\index{src.model.SingleTwistCollectionModel@{src.model.SingleTwistCollectionModel}!model@{model}}
+\index{model@{model}!src.model.SingleTwistCollectionModel@{src.model.SingleTwistCollectionModel}}
+\doxysubsubsection{\texorpdfstring{model}{model}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_collection_model_ad644e6c38407d668840d1542826851bb} 
+src.\+model.\+Single\+Twist\+Collection\+Model.\+model}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ nn.Sequential(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.Linear(self.\_input\_size,\ 64),\ \ \textcolor{comment}{\#\ Input:\ (x,\ y)}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.SiLU(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.Linear(64,\ 64),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.SiLU(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.Linear(64,\ 1)\ \ \textcolor{comment}{\#\ Output:\ z}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+\Hypertarget{classsrc_1_1model_1_1_single_twist_collection_model_afe95899010562e277c07975542e1c252}\index{src.model.SingleTwistCollectionModel@{src.model.SingleTwistCollectionModel}!total\_samples@{total\_samples}}
+\index{total\_samples@{total\_samples}!src.model.SingleTwistCollectionModel@{src.model.SingleTwistCollectionModel}}
+\doxysubsubsection{\texorpdfstring{total\_samples}{total\_samples}}
+{\footnotesize\ttfamily \label{classsrc_1_1model_1_1_single_twist_collection_model_afe95899010562e277c07975542e1c252} 
+int src.\+model.\+Single\+Twist\+Collection\+Model.\+total\+\_\+samples = sum(1 for \+\_\+ in open(\mbox{\hyperlink{classsrc_1_1model_1_1_single_twist_collection_model_a1944b9a7311de2def2e5920f89a2fef4}{csv\+\_\+file}})) -\/ 1}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{model_8py}{model.\+py}}\end{DoxyCompactItemize}

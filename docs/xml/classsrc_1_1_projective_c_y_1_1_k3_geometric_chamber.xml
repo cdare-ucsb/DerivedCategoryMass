@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="45" column="1" bodyfile="src/ProjectiveCY.py" bodystart="45" bodyend="-1"/>
+        <location file="src/ProjectiveCY.py" line="44" column="1" bodyfile="src/ProjectiveCY.py" bodystart="44" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1a60be867150a669c555447d3b9f6be07b" prot="public" static="no" mutable="no">
         <type></type>
@@ -33,7 +33,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="47" column="1" bodyfile="src/ProjectiveCY.py" bodystart="47" bodyend="-1"/>
+        <location file="src/ProjectiveCY.py" line="46" column="1" bodyfile="src/ProjectiveCY.py" bodystart="46" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -92,7 +92,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="29" column="1" bodyfile="src/ProjectiveCY.py" bodystart="29" bodyend="49"/>
+        <location file="src/ProjectiveCY.py" line="28" column="1" bodyfile="src/ProjectiveCY.py" bodystart="28" bodyend="48"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1add32d6d1a97f246e8e6918eb847d6fea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -123,7 +123,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="50" column="1" bodyfile="src/ProjectiveCY.py" bodystart="50" bodyend="72"/>
+        <location file="src/ProjectiveCY.py" line="49" column="1" bodyfile="src/ProjectiveCY.py" bodystart="49" bodyend="71"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1a741e4fb172003d853178d82f95501a54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -136,7 +136,7 @@
           <defname>self</defname>
         </param>
         <param>
-          <type><ref refid="namespacesrc_1_1_local_p1_1a672b2478ed63bd51ebc9acb6569c754b" kindref="member">return_json</ref></type>
+          <type><ref refid="namespacesrc_1_1_local_p2_1aba7ed3df7babb37325bbadaeef0e9f91" kindref="member">return_json</ref></type>
           <defname>return_json</defname>
           <defval>False</defval>
         </param>
@@ -158,7 +158,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="73" column="1" bodyfile="src/ProjectiveCY.py" bodystart="73" bodyend="128"/>
+        <location file="src/ProjectiveCY.py" line="72" column="1" bodyfile="src/ProjectiveCY.py" bodystart="72" bodyend="127"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="protected-func">
@@ -195,7 +195,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="129" column="1" bodyfile="src/ProjectiveCY.py" bodystart="129" bodyend="143"/>
+        <location file="src/ProjectiveCY.py" line="128" column="1" bodyfile="src/ProjectiveCY.py" bodystart="128" bodyend="142"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1a13de70e3968963ac29cc7c07009cf3c3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -224,9 +224,9 @@
         </briefdescription>
         <detaileddescription>
 <para>Suppose (r, lH, s) is the mukai vector of a spherical vector bundle on a degree d K3 surface (H^2 = 2d). Then </para>
-<sect1 id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1autotoc_md2">
+<sect1 id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1autotoc_md0">
 <title>dl^2 - rs = -1. For a corresponding hole in the (α,β) plane, we must have the real and imaginary part of</title></sect1>
-<sect1 id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1autotoc_md3">
+<sect1 id="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1autotoc_md1">
 <title>&lt; exp(αΗ + ι βΗ) , (r, lH, s) &gt; vanish. This gives</title><para>0 = &lt;(1, αH, (α^2 - β^2)d), (r, lH, s)&gt; = 2dal - s - rd(α^2 - β^2) 0 = &lt;(0, βΗ, 2αβd), (r, lH, s)&gt; = 2βdl - 2rdαβ = 2dβ(l - rα)</para>
 <para>The second equation gives β = 0 or l = rα. Since βΗ is necessarily ample, we must have β &gt; 0. Therefore, l = rα. Substituting into the first equation simplifies to</para>
 <para>dl^2 - rs + dr^2 β^2 = 0</para>
@@ -263,7 +263,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="144" column="1" bodyfile="src/ProjectiveCY.py" bodystart="144" bodyend="178"/>
+        <location file="src/ProjectiveCY.py" line="143" column="1" bodyfile="src/ProjectiveCY.py" bodystart="143" bodyend="177"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -272,7 +272,7 @@
     <detaileddescription>
 <para>Since the geometric chamber consists of a Cantor-set of walls associated to the spherical vector bundles on it, there is no accurate way to simultaneously represent all walls at once. Thus, this class provides a method to plot such walls in the (α,β) plane up to some accuracy (i.e. granularity). </para>
     </detaileddescription>
-    <location file="src/ProjectiveCY.py" line="21" column="1" bodyfile="src/ProjectiveCY.py" bodystart="21" bodyend="178"/>
+    <location file="src/ProjectiveCY.py" line="22" column="1" bodyfile="src/ProjectiveCY.py" bodystart="22" bodyend="177"/>
     <listofallmembers>
       <member refid="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1aaad23c5efdf2a72fb851ddba4efde53e" prot="public" virt="non-virtual"><scope>src::ProjectiveCY::K3GeometricChamber</scope><name>__init__</name></member>
       <member refid="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber_1a13de70e3968963ac29cc7c07009cf3c3" prot="protected" virt="non-virtual"><scope>src::ProjectiveCY::K3GeometricChamber</scope><name>_convert_to_alpha_beta</name></member>

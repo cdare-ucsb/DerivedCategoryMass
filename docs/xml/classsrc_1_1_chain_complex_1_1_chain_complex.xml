@@ -18,7 +18,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChainComplex.py" line="105" column="1" bodyfile="src/ChainComplex.py" bodystart="105" bodyend="-1"/>
+        <location file="src/ChainComplex.py" line="97" column="1" bodyfile="src/ChainComplex.py" bodystart="97" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classsrc_1_1_chain_complex_1_1_chain_complex_1a6373f5a40572d1c1b76bfb3e0b0bf40c" prot="public" static="no" mutable="no">
         <type>list</type>
@@ -34,7 +34,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChainComplex.py" line="107" column="1" bodyfile="src/ChainComplex.py" bodystart="107" bodyend="-1"/>
+        <location file="src/ChainComplex.py" line="99" column="1" bodyfile="src/ChainComplex.py" bodystart="99" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classsrc_1_1_chain_complex_1_1_chain_complex_1ad30a876c85094c7347ea6180fb058171" prot="public" static="no" mutable="no">
         <type>list</type>
@@ -50,7 +50,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChainComplex.py" line="109" column="1" bodyfile="src/ChainComplex.py" bodystart="109" bodyend="-1"/>
+        <location file="src/ChainComplex.py" line="101" column="1" bodyfile="src/ChainComplex.py" bodystart="101" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -208,7 +208,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChainComplex.py" line="39" column="1" bodyfile="src/ChainComplex.py" bodystart="39" bodyend="122"/>
+        <location file="src/ChainComplex.py" line="31" column="1" bodyfile="src/ChainComplex.py" bodystart="31" bodyend="114"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1adbfc291368151be74b669b4f2edd9c79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -231,7 +231,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChainComplex.py" line="123" column="1" bodyfile="src/ChainComplex.py" bodystart="123" bodyend="156"/>
+        <location file="src/ChainComplex.py" line="115" column="1" bodyfile="src/ChainComplex.py" bodystart="115" bodyend="148"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1a85e811d0d0ed0e471f7666c51e7a483e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -253,7 +253,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChainComplex.py" line="157" column="1" bodyfile="src/ChainComplex.py" bodystart="157" bodyend="166"/>
+        <location file="src/ChainComplex.py" line="149" column="1" bodyfile="src/ChainComplex.py" bodystart="149" bodyend="158"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1a0d7b95df49db36f52234bd8809b6a843" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -277,7 +277,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChainComplex.py" line="167" column="1" bodyfile="src/ChainComplex.py" bodystart="167" bodyend="190"/>
+        <location file="src/ChainComplex.py" line="159" column="1" bodyfile="src/ChainComplex.py" bodystart="159" bodyend="182"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1a70373ec03d47a5d6dd8e8694186ae138" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -339,7 +339,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChainComplex.py" line="191" column="1" bodyfile="src/ChainComplex.py" bodystart="191" bodyend="253"/>
+        <location file="src/ChainComplex.py" line="183" column="1" bodyfile="src/ChainComplex.py" bodystart="183" bodyend="245"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1a06ddcc7b614880bd8889c944f76237ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -375,7 +375,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChainComplex.py" line="254" column="1" bodyfile="src/ChainComplex.py" bodystart="254" bodyend="266"/>
+        <location file="src/ChainComplex.py" line="246" column="1" bodyfile="src/ChainComplex.py" bodystart="246" bodyend="258"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1a6fb46ca115fc7fef97f7f4676a74cfe8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -397,7 +397,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChainComplex.py" line="267" column="1" bodyfile="src/ChainComplex.py" bodystart="267" bodyend="276"/>
+        <location file="src/ChainComplex.py" line="259" column="1" bodyfile="src/ChainComplex.py" bodystart="259" bodyend="268"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1a36340635bb9a289121eb96778a5b4da3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -459,7 +459,7 @@ Harder-Narasimhan factor&quot; for the complex, since Chain complexes will almos
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChainComplex.py" line="319" column="1" bodyfile="src/ChainComplex.py" bodystart="319" bodyend="374"/>
+        <location file="src/ChainComplex.py" line="311" column="1" bodyfile="src/ChainComplex.py" bodystart="311" bodyend="366"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1adc104a639fb1e10753ad4552ba9b1792" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -521,7 +521,7 @@ Harder-Narasimhan factor&quot; for the complex, since Chain complexes will almos
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChainComplex.py" line="375" column="1" bodyfile="src/ChainComplex.py" bodystart="375" bodyend="433"/>
+        <location file="src/ChainComplex.py" line="367" column="1" bodyfile="src/ChainComplex.py" bodystart="367" bodyend="425"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1ab0ec73042f19e9896f67b2a1724928d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -585,7 +585,7 @@ Harder-Narasimhan factor&quot; for the complex, since Chain complexes will almos
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChainComplex.py" line="434" column="1" bodyfile="src/ChainComplex.py" bodystart="434" bodyend="486"/>
+        <location file="src/ChainComplex.py" line="426" column="1" bodyfile="src/ChainComplex.py" bodystart="426" bodyend="478"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="protected-func">
@@ -606,7 +606,7 @@ Harder-Narasimhan factor&quot; for the complex, since Chain complexes will almos
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChainComplex.py" line="277" column="1" bodyfile="src/ChainComplex.py" bodystart="277" bodyend="287"/>
+        <location file="src/ChainComplex.py" line="269" column="1" bodyfile="src/ChainComplex.py" bodystart="269" bodyend="279"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chain_complex_1_1_chain_complex_1aa0baf08c80270b5ccdf997788aeb1070" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -626,7 +626,7 @@ Harder-Narasimhan factor&quot; for the complex, since Chain complexes will almos
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChainComplex.py" line="288" column="1" bodyfile="src/ChainComplex.py" bodystart="288" bodyend="318"/>
+        <location file="src/ChainComplex.py" line="280" column="1" bodyfile="src/ChainComplex.py" bodystart="280" bodyend="310"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -636,12 +636,7 @@ Harder-Narasimhan factor&quot; for the complex, since Chain complexes will almos
 <para>In the derived category of coherent sheaves on P^2, we can represent a chain complex as a sequence of coherent sheaves with a shift. For instance, a general complex will be of the form <verbatim>         i=-n       i=-n+1      i=-n+2    ...
 0 ------&gt; E1 -------&gt; E2 --------&gt; E3 ---&gt; ...
 </verbatim></para>
-<para>(A priori, there is no reason the complexes cant also descend infinitely in the other direction). For the purposes of this project, only finite complexes will be considered. Such a complex can be stored in a similar way to a DenseVector object <mdash/> namely, since the majority of entries in the complex will be zero, we can store the complex as a list of coherent sheaves and a shift vector.</para>
-<sect1 id="classsrc_1_1_chain_complex_1_1_chain_complex_1autotoc_md0_1s1"><sect2 id="classsrc_1_1_chain_complex_1_1_chain_complex_1autotoc_md0">
-<title>Attributes:</title><para>sheaf_vector (list) : A list of coherent sheaves in the complex</para>
-<para>shift_vector (list) : A list of homological shifts in the complex</para>
-<para>dimension_vector (list) : A list of the number of direct sums of each coherent sheaf in the complex </para>
-</sect2></sect1>
+<para>(A priori, there is no reason the complexes cant also descend infinitely in the other direction). For the purposes of this project, only finite complexes will be considered. Such a complex can be stored in a similar way to a DenseVector object <mdash/> namely, since the majority of entries in the complex will be zero, we can store the complex as a list of coherent sheaves and a shift vector. </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="1">
@@ -667,7 +662,7 @@ Harder-Narasimhan factor&quot; for the complex, since Chain complexes will almos
         <link refid="classsrc_1_1_derived_category_object_1_1_derived_category_object"/>
       </node>
     </collaborationgraph>
-    <location file="src/ChainComplex.py" line="14" column="1" bodyfile="src/ChainComplex.py" bodystart="14" bodyend="486"/>
+    <location file="src/ChainComplex.py" line="14" column="1" bodyfile="src/ChainComplex.py" bodystart="14" bodyend="478"/>
     <listofallmembers>
       <member refid="classsrc_1_1_chain_complex_1_1_chain_complex_1a72ab48cf534d48b0f2cc7e55c09b6a54" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>__init__</name></member>
       <member refid="classsrc_1_1_chain_complex_1_1_chain_complex_1a85e811d0d0ed0e471f7666c51e7a483e" prot="public" virt="non-virtual"><scope>src::ChainComplex::ChainComplex</scope><name>__len__</name></member>

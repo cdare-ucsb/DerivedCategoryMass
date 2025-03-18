@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChernCharacter.py" line="56" column="1" bodyfile="src/ChernCharacter.py" bodystart="56" bodyend="-1"/>
+        <location file="src/ChernCharacter.py" line="41" column="1" bodyfile="src/ChernCharacter.py" bodystart="41" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -63,7 +63,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChernCharacter.py" line="33" column="1" bodyfile="src/ChernCharacter.py" bodystart="33" bodyend="57"/>
+        <location file="src/ChernCharacter.py" line="18" column="1" bodyfile="src/ChernCharacter.py" bodystart="18" bodyend="42"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1a7d054c5d0019e163f87efe8b8f36d670" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -116,7 +116,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChernCharacter.py" line="58" column="1" bodyfile="src/ChernCharacter.py" bodystart="58" bodyend="78"/>
+        <location file="src/ChernCharacter.py" line="43" column="1" bodyfile="src/ChernCharacter.py" bodystart="43" bodyend="63"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1aae8f368443f6dbecc24f447177af0699" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -169,7 +169,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChernCharacter.py" line="79" column="1" bodyfile="src/ChernCharacter.py" bodystart="79" bodyend="100"/>
+        <location file="src/ChernCharacter.py" line="64" column="1" bodyfile="src/ChernCharacter.py" bodystart="64" bodyend="85"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1a27eb6a2909ed50cb45bbbb1baeb34093" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -214,7 +214,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChernCharacter.py" line="101" column="1" bodyfile="src/ChernCharacter.py" bodystart="101" bodyend="118"/>
+        <location file="src/ChernCharacter.py" line="86" column="1" bodyfile="src/ChernCharacter.py" bodystart="86" bodyend="103"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1a9b357c2038dd0b702e5f4760ec005335" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -258,7 +258,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChernCharacter.py" line="119" column="1" bodyfile="src/ChernCharacter.py" bodystart="119" bodyend="136"/>
+        <location file="src/ChernCharacter.py" line="104" column="1" bodyfile="src/ChernCharacter.py" bodystart="104" bodyend="121"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1ab63c86b4f057004e4f6ba4d06c6ec1ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -294,7 +294,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChernCharacter.py" line="137" column="1" bodyfile="src/ChernCharacter.py" bodystart="137" bodyend="154"/>
+        <location file="src/ChernCharacter.py" line="122" column="1" bodyfile="src/ChernCharacter.py" bodystart="122" bodyend="139"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1a9200a8d0f53ce3cad287ba1f12919a92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -319,7 +319,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChernCharacter.py" line="155" column="1" bodyfile="src/ChernCharacter.py" bodystart="155" bodyend="170"/>
+        <location file="src/ChernCharacter.py" line="140" column="1" bodyfile="src/ChernCharacter.py" bodystart="140" bodyend="155"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1a35932f383b0dccdf1bd84046bac2adb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -364,7 +364,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChernCharacter.py" line="171" column="1" bodyfile="src/ChernCharacter.py" bodystart="171" bodyend="186"/>
+        <location file="src/ChernCharacter.py" line="156" column="1" bodyfile="src/ChernCharacter.py" bodystart="156" bodyend="171"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1a6b52d37e0c59801236e0d49f5fa8ea03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -387,7 +387,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChernCharacter.py" line="187" column="1" bodyfile="src/ChernCharacter.py" bodystart="187" bodyend="195"/>
+        <location file="src/ChernCharacter.py" line="172" column="1" bodyfile="src/ChernCharacter.py" bodystart="172" bodyend="180"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1a73daa8575d8035a236c1d5fdc576465f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -410,7 +410,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChernCharacter.py" line="196" column="1" bodyfile="src/ChernCharacter.py" bodystart="196" bodyend="203"/>
+        <location file="src/ChernCharacter.py" line="181" column="1" bodyfile="src/ChernCharacter.py" bodystart="181" bodyend="188"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1abdf7bff7656f24ffb121a0fc7a39c883" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -433,7 +433,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChernCharacter.py" line="204" column="1" bodyfile="src/ChernCharacter.py" bodystart="204" bodyend="211"/>
+        <location file="src/ChernCharacter.py" line="189" column="1" bodyfile="src/ChernCharacter.py" bodystart="189" bodyend="196"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1a812cb5e194bb0e1c2d6c91404cc07a0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -469,7 +469,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChernCharacter.py" line="212" column="1" bodyfile="src/ChernCharacter.py" bodystart="212" bodyend="223"/>
+        <location file="src/ChernCharacter.py" line="197" column="1" bodyfile="src/ChernCharacter.py" bodystart="197" bodyend="208"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_chern_character_1_1_chern_character_1ad311df0e62323369f3e7e359e5959fcc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -532,23 +532,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ChernCharacter.py" line="224" column="1" bodyfile="src/ChernCharacter.py" bodystart="224" bodyend="249"/>
+        <location file="src/ChernCharacter.py" line="209" column="1" bodyfile="src/ChernCharacter.py" bodystart="209" bodyend="234"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
-<para>Generic parent class for the chern character. </para>
+<para>Generic parent class for the Chern character. </para>
     </briefdescription>
     <detaileddescription>
-<para><verbatim>                                                                        #
-                      Numerical Characters                              #
-</verbatim> -------------------------------------------------------------------------<mdash/># These objects are used to represent Chern classes of coherent sheaves / # vector bundles / line bundles, as well as more abstract constructions # in the derived category of coherent sheaves on some variety. As most # stability conditions will be numerical stability conditions, they will # only rely on the information of Chern characters as opposed to more # arbitrary geometric data. # #</para>
-<para>Chern characters should operate like lists of floating point numbers, since they are graded objects concentrated in degrees going from 0 to the dimension of the variety.</para>
-<sect1 id="classsrc_1_1_chern_character_1_1_chern_character_1autotoc_md1_1s1"><sect2 id="classsrc_1_1_chern_character_1_1_chern_character_1autotoc_md1">
-<title>Attributes:</title><para><verbatim>graded_element (np.array): The graded element of the Chern Character object. This is a numpy array of floats or integers
-</verbatim> </para>
-</sect2></sect1>
+<para>Chern characters should operate like lists of floating point numbers, since they are graded objects concentrated in degrees going from 0 to the dimension of the variety. </para>
     </detaileddescription>
-    <location file="src/ChernCharacter.py" line="20" column="1" bodyfile="src/ChernCharacter.py" bodystart="20" bodyend="249"/>
+    <location file="src/ChernCharacter.py" line="10" column="1" bodyfile="src/ChernCharacter.py" bodystart="10" bodyend="234"/>
     <listofallmembers>
       <member refid="classsrc_1_1_chern_character_1_1_chern_character_1a7d054c5d0019e163f87efe8b8f36d670" prot="public" virt="non-virtual"><scope>src::ChernCharacter::ChernCharacter</scope><name>__add__</name></member>
       <member refid="classsrc_1_1_chern_character_1_1_chern_character_1a812cb5e194bb0e1c2d6c91404cc07a0b" prot="public" virt="non-virtual"><scope>src::ChernCharacter::ChernCharacter</scope><name>__contains__</name></member>

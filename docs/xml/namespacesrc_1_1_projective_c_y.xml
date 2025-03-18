@@ -4,62 +4,215 @@
     <compoundname>src::ProjectiveCY</compoundname>
     <innerclass refid="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber" prot="public">src::ProjectiveCY::K3GeometricChamber</innerclass>
     <sectiondef kind="var">
-      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1ae24dbe6f91328befda2836d4a4b311b7" prot="public" static="no" mutable="no">
-        <type></type>
-        <definition>src::ProjectiveCY.K3</definition>
+      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1ad35f697e36426d705f0dc1ceb67f0c06" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float src::ProjectiveCY.y_granularity</definition>
         <argsstring></argsstring>
-        <name>K3</name>
-        <qualifiedname>src.ProjectiveCY.K3</qualifiedname>
-        <initializer>=  <ref refid="classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber" kindref="compound">K3GeometricChamber</ref>(<ref refid="namespacesrc_1_1_projective_c_y_1ada9e2125f4ff45cabe142cf18d906fad" kindref="member">degree</ref>=1)</initializer>
+        <name>y_granularity</name>
+        <qualifiedname>src.ProjectiveCY.y_granularity</qualifiedname>
+        <initializer>= 0.05</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="625" column="1" bodyfile="src/ProjectiveCY.py" bodystart="625" bodyend="-1"/>
+        <location file="src/ProjectiveCY.py" line="529" column="1" bodyfile="src/ProjectiveCY.py" bodystart="529" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1a0b25b62d9c476894439d5e912c42bb2b" prot="public" static="no" mutable="no">
-        <type></type>
-        <definition>src::ProjectiveCY.filename</definition>
+      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1a8f348febba300e233ff77986391cb251" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float src::ProjectiveCY.x_granularity</definition>
         <argsstring></argsstring>
-        <name>filename</name>
-        <qualifiedname>src.ProjectiveCY.filename</qualifiedname>
+        <name>x_granularity</name>
+        <qualifiedname>src.ProjectiveCY.x_granularity</qualifiedname>
+        <initializer>= 0.1</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="627" column="1" bodyfile="src/ProjectiveCY.py" bodystart="627" bodyend="-1"/>
+        <location file="src/ProjectiveCY.py" line="530" column="1" bodyfile="src/ProjectiveCY.py" bodystart="530" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1ada9e2125f4ff45cabe142cf18d906fad" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1aa92379c0bb5f992e92abb7c3dca6457d" prot="public" static="no" mutable="no">
         <type></type>
-        <definition>src::ProjectiveCY.degree</definition>
+        <definition>src::ProjectiveCY.sph</definition>
         <argsstring></argsstring>
-        <name>degree</name>
-        <qualifiedname>src.ProjectiveCY.degree</qualifiedname>
+        <name>sph</name>
+        <qualifiedname>src.ProjectiveCY.sph</qualifiedname>
+        <initializer>=  <ref refid="classsrc_1_1_spherical_twist_1_1_spherical_twist" kindref="compound">SphericalTwist</ref>(<ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref>(1, catagory=&apos;K3&apos;),
+                          <ref refid="classsrc_1_1_coherent_sheaf_1_1_line_bundle" kindref="compound">LineBundle</ref>(2, catagory=&apos;K3&apos;),
+                          degree=1)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="627" column="1" bodyfile="src/ProjectiveCY.py" bodystart="627" bodyend="-1"/>
+        <location file="src/ProjectiveCY.py" line="535" column="1" bodyfile="src/ProjectiveCY.py" bodystart="535" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1ac22e9c42413a02b1821177c0d7ac1f45" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1a76e1746a1f25f4e68e30b19e2630a526" prot="public" static="no" mutable="no">
         <type></type>
-        <definition>src::ProjectiveCY.to_gif</definition>
+        <definition>src::ProjectiveCY.x_vals</definition>
         <argsstring></argsstring>
-        <name>to_gif</name>
-        <qualifiedname>src.ProjectiveCY.to_gif</qualifiedname>
+        <name>x_vals</name>
+        <qualifiedname>src.ProjectiveCY.x_vals</qualifiedname>
+        <initializer>=  np.arange(-5, 5, <ref refid="namespacesrc_1_1_projective_c_y_1a8f348febba300e233ff77986391cb251" kindref="member">x_granularity</ref>)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="627" column="1" bodyfile="src/ProjectiveCY.py" bodystart="627" bodyend="-1"/>
+        <location file="src/ProjectiveCY.py" line="540" column="1" bodyfile="src/ProjectiveCY.py" bodystart="540" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1aa2b823038df258d3351efc1511eaa8f3" prot="public" static="no" mutable="no">
+        <type>list</type>
+        <definition>src::ProjectiveCY.y_vals</definition>
+        <argsstring></argsstring>
+        <name>y_vals</name>
+        <qualifiedname>src.ProjectiveCY.y_vals</qualifiedname>
+        <initializer>=  []</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ProjectiveCY.py" line="542" column="1" bodyfile="src/ProjectiveCY.py" bodystart="542" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1a8841dad3b57212d7e8a91db0d1b6047f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::ProjectiveCY.y_range</definition>
+        <argsstring></argsstring>
+        <name>y_range</name>
+        <qualifiedname>src.ProjectiveCY.y_range</qualifiedname>
+        <initializer>=  np.arange(0.1, 5, <ref refid="namespacesrc_1_1_projective_c_y_1ad35f697e36426d705f0dc1ceb67f0c06" kindref="member">y_granularity</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ProjectiveCY.py" line="546" column="1" bodyfile="src/ProjectiveCY.py" bodystart="546" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1aa5a6ce53f0145648ace652be8d534758" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::ProjectiveCY.y_vals_len</definition>
+        <argsstring></argsstring>
+        <name>y_vals_len</name>
+        <qualifiedname>src.ProjectiveCY.y_vals_len</qualifiedname>
+        <initializer>=  len(<ref refid="namespacesrc_1_1_projective_c_y_1a8841dad3b57212d7e8a91db0d1b6047f" kindref="member">y_range</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ProjectiveCY.py" line="547" column="1" bodyfile="src/ProjectiveCY.py" bodystart="547" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1a1766d6363ff5d3bc61ca52c3b67c215f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::ProjectiveCY.masses</definition>
+        <argsstring></argsstring>
+        <name>masses</name>
+        <qualifiedname>src.ProjectiveCY.masses</qualifiedname>
+        <initializer>=  np.array([sph.mass(x, y, 1) for x, y in zip(<ref refid="namespacesrc_1_1_projective_c_y_1a76e1746a1f25f4e68e30b19e2630a526" kindref="member">x_vals</ref>, <ref refid="namespacesrc_1_1_projective_c_y_1aa2b823038df258d3351efc1511eaa8f3" kindref="member">y_vals</ref>)])</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ProjectiveCY.py" line="555" column="1" bodyfile="src/ProjectiveCY.py" bodystart="555" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1afbd776198d2d1c90666074f484fcf511" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::ProjectiveCY.fig</definition>
+        <argsstring></argsstring>
+        <name>fig</name>
+        <qualifiedname>src.ProjectiveCY.fig</qualifiedname>
+        <initializer>=  go.Figure(data=[go.Scatter3d(z=<ref refid="namespacesrc_1_1_projective_c_y_1a1766d6363ff5d3bc61ca52c3b67c215f" kindref="member">masses</ref>, x=<ref refid="namespacesrc_1_1_projective_c_y_1a76e1746a1f25f4e68e30b19e2630a526" kindref="member">x_vals</ref>, y=<ref refid="namespacesrc_1_1_projective_c_y_1aa2b823038df258d3351efc1511eaa8f3" kindref="member">y_vals</ref>,
+                                    mode=&apos;markers&apos;, marker=dict(size=3, color=<ref refid="namespacesrc_1_1_projective_c_y_1a1766d6363ff5d3bc61ca52c3b67c215f" kindref="member">masses</ref>, colorscale=&apos;viridis&apos; ))])</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ProjectiveCY.py" line="558" column="1" bodyfile="src/ProjectiveCY.py" bodystart="558" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1a9a5620909a4c3277fc4706370be26b0f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::ProjectiveCY.title</definition>
+        <argsstring></argsstring>
+        <name>title</name>
+        <qualifiedname>src.ProjectiveCY.title</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ProjectiveCY.py" line="562" column="1" bodyfile="src/ProjectiveCY.py" bodystart="562" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1a8926f8c7f11505e74e9a7c0f7138926d" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::ProjectiveCY.autosize</definition>
+        <argsstring></argsstring>
+        <name>autosize</name>
+        <qualifiedname>src.ProjectiveCY.autosize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ProjectiveCY.py" line="563" column="1" bodyfile="src/ProjectiveCY.py" bodystart="563" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1a70dd5337c1f46f42148a94a80c907dd8" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::ProjectiveCY.margin</definition>
+        <argsstring></argsstring>
+        <name>margin</name>
+        <qualifiedname>src.ProjectiveCY.margin</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ProjectiveCY.py" line="564" column="1" bodyfile="src/ProjectiveCY.py" bodystart="564" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1a30fc1a649ebfbbe9ca2a645103ac90fc" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::ProjectiveCY.scene</definition>
+        <argsstring></argsstring>
+        <name>scene</name>
+        <qualifiedname>src.ProjectiveCY.scene</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ProjectiveCY.py" line="565" column="1" bodyfile="src/ProjectiveCY.py" bodystart="565" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacesrc_1_1_projective_c_y_1a46264cbc316720c5312f9af95df79d46" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src::ProjectiveCY.discont</definition>
+        <argsstring></argsstring>
+        <name>discont</name>
+        <qualifiedname>src.ProjectiveCY.discont</qualifiedname>
+        <initializer>=  <ref refid="namespacesrc_1_1_projective_c_y_1a05fbaf86af1a8953eeefb5599d6cb5fd" kindref="member">find_discontinuities_disc_Lapl_in_single_twist_mass_K3</ref>(1, 2, degree=1,
+                                                                    plot=<ref refid="namespacesrc_1_1_local_p2_1a6b6506e483df735954e483bf0e8bf95a" kindref="member">True</ref>, colorscale=&apos;Viridis&apos;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ProjectiveCY.py" line="591" column="1" bodyfile="src/ProjectiveCY.py" bodystart="591" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="func">
@@ -128,7 +281,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="179" column="1" bodyfile="src/ProjectiveCY.py" bodystart="179" bodyend="191"/>
+        <location file="src/ProjectiveCY.py" line="178" column="1" bodyfile="src/ProjectiveCY.py" bodystart="178" bodyend="190"/>
       </memberdef>
       <memberdef kind="function" id="namespacesrc_1_1_projective_c_y_1a2db5a8aacda64885e275d3f7793e6fa7" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -195,7 +348,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="192" column="1" bodyfile="src/ProjectiveCY.py" bodystart="192" bodyend="205"/>
+        <location file="src/ProjectiveCY.py" line="191" column="1" bodyfile="src/ProjectiveCY.py" bodystart="191" bodyend="204"/>
       </memberdef>
       <memberdef kind="function" id="namespacesrc_1_1_projective_c_y_1a331c9adbbb19c1823efa42e532207e3d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -225,7 +378,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="206" column="1" bodyfile="src/ProjectiveCY.py" bodystart="206" bodyend="208"/>
+        <location file="src/ProjectiveCY.py" line="205" column="1" bodyfile="src/ProjectiveCY.py" bodystart="205" bodyend="207"/>
       </memberdef>
       <memberdef kind="function" id="namespacesrc_1_1_projective_c_y_1a1e077488e7376b64e1db5fd401aab0ef" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -255,7 +408,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="209" column="1" bodyfile="src/ProjectiveCY.py" bodystart="209" bodyend="211"/>
+        <location file="src/ProjectiveCY.py" line="208" column="1" bodyfile="src/ProjectiveCY.py" bodystart="208" bodyend="210"/>
       </memberdef>
       <memberdef kind="function" id="namespacesrc_1_1_projective_c_y_1a94b6a7b70679ed56fbbaaeda4dc757aa" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -293,7 +446,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="212" column="1" bodyfile="src/ProjectiveCY.py" bodystart="212" bodyend="216"/>
+        <location file="src/ProjectiveCY.py" line="211" column="1" bodyfile="src/ProjectiveCY.py" bodystart="211" bodyend="215"/>
       </memberdef>
       <memberdef kind="function" id="namespacesrc_1_1_projective_c_y_1a00145c543b8939445e77cf8c1f0dd8d1" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -331,7 +484,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="217" column="1" bodyfile="src/ProjectiveCY.py" bodystart="217" bodyend="223"/>
+        <location file="src/ProjectiveCY.py" line="216" column="1" bodyfile="src/ProjectiveCY.py" bodystart="216" bodyend="222"/>
       </memberdef>
       <memberdef kind="function" id="namespacesrc_1_1_projective_c_y_1aa28a5c422a4962906cbfa11eb9d6cbd8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -340,16 +493,16 @@
         <name>complex_hypersurface_matplot_animation_ex1</name>
         <qualifiedname>src.ProjectiveCY.complex_hypersurface_matplot_animation_ex1</qualifiedname>
         <param>
-          <type><ref refid="namespacesrc_1_1_projective_c_y_1ada9e2125f4ff45cabe142cf18d906fad" kindref="member">degree</ref></type>
+          <type>degree</type>
           <defname>degree</defname>
         </param>
         <param>
-          <type><ref refid="namespacesrc_1_1_projective_c_y_1a0b25b62d9c476894439d5e912c42bb2b" kindref="member">filename</ref></type>
+          <type>filename</type>
           <defname>filename</defname>
           <defval>&apos;hypersurf&apos;</defval>
         </param>
         <param>
-          <type><ref refid="namespacesrc_1_1_projective_c_y_1ac22e9c42413a02b1821177c0d7ac1f45" kindref="member">to_gif</ref></type>
+          <type>to_gif</type>
           <defname>to_gif</defname>
           <defval>False</defval>
         </param>
@@ -359,12 +512,12 @@
           <defval>False</defval>
         </param>
         <param>
-          <type>y_granularity</type>
+          <type><ref refid="namespacesrc_1_1_projective_c_y_1ad35f697e36426d705f0dc1ceb67f0c06" kindref="member">y_granularity</ref></type>
           <defname>y_granularity</defname>
           <defval>30</defval>
         </param>
         <param>
-          <type>x_granularity</type>
+          <type><ref refid="namespacesrc_1_1_projective_c_y_1a8f348febba300e233ff77986391cb251" kindref="member">x_granularity</ref></type>
           <defname>x_granularity</defname>
           <defval>30</defval>
         </param>
@@ -463,7 +616,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="224" column="1" bodyfile="src/ProjectiveCY.py" bodystart="227" bodyend="296"/>
+        <location file="src/ProjectiveCY.py" line="223" column="1" bodyfile="src/ProjectiveCY.py" bodystart="226" bodyend="295"/>
       </memberdef>
       <memberdef kind="function" id="namespacesrc_1_1_projective_c_y_1aeda1da0b5fd93a28cf76877ec9b091d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -472,11 +625,11 @@
         <name>complex_hypersurface_plotly_ex1</name>
         <qualifiedname>src.ProjectiveCY.complex_hypersurface_plotly_ex1</qualifiedname>
         <param>
-          <type><ref refid="namespacesrc_1_1_projective_c_y_1ada9e2125f4ff45cabe142cf18d906fad" kindref="member">degree</ref></type>
+          <type>degree</type>
           <defname>degree</defname>
         </param>
         <param>
-          <type><ref refid="namespacesrc_1_1_projective_c_y_1a0b25b62d9c476894439d5e912c42bb2b" kindref="member">filename</ref></type>
+          <type>filename</type>
           <defname>filename</defname>
           <defval>&quot;hypersurface.html&quot;</defval>
         </param>
@@ -486,17 +639,17 @@
           <defval>False</defval>
         </param>
         <param>
-          <type><ref refid="namespacesrc_1_1_local_p1_1a672b2478ed63bd51ebc9acb6569c754b" kindref="member">return_json</ref></type>
+          <type><ref refid="namespacesrc_1_1_local_p2_1aba7ed3df7babb37325bbadaeef0e9f91" kindref="member">return_json</ref></type>
           <defname>return_json</defname>
           <defval>False</defval>
         </param>
         <param>
-          <type>y_granularity</type>
+          <type><ref refid="namespacesrc_1_1_projective_c_y_1ad35f697e36426d705f0dc1ceb67f0c06" kindref="member">y_granularity</ref></type>
           <defname>y_granularity</defname>
           <defval>30</defval>
         </param>
         <param>
-          <type>x_granularity</type>
+          <type><ref refid="namespacesrc_1_1_projective_c_y_1a8f348febba300e233ff77986391cb251" kindref="member">x_granularity</ref></type>
           <defname>x_granularity</defname>
           <defval>30</defval>
         </param>
@@ -560,14 +713,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="303" column="1" bodyfile="src/ProjectiveCY.py" bodystart="305" bodyend="348"/>
+        <location file="src/ProjectiveCY.py" line="302" column="1" bodyfile="src/ProjectiveCY.py" bodystart="304" bodyend="347"/>
       </memberdef>
-      <memberdef kind="function" id="namespacesrc_1_1_projective_c_y_1af09b185bc17262d77193a3eb0f1ae585" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacesrc_1_1_projective_c_y_1a05fbaf86af1a8953eeefb5599d6cb5fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
-        <definition>src.ProjectiveCY.ints_to_mass_plot_K3_sing_twist</definition>
-        <argsstring>(line_bundle_1, line_bundle_2, degree=1, return_json=False)</argsstring>
-        <name>ints_to_mass_plot_K3_sing_twist</name>
-        <qualifiedname>src.ProjectiveCY.ints_to_mass_plot_K3_sing_twist</qualifiedname>
+        <definition>src.ProjectiveCY.find_discontinuities_disc_Lapl_in_single_twist_mass_K3</definition>
+        <argsstring>(line_bundle_1, line_bundle_2, degree=1, plot=False, colorscale=&apos;plasma&apos;, x_min=-5, x_max=5, x_granularity=0.1, y_min=0, y_max=5, y_granularity=0.05)</argsstring>
+        <name>find_discontinuities_disc_Lapl_in_single_twist_mass_K3</name>
+        <qualifiedname>src.ProjectiveCY.find_discontinuities_disc_Lapl_in_single_twist_mass_K3</qualifiedname>
         <param>
           <type><ref refid="namespacesrc_1_1_local_p2_1a43573e56e18e52559a2d31128936f558" kindref="member">line_bundle_1</ref></type>
           <defname>line_bundle_1</defname>
@@ -577,20 +730,55 @@
           <defname>line_bundle_2</defname>
         </param>
         <param>
-          <type><ref refid="namespacesrc_1_1_projective_c_y_1ada9e2125f4ff45cabe142cf18d906fad" kindref="member">degree</ref></type>
+          <type>degree</type>
           <defname>degree</defname>
           <defval>1</defval>
         </param>
         <param>
-          <type><ref refid="namespacesrc_1_1_local_p1_1a672b2478ed63bd51ebc9acb6569c754b" kindref="member">return_json</ref></type>
-          <defname>return_json</defname>
+          <type>plot</type>
+          <defname>plot</defname>
           <defval>False</defval>
+        </param>
+        <param>
+          <type>colorscale</type>
+          <defname>colorscale</defname>
+          <defval>&apos;plasma&apos;</defval>
+        </param>
+        <param>
+          <type>x_min</type>
+          <defname>x_min</defname>
+          <defval>-5</defval>
+        </param>
+        <param>
+          <type>x_max</type>
+          <defname>x_max</defname>
+          <defval>5</defval>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_projective_c_y_1a8f348febba300e233ff77986391cb251" kindref="member">x_granularity</ref></type>
+          <defname>x_granularity</defname>
+          <defval>0.1</defval>
+        </param>
+        <param>
+          <type>y_min</type>
+          <defname>y_min</defname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>y_max</type>
+          <defname>y_max</defname>
+          <defval>5</defval>
+        </param>
+        <param>
+          <type><ref refid="namespacesrc_1_1_projective_c_y_1ad35f697e36426d705f0dc1ceb67f0c06" kindref="member">y_granularity</ref></type>
+          <defname>y_granularity</defname>
+          <defval>0.05</defval>
         </param>
         <briefdescription>
 <para>FLASK METHODS #. </para>
         </briefdescription>
         <detaileddescription>
-<para>Helper method to plot the mass of a single spherical twist on a K3 surface, and potentially pass the output as a JSON string. This is primarily used for the Flask application, which feeds it to an HTML template.</para>
+<para>Method to find the discontinuities in the mass of a single spherical twist on a K3 surface using the discretized Laplacian. The method computes the discretized Laplacian values at each point in the (x,y) plane, and then computes the average and standard deviation of the discretized Laplacian values. The method then highlights the points in the (x,y) plane that have a discretized Laplacian value greater than the average plus the standard deviation.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>int</parametername>
@@ -612,249 +800,71 @@
 <parametername>int</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>degree: The degree of the K3 surface </para>
+<para>degree The degree of the K3 surface </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>bool</parametername>
+<parametername>plot</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>return_json: A flag indicating whether the plot should be returned as a JSON string</para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>str A JSON string representation of the plot</para>
-</simplesect>
-<parameterlist kind="exception"><parameteritem>
-<parameternamelist>
-<parametername>ValueError</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>If the input data is not an integer </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="357" column="1" bodyfile="src/ProjectiveCY.py" bodystart="357" bodyend="435"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacesrc_1_1_projective_c_y_1ac8416ebf9e2300e333b4d25adc0f0fd5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>src.ProjectiveCY.ints_to_mass_plot_K3_double_twist</definition>
-        <argsstring>(line_bundle_1, line_bundle_2, line_bundle_3, degree=1, return_json=False)</argsstring>
-        <name>ints_to_mass_plot_K3_double_twist</name>
-        <qualifiedname>src.ProjectiveCY.ints_to_mass_plot_K3_double_twist</qualifiedname>
-        <param>
-          <type><ref refid="namespacesrc_1_1_local_p2_1a43573e56e18e52559a2d31128936f558" kindref="member">line_bundle_1</ref></type>
-          <defname>line_bundle_1</defname>
-        </param>
-        <param>
-          <type><ref refid="namespacesrc_1_1_local_p2_1ae9dd2ce41559bc7d27aeebcd188761d1" kindref="member">line_bundle_2</ref></type>
-          <defname>line_bundle_2</defname>
-        </param>
-        <param>
-          <type>line_bundle_3</type>
-          <defname>line_bundle_3</defname>
-        </param>
-        <param>
-          <type><ref refid="namespacesrc_1_1_projective_c_y_1ada9e2125f4ff45cabe142cf18d906fad" kindref="member">degree</ref></type>
-          <defname>degree</defname>
-          <defval>1</defval>
-        </param>
-        <param>
-          <type><ref refid="namespacesrc_1_1_local_p1_1a672b2478ed63bd51ebc9acb6569c754b" kindref="member">return_json</ref></type>
-          <defname>return_json</defname>
-          <defval>False</defval>
-        </param>
-        <briefdescription>
-<para>Helper method to plot the mass of a double spherical twist on a K3 surface, and potentially pass the output as a JSON string. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>This is primarily used for the Flask application, which feeds it to an HTML template.</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>int</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>line_bundle_1 The line bundle of the object being twisted </para>
+<para>A flag indicating whether the discontinuities should be plotted </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>int</parametername>
+<parametername>str</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>line_bundle_2 The line bundle of the object being twisted by </para>
+<para>colorscale The colorscale to be used in the plot </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>int</parametername>
+<parametername>float</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>line_bundle_3: The line bundle of the object being twisted by <linebreak/>
-</para>
+<para>x_min The minimum x value for the plot </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>int</parametername>
+<parametername>float</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>degree: The degree of the K3 surface</para>
+<para>x_max The maximum x value for the plot </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>bool</parametername>
+<parametername>float</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>return_json A flag indicating whether the plot should be returned as a JSON string</para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>str A JSON string representation of the plot</para>
-</simplesect>
-<parameterlist kind="exception"><parameteritem>
-<parameternamelist>
-<parametername>ValueError</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>If the input data is not an integer </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="436" column="1" bodyfile="src/ProjectiveCY.py" bodystart="436" bodyend="520"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacesrc_1_1_projective_c_y_1ac16597928445d3dac8faf9f75d50cd76" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>src.ProjectiveCY.single_twist_triangle_to_json_K3</definition>
-        <argsstring>(line_bundle_1, line_bundle_2, degree=1)</argsstring>
-        <name>single_twist_triangle_to_json_K3</name>
-        <qualifiedname>src.ProjectiveCY.single_twist_triangle_to_json_K3</qualifiedname>
-        <param>
-          <type><ref refid="namespacesrc_1_1_local_p2_1a43573e56e18e52559a2d31128936f558" kindref="member">line_bundle_1</ref></type>
-          <defname>line_bundle_1</defname>
-        </param>
-        <param>
-          <type><ref refid="namespacesrc_1_1_local_p2_1ae9dd2ce41559bc7d27aeebcd188761d1" kindref="member">line_bundle_2</ref></type>
-          <defname>line_bundle_2</defname>
-        </param>
-        <param>
-          <type><ref refid="namespacesrc_1_1_projective_c_y_1ada9e2125f4ff45cabe142cf18d906fad" kindref="member">degree</ref></type>
-          <defname>degree</defname>
-          <defval>1</defval>
-        </param>
-        <briefdescription>
-<para>Helper function to convert the data of a spherical twist triangle to a JSON string. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>The data includes the sheaf vectors, shift vectors, and dimension vectors of the objects in the triangle. This is primarily used for the front-end visualization of the spherical twist triangle in a Flask application.</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>int</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>line_bundle_1 The line bundle of the first object in the spherical twist triangle </para>
+<para>x_granularity The granularity of the x-axis </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>int</parametername>
+<parametername>float</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>line_bundle_2 The line bundle of the second object in the spherical twist triangle </para>
+<para>y_min The minimum y value for the plot </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>int</parametername>
+<parametername>float</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>degree The degree of the K3 surface</para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<parameterlist kind="exception"><parameteritem>
-<parameternamelist>
-<parametername>ValueError</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>If the input data is not an integer </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="521" column="1" bodyfile="src/ProjectiveCY.py" bodystart="521" bodyend="569"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacesrc_1_1_projective_c_y_1af154259f38f2331aa0a3de807231e893" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>src.ProjectiveCY.double_twist_triangle_to_json_K3</definition>
-        <argsstring>(line_bundle_1, line_bundle_2, line_bundle_3, degree=1)</argsstring>
-        <name>double_twist_triangle_to_json_K3</name>
-        <qualifiedname>src.ProjectiveCY.double_twist_triangle_to_json_K3</qualifiedname>
-        <param>
-          <type><ref refid="namespacesrc_1_1_local_p2_1a43573e56e18e52559a2d31128936f558" kindref="member">line_bundle_1</ref></type>
-          <defname>line_bundle_1</defname>
-        </param>
-        <param>
-          <type><ref refid="namespacesrc_1_1_local_p2_1ae9dd2ce41559bc7d27aeebcd188761d1" kindref="member">line_bundle_2</ref></type>
-          <defname>line_bundle_2</defname>
-        </param>
-        <param>
-          <type>line_bundle_3</type>
-          <defname>line_bundle_3</defname>
-        </param>
-        <param>
-          <type><ref refid="namespacesrc_1_1_projective_c_y_1ada9e2125f4ff45cabe142cf18d906fad" kindref="member">degree</ref></type>
-          <defname>degree</defname>
-          <defval>1</defval>
-        </param>
-        <briefdescription>
-<para>Helper function to convert the data of a spherical twist triangle to a JSON string. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>The data includes the sheaf vectors, shift vectors, and dimension vectors of the objects in the triangle. This is primarily used for the front-end visualization of the spherical twist triangle in a Flask application.</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>int</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>line_bundle_1 The line bundle of the first object in the spherical twist triangle </para>
+<para>y_max The maximum y value for the plot </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>int</parametername>
+<parametername>float</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>line_bundle_2 The line bundle of the second object in the spherical twist triangle </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>int</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>line_bundle_3: The line bundle of the third object in the spherical twist triangle </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>int</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>degree The degree of the K3 surface</para>
+<para>y_granularity The granularity of the y-axis</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -867,13 +877,13 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>str A JSON string representation of the spherical twist triangle data </para>
+<simplesect kind="return"><para>list A list of tuples representing the discontinuities in the mass of the spherical twist </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ProjectiveCY.py" line="570" column="1" bodyfile="src/ProjectiveCY.py" bodystart="570" bodyend="622"/>
+        <location file="src/ProjectiveCY.py" line="360" column="1" bodyfile="src/ProjectiveCY.py" bodystart="363" bodyend="520"/>
       </memberdef>
     </sectiondef>
     <briefdescription>

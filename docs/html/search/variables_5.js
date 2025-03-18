@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['graded_5felement_0',['graded_element',['../classsrc_1_1_chern_character_1_1_chern_character.html#a2fc8384e7523d58bfef9daea2663d9d9',1,'src::ChernCharacter::ChernCharacter']]],
-  ['granularity_1',['granularity',['../classsrc_1_1_local_p2_1_1_le_potier.html#a65cd054cbf766d2fe5a51d13a3921840',1,'src.LocalP2.LePotier.granularity'],['../classsrc_1_1_projective_c_y_1_1_k3_geometric_chamber.html#a60be867150a669c555447d3b9f6be07b',1,'src.ProjectiveCY.K3GeometricChamber.granularity'],['../namespacesrc_1_1_local_p2.html#a1c1f34fd485831cda6b2621f2a18f523',1,'src.LocalP2.granularity']]]
+  ['fig_0',['fig',['../namespacesrc_1_1_projective_c_y.html#afbd776198d2d1c90666074f484fcf511',1,'src.ProjectiveCY.fig'],['../namespacesrc_1_1_spherical_twist.html#a0019d0dc829ecd5586a727b073225b34',1,'src.SphericalTwist.fig']]],
+  ['fig1_1',['fig1',['../namespacesrc_1_1_mass_plot.html#a992c2f843487e19ac3babe503a04c703',1,'src::MassPlot']]],
+  ['fig2_2',['fig2',['../namespacesrc_1_1_mass_plot.html#a2fbfb4e7b498c76b57a5c3ab772aadb3',1,'src::MassPlot']]],
+  ['filename_3',['filename',['../namespacesrc_1_1model.html#a147e42d5724688650c476630def97857',1,'src::model']]]
 ];

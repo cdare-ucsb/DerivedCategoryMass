@@ -9,16 +9,31 @@
         <argsstring></argsstring>
         <name>granularity</name>
         <qualifiedname>src.LocalP2.LePotier.granularity</qualifiedname>
-        <initializer>=  <ref refid="namespacesrc_1_1_local_p2_1a25915f5179e1c16a57ff5a08d7ec7aac" kindref="member">width</ref></initializer>
+        <initializer>=  granularity</initializer>
         <briefdescription>
 <para>The number of bits of precision to use in the calculation of the curve. </para>
         </briefdescription>
         <detaileddescription>
-<para>The width of the curve in terms of the number of dyadic characters </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="src/LocalP2.py" line="33" column="1" bodyfile="src/LocalP2.py" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsrc_1_1_local_p2_1_1_le_potier_1a60c614144a2cf3383465e6021b619658" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>src.LocalP2.LePotier::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <qualifiedname>src.LocalP2.LePotier.width</qualifiedname>
+        <initializer>=  width</initializer>
+        <briefdescription>
+<para>The width of the curve in terms of the number of dyadic characters. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LocalP2.py" line="35" column="1" bodyfile="src/LocalP2.py" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classsrc_1_1_local_p2_1_1_le_potier_1a22d323544cc496f65793489d1929e3f7" prot="public" static="no" mutable="no">
         <type>list</type>
@@ -35,7 +50,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LocalP2.py" line="39" column="1" bodyfile="src/LocalP2.py" bodystart="39" bodyend="-1"/>
+        <location file="src/LocalP2.py" line="40" column="1" bodyfile="src/LocalP2.py" bodystart="40" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -55,7 +70,7 @@
           <defval>5</defval>
         </param>
         <param>
-          <type><ref refid="namespacesrc_1_1_local_p2_1a25915f5179e1c16a57ff5a08d7ec7aac" kindref="member">width</ref></type>
+          <type><ref refid="classsrc_1_1_local_p2_1_1_le_potier_1a60c614144a2cf3383465e6021b619658" kindref="member">width</ref></type>
           <defname>width</defname>
           <defval>5</defval>
         </param>
@@ -85,7 +100,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LocalP2.py" line="24" column="1" bodyfile="src/LocalP2.py" bodystart="24" bodyend="50"/>
+        <location file="src/LocalP2.py" line="24" column="1" bodyfile="src/LocalP2.py" bodystart="24" bodyend="51"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_local_p2_1_1_le_potier_1a0cb51e30a5da5e950c29853b96e06cb4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -132,7 +147,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LocalP2.py" line="155" column="1" bodyfile="src/LocalP2.py" bodystart="155" bodyend="169"/>
+        <location file="src/LocalP2.py" line="156" column="1" bodyfile="src/LocalP2.py" bodystart="156" bodyend="170"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_local_p2_1_1_le_potier_1ae0dc36c60dc5c66eb1b8400934432910" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -176,7 +191,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LocalP2.py" line="170" column="1" bodyfile="src/LocalP2.py" bodystart="170" bodyend="200"/>
+        <location file="src/LocalP2.py" line="171" column="1" bodyfile="src/LocalP2.py" bodystart="171" bodyend="201"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_local_p2_1_1_le_potier_1a98c74228cc90ec340155a87a1faed22f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -265,7 +280,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LocalP2.py" line="201" column="1" bodyfile="src/LocalP2.py" bodystart="203" bodyend="327"/>
+        <location file="src/LocalP2.py" line="202" column="1" bodyfile="src/LocalP2.py" bodystart="204" bodyend="328"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="protected-func">
@@ -323,7 +338,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LocalP2.py" line="51" column="1" bodyfile="src/LocalP2.py" bodystart="51" bodyend="80"/>
+        <location file="src/LocalP2.py" line="52" column="1" bodyfile="src/LocalP2.py" bodystart="52" bodyend="81"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_local_p2_1_1_le_potier_1a1f2ab9bbc1ec5d20f5b9ee8d63484b0c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -370,7 +385,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LocalP2.py" line="81" column="1" bodyfile="src/LocalP2.py" bodystart="81" bodyend="92"/>
+        <location file="src/LocalP2.py" line="82" column="1" bodyfile="src/LocalP2.py" bodystart="82" bodyend="93"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_local_p2_1_1_le_potier_1a4b784700b98acb84b477cfeb5f4a6462" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -417,7 +432,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LocalP2.py" line="93" column="1" bodyfile="src/LocalP2.py" bodystart="93" bodyend="104"/>
+        <location file="src/LocalP2.py" line="94" column="1" bodyfile="src/LocalP2.py" bodystart="94" bodyend="105"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_local_p2_1_1_le_potier_1a5aa2effddb78b1e0a4d9a4c27590b085" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -464,7 +479,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LocalP2.py" line="105" column="1" bodyfile="src/LocalP2.py" bodystart="105" bodyend="129"/>
+        <location file="src/LocalP2.py" line="106" column="1" bodyfile="src/LocalP2.py" bodystart="106" bodyend="130"/>
       </memberdef>
       <memberdef kind="function" id="classsrc_1_1_local_p2_1_1_le_potier_1ac37ef4a5179651aa7b22679724112420" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -511,7 +526,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LocalP2.py" line="130" column="1" bodyfile="src/LocalP2.py" bodystart="130" bodyend="154"/>
+        <location file="src/LocalP2.py" line="131" column="1" bodyfile="src/LocalP2.py" bodystart="131" bodyend="155"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -521,7 +536,7 @@
 <para>An algorithmic description of how to obtain the coordinates of exceptional vector bundles is described in</para>
 <para><ulink url="https://link.springer.com/article/10.1007/s00029-017-0352-4">https://link.springer.com/article/10.1007/s00029-017-0352-4</ulink> </para>
     </detaileddescription>
-    <location file="src/LocalP2.py" line="14" column="1" bodyfile="src/LocalP2.py" bodystart="14" bodyend="327"/>
+    <location file="src/LocalP2.py" line="14" column="1" bodyfile="src/LocalP2.py" bodystart="14" bodyend="328"/>
     <listofallmembers>
       <member refid="classsrc_1_1_local_p2_1_1_le_potier_1a8fb86a6de5ba7866c61fa4ec1d3be584" prot="public" virt="non-virtual"><scope>src::LocalP2::LePotier</scope><name>__init__</name></member>
       <member refid="classsrc_1_1_local_p2_1_1_le_potier_1a5aa2effddb78b1e0a4d9a4c27590b085" prot="protected" virt="non-virtual"><scope>src::LocalP2::LePotier</scope><name>_e_left</name></member>
@@ -534,6 +549,7 @@
       <member refid="classsrc_1_1_local_p2_1_1_le_potier_1a65cd054cbf766d2fe5a51d13a3921840" prot="public" virt="non-virtual"><scope>src::LocalP2::LePotier</scope><name>granularity</name></member>
       <member refid="classsrc_1_1_local_p2_1_1_le_potier_1a0cb51e30a5da5e950c29853b96e06cb4" prot="public" virt="non-virtual"><scope>src::LocalP2::LePotier</scope><name>is_above_curve</name></member>
       <member refid="classsrc_1_1_local_p2_1_1_le_potier_1a98c74228cc90ec340155a87a1faed22f" prot="public" virt="non-virtual"><scope>src::LocalP2::LePotier</scope><name>plot_region</name></member>
+      <member refid="classsrc_1_1_local_p2_1_1_le_potier_1a60c614144a2cf3383465e6021b619658" prot="public" virt="non-virtual"><scope>src::LocalP2::LePotier</scope><name>width</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>
