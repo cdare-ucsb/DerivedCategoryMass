@@ -8,7 +8,7 @@ from src.ProjectiveCY import K3GeometricChamber, complex_hypersurface_plotly_ex1
 from src.SphericalTwist import SphericalTwist, DoubleSphericalTwist
 from src.MassPlot import MassPlot
 from src.CoherentSheaf import LineBundle
-from src.model import SingleTwistModel
+from src.model import SphericalTwistNeuralNetwork
 
 import traceback
 import json
@@ -119,7 +119,7 @@ def train_model_P1(data):
 
     print(f"\n\n\t\033[94mReceived request to process: {line_bundle_1}, {line_bundle_2}, {filename}\033[0m\n\n")
 
-    stm = SingleTwistModel(line_bundle_1=line_bundle_1,
+    stm = SphericalTwistNeuralNetwork(line_bundle_1=line_bundle_1,
                            line_bundle_2=line_bundle_2,
                            catagory='P1',
                            degree=1, mode='disc')
@@ -205,7 +205,7 @@ def upload_file_P1():
 
     # Read uploaded file (assumes CSV format with 'x' and 'y' columns)
     try:
-        stm = SingleTwistModel(line_bundle_1=1,
+        stm = SphericalTwistNeuralNetwork(line_bundle_1=1,
                                line_bundle_2=1,
                                catagory='P1',
                                degree=1, mode='disc')
@@ -306,7 +306,7 @@ def train_model_P2(data):
 
     print(f"\n\n\t\033[94mReceived request to process: {line_bundle_1}, {line_bundle_2}, {filename}\033[0m\n\n")
 
-    stm = SingleTwistModel(line_bundle_1=line_bundle_1,
+    stm = SphericalTwistNeuralNetwork(line_bundle_1=line_bundle_1,
                            line_bundle_2=line_bundle_2,
                            catagory='P2',
                            degree=1, mode='disc')
@@ -392,7 +392,7 @@ def upload_file_P2():
 
     # Read uploaded file (assumes CSV format with 'x' and 'y' columns)
     try:
-        stm = SingleTwistModel(line_bundle_1=1,
+        stm = SphericalTwistNeuralNetwork(line_bundle_1=1,
                                line_bundle_2=1,
                                catagory='P2',
                                degree=1, mode='disc')
@@ -520,18 +520,21 @@ def plot_double_sph_twist_K3():
 
 
 @socketio.on('train-model-K3', namespace='/K3-surface')
-def train_model_K3(data):
+def train_model_K3_sing_twist(data):
     """
     Handles the long-running task and emits progress updates.
     """
     line_bundle_1 = data.get("line_bundle_1")
     line_bundle_2 = data.get("line_bundle_2")
+    line_bundle_3 = data.get("line_bundle_3")
+
     filename = data.get("filename")
 
-    print(f"\n\n\t\033[94mReceived request to process: {line_bundle_1}, {line_bundle_2}, {filename}\033[0m\n\n")
+    print(f"\n\n\t\033[94mReceived request to process: {line_bundle_1}, {line_bundle_2}, {line_bundle_3}, {filename}\033[0m\n\n")
 
-    stm = SingleTwistModel(line_bundle_1=line_bundle_1,
+    stm = SphericalTwistNeuralNetwork(line_bundle_1=line_bundle_1,
                            line_bundle_2=line_bundle_2,
+                           line_bundle_3=line_bundle_3,
                            catagory='K3',
                            degree=1, mode='disc')
     
@@ -617,7 +620,7 @@ def upload_file_K3():
 
     # Read uploaded file (assumes CSV format with 'x' and 'y' columns)
     try:
-        stm = SingleTwistModel(line_bundle_1=1,
+        stm = SphericalTwistNeuralNetwork(line_bundle_1=1,
                                line_bundle_2=1,
                                catagory='K3',
                                degree=1, mode='disc')

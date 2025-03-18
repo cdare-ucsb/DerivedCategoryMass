@@ -155,6 +155,20 @@ start docs\html\index.html     # Windows
 
 ![Example of Doxygen documentation](/app/static/images/github_README_documentation.png)
 
+
+## Future Improvements
+
+K3 surfaces are possibly the most interesting example of the three Calabi-Yau geometries to choose from since their cohomology is 
+well-enough behaved to allow one to compute successive twists of line bundles. Currently, the program only allows for one to compute
+up to two twists around line bundles — theoretically we can compute as many as we want, though implementing the mass function for this will generally require a large number of cases since there are many possible permutations of the order of O(a), O(b), O(c), O(d)... . In particular, implementing a n-fold spherical twist will generally require (n+1)! cases.
+
+If larger numbers of spherical twists were to be considered for K3 surfaces, it would also be wise to create a class for an arbitrary number of spherical twists; currently using two classes for SphericalTwist and DoubleSphericalTwist works fine, but
+it would be a bit cumbersome to keep on creating a new class for each number of twists.
+
+It is difficult mathematically to compute higher numbers of spherical twists for Local P1 and Local P2 since the derived RHom of a line bundle with a single spherical twist leads to a long exact sequence that is incredibly difficult to resolve. Ultimately, this requires homological algebra that is beyond me.
+
+Another potential improvement would to be implementing interactions between divisors; for starters, this would allow us to consider twists for higher-rank K3 surfaces. However, the main benefit is this would allow us to consider much more interesting geometries such as local P1 x P1, and other del Pezzo surfaces.
+
 ## License 
 
 This project is licensed under the MIT License. See the LICENSE file for details.

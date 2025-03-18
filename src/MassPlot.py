@@ -261,6 +261,13 @@ class MassPlot():
 
     
     def get_discretized_Laplacian_values(self):
+        r"""!
+        Compute the values of the discretized Laplacian for each point in the grid formed by the x and y values.
+        This is done by creating an instance of the SphericalTwist class and then calling the mass method
+        for each point in the grid.
+
+        \return np.array The values of the discretized Laplacian for each point in the grid
+        """
 
 
         sph = None
@@ -294,6 +301,16 @@ class MassPlot():
     
 
     def discretized_Laplacian_to_plotly_figure(self, color_scale='Plasma', marker_size=3):
+        r"""!
+        Generate a plotly figure of the discretized Laplacian for the given spherical twist in the given
+        chamber of the stability manifold. The values of the discretized Laplacian are computed for each point
+        in the grid formed by the x and y values, and then plotted as a 3D scatter plot.
+
+        \param str color_scale The color scale to use for the plot
+        \param int marker_size The size of the markers in the plot
+
+        \return go.Figure The plotly figure of the discretized Laplacian
+        """
 
         disc_vals = self.get_discretized_Laplacian_values()
         disc_vals_mean = np.mean(disc_vals)

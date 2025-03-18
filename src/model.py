@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import torch.nn.functional as F  # Correct import for relu, softmax, etc.
 from torch.utils.data import DataLoader, Dataset
 import numpy as np
 import plotly.graph_objects as go
@@ -10,7 +9,7 @@ import itertools
 from tqdm import tqdm
 
 
-from .SphericalTwist import SphericalTwist
+from .SphericalTwist import SphericalTwist, DoubleSphericalTwist
 from .CoherentSheaf import LineBundle
 from .LocalP2 import LePotier
 
@@ -29,7 +28,7 @@ NN_MODEL_MODES = os.getenv("NN_MODEL_MODES").split(",") # ['mass', 'disc']
 
 
 
-class SingleTwistModel():
+class SphericalTwistNeuralNetwork():
     r"""!
     This class implements the functionality required to train a neural network model to predict the mass or the discrete Laplacian of a single spherical twist,
     so that PyTorch does not directly need to be imported into the main application file for the Flask app. The SingleTwistModel class
@@ -40,6 +39,7 @@ class SingleTwistModel():
     def __init__(self, line_bundle_1,
                 line_bundle_2,
                 catagory, 
+                line_bundle_3 = None,
                 degree=1,
                 x_min=-5, x_max=5, y_min=0, y_max=5,
                 data_size=20000,
@@ -80,6 +80,8 @@ class SingleTwistModel():
             raise ValueError('line_bundle_1 must be an integer')
         if not isinstance(line_bundle_2, int):
             raise ValueError('line_bundle_2 must be an integer')
+        if line_bundle_3 is not None and not isinstance(line_bundle_3, int):
+            raise ValueError('line_bundle_3 must be an integer')
         if not isinstance(x_min, (int, float)):
             raise ValueError('x_min must be a number')
         if not isinstance(x_max, (int, float)):
@@ -120,10 +122,16 @@ class SingleTwistModel():
         y_tensor = torch.tensor(y_train, dtype=torch.float32).unsqueeze(1)
 
         
-
-        sph = SphericalTwist(LineBundle(line_bundle_1, catagory=catagory),
-                          LineBundle(line_bundle_2, catagory=catagory),
-                          degree=degree)
+        sph = None
+        if line_bundle_3 is not None:
+            sph = DoubleSphericalTwist(LineBundle(line_bundle_1, catagory=catagory),
+                            LineBundle(line_bundle_2, catagory=catagory),
+                            LineBundle(line_bundle_3, catagory=catagory),
+                            degree=degree)
+        else:    
+            sph = SphericalTwist(LineBundle(line_bundle_1, catagory=catagory),
+                            LineBundle(line_bundle_2, catagory=catagory),
+                            degree=degree)
         
             
         z_train = []
@@ -866,7 +874,7 @@ if __name__ == '__main__':
         print(f'Traning model for discontinuities of Tw_{lb1} O({lb2})')
         print("---------------------------------------------\n\n")
 
-        st_model = SingleTwistModel(line_bundle_1=lb1,
+        st_model = SphericalTwistNeuralNetwork(line_bundle_1=lb1,
                                     line_bundle_2=lb2,
                                     catagory='K3',
                                     data_size=25000,
