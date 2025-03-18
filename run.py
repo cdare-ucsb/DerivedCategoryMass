@@ -60,4 +60,6 @@ if __name__ == "__main__":
     #     Timer(0.5, open_browser).start()
 
     # Use socketio.run instead of app.run()
+    open_browser()
     socketio.run(app, debug=False)
+    
