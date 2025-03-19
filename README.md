@@ -36,17 +36,15 @@ If you are interested in trying out the current implementation, the first step i
 Simply run
 ```
 brew install python@3.12
-brew link python@3.12
 ```
-By linking python@3.12, this will now become your default Python3; only do this step if you are sure it does not affect other dependencies. Make sure to verify the installation by running either 
+For some MacOS users, this will require that certain XCode commandline tools outside the standard App tools be installed; thus, if you get some sort of error when installing Python 3.12, run
 ```
-python --version
+xcode-select --install
 ```
-or
+and then try installing the Python library. Make sure to verify the installation by running
 ```
-python3 --version
+python3.12 --version
 ```
-
 
 #### Linux (Ubuntu/Debian)
 
@@ -61,6 +59,10 @@ sudo apt install python3.12 python3.12-distutils python3.12-venv -y
 ```
 and again verify the installation.
 
+#### Windows
+
+You'll figure something out.
+
 
 ### Clone the repository from GitHub (or Download)
 
@@ -73,25 +75,19 @@ The user may notice that the code is readily available on this webpage, but not 
 cd path/of/your/choosing && git clone https://github.com/cdare-ucsb/DerivedCategoryMass.git
 ```
 
-### Install Python dependencies
-
-While there is a decent amount of standalone code present, this program also heavily utilizes other libraries to handle front-end tasks such as translation of user inputs (via `Flask`) and training of neural networks (via `PyTorch`). Thus, in order to run this program the user must also have the same dependencies installed — to do this, run
-```sh
-pip install -r requirements.txt
-```
-(for some users who already have these packages installed, it may be judicious to simply install these requirements in a virtual Python environment so as to not adjust current installations).
-
 -------------------------------------------
 
 ## Usage
 
-After the installation step has been completed and Flask / Plotly / etc. have been added to the current Python installation, the GUI for the program can be run from a Flask server using
+After you have installed Python 3.12, the GUI for the program can be run from a Flask server using
 
-```python
-python run.py
+```
+./run.sh
 ```
 
-This should open up the default browser to a webpage where the user can choose from 3 different geometric models for the compactified dimensions relevant to superstring theory — each model simplifies the standard complex projective threefold assumption in its own unique way, which is described on the relevant page. By navigating to the bottom of the page, the current utility is that the user can explore the mass asymptotics of D-branes under different charges
+This will create a Python virtual environment to download several dependencies to (e.g. Flask, Plotly, PyTorch, etc.) in a local, contained environment; these local dependencies will be created and stored in a `/venv` folder. It is important not to adjust any of the installation versions in the `run.sh` BASH file since the program is somewhat sensitive to certain versions of NumPy and Plotly not working together. 
+
+Once all dependencies are installed, a Flask server will start and should open up the default browser to a webpage where the user can choose from 3 different geometric models for the compactified dimensions relevant to superstring theory — each model simplifies the standard complex projective threefold assumption in its own unique way, which is described on the relevant page. By navigating to the bottom of the page, the current utility is that the user can explore the mass asymptotics of D-branes under different charges
 
 ![Example image of usage](/app/static/images/github_README.png)
 
