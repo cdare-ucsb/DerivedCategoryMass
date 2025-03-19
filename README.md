@@ -37,7 +37,7 @@ Simply run
 ```
 brew install python@3.12
 ```
-For some MacOS users, this will require that certain XCode commandline tools outside the standard App tools be installed; thus, if you get some sort of error when installing Python 3.12, run
+For some MacOS users, this will require that certain additional XCode command-line tools be installed; thus, if you get some sort of error when installing Python 3.12, run
 ```
 xcode-select --install
 ```
