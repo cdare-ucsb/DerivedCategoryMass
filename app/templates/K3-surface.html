@@ -563,37 +563,22 @@
                     <h2 style="color: #4d4d4d;">Single Spherical Twist Computation</h2>
                     <p>Compute the mass of $\operatorname{Tw}_{ \mathcal{O}(a)}  \mathcal{O}(b)$, where</p>
                     <br/>
-                    <form id="sph-twist-form" action="/plot_sing_sph_twist_K3" method="POST">
+                    <form id="sph-twist-form" action="/plot_sph_twist_K3" method="POST">
                         <label for="line_bundle_1">First line bundle degree $a$ (integer):</label>
                         <input type="number" id="line_bundle_1" name="line_bundle_1" placeholder="e.g. -1" required>
                         <br/>
                         <label for="line_bundle_2">Second line bundle degree $b$ (integer):</label>
                         <input type="number" id="line_bundle_2" name="line_bundle_2" placeholder="e.g. 1" required>
                         <br/>
+                        <label for="line_bundle_3"><b>(Optional)</b> Third line bundle degree $c$:</label>
+                        <input type="number" id="line_bundle_3" name="line_bundle_3" placeholder="e.g. 2">
+                        <br/>
+                        <br/>
                         <button type="submit">Get Prediction</button>
                     </form>
                 </div> 
             </div>
 
-            <div class="container-background">
-                <div class="container" id="second-container">
-                    <h2 style="color: #4d4d4d;">Double Spherical Twist Computation</h2>
-                    <p>Compute the mass of $\operatorname{Tw}_{\mathcal{O}(a)} \operatorname{Tw}_{\mathcal{O}(b)} \mathcal{O}(c)$, where</p>
-                    <br/>
-                    <form id="double-twist-form" action="/plot_double_sph_twist_K3" method="POST">
-                        <label for="line_bundle_1">First line bundle degree $a$:</label>
-                        <input type="number" id="line_bundle_1" name="line_bundle_1" placeholder="e.g. -1" required>
-                        <br/>
-                        <label for="line_bundle_2">Second line bundle degree $b$:</label>
-                        <input type="number" id="line_bundle_2" name="line_bundle_2" placeholder="e.g. 1" required>
-                        <br/>
-                        <label for="line_bundle_3">Third line bundle degree $c$:</label>
-                        <input type="number" id="line_bundle_3" name="line_bundle_3" placeholder="e.g. 2" required>
-                        <br/>
-                        <button type="submit">Get Prediction</button>
-                    </form>
-                </div> 
-            </div>
         </div>
     </div>
 

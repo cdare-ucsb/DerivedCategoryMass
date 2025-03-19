@@ -2,31 +2,35 @@
 
 VENV_DIR="venv"
 
-# Desired Python Version
-MAX_SUPPORTED_PYTHON_MAJOR=3
-MAX_SUPPORTED_PYTHON_MINOR=12
+# Required Python version
+REQUIRED_PYTHON="3.12"
 
-# Get current python version
-PYTHON_VERSION=$(python3 --version | awk '{print $2}')
+# Check if python3.12 is installed
+if ! command -v python3.12 &> /dev/null; then
+    echo -e "\033[31m❌ Python 3.12 is NOT installed.\033[0m"
+    echo -e "\033[33m➡️  Please install Python 3.12 first:\033[0m"
+    echo -e "   🔹 On macOS (Homebrew): \033[32mbrew install python@3.12\033[0m"
+    echo -e "   🔹 On Ubuntu/Debian (APT): \033[32msudo add-apt-repository ppa:deadsnakes/ppa && sudo apt update && sudo apt install python3.12\033[0m"
+    exit 1
+fi
+
+# Check the installed version to ensure it's correct
+PYTHON_VERSION=$(python3.12 --version 2>&1 | awk '{print $2}')
 PYTHON_MAJOR=$(echo "$PYTHON_VERSION" | cut -d'.' -f1)
 PYTHON_MINOR=$(echo "$PYTHON_VERSION" | cut -d'.' -f2)
 
-# Check Python version
-if  { [ "$PYTHON_MAJOR" -eq 3 ] && [ "$PYTHON_MINOR" -gt 12 ]; }; then
-    echo -e "\033[31mYour Python 3 version ($PYTHON_MAJOR.$PYTHON_MINOR) is too new.\033[0m"
-    echo -e "\033[33mPlease downgrade to Python 3.12 using:\033[0m"
-    echo -e "  brew uninstall python@3.13"
-    echo -e "  brew install python@3.12"
-    echo -e "Then recreate your virtual environment:"
-    echo -e "  rm -rf venv"
-    echo -e "  python3.12 -m venv venv"
+if [ "$PYTHON_MAJOR" -ne 3 ] || [ "$PYTHON_MINOR" -ne 12 ]; then
+    echo -e "\033[31m❌ Detected Python version: $PYTHON_VERSION\033[0m"
+    echo -e "\033[33m➡️  Please ensure Python 3.12 is installed and set correctly.\033[0m"
     exit 1
 fi
+
+echo -e "\033[32m✅ Python 3.12 is correctly installed.\033[0m"
 
 # Create virtual environment if not present
 if [ ! -d "$VENV_DIR" ]; then
     echo "🔧 Creating virtual environment..."
-    python3 -m venv "$VENV_DIR"
+    python3.12 -m venv "$VENV_DIR"
 fi
 
 # Activate virtual environment

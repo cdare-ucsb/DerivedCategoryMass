@@ -30,26 +30,15 @@ Most current supersymmetric models require 3 compactified complex dimensions for
 
 
 ### Installation of Python
-If you are interested in trying out the current implementation, the first step is making sure that you have a recent installation of Python 3 on your system. 
-
-#### Windows
- this requires obtaining the most recent [Python Installation](https://www.python.org/downloads/) from the site, opening the `.exe` file, and checking the box for "Add Python to PATH" (important!). Next, verify the installation by running either
-
-```
-python --version
-```
-or
-```
-python3 --version
-```
-in your command prompt. Whichever one produces a valid output will affect the first command / term you use in the `Usage` step.
+If you are interested in trying out the current implementation, the first step is making sure that you have an installation of Python 3 on your system. Unfortunately, __the newest Python installation 3.13.x is not compatible with some of the neural network libraries__; thus, in order for this program to work you must have Python 3.12.x or less. 
 
 #### MacOS
 Simply run
 ```
-brew install python
+brew install python@3.12
+brew link python@3.12
 ```
-again, make sure to verify the installation by running either 
+By linking python@3.12, this will now become your default Python3; only do this step if you are sure it does not affect other dependencies. Make sure to verify the installation by running either 
 ```
 python --version
 ```
@@ -57,14 +46,18 @@ or
 ```
 python3 --version
 ```
-to determine how to run the executable.
+
 
 #### Linux (Ubuntu/Debian)
 
 Run
 ```
+sudo apt update && sudo apt upgrade -y
+sudo apt install software-properties-common -y
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+
 sudo apt update
-sudo apt install python3
+sudo apt install python3.12 python3.12-distutils python3.12-venv -y
 ```
 and again verify the installation.
 

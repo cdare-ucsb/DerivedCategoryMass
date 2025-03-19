@@ -17,11 +17,9 @@ import plotly
 import plotly.utils
 import io
 import os
-import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import torch.nn.functional as F  # Correct import for relu, softmax, etc.
 
 
 # Temporary storage for model files (can be replaced with Redis or a database)
@@ -451,39 +449,44 @@ def K3Surface():
                             K3_alpha_beta_json = K3_alpha_beta_json)
     
 
-@bp.route('/plot_sing_sph_twist_K3', methods=['POST'])
+@bp.route('/plot_sph_twist_K3', methods=['POST'])
 def plot_sing_sph_twist_K3():
     line_bundle_1 = request.form['line_bundle_1']
     line_bundle_2 = request.form['line_bundle_2']
+    line_bundle_3 = request.form['line_bundle_3']
 
-    try:
-        line_bundle_1 = int(line_bundle_1)
-        line_bundle_2 = int(line_bundle_2)
+    print(f"\n\n\t\033[94mReceived request to compute twist for line bundles: {line_bundle_1}, {line_bundle_2}, {line_bundle_3}\033[0m\n\n")
 
-        sph = SphericalTwist(LineBundle(line_bundle_1, catagory='K3'),
-                             LineBundle(line_bundle_2, catagory='K3'),
-                             degree=1)
-        
-        mp = MassPlot(line_bundle_1=line_bundle_1,
-                      line_bundle_2=line_bundle_2,
-                      catagory='K3',
-                      degree=1)
 
-        plot_json = mp.to_plotly_json()
-        chain_complex_data = sph.defining_triangle_to_json()
-        
-        return render_template('plot_K3_sing.html',
-                                plot_json=plot_json,
-                                chain_complex=chain_complex_data)
+    if not line_bundle_3:
+
+        try:
+            line_bundle_1 = int(line_bundle_1)
+            line_bundle_2 = int(line_bundle_2)
+
+            sph = SphericalTwist(LineBundle(line_bundle_1, catagory='K3'),
+                                LineBundle(line_bundle_2, catagory='K3'),
+                                degree=1)
+            
+            mp = MassPlot(line_bundle_1=line_bundle_1,
+                        line_bundle_2=line_bundle_2,
+                        catagory='K3',
+                        degree=1)
+
+            plot_json = mp.to_plotly_json()
+            chain_complex_data = sph.defining_triangle_to_json()
+            
+            return render_template('plot_K3_sing.html',
+                                    plot_json=plot_json,
+                                    chain_complex=chain_complex_data)
     
 
-    except ValueError:
-        print(traceback.format_exc())
-        return jsonify({"error": "Invalid input data"}), 400
-    
-@bp.route('/plot_double_sph_twist_K3', methods=['POST'])
-def plot_double_sph_twist_K3():
-    line_bundle_1 = request.form['line_bundle_1']
+        except ValueError:
+            print(traceback.format_exc())
+            return jsonify({"error": "Invalid input data"}), 400
+        
+    else:
+        line_bundle_1 = request.form['line_bundle_1']
     line_bundle_2 = request.form['line_bundle_2']
     line_bundle_3 = request.form['line_bundle_3']
 
@@ -516,6 +519,9 @@ def plot_double_sph_twist_K3():
     except ValueError:
         print(traceback.format_exc())
         return jsonify({"error": "Invalid input data"}), 400
+
+    
+
 
 
 
