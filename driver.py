@@ -1,6 +1,4 @@
 import webbrowser
-from threading import Timer
-import os
 import importlib
 import sys
 from app import create_app, socketio
@@ -52,7 +50,7 @@ def check_dependencies():
 
 if __name__ == "__main__":
 
-    check_dependencies()
+    # check_dependencies()
     
     # Only open the browser if not reloading (prevents opening twice in debug mode)
     # if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
