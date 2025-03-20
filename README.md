@@ -30,20 +30,20 @@ Most current supersymmetric models require 3 compactified complex dimensions for
 
 
 ### Installation of Python
-If you are interested in trying out the current implementation, the first step is making sure that you have an installation of Python 3 on your system. Unfortunately, __the newest Python installation 3.13.x is not compatible with some of the neural network libraries__; thus, in order for this program to work you must have Python 3.12.x or less. 
+If you are interested in trying out the current implementation, the first step is making sure that you have an installation of Python 3 on your system. Unfortunately, __the newest Python installation 3.13.x is not compatible with some of the neural network libraries__; thus, in order for this program to work you must have Python 3.11.x or less (this, in particular, works with NumPy 1.25.x). 
 
 #### MacOS
 Simply run
 ```
-brew install python@3.12
+brew install python@3.11
 ```
-For some MacOS users, this will require that certain additional XCode command-line tools be installed; thus, if you get some sort of error when installing Python 3.12, run
+For some MacOS users, this will require that certain additional XCode command-line tools be installed; thus, if you get some sort of error when installing Python 3.11, run
 ```
 xcode-select --install
 ```
 and then try installing the Python library. Make sure to verify the installation by running
 ```
-python3.12 --version
+python3.11 --version
 ```
 
 #### Linux (Ubuntu/Debian)
@@ -55,7 +55,7 @@ sudo apt install software-properties-common -y
 sudo add-apt-repository ppa:deadsnakes/ppa -y
 
 sudo apt update
-sudo apt install python3.12 python3.12-distutils python3.12-venv -y
+sudo apt install python3.11 python3.11-distutils python3.11-venv -y
 ```
 and again verify the installation.
 
@@ -79,7 +79,7 @@ cd path/of/your/choosing && git clone https://github.com/cdare-ucsb/DerivedCateg
 
 ## Usage
 
-After you have installed Python 3.12, the GUI for the program can be run from a Flask server using
+After you have installed Python 3.11, the GUI for the program can be run from a Flask server using
 
 ```
 ./run.sh
