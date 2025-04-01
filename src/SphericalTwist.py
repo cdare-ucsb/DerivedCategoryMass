@@ -61,6 +61,18 @@ class HarderNarasimhanError(Exception):
 
 
 
+class LongExactSequenceException(Exception):
+    r"""!
+    Exception raised when the long exact sequence cannot be computed
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args)
+
+        self.message = kwargs.get('message') ## The error message
+
+        self.sequence_str = kwargs.get('sequence_str') ## The string representation of the sequence
+
 
 class SphericalTwist(DerivedCategoryObject):
     r"""!
@@ -1952,6 +1964,210 @@ def _dimHom_Line_and_SingleTwistK3(line_bundle_1, line_bundle_2, line_bundle_3, 
 
 
 
+from collections import defaultdict
+from typing import List, Dict
+
+def shift_dict(d: Dict[int, int], shift: int) -> Dict[int, int]:
+    """Returns a new dictionary with keys shifted by a given amount."""
+    return {k + shift: v for k, v in d.items()}
+
+def add_dicts(d1: Dict[int, int], d2: Dict[int, int]) -> Dict[int, int]:
+    """Add two dictionaries together (summing values for shared keys)."""
+    result = d1.copy()
+    for k, v in d2.items():
+        result[k] = result.get(k, 0) + v
+    return result
+
+def multiply_dict(d: Dict[int, int], scalar: int) -> Dict[int, int]:
+    return {k: v * scalar for k, v in d.items()}
+
+
+
+
+def ResolveHom(seq: List[int], deg: int = 1) -> Dict[int, int]:
+
+    if len(seq) < 2:
+        raise ValueError("It does not make sense to compute RHom with less than 1 object; the sequence must have at least 2 elements")
+
+
+    ###########################################################################
+    #                                                                         #
+    #                            Base Case for Recursion                      #
+    #                                                                         #
+    ###########################################################################
+
+    ## This is the base case we wish to start with. It is simply computing RHom(O(a), O(b)) for two line
+    ## bundles. In the notation of this function, we have O(a) = O(seq[0]) and O(b) = O(seq[1])
+    if len(seq) == 2:
+        if seq[0] > seq[1]:
+            # We are mapping from a sheaf of smaller slope to larger slope; there is no obstruction, and exist global sections
+            return {0: deg * (seq[0] - seq[1])** 2 + 1}
+        elif seq[0] == seq[1]:
+            # Since line bundles are by definition spherical, this results in C + C[-2]
+            return {0: 1, -2: 1}
+        else:
+            # We are mapping from a sheaf of larger slope to smaller slope; there will be no global sections. However, Serre
+            # duality means we can simply swap the two line bundles and apply a shift by [-2].
+            return {-2: deg * (seq[0] - seq[1])** 2 + 1}
+
+    prev_step_seq = seq[:-1] ## This should be the sequence without the last element
+    last_two_seq = [seq[-2], seq[-1]] ## This should be the last two elements of the sequence
+    remove_2nd_last = seq[:-2] + [seq[-1]] ## This should be the sequence with the second to last element removed
+
+
+
+    ################################################################################################################
+    #                                                                                                              #       
+    #                      Recursive Calls from applying RHom(O(a_n) , ----) to                                    #
+    #                                                                                                              #
+    #      O(a_{n-1}) ---> Tw_{a_{n-2}}... Tw_{a_1} O(a_0) ----> Tw_{a_{n-1}} Tw_{a_{n-2}}... Tw_{a_1} O(a_0)      #
+    #                                                                                                              #
+    ################################################################################################################
+
+
+    ## The result of the previous step RHom( O(a_{n-1}) ,  Tw_{a_{n-1}} ... Tw_{a_1} O(a_0) ) will directly
+    ## be applied to RHom( O(a_n) , O(a_{n-1}) )
+    first_term_dict = ResolveHom(prev_step_seq, deg) 
+
+    ## This is simply RHom( O(a_n) , O(a_{n-1}) ), which should be handled by the base case (e.g. this call is constant-time)
+    case_dict = ResolveHom(last_two_seq, deg)
+
+    ## This is a second call to recursion that does not complete in constant time. In particular, this means our function
+    ## must make roughly 2^n calls to itself, where n is the number of elements in the sequence. The runtime can be improved
+    ## via memoization, but this is not implemented here.
+    middle_term_dict = ResolveHom(remove_2nd_last, deg)
+
+
+
+
+
+    ################################################################################################################
+    #                                                                                                              #       
+    #                 Simplify RHom(O(a_n) , O(a_{n-1})) terms in first object of triangle using                   #
+    #                                                                                                              #
+    #   RHom( O(a_n),  O(a_{n-1})[b] ⊕ O(a_{n-1})[c] ) =  RHom( O(a_n),  O(a_{n-1}) )[b]  ⊕                        #
+    #                                                                   RHom( O(a_n),  O(a_{n-1}) )[c]             #
+    #                                                                                                              #
+    ################################################################################################################    
+
+
+    # Process first_term_dict depending on case_dict since RHom( - , - ) splits across direct sums and commutes with shifts
+    if case_dict.keys() == {0}:
+        ## RHom(O(a_n), O(a_{n-1})) is concentrated in degree 0; thus the previous RHom vector space gets scaled by the
+        ## current number of copies of Hom(O(a_n), O(a_{n-1}))
+        first_term_dict = multiply_dict(first_term_dict, case_dict[0])
+        
+    elif case_dict.keys() == {-2}:
+        ## RHom(O(a_n), O(a_{n-1})) is concentrated in degree 0; thus the previous RHom graded vector space gets scaled by the
+        ## current number of copies of Hom(O(a_n), O(a_{n-1})), and then all graded vector spaces are shifted by -2
+        first_term_dict = shift_dict(multiply_dict(first_term_dict, case_dict[-2]), -2)
+
+    elif case_dict.keys() == {0, -2}:
+        ## This only happens when a_n = a_{n-1}; in this case, we have a direct sum of two copies of the previous
+        ## RHom graded vector space, and then we shift one copy by -2 and combine them.
+        shifted = shift_dict(first_term_dict, -2)
+        first_term_dict = add_dicts(first_term_dict, shifted)
+    else:
+        raise ValueError(f"Unexpected structure in case_dict: {case_dict}. Expected keys to be either 0, -2, or both.")
+
+
+
+
+    ###########################################################################
+    #                                                                         #
+    #               Attempt to resolve long-exact sequence                    #
+    #                                                                         #
+    ###########################################################################
+
+
+
+    # Combine first_term_dict and middle_term_dict into return_dict
+    return_dict = {}
+
+    keys = set(first_term_dict) | set(middle_term_dict)
+    for k in keys:
+        ## At each iteration, we must check that we are not overwriting a previous value
+        ## in returned dictionary. Since there are only three terms in a triangle contributing
+        ## to the long exact sequence, the only possible way that a value could be overwritten is
+        ## if there is a long-exact sequence with at least 4 consecutive non-zero terms.
+        ##
+        ## (Resolving such an error would require more specialized care outside of pure diagram chasing;
+        ## in particular, one would need to know the explicit maps in the long exact sequence.)
+        ##
+        ## Algorithmically, this is simply handled by saving the index we wish to overwrite to and 
+        ## the value stored, and then checking to make sure that index is not already in the dictionary.
+
+        a = first_term_dict.get(k)
+        b = middle_term_dict.get(k)
+
+        if a is not None and b is None:
+            ##
+            ##         ----> B[k+1] ------> (sum of surrounding terms)
+            ##    A[k] ---->   0    ------>
+            ##
+
+
+            if first_term_dict.get(k+1, 0) != 0 and middle_term_dict.get(k+1, 0) != 0:
+                ## A[k+1] ---> B[k+1] ---> C[k+1] ---> A[k] cannot be resolved
+                long_ex_str = f"\n\t[{k+1}]\t:\t {first_term_dict[k+1]} ---> {middle_term_dict[k+1]} ---> ?\n\t[{k}]\t:\t {first_term_dict[k]} ---> 0"
+                raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
+            
+            target_k = k + 1 
+            value = a + middle_term_dict.get(k + 1, 0)
+
+        elif a is None and b is not None:
+            ##
+            ##     0    ----> B[k] ------> (sum of surrounding terms)
+            ##  A[k-1]  ----> 
+            ##
+
+            if first_term_dict.get(k-1, 0) != 0 and middle_term_dict.get(k-1, 0) != 0:
+                ## B[k] ---> C[k] ---> A[k-1] ---> B[k-1] cannot be resolved
+                long_ex_str = f"\n\t[{k}]\t:\t 0 ---> {middle_term_dict[k]} ---> ?\n\t[{k-1}]\t:\t {first_term_dict[k-1]} ---> {middle_term_dict[k-1]}"
+                raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
+
+            target_k = k
+            value = b + first_term_dict.get(k - 1, 0)
+        elif a is not None and b is not None:
+            ## Both terms on this line are non-zero; we must be careful to check which dimension is larger so
+            ## that we are obeying the dimensionality constraints of exactness
+            if return_dict.get(k + 1, 0) != 0:
+                    long_ex_str = f"\n\t[{k+1}]\t:\t              ---> {return_dict[k + 1]}\n\t[{k}]\t:\t {first_term_dict[k]} ---> {middle_term_dict[k]} ---> ?"
+                    raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
+            
+            if b >= a:
+                if first_term_dict.get(k-1, 0) != 0:
+                    long_ex_str = f"\n\t[{k}]\t:\t {first_term_dict[k]} ---> {middle_term_dict[k]} ---> ?\n\t[{k-1}]\t:\t {first_term_dict[k-1]} ---> "
+                    raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
+                target_k = k
+                value = b - a
+            else:
+                ## this is an edge case when we are computing spherical twists with consecutive degrees, e.g. Tw_1 Tw_2 O(3)
+                ## or Tw_3 Tw_2 O(1). It generally does not occur
+                target_k = k - 1
+                value = a - b
+        else:
+            ## Both entries on this line are none; while the result may still be non-zero for this degree, it will be resolved
+            ## on another line
+            continue
+
+        if target_k in return_dict:
+            long_ex_str = f"\n\t[{target_k-1}]\t:\t {first_term_dict.get(target_k-1,0)} ---> {middle_term_dict.get(target_k-1,0)} ---> {return_dict.get(target_k-1,0)}\n\t[{target_k}]\t:\t {first_term_dict.get(target_k,0)} ---> {middle_term_dict.get(target_k,0)} ---> {return_dict.get(target_k,0)}\n\t[{target_k+1}]\t:\t {first_term_dict.get(target_k+1,0)} ---> {middle_term_dict.get(target_k+1,0)} ---> {return_dict.get(target_k+1,0)}"
+            raise LongExactSequenceException(f"Overwriting return_dict[{target_k}] --- a long exact sequence was not caught", sequence_str=long_ex_str)
+        ## We are guaranteed that this is the first time we are writing to this index
+        return_dict[target_k] = value
+
+    return return_dict
+
+
+
+
+
+
+        
+
+
+
             
 
         
@@ -2007,9 +2223,9 @@ if __name__ == "__main__":
     # print(sph2)
 
 
-    lb6 = LineBundle(1, catagory='K3')
-    lb7 = LineBundle(2, catagory='K3')
-    lb8 = LineBundle(4, catagory='K3')
+    # lb6 = LineBundle(1, catagory='K3')
+    # lb7 = LineBundle(2, catagory='K3')
+    # lb8 = LineBundle(4, catagory='K3')
 
     # sph_sum = SphericalTwistSum([(lb6, lb7), (lb8, lb9), (lb6, lb9), (lb6, lb7)], [1, 5, 0, 10], [-1, 2, -5, -1], degree=1)
     # print(sph_sum)
@@ -2026,33 +2242,37 @@ if __name__ == "__main__":
     # print(sph3.shift(3))
     # print("Is semistable: ", sph3.is_semistable(1, 2, 1))
 
-    K3_deg = 1
+    # K3_deg = 1
     
 
-    sph4 = DoubleSphericalTwist(lb6, lb7, lb8, degree=K3_deg)
+    # sph4 = DoubleSphericalTwist(lb6, lb7, lb8, degree=K3_deg)
 
-    # print(sph4.mass(2, 3, K3_deg))
+    # # print(sph4.mass(2, 3, K3_deg))
 
-    x_vals = np.linspace(-5, 11.10, 200)  # X values from -2 to 2
+    # x_vals = np.linspace(-5, 11.10, 200)  # X values from -2 to 2
 
-    # Generate y values satisfying y > x^2
-    y_vals = []
-    for x in x_vals:
-        y_range = np.linspace(0, 5, 100)  # 50 points per x value
-        y_vals.append(y_range)
+    # # Generate y values satisfying y > x^2
+    # y_vals = []
+    # for x in x_vals:
+    #     y_range = np.linspace(0, 5, 100)  # 50 points per x value
+    #     y_vals.append(y_range)
 
-    # Convert to numpy array
-    y_vals = np.array(y_vals).flatten()  # Flatten the y array
+    # # Convert to numpy array
+    # y_vals = np.array(y_vals).flatten()  # Flatten the y array
 
-    # Repeat x values to match the shape of y
-    x_vals = np.repeat(x_vals, 100)  # Each x value repeats 10 times
+    # # Repeat x values to match the shape of y
+    # x_vals = np.repeat(x_vals, 100)  # Each x value repeats 10 times
 
-    masses = np.array([sph4.mass(x, y, K3_deg) for x, y in zip(x_vals, y_vals)])
+    # masses = np.array([sph4.mass(x, y, K3_deg) for x, y in zip(x_vals, y_vals)])
 
-    # Plot the surface
-    fig = go.Figure(data=[go.Scatter3d(z=masses, x=x_vals, y=y_vals,
-                                    mode='markers', marker=dict(size=3, color=masses, colorscale='viridis'))])
+    # # Plot the surface
+    # fig = go.Figure(data=[go.Scatter3d(z=masses, x=x_vals, y=y_vals,
+    #                                 mode='markers', marker=dict(size=3, color=masses, colorscale='viridis'))])
 
-    fig.update_layout(scene = dict(xaxis = dict(nticks=4, range=[-5,5])))
+    # fig.update_layout(scene = dict(xaxis = dict(nticks=4, range=[-5,5])))
    
-    fig.show()
+    # fig.show()
+
+
+    return_dict = ResolveHom([1, 2, 3])
+    print(return_dict)

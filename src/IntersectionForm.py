@@ -50,11 +50,11 @@ class IntersectionForm:
             raise TypeError("Tensor values must be numeric")
 
         
-        self.basis = basis # The list of valid SymPy symbols that the intersection form is defined for
+        self.basis = basis ## The list of valid SymPy symbols that the intersection form is defined for
 
-        self.dimension = dimension # The dimension of the ambient variety
+        self.dimension = dimension ## The dimension of the ambient variety
 
-        self.tensor = defaultdict(lambda: S(0)) # The dictionary or mapping object used to store the intersection numbers. The default value is 0, which is the identity element for addition.
+        self.tensor = defaultdict(lambda: S(0)) ## The dictionary or mapping object used to store the intersection numbers. The default value is 0, which is the identity element for addition.
 
         # Symmetrize input
         for key, val in tensor_data.items():

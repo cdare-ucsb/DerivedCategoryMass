@@ -35,7 +35,7 @@ class ChernCharacter():
 
         # If the basis is not provided, we will use the free symbols in the expression as the basis
         if basis is not None:
-            self.basis = basis # This is the list of divisors that the Chern character is defined over. This is a list of SymPy symbols.
+            self.basis = basis ## This is the list of divisors that the Chern character is defined over. This is a list of SymPy symbols.
         else:
             self.basis = list(expr.free_symbols)
 
@@ -50,10 +50,10 @@ class ChernCharacter():
             raise ValueError("Expression must be a polynomial in the basis of divisors.")
 
 
-        self.expr = expand(expr) # This is the SymPy expression for the Chern character as a polynomial in the formal variables corresponding to the basis of divisors.
+        self.expr = expand(expr) ## This is the SymPy expression for the Chern character as a polynomial in the formal variables corresponding to the basis of divisors.
 
         
-        self.dimension = int(dimension) # This is the dimension of the underlying variety that the Chern Character is defined over. The dimension is useful since it tells us the expected degree of the Chern polynomial, which allows us to truncate the product of Characters
+        self.dimension = int(dimension) ## This is the dimension of the underlying variety that the Chern Character is defined over. The dimension is useful since it tells us the expected degree of the Chern polynomial, which allows us to truncate the product of Characters
 
 
 

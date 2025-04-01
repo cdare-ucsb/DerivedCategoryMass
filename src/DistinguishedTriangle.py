@@ -45,10 +45,6 @@ class DistinguishedTriangle():
 
         self.catagory = first_catagory ## The underlying category of the distinguished triangle
 
-        # call on helper method to potentially update chern characters of any
-        # DerivedCategoryObjects that have chern character (0,0,0)
-        self._update_chern_characters()
-
 
     def __str__(self):
         r"""!
@@ -92,38 +88,5 @@ class DistinguishedTriangle():
 
    
 
-    def _update_chern_characters(self):
-        """!
-        Helper function to update the Chern Characters of the objects in the distinguished triangle
-        if they are not already set. This is done by using the additivity of the Chern Character on
-        exact sequences. In particular, if the Chern Character of the first object is (0,0,0), then
-        the Chern Character of the first object is updated to be the difference of the Chern Characters
-        of the second and third objects. Similarly, if the Chern Character of the second object is (0,0,0),
-        then the Chern Character of the second object is updated to be the sum of the Chern Characters of
-        the first and third objects. If the Chern Character of the third object is (0,0,0), then the Chern
-        Character of the third object is updated to be the difference of the Chern Characters of the first
-        and second objects.
-        """
-
-        if self.object1.chernCharacter() == None:
-            # Update the Chern character of the first complex
-
-            chern2 = self.object2.chernCharacter()
-            chern3 = self.object3.chernCharacter()
-
-            self.object1.chern_character = chern2 - chern3
-        elif self.object2.chernCharacter() == None:
-            # Update the Chern character of the second complex
-
-            chern1 = self.object1.chernCharacter()
-            chern3 = self.object3.chernCharacter()
-
-            self.object2.chern_character = chern1 + chern3
-        elif self.object3.chernCharacter() == None:
-            # Update the Chern character of the third complex
-
-            chern1 = self.object1.chernCharacter()
-            chern2 = self.object2.chernCharacter()
-            
-            self.object3.chern_character = chern2 - chern1
+   
 
