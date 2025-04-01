@@ -1,4 +1,4 @@
-from sympy import Symbol, expand, S, prod
+from sympy import Symbol, Basic, expand, S, prod
 from itertools import permutations, product
 from collections import defaultdict
 from collections.abc import Mapping
@@ -70,8 +70,13 @@ class IntersectionForm:
 
         \throws ValueError If the expression contains symbols not in the basis, or if the expression contains powers of symbols that are not integers or are negative.
 
+        \throws TypeError If the expression is not a SymPy expression.
+
         \return list A list of tuples, where each tuple contains the coefficient and a list of the basis elements in the monomial. For example, if the input expression is 2*H**3 + 3*D**2*H, then the output will be [(2, [H, H, H]), (3, [D, D, H])].
         """
+
+        if not isinstance(expr, (int, float, Symbol, Basic)):
+            raise TypeError("Expression must be a SymPy expression")
 
         # Verify that the expression is a linear combination of the basis elements
         used_symbols = expr.free_symbols
@@ -115,6 +120,8 @@ class IntersectionForm:
 
         \return SymPy expression A SymPy expression representing the intersection number obtained by intersecting the monomials in the expressions. The expression is a linear combination of the basis elements.
         """
+
+
 
         expr_terms = [self._expand_expr(e) for e in exprs]
         total = S(0)
