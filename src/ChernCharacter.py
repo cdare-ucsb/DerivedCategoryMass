@@ -8,7 +8,7 @@ from collections.abc import Sequence
 
 
 class ChernCharacter():
-    """!
+    r"""!
     Generic parent class for the Chern character. Chern characters should operate like
     lists of floating point numbers, since they are graded objects concentrated in degrees 
     going from 0 to the dimension of the variety. 
@@ -28,9 +28,6 @@ class ChernCharacter():
 
         \throws TypeError If the graded element is not a list of floats or integers
         """
-
-      
-       
 
         if not isinstance(graded_element, (Sequence, np.ndarray)):
             raise TypeError("Chern Character must be initialized with a list of floats or integers")
