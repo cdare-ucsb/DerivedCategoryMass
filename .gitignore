@@ -9,3 +9,5 @@ __pycache__/
 *.ipynb_checkpoints/
 .pytest_cache/
 .vscode/
+src/__pycache__/
+src/*.pyc
