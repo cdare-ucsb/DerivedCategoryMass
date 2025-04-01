@@ -1,5 +1,5 @@
-from .ChernCharacter import ChernCharacter
-from .DerivedCategoryObject import DerivedCategoryObject
+from src.DerivedCategory.ChernCharacter import ChernCharacter
+from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
 import math
 import cmath
 
@@ -187,7 +187,7 @@ class CoherentSheaf(DerivedCategoryObject):
         \return ChainComplex A ChainComplex concentrated in a single degree, shifted by n units
         """
 
-        from ChainComplex import ChainComplex # include in the method to avoid circular import
+        from src.DerivedCategory.GradedCoproductObject.ChainComplex import ChainComplex # include in the method to avoid circular import
         return ChainComplex( sheaf_vector=[self], shift_vector=[n], dimension_vector=[1])
         
 

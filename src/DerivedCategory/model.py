@@ -9,8 +9,8 @@ import itertools
 from tqdm import tqdm
 
 
-from .SphericalTwist import SphericalTwist, DoubleSphericalTwist
-from .CoherentSheaf import LineBundle
+from .SphericalTwist.SphericalTwist import SphericalTwist, DoubleSphericalTwist
+from .CoherentSheaf.CoherentSheaf import LineBundle
 from .LocalP2 import LePotier
 
 

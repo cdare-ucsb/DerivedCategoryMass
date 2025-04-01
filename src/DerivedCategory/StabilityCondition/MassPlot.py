@@ -5,9 +5,9 @@ import json
 import plotly
 
 
-from .SphericalTwist import SphericalTwist, DoubleSphericalTwist
-from .CoherentSheaf import LineBundle
-from .LocalP2 import LePotier
+from ..SphericalTwist.SphericalTwist import SphericalTwist, DoubleSphericalTwist
+from ..CoherentSheaf.CoherentSheaf import LineBundle
+from ..LocalP2 import LePotier
 
 
 

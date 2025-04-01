@@ -6,7 +6,7 @@ from sympy import symbols
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from src.IntersectionForm import IntersectionForm
+from src.DerivedCategory.StabilityCondition.IntersectionForm import IntersectionForm
 
 
 def test_IntersectionForm__init__():

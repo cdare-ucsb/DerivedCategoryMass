@@ -3,12 +3,12 @@ from app import socketio
 
 
 # from app.models import load_simple_model,  preprocess_input, predict
-from src.LocalP2 import LePotier, plot_successive_neighbors_ex1
-from src.ProjectiveCY import K3GeometricChamber, complex_hypersurface_plotly_ex1
-from src.SphericalTwist import SphericalTwist, DoubleSphericalTwist
-from src.MassPlot import MassPlot
-from src.CoherentSheaf import LineBundle
-from src.model import SphericalTwistNeuralNetwork
+from src.DerivedCategory.LocalP2 import LePotier, plot_successive_neighbors_ex1
+from src.DerivedCategory.ProjectiveCY import K3GeometricChamber, complex_hypersurface_plotly_ex1
+from src.DerivedCategory.SphericalTwist.SphericalTwist import SphericalTwist, DoubleSphericalTwist
+from src.DerivedCategory.StabilityCondition.MassPlot import MassPlot
+from src.DerivedCategory.CoherentSheaf.CoherentSheaf import LineBundle
+from src.DerivedCategory.model import SphericalTwistNeuralNetwork
 
 import traceback
 import json

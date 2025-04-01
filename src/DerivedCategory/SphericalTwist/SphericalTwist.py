@@ -1,16 +1,13 @@
-from .CoherentSheaf import LineBundle
-from .DerivedCategoryObject import DerivedCategoryObject
-from .DistinguishedTriangle import DistinguishedTriangle
-from .ChainComplex import ChainComplex
-from .ChernCharacter import ChernCharacter
+from src.DerivedCategory.CoherentSheaf.CoherentSheaf import LineBundle
+from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
+from src.DerivedCategory.DistinguishedTriangle import DistinguishedTriangle
+from src.DerivedCategory.GradedCoproductObject.ChainComplex import ChainComplex
+from src.DerivedCategory.ChernCharacter import ChernCharacter
 
 import math
 import cmath
-import numpy as np
 import json
-
-import plotly.graph_objects as go
-from plotly.graph_objs import *
+from typing import List, Dict
 
 
 from dotenv import load_dotenv
@@ -200,7 +197,7 @@ class SphericalTwist(DerivedCategoryObject):
         if not isinstance(line_bundle_2, LineBundle):
             raise TypeError("line_bundle_2 must be an instance of LineBundle.")
 
-        homDims = _dimHom_LineBundles(line_bundle_1, line_bundle_2, self.degree)
+        homDims = RHom([line_bundle_1, line_bundle_2], degree_K3=self.degree)
 
         bundle_vector = []
         dimension_vector = [] 
@@ -231,7 +228,7 @@ class SphericalTwist(DerivedCategoryObject):
         \return ChernCharacter The Chern Character of the spherical twist
         """
 
-        return self.defining_triangle.object3.chernCharacter()
+        return self.defining_triangle.object2.chernCharacter() - self.defining_triangle.object1.chernCharacter()
     
     def shift(self, n):
         r"""!
@@ -1659,52 +1656,72 @@ class DoubleSphericalTwist(DerivedCategoryObject):
 
 
 ###################################################################
-#                  Static Helper Methods                          #
+#                  RHom Computation                               #
 ###################################################################
 
 
-def _dimHom_LineBundles(line_bundle_1, line_bundle_2, degree_K3 = 1):
+
+def RHom(line_bundles : List[LineBundle], degree_K3 : int = 1) -> Dict[int,int]:
     r"""!
-    General helper method to compute the dimension of the Hom spaces between 
-    two line bundles (or pushforwards of line bundles, in the local Projectiv
-    space case). The method is a wrapper for the specific implementations
-    for P1, P2, and K3 surfaces.
+    Primary function for computing the RHom space between a line bundle and a composition of spherical twists, as a 
+    graded C-vector space. The function primarily relies on the helper method _computer_rhom_helper to recursively
+    compute the RHom space between shorter, less complicated series of twists. At each step roughly
+    three recursive calls are made, only one of which is constant time since it defaults to the base case; thus, the
+    expected complexity of this function is O(2^n) where n is the number of line bundles in the list.
+    The function is designed to be called with a list of line bundles, which are assumed to be defined on the same
+    variety; however, for some of the local Calabi-Yau varieties, the obstruction of the RHom just between two line bundles
+    makes it impossible to compute the RHom for a higher number of twists using basic diagram chasing.
 
-    \param LineBundle line_bundle_1 The first line bundle in the Hom space
-    \param LineBundle line_bundle_2 The second line bundle in the Hom space
-    \param int degree_K3: The degree of the K3 surface, as an optional argument. This only affects
-                      the K3 implementation. Default is 1.
+    \param list line_bundles A list of LineBundles, which are assumed to be defined on the same variety
+    \param int degree_K3 The degree of the K3 surface, if applicable. This is only used for the K3 case, and is defaulted to 1.
 
-    \return tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
-    
-    \throws TypeError If line_bundle_1 is not an instance of LineBundle
-    \throws TypeError If line_bundle_2 is not an instance of LineBundle
-    \throws ValueError If the line bundles are not defined on the same catagory
-    \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
+    \return dict A dictionary representing the dimensions of the RHom space, where the keys are the cohomological degrees and the values are the dimensions of the corresponding vector space
+
+    \throws TypeError If line_bundles is not a list of LineBundles
+    \throws ValueError If there are not at least two line bundles in the list
+    \throws ValueError If the line bundles are not defined on the same variety
+    \throws TypeError If degree_K3 is not an integer
+    \throws ValueError If degree_K3 is not a positive integer
     """
 
-    if not isinstance(line_bundle_1, LineBundle):
-        raise TypeError("line_bundle_1 must be an instance of LineBundle.")
-    if not isinstance(line_bundle_2, LineBundle):
-        raise TypeError("line_bundle_2 must be an instance of LineBundle.")
-    
-    catagory = line_bundle_1.catagory
 
-    if line_bundle_1.catagory != line_bundle_2.catagory:
+    # Input validation
+    if not isinstance(line_bundles, list):
+        raise TypeError("line_bundles must be a list of LineBundles.")
+    if not all(isinstance(x, LineBundle) for x in line_bundles):
+        raise TypeError("line_bundles must be a list of LineBundles.")
+    
+    if len(line_bundles) < 2:
+        raise ValueError("It does not make sense to compute RHom with less than 1 object; the sequence must have at least 2 elements")
+    
+    catagory = line_bundles[0].catagory
+
+    if not all(x.catagory == catagory for x in line_bundles):
         raise ValueError("Line bundles must be defined on the same variety")
     
-    if catagory == 'P1':
-        return _dimHom_LineBundlesP1(line_bundle_1, line_bundle_2)
-    elif catagory == 'P2':
-        return _dimHom_LineBundlesP2(line_bundle_1, line_bundle_2)
-    elif catagory == 'K3':
-        return _dimHom_LineBundlesK3(line_bundle_1, line_bundle_2, degree_K3)
+    if not isinstance(degree_K3, int):
+        raise TypeError("degree_K3 must be a positive integer")
+    if degree_K3 < 1:
+        raise ValueError("degree_K3 must be a positive integer")
+    
 
-    else:
-        raise NotImplementedError("Only P1, P2 and K3 catagories are implemented")
+    ## Convert the list of line bundles to a list of integers for our helper method
+    line_bundle_degrees = [x.degree for x in line_bundles]
+
+    return _compute_rhom_helper(line_bundle_degrees, catagory, degree_K3)
 
 
-def _dimHom_LineBundlesP1(line_bundle_1, line_bundle_2):
+
+
+
+
+
+
+
+
+
+
+def _dimHom_LineBundlesP1(line_bundle_1 : int, line_bundle_2 : int) -> Dict[int,int]:
         r"""!
         Helper method which computes the dimension of the hom spaces between the pushforwards of the
         line bundles O(a) and O(b). The dimensions of the pushforwards are computed using the triangle
@@ -1717,31 +1734,28 @@ def _dimHom_LineBundlesP1(line_bundle_1, line_bundle_2):
         0 and 1, the hom-space for local P1 is concentrated between degrees 0 and 2. Thus, we return
         a tuple of the form (a,b,c)
 
-        \param LineBundle line_bundle_1 The first line bundle in the Hom space
-        \param LineBundle line_bundle_2 The second line bundle in the Hom space
+        \param int line_bundle_1 The degree of the first line bundle in the Hom space
+        \param int line_bundle_2 The degree of the second line bundle in the Hom space
 
-        \return tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
-
-        \throws TypeError If line_bundle_1 is not an instance of LineBundle
-        \throws TypeError If line_bundle_2 is not an instance of LineBundle
+        \return dict A dictionary representing the dimensions of the RHom space, where the keys are the cohomological degrees and the values are the dimensions of the corresponding vector space
         """
 
-        degree_dif = line_bundle_2.degree - line_bundle_1.degree
+        degree_dif = line_bundle_2 - line_bundle_1
 
         if degree_dif == 0:
-            return (1, 0, 1)
+            return {0 : 1, -2: 1}
         if degree_dif >= 2:
-            return (degree_dif + 1, degree_dif - 1, 0)
+            return {0 : degree_dif + 1, -1 : degree_dif - 1}
         elif degree_dif == 1:
-            return (2, 0, 0)
+            return {0 : 2}
         elif degree_dif == -1:
-            return (0, 0, 2)
+            return {-2 : 2}
         else:
-            return (0, -1*degree_dif - 1, -1*degree_dif + 1)
+            return {-1 : -1*degree_dif - 1, -2 : -1*degree_dif + 1}
 
 
 
-def _dimHom_LineBundlesP2(line_bundle_1, line_bundle_2):
+def _dimHom_LineBundlesP2(line_bundle_1 : int, line_bundle_2 : int) -> Dict[int,int]:
         r"""!
         Helper method which computes the dimension of the hom spaces between the pushforwards of the
         line bundles O(a) and O(b). The dimensions of the pushforwards are computed using the triangle
@@ -1754,35 +1768,34 @@ def _dimHom_LineBundlesP2(line_bundle_1, line_bundle_2):
         0 and 2, the hom-space for local P2 is concentrated between degrees 0 and 3. Thus, we return
         a tuple of the form (a,b,c,d)
 
-        \param LineBundle line_bundle_1 The first line bundle in the Hom space
-        \param LineBundle line_bundle_2 The second line bundle in the Hom space
+        \param int line_bundle_1 The first line bundle in the Hom space
+        \param int line_bundle_2 The second line bundle in the Hom space
 
-        \return tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
-
-        \throws TypeError If line_bundle_1 is not an instance of LineBundle
-        \throws TypeError If line_bundle_2 is not an instance of LineBundle
+        \return dict A dictionary representing the dimensions of the RHom space, where the keys are the cohomological degrees and the values are the dimensions of the corresponding vector space
         """
 
-        degree_dif = line_bundle_2.degree - line_bundle_1.degree
+        degree_dif = line_bundle_2 - line_bundle_1
 
         if degree_dif == 0:
-            return (1, 0, 0, 1)
+            return {0 : 1,  -3 : 1}
         elif degree_dif > -3 and degree_dif < 0:
-            rank3 = math.comb(line_bundle_1.degree - line_bundle_2.degree + 2, 2)
-            return (0, 0, 0, rank3)
+            rank3 = math.comb(line_bundle_1 - line_bundle_2 + 2, 2)
+            return {-3 : rank3}
         elif degree_dif > 0 and degree_dif < 3:
             rank0 = math.comb(degree_dif + 2, 2)
-            return (rank0, 0, 0, 0)
+            return {0 : rank0}
         elif degree_dif >= 3:
             rank0 = math.comb(degree_dif + 2, 2)
             rank1 = math.comb(degree_dif - 1, 2)
-            return (rank0, rank1, 0, 0)
+            return {0 : rank0, -1 : rank1}
         else:
-            rank2 = math.comb(line_bundle_1.degree - line_bundle_2.degree -1, 2)
-            rank3 = math.comb(line_bundle_1.degree - line_bundle_2.degree + 2, 2)    
-            return (0, 0, rank2, rank3)
+            rank2 = math.comb(line_bundle_1 - line_bundle_2 -1, 2)
+            rank3 = math.comb(line_bundle_1 - line_bundle_2 + 2, 2)   
+            return {-2 : rank2, -3 : rank3} 
         
-def _dimHom_LineBundlesK3(line_bundle_1, line_bundle_2, degree_K3):
+
+        
+def _dimHom_LineBundlesK3(line_bundle_1 : int, line_bundle_2 : int, degree_K3 : int = 1) -> Dict[int,int]:
     r"""!
     Helper method which computes the dimension of the hom spaces between line bundles on a 
     degree d K3 surface. Since the only K3s we consider are Picard rank 1, if O(a) and O(b) are
@@ -1794,200 +1807,53 @@ def _dimHom_LineBundlesK3(line_bundle_1, line_bundle_2, degree_K3):
     We return a tuple of the form (n0,n1,n2) indicating the dimension of the graded RHom space. Aside from the
     instance that a=b, this will only include one nonzero element. Hirzebruch-Riemann-Roch shows that
 
-    dim RHom(O(a), O(b)) = 1 + d(b-a)^2 
+    dim RHom(O(a), O(b)) = 2 + d(b-a)^2 
 
-    \param LineBundle line_bundle_1 The first line bundle in the Hom space
-    \param LineBundle line_bundle_2 The second line bundle in the Hom space
-    \param int degree_K3 The degree of the K3 surface
+    \param int line_bundle_1 The degree of the first line bundle in the Hom space
+    \param int line_bundle_2 The degree of the second line bundle in the Hom space
+    \param int degree_K3 The degree of the K3 surface; default is 1
 
-    \return tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
-
-    \throws TypeError If line_bundle_1 is not an instance of LineBundle
-    \throws TypeError If line_bundle_2 is not an instance of LineBundle
-    \throws TypeError If degree_K3 is not an integer
+    \return dict A dictionary representing the dimensions of the RHom space, where the keys are the cohomological degrees and the values are the dimensions of the corresponding vector space
     """
 
-    if not isinstance(line_bundle_1, LineBundle):
-        raise TypeError("line_bundle_1 must be an instance of LineBundle.")
-    if not isinstance(line_bundle_2, LineBundle):    
-        raise TypeError("line_bundle_2 must be an instance of LineBundle.")
-    if not isinstance(degree_K3, int):
-        raise TypeError("The degree of the K3 surface must be an integer")
-
-    degree_dif = line_bundle_2.degree - line_bundle_1.degree
+    degree_dif = line_bundle_2 - line_bundle_1
 
     if degree_dif == 0:
-        return (1, 0, 1)
+        return {0 : 1, -2 : 1}
     elif degree_dif > 0:
-        return (degree_K3 * degree_dif**2 + 2, 0, 0)
+        return {0 : degree_K3 * degree_dif**2 + 2}
     else:
-        return (0, 0, degree_K3 * degree_dif**2 + 2)
-
-        
-
-def _dimHom_Line_and_SingleTwist(line_bundle_1, line_bundle_2, line_bundle_3, degree_K3):
-    r"""!
-    Helper method which computes the dimension of the hom spaces between a line bundle and 
-    a single spherical twist of line bundles. This is a wrapper for the specific implementations
-    for P1, P2, and K3 surfaces.
-
-    \param LineBundle line_bundle_1 The line bundle to twist around: i.e. O(a) where we are computing Tw_a O(b)
-    \param LineBundle line_bundle_2 The line bundle which the spherical twist is being applied to: i.e. O(b) where we are computing Tw_a O(b)
-    \param LineBundle line_bundle_3: The line bundle which the spherical twist is being applied to: i.e. O(c) where we are computing Tw_a O(c)
-    \param int degree_K3: The degree of the K3 surface, as an optional argument. This only affects
-                      the K3 implementation. Default is 1.
-
-    \return tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
-
-    \throws TypeError If line_bundle_1 is not an instance of LineBundle
-    \throws TypeError If line_bundle_2 is not an instance of LineBundle
-    \throws TypeError If line_bundle_3 is not an instance of LineBundle
-    \throws ValueError If the line bundles are not defined on the same catagory
-    \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
-    """
-
-    if not isinstance(line_bundle_1, LineBundle):
-        raise TypeError("line_bundle_1 must be an instance of LineBundle.")
-    if not isinstance(line_bundle_2, LineBundle):
-        raise TypeError("line_bundle_2 must be an instance of LineBundle.")
-    if not isinstance(line_bundle_3, LineBundle):
-        raise TypeError("line_bundle_3 must be an instance of LineBundle.")
-    
-
-    if line_bundle_1.catagory != line_bundle_2.catagory or line_bundle_1.catagory != line_bundle_3.catagory:
-        raise ValueError("Line bundles must be defined on the same variety")
-    
-
-    if line_bundle_1.catagory == 'K3':
-        return _dimHom_Line_and_SingleTwistK3(line_bundle_1, line_bundle_2, line_bundle_3, degree_K3)
-    else:
-        raise NotImplementedError("Double spherical twist is currently only implemented for K3 surfaces.")
-
-
-
-
-
-def _dimHom_Line_and_SingleTwistK3(line_bundle_1, line_bundle_2, line_bundle_3, degree_K3):
-    r"""!
-    Helper function which computes the dimensions of the derived hom spaces between a line bundle 
-    and a spherical twist of line bundles; that is, this function computes the dimensions of 
-    
-               RHom(O(a), Tw_{O(b)} O(c))
-    
-    which is necessarily concentrated in cohomological degrees -1 through 3. As a consequence, this 
-    function returns a tuple of five integers (hom-1, hom0, hom1, hom2, hom3) corresponding to the 
-    dimensions of the higher-ext groups. 
-
-    \param LineBundle line_bundle_1 The line bundle to twist around: i.e. O(a) where we are computing Tw_a O(b)
-    \param LineBundle line_bundle_2 The line bundle which the spherical twist is being applied to: i.e. O(b) where we are computing Tw_a O(b)
-    \param LineBundle line_bundle_3 The line bundle which the spherical twist is being applied to: i.e. O(c) where we are computing Tw_a O(c)
-    \param int degree_K3: The degree of the K3 surface, as an optional argument. This only affects
-                      the K3 implementation. Default is 1.
-
-    \return tuple A tuple of the dimensions of the Hom spaces between the pushforwards of the line bundles
-
-    \throws TypeError If line_bundle_1 is not an instance of LineBundle
-    \throws TypeError If line_bundle_2 is not an instance of LineBundle
-    \throws TypeError If line_bundle_3 is not an instance of LineBundle
-    \throws ValueError If the line bundles are not defined on the same catagory
-    \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
-
-    """
-
-
-    if not isinstance(degree_K3, int):
-        raise TypeError("The degree of the K3 surface must be an integer")
-    if not degree_K3 > 0:
-        raise ValueError("The degree of the K3 surface must be a positive integer")
-    if not isinstance(line_bundle_1, LineBundle):
-        raise TypeError("line_bundle_1 must be an instance of LineBundleP2.")
-    if not isinstance(line_bundle_2, LineBundle):
-        raise TypeError("line_bundle_2 must be an instance of LineBundleP2.")
-    if not isinstance(line_bundle_3, LineBundle):
-        raise TypeError("line_bundle_3 must be an instance of LineBundleP2.")
-
-    dif_12 = degree_K3 * (line_bundle_2.degree - line_bundle_1.degree)**2 + 2
-    dif_23 = degree_K3 * (line_bundle_3.degree - line_bundle_2.degree)**2 + 2
-    dif_13 = degree_K3 * (line_bundle_3.degree - line_bundle_1.degree)**2 + 2
-
-    if line_bundle_2.degree < line_bundle_3.degree:
-
-        if line_bundle_1.degree < line_bundle_2.degree:
-            if dif_12 * dif_23 >= dif_13:
-                return (dif_12 * dif_23 - dif_13, 0, 0, 0, 0)
-            else:
-                # There is an edge case when (b-c)(b-a) = -1; this reduces to Tw_{n+1} Tw_n O(n-1)
-                # or Tw_{n-1} Tw_n O(n+1). In this case, the Hom space is concentrated in degree 0
-                return (0, dif_13 - dif_12*dif_23, 0, 0, 0)
-        elif line_bundle_1.degree == line_bundle_2.degree:
-            return (0, 0, dif_23, 0, 0)
-        elif line_bundle_1.degree > line_bundle_2.degree and line_bundle_1.degree < line_bundle_3.degree:
-            return (0, dif_13, dif_12*dif_23, 0, 0)
-        elif line_bundle_1.degree == line_bundle_3.degree:
-            return (0, 1, dif_23 - 1, 0, 0)
-        else:
-            # line_bundle_1.deg > line_bundle_3.deg
-            if dif_12 * dif_23 >= dif_13:
-                return (0, 0, dif_23*dif_12-dif_13, 0, 0)
-            else:
-                # There is an edge case when (b-c)(b-a) = -1; this reduces to Tw_{n+1} Tw_n O(n-1)
-                # or Tw_{n-1} Tw_n O(n+1). In this case, the Hom space is concentrated in degree 0
-                # However, this theoretically should not occur here since we are considering the case
-                # where a > c > b
-                return (0, 0, 0, dif_13 - dif_12*dif_23, 0)
-            
-    elif line_bundle_2.degree == line_bundle_3.degree:
-
-        # If b = c, then Tw_b O(c) = O(c)[-1]. Thus,
-        #          Hom(O(a), Tw_b O(c)) = Hom(O(a), O(c)[-1]) = Hom(O(a), O(c))[-1] 
-
-        (a,b,c) = _dimHom_LineBundlesK3(line_bundle_1, line_bundle_2, degree_K3)
-        return (0, 0, a, b, c)
-    
-    else:
-        # line_bundle_2.deg > line_bundle_3.deg
-        if line_bundle_1.degree > line_bundle_2.degree:
-            return (0, 0, 0, dif_13, dif_23*dif_13)
-        elif line_bundle_1.degree == line_bundle_2.degree:
-            return (0, 0, 0, 0, dif_23)
-        elif line_bundle_1.degree < line_bundle_2.degree and line_bundle_1.degree > line_bundle_3.degree:
-            if dif_12 * dif_23 >= dif_13:
-                return (0, 0, dif_23*dif_12 - dif_13, 0, 0)
-            else:
-                return (0, 0, 0, dif_13 - dif_12*dif_23, 0)
-        elif line_bundle_1.degree == line_bundle_3.degree:
-            return (0, 1, dif_12*dif_23 - 1, 0, 0)
-        else:
-            # line_bundle_1.deg < line_bundle_3.deg
-            return (0, dif_13, dif_12*dif_23, 0, 0)
+        return {-2: degree_K3 * degree_dif**2 + 2}
         
 
 
 
-from collections import defaultdict
-from typing import List, Dict
 
-def shift_dict(d: Dict[int, int], shift: int) -> Dict[int, int]:
-    """Returns a new dictionary with keys shifted by a given amount."""
-    return {k + shift: v for k, v in d.items()}
+def _compute_rhom_helper(seq: List[int], catagory : str, deg: int = 1) -> Dict[int, int]:
+    r"""!
+    Recursive helper method which implements the general homological-algebraic logic for 
+    computing the right-derived Hom space of a line bundle with a successive number of twists.
+    The base case is handled by the _dimHom_LineBundlesP1, _dimHom_LineBundlesP2, and
+    _dimHom_LineBundlesK3 methods, which simply utilize Hirzebruch-Riemann-Roch and some easy
+    diagram chasing.
 
-def add_dicts(d1: Dict[int, int], d2: Dict[int, int]) -> Dict[int, int]:
-    """Add two dictionaries together (summing values for shared keys)."""
-    result = d1.copy()
-    for k, v in d2.items():
-        result[k] = result.get(k, 0) + v
-    return result
+    The order of the line bundles is the opposite of what would be traditionally read in English; if the
+    function is called with [1, 2, 3, 4], then the output will represent the dimensions of the RHom space
+    for RHom(O(4),  Tw_3 Tw_2 O(1) ). In particular, it should be noted that the last element of the sequence is
+    not included in the actual spherical twist, but in fact determines the line bundle that we are mapping from.
 
-def multiply_dict(d: Dict[int, int], scalar: int) -> Dict[int, int]:
-    return {k: v * scalar for k, v in d.items()}
+    \param list seq The sequence of line bundles to compute the RHom space for
+    \param str catagory The catagory of the line bundles; must be one of P1, P2, or K3
+    \param int deg The degree of the K3 surface; default is 1
 
+    \return dict A dictionary representing the dimensions of the RHom space, where the keys are the cohomological degrees and the values are the dimensions of the corresponding vector space
 
+    \throws NotImplementedError If the catagory is not P1, P2, or K3
+    \throws ValueError If computing the RHom of what are expected to be two line bundles is not concentrated in 2 degrees
+    \throws LongExactSequenceError If the long-exact sequence cannot be resolved
+    """
 
-
-def ResolveHom(seq: List[int], deg: int = 1) -> Dict[int, int]:
-
-    if len(seq) < 2:
-        raise ValueError("It does not make sense to compute RHom with less than 1 object; the sequence must have at least 2 elements")
+    
 
 
     ###########################################################################
@@ -1997,170 +1863,214 @@ def ResolveHom(seq: List[int], deg: int = 1) -> Dict[int, int]:
     ###########################################################################
 
     ## This is the base case we wish to start with. It is simply computing RHom(O(a), O(b)) for two line
-    ## bundles. In the notation of this function, we have O(a) = O(seq[0]) and O(b) = O(seq[1])
+    ## bundles. In the notation of this function, we have O(a) = O(seq[1]) and O(b) = O(seq[0])
+
     if len(seq) == 2:
-        if seq[0] > seq[1]:
-            # We are mapping from a sheaf of smaller slope to larger slope; there is no obstruction, and exist global sections
-            return {0: deg * (seq[0] - seq[1])** 2 + 1}
-        elif seq[0] == seq[1]:
-            # Since line bundles are by definition spherical, this results in C + C[-2]
-            return {0: 1, -2: 1}
+        if catagory == 'P1':
+            return _dimHom_LineBundlesP1(seq[1], seq[0])
+        elif catagory == 'P2':
+            return _dimHom_LineBundlesP2(seq[1], seq[0])
+        elif catagory == 'K3':
+            return _dimHom_LineBundlesK3(seq[1], seq[0], deg)
         else:
-            # We are mapping from a sheaf of larger slope to smaller slope; there will be no global sections. However, Serre
-            # duality means we can simply swap the two line bundles and apply a shift by [-2].
-            return {-2: deg * (seq[0] - seq[1])** 2 + 1}
-
-    prev_step_seq = seq[:-1] ## This should be the sequence without the last element
-    last_two_seq = [seq[-2], seq[-1]] ## This should be the last two elements of the sequence
-    remove_2nd_last = seq[:-2] + [seq[-1]] ## This should be the sequence with the second to last element removed
-
-
-
-    ################################################################################################################
-    #                                                                                                              #       
-    #                      Recursive Calls from applying RHom(O(a_n) , ----) to                                    #
-    #                                                                                                              #
-    #      O(a_{n-1}) ---> Tw_{a_{n-2}}... Tw_{a_1} O(a_0) ----> Tw_{a_{n-1}} Tw_{a_{n-2}}... Tw_{a_1} O(a_0)      #
-    #                                                                                                              #
-    ################################################################################################################
-
-
-    ## The result of the previous step RHom( O(a_{n-1}) ,  Tw_{a_{n-1}} ... Tw_{a_1} O(a_0) ) will directly
-    ## be applied to RHom( O(a_n) , O(a_{n-1}) )
-    first_term_dict = ResolveHom(prev_step_seq, deg) 
-
-    ## This is simply RHom( O(a_n) , O(a_{n-1}) ), which should be handled by the base case (e.g. this call is constant-time)
-    case_dict = ResolveHom(last_two_seq, deg)
-
-    ## This is a second call to recursion that does not complete in constant time. In particular, this means our function
-    ## must make roughly 2^n calls to itself, where n is the number of elements in the sequence. The runtime can be improved
-    ## via memoization, but this is not implemented here.
-    middle_term_dict = ResolveHom(remove_2nd_last, deg)
-
-
-
-
-
-    ################################################################################################################
-    #                                                                                                              #       
-    #                 Simplify RHom(O(a_n) , O(a_{n-1})) terms in first object of triangle using                   #
-    #                                                                                                              #
-    #   RHom( O(a_n),  O(a_{n-1})[b] ⊕ O(a_{n-1})[c] ) =  RHom( O(a_n),  O(a_{n-1}) )[b]  ⊕                        #
-    #                                                                   RHom( O(a_n),  O(a_{n-1}) )[c]             #
-    #                                                                                                              #
-    ################################################################################################################    
-
-
-    # Process first_term_dict depending on case_dict since RHom( - , - ) splits across direct sums and commutes with shifts
-    if case_dict.keys() == {0}:
-        ## RHom(O(a_n), O(a_{n-1})) is concentrated in degree 0; thus the previous RHom vector space gets scaled by the
-        ## current number of copies of Hom(O(a_n), O(a_{n-1}))
-        first_term_dict = multiply_dict(first_term_dict, case_dict[0])
+            raise NotImplementedError("Only P1, P2 and K3 catagories are implemented")
         
-    elif case_dict.keys() == {-2}:
-        ## RHom(O(a_n), O(a_{n-1})) is concentrated in degree 0; thus the previous RHom graded vector space gets scaled by the
-        ## current number of copies of Hom(O(a_n), O(a_{n-1})), and then all graded vector spaces are shifted by -2
-        first_term_dict = shift_dict(multiply_dict(first_term_dict, case_dict[-2]), -2)
 
-    elif case_dict.keys() == {0, -2}:
-        ## This only happens when a_n = a_{n-1}; in this case, we have a direct sum of two copies of the previous
-        ## RHom graded vector space, and then we shift one copy by -2 and combine them.
-        shifted = shift_dict(first_term_dict, -2)
-        first_term_dict = add_dicts(first_term_dict, shifted)
+
+
     else:
-        raise ValueError(f"Unexpected structure in case_dict: {case_dict}. Expected keys to be either 0, -2, or both.")
+        ## This is the recursive step. We start by computing the necessary sequences to compute the
+        ## RHoms
+    
+
+
+        prev_step_seq = seq[:-1] ## This should be the sequence without the last element
+        last_two_seq = [seq[-2], seq[-1]] ## This should be the last two elements of the sequence
+        remove_2nd_last = seq[:-2] + [seq[-1]] ## This should be the sequence with the second to last element removed
+
+
+        ################################################################################################################
+        #                                                                                                              #       
+        #                      Recursive Calls from applying RHom(O(a_n) , ----) to                                    #
+        #                                                                                                              #
+        #      O(a_{n-1}) ---> Tw_{a_{n-2}}... Tw_{a_1} O(a_0) ----> Tw_{a_{n-1}} Tw_{a_{n-2}}... Tw_{a_1} O(a_0)      #
+        #                                                                                                              #
+        ################################################################################################################
+
+
+        ## The result of the previous step RHom( O(a_{n-1}) ,  Tw_{a_{n-1}} ... Tw_{a_1} O(a_0) ) will directly
+        ## be applied to RHom( O(a_n) , O(a_{n-1}) )
+        first_term_dict = _compute_rhom_helper(prev_step_seq, catagory, deg) 
+
+        ## This is simply RHom( O(a_n) , O(a_{n-1}) ), which should be handled by the base case (e.g. this call is constant-time)
+        case_dict = _compute_rhom_helper(last_two_seq, catagory, deg)
+
+        ## This is a second call to recursion that does not complete in constant time. In particular, this means our function
+        ## must make roughly 2^n calls to itself, where n is the number of elements in the sequence. The runtime can be improved
+        ## via memoization, but this is not implemented here.
+        middle_term_dict = _compute_rhom_helper(remove_2nd_last, catagory, deg)
 
 
 
 
-    ###########################################################################
-    #                                                                         #
-    #               Attempt to resolve long-exact sequence                    #
-    #                                                                         #
-    ###########################################################################
+
+        ################################################################################################################
+        #                                                                                                              #       
+        #                 Simplify RHom(O(a_n) , O(a_{n-1})) terms in first object of triangle using                   #
+        #                                                                                                              #
+        #   RHom( O(a_n),  O(a_{n-1})[b] ⊕ O(a_{n-1})[c] ) =  RHom( O(a_n),  O(a_{n-1}) )[b]  ⊕                        #
+        #                                                                   RHom( O(a_n),  O(a_{n-1}) )[c]             #
+        #                                                                                                              #
+        ################################################################################################################    
 
 
-
-    # Combine first_term_dict and middle_term_dict into return_dict
-    return_dict = {}
-
-    keys = set(first_term_dict) | set(middle_term_dict)
-    for k in keys:
-        ## At each iteration, we must check that we are not overwriting a previous value
-        ## in returned dictionary. Since there are only three terms in a triangle contributing
-        ## to the long exact sequence, the only possible way that a value could be overwritten is
-        ## if there is a long-exact sequence with at least 4 consecutive non-zero terms.
-        ##
-        ## (Resolving such an error would require more specialized care outside of pure diagram chasing;
-        ## in particular, one would need to know the explicit maps in the long exact sequence.)
-        ##
-        ## Algorithmically, this is simply handled by saving the index we wish to overwrite to and 
-        ## the value stored, and then checking to make sure that index is not already in the dictionary.
-
-        a = first_term_dict.get(k)
-        b = middle_term_dict.get(k)
-
-        if a is not None and b is None:
-            ##
-            ##         ----> B[k+1] ------> (sum of surrounding terms)
-            ##    A[k] ---->   0    ------>
-            ##
-
-
-            if first_term_dict.get(k+1, 0) != 0 and middle_term_dict.get(k+1, 0) != 0:
-                ## A[k+1] ---> B[k+1] ---> C[k+1] ---> A[k] cannot be resolved
-                long_ex_str = f"\n\t[{k+1}]\t:\t {first_term_dict[k+1]} ---> {middle_term_dict[k+1]} ---> ?\n\t[{k}]\t:\t {first_term_dict[k]} ---> 0"
-                raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
+        # Process first_term_dict depending on case_dict since RHom( - , - ) splits across direct sums and commutes with shifts
+        if case_dict.keys() == {0}:
+            ## RHom(O(a_n), O(a_{n-1})) is concentrated in degree 0; thus the previous RHom vector space gets scaled by the
+            ## current number of copies of Hom(O(a_n), O(a_{n-1}))
+            first_term_dict = _multiply_dict(first_term_dict, case_dict[0])
             
-            target_k = k + 1 
-            value = a + middle_term_dict.get(k + 1, 0)
+        elif case_dict.keys() == {-2}:
+            ## RHom(O(a_n), O(a_{n-1})) is concentrated in degree 0; thus the previous RHom graded vector space gets scaled by the
+            ## current number of copies of Hom(O(a_n), O(a_{n-1})), and then all graded vector spaces are shifted by -2
+            first_term_dict = _shift_dict(_multiply_dict(first_term_dict, case_dict[-2]), -2)
 
-        elif a is None and b is not None:
-            ##
-            ##     0    ----> B[k] ------> (sum of surrounding terms)
-            ##  A[k-1]  ----> 
-            ##
-
-            if first_term_dict.get(k-1, 0) != 0 and middle_term_dict.get(k-1, 0) != 0:
-                ## B[k] ---> C[k] ---> A[k-1] ---> B[k-1] cannot be resolved
-                long_ex_str = f"\n\t[{k}]\t:\t 0 ---> {middle_term_dict[k]} ---> ?\n\t[{k-1}]\t:\t {first_term_dict[k-1]} ---> {middle_term_dict[k-1]}"
-                raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
-
-            target_k = k
-            value = b + first_term_dict.get(k - 1, 0)
-        elif a is not None and b is not None:
-            ## Both terms on this line are non-zero; we must be careful to check which dimension is larger so
-            ## that we are obeying the dimensionality constraints of exactness
-            if return_dict.get(k + 1, 0) != 0:
-                    long_ex_str = f"\n\t[{k+1}]\t:\t              ---> {return_dict[k + 1]}\n\t[{k}]\t:\t {first_term_dict[k]} ---> {middle_term_dict[k]} ---> ?"
-                    raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
-            
-            if b >= a:
-                if first_term_dict.get(k-1, 0) != 0:
-                    long_ex_str = f"\n\t[{k}]\t:\t {first_term_dict[k]} ---> {middle_term_dict[k]} ---> ?\n\t[{k-1}]\t:\t {first_term_dict[k-1]} ---> "
-                    raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
-                target_k = k
-                value = b - a
-            else:
-                ## this is an edge case when we are computing spherical twists with consecutive degrees, e.g. Tw_1 Tw_2 O(3)
-                ## or Tw_3 Tw_2 O(1). It generally does not occur
-                target_k = k - 1
-                value = a - b
+        elif case_dict.keys() == {0, -2}:
+            ## This only happens when a_n = a_{n-1}; in this case, we have a direct sum of two copies of the previous
+            ## RHom graded vector space, and then we shift one copy by -2 and combine them.
+            shifted = _shift_dict(first_term_dict, -2)
+            first_term_dict = _add_dicts(first_term_dict, shifted)
         else:
-            ## Both entries on this line are none; while the result may still be non-zero for this degree, it will be resolved
-            ## on another line
-            continue
-
-        if target_k in return_dict:
-            long_ex_str = f"\n\t[{target_k-1}]\t:\t {first_term_dict.get(target_k-1,0)} ---> {middle_term_dict.get(target_k-1,0)} ---> {return_dict.get(target_k-1,0)}\n\t[{target_k}]\t:\t {first_term_dict.get(target_k,0)} ---> {middle_term_dict.get(target_k,0)} ---> {return_dict.get(target_k,0)}\n\t[{target_k+1}]\t:\t {first_term_dict.get(target_k+1,0)} ---> {middle_term_dict.get(target_k+1,0)} ---> {return_dict.get(target_k+1,0)}"
-            raise LongExactSequenceException(f"Overwriting return_dict[{target_k}] --- a long exact sequence was not caught", sequence_str=long_ex_str)
-        ## We are guaranteed that this is the first time we are writing to this index
-        return_dict[target_k] = value
-
-    return return_dict
+            raise ValueError(f"Unexpected structure in case_dict: {case_dict}. Expected keys to be either 0, -2, or both.")
 
 
 
+
+        ###########################################################################
+        #                                                                         #
+        #               Attempt to resolve long-exact sequence                    #
+        #                                                                         #
+        ###########################################################################
+
+
+
+        # Combine first_term_dict and middle_term_dict into return_dict
+        return_dict = {}
+
+        keys = set(first_term_dict) | set(middle_term_dict)
+        for k in keys:
+            ## At each iteration, we must check that we are not overwriting a previous value
+            ## in returned dictionary. Since there are only three terms in a triangle contributing
+            ## to the long exact sequence, the only possible way that a value could be overwritten is
+            ## if there is a long-exact sequence with at least 4 consecutive non-zero terms.
+            ##
+            ## (Resolving such an error would require more specialized care outside of pure diagram chasing;
+            ## in particular, one would need to know the explicit maps in the long exact sequence.)
+            ##
+            ## Algorithmically, this is simply handled by saving the index we wish to overwrite to and 
+            ## the value stored, and then checking to make sure that index is not already in the dictionary.
+
+            a = first_term_dict.get(k)
+            b = middle_term_dict.get(k)
+
+            if a is not None and b is None:
+                ##
+                ##         ----> B[k+1] ------> (sum of surrounding terms)
+                ##    A[k] ---->   0    ------>
+                ##
+
+
+                if first_term_dict.get(k+1, 0) != 0 and middle_term_dict.get(k+1, 0) != 0:
+                    ## A[k+1] ---> B[k+1] ---> C[k+1] ---> A[k] cannot be resolved
+                    long_ex_str = f"\n\t[{k+1}]\t:\t {first_term_dict[k+1]} ---> {middle_term_dict[k+1]} ---> ?\n\t[{k}]\t:\t {first_term_dict[k]} ---> 0"
+                    raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
+                
+                target_k = k + 1 
+                value = a + middle_term_dict.get(k + 1, 0)
+
+            elif a is None and b is not None:
+                ##
+                ##     0    ----> B[k] ------> (sum of surrounding terms)
+                ##  A[k-1]  ----> 
+                ##
+
+                if first_term_dict.get(k-1, 0) != 0 and middle_term_dict.get(k-1, 0) != 0:
+                    ## B[k] ---> C[k] ---> A[k-1] ---> B[k-1] cannot be resolved
+                    long_ex_str = f"\n\t[{k}]\t:\t 0 ---> {middle_term_dict[k]} ---> ?\n\t[{k-1}]\t:\t {first_term_dict[k-1]} ---> {middle_term_dict[k-1]}"
+                    raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
+
+                target_k = k
+                value = b + first_term_dict.get(k - 1, 0)
+            elif a is not None and b is not None:
+                ## Both terms on this line are non-zero; we must be careful to check which dimension is larger so
+                ## that we are obeying the dimensionality constraints of exactness
+                if return_dict.get(k + 1, 0) != 0:
+                        long_ex_str = f"\n\t[{k+1}]\t:\t              ---> {return_dict[k + 1]}\n\t[{k}]\t:\t {first_term_dict[k]} ---> {middle_term_dict[k]} ---> ?"
+                        raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
+                
+                if b >= a:
+                    if first_term_dict.get(k-1, 0) != 0:
+                        long_ex_str = f"\n\t[{k}]\t:\t {first_term_dict[k]} ---> {middle_term_dict[k]} ---> ?\n\t[{k-1}]\t:\t {first_term_dict[k-1]} ---> "
+                        raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
+                    target_k = k
+                    value = b - a
+                else:
+                    ## this is an edge case when we are computing spherical twists with consecutive degrees, e.g. Tw_1 Tw_2 O(3)
+                    ## or Tw_3 Tw_2 O(1). It generally does not occur
+                    target_k = k - 1
+                    value = a - b
+            else:
+                ## Both entries on this line are none; while the result may still be non-zero for this degree, it will be resolved
+                ## on another line
+                continue
+
+            if target_k in return_dict:
+                long_ex_str = f"\n\t[{target_k-1}]\t:\t {first_term_dict.get(target_k-1,0)} ---> {middle_term_dict.get(target_k-1,0)} ---> {return_dict.get(target_k-1,0)}\n\t[{target_k}]\t:\t {first_term_dict.get(target_k,0)} ---> {middle_term_dict.get(target_k,0)} ---> {return_dict.get(target_k,0)}\n\t[{target_k+1}]\t:\t {first_term_dict.get(target_k+1,0)} ---> {middle_term_dict.get(target_k+1,0)} ---> {return_dict.get(target_k+1,0)}"
+                raise LongExactSequenceException(f"Overwriting return_dict[{target_k}] --- a long exact sequence was not caught", sequence_str=long_ex_str)
+            ## We are guaranteed that this is the first time we are writing to this index
+            return_dict[target_k] = value
+
+        return return_dict
+
+
+def _shift_dict(d: Dict[int, int], shift: int) -> Dict[int, int]:
+    r"""!
+    Helper function to shift the keys of a dictionary by a given amount. This is used to shift the
+    degrees of the RHom space by some cohomological degree. 
+
+    \param dict d The dictionary to shift
+    \param int shift The amount to shift the keys by
+
+    \return dict A new dictionary with the keys shifted by the given amount
+    """
+
+    return {k + shift: v for k, v in d.items()}
+
+def _add_dicts(d1: Dict[int, int], d2: Dict[int, int]) -> Dict[int, int]:
+    r"""!
+    Helper function to combine two dictionaries by adding their values together. This is used to combine
+    the dimensions of the RHom spaces in the long exact sequence.
+
+    \param dict d1 The first dictionary to combine
+    \param dict d2 The second dictionary to combine
+    \return dict A new dictionary with the keys and values combined
+    """
+    result = d1.copy()
+    for k, v in d2.items():
+        result[k] = result.get(k, 0) + v
+    return result
+
+def _multiply_dict(d: Dict[int, int], scalar: int) -> Dict[int, int]:
+    r"""!
+    Helper function to multiply the values of a dictionary by a given scalar. This is used to scale
+    the dimensions of the RHom spaces in the long exact sequence.
+
+    \param dict d The dictionary to scale
+    \param int scalar The scalar to multiply the values by
+
+    \return dict A new dictionary with the values scaled by the given scalar
+    """
+    return {k: v * scalar for k, v in d.items()}
 
 
 
@@ -2273,6 +2183,10 @@ if __name__ == "__main__":
    
     # fig.show()
 
-
-    return_dict = ResolveHom([1, 2, 3])
-    print(return_dict)
+    print(f"\n\n\nRHom(O(1), O(2)):\t {_compute_rhom_helper([2, 1], 'K3')}\n")
+    print("--------------------------")
+    print(f"This gives triangle:\n\n\t {_compute_rhom_helper([2, 1], 'K3')[0]}xO(1) ---> O(2) ---> Tw_1 O(2)\n")
+    print(f"\nRHom(O(-1), O(1)):\t {_compute_rhom_helper([1, -1], 'K3')}\n")
+    print(f"\nRHom(O(-1), O(2)):\t {_compute_rhom_helper([2, -1], 'K3')}\n")
+    print(f"Putting everything together,\n\nRHom(O(-1), Tw_1 O(2): {_compute_rhom_helper([2, 1, -1] ,'K3')}\n")
+    # print(_compute_rhom_helper([2, 1], 'K3'))
