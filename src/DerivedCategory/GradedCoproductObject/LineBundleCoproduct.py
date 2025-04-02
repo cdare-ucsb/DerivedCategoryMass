@@ -1,7 +1,8 @@
 from .GradedCoproductObject import GradedCoproductObject
-from src.DerivedCategory.CoherentSheaf import CoherentSheaf
+from src.DerivedCategory.CoherentSheaf import LineBundle
 
 import math
+from typing import List
 
 from dotenv import load_dotenv
 import os
@@ -11,27 +12,27 @@ load_dotenv()
 IMPLEMENTED_CATAGORIES = os.getenv("IMPLEMENTED_CATAGORIES").split(",") # ['P1', 'P2', 'K3']
 
 
-class CoherentSheafCoproduct(GradedCoproductObject):
+class LineBundleCoproduct(GradedCoproductObject):
     
 
-    def __init__(self, sheaf_vector, shift_vector, dimension_vector = None):
+    def __init__(self, line_bundle_vector : List[LineBundle], shift_vector : List[int], dimension_vector : List[int] = None, degree_K3 : int = 1):
         r"""!
-        Initialize an instance of CoherentSheafCoproduct with the specified sheaf vector, shift vector,
+        Initialize an instance of LineBundleCoproduct with the specified sheaf vector, shift vector,
         and potentially a dimension vector. If a dimension vector is not provided, it must 
         consist of non-negative integer values
 
 
-        \param list sheaf_vector A list of coherent sheaves in the complex
+        \param list line_bundle_vector A list of coherent sheaves in the complex
         \param list shift_vector A list of homological shifts in the complex
         \param list dimension_vector A list of the number of direct sums of each coherent sheaf in the complex
         """
 
         # The main functionality is implemented in the parent class
-        super().__init__(sheaf_vector, shift_vector, dimension_vector)
+        super().__init__(object_vector=line_bundle_vector, shift_vector=shift_vector, dimension_vector=dimension_vector, degree_K3=degree_K3)
 
         # Check that the sheaf vector is valid and contains sheaves of only a single catagory
-        if not all(isinstance(sheaf, CoherentSheaf) for sheaf in sheaf_vector):
-            raise TypeError("All elements of sheaf_vector must be instances of CoherentSheaf.")
+        if not all(isinstance(sheaf, LineBundle) for sheaf in line_bundle_vector):
+            raise TypeError("All elements of line_bundle_vector must be instances of LineBundle.")
 
     
 
@@ -43,7 +44,7 @@ class CoherentSheafCoproduct(GradedCoproductObject):
         \return bool True if the complex is a shift of a single sheaf, False otherwise
         """
 
-        return len(self.sheaf_vector) == 1
+        return len(self.object_vector) == 1
 
 
         
@@ -93,7 +94,7 @@ class CoherentSheafCoproduct(GradedCoproductObject):
          # Zip the three lists together and sort by descending shift
         min_shift = min(self.shift_vector)
 
-        bundles = list(zip(self.sheaf_vector, self.dimension_vector, self.shift_vector))
+        bundles = list(zip(self.object_vector, self.dimension_vector, self.shift_vector))
         bundles_min_shift = filter(lambda x: x[2] == min_shift or x[2] == min_shift + 1 , bundles)
 
         min_phase = math.inf
@@ -149,12 +150,12 @@ class CoherentSheafCoproduct(GradedCoproductObject):
         # Zip the three lists together and sort by descending shift
         max_shift = max(self.shift_vector)
 
-        bundles = list(zip(self.sheaf_vector, self.dimension_vector, self.shift_vector))
+        bundles = list(zip(self.object_vector, self.dimension_vector, self.shift_vector))
         bundles_max_shift = filter(lambda x: x[2] == max_shift or x[2] == max_shift - 1, bundles)
 
         max_phase = -math.inf
 
-        for sheaf, dim, shift in bundles_max_shift:
+        for sheaf, _, shift in bundles_max_shift:
             if sheaf.phase(*args) + shift > max_phase:
                 max_phase = sheaf.phase(*args) + shift
 

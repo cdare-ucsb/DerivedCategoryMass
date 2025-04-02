@@ -5,10 +5,26 @@ from dotenv import load_dotenv
 import os
 import cmath
 import math
+from typing import List, Tuple
 
 # Load .env file
 load_dotenv()
 IMPLEMENTED_CATAGORIES = os.getenv("IMPLEMENTED_CATAGORIES").split(",") # ['P1', 'P2', 'K3']
+
+
+class HarderNarasimhanError(Exception):
+    r"""!
+    Exception raised when the correct Harder-Narasimhan filtration cannot be found 
+    """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args)
+
+        self.message = kwargs.get('message') ## The error message
+
+        self.stability_parameters = kwargs.get('stability_parameters') ## The stability parameters used to compute the Harder-Narasimhan factors
+
+
+
 
 
 class DerivedCategoryObject(ABC):
@@ -196,27 +212,86 @@ class DerivedCategoryObject(ABC):
 
         pass
 
-    @abstractmethod
-    def mass(self, *_) -> float :
+    def mass(self, *args, logging : bool =False, log_file : bool =None) -> float:
         r"""!
-        Method to compute the mass of the derived category object with respect to a given stability condition. 
-        This will simply act as a wrapper for the central charge method, which should be implemented in child classes.
+        The mass of the double spherical twist is the sum of the masses of the Harder-Narasimhan factors; the 
+        Harder-Narasimhan factors are assumed to come from either the defining triangle or secondary canonical triangle.
+        The mass of the double spherical twist is computed by first computing the Harder-Narasimhan factors of the
+        defining triangle, and then the secondary canonical triangle.
 
-        \param tuple args 
-            The parameters of the stability condition. The number of parameters will depend on the catagory of the object.
-            For P1, this will be a single complex number. For P2, this will be two real numbers. For K3, this will be
-            two real numbers and one integer.
+        \param tuple args The parameters for the stability condition. The number of parameters depends on the catagory of the object
+                        For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
+                        and an integer representing the degree of the K3 surface.
+        \param bool logging A boolean flag to indicate whether to log the Harder-Narasimhan factors that caused the object to be unstable
+        \param str log_file The file to log the Harder-Narasimhan factors that caused the object to be unstable
 
-        \return float The mass of the derived category object with respect to the stability condition
+        \return float The mass of the double spherical twist
 
-        \throws ValueError
-            If the DerivedCategoryObject is not initialized
-            If the number of parameters is incorrect for the catagory
-        \throws TypeError
-            If the parameters are not of the correct type
-
+        \throws TypeError If the args are not of the correct type
+        \throws ValueError If the number of args is incorrect
+        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
         """
 
+        if self.catagory == 'P1':
+            if len(args) != 1:
+                raise ValueError("Central charge of P1 requires single complex number parameter")
+            if not isinstance(args[0], complex):
+                raise TypeError("P1 objects should have a single complex parameter")
+        # elif self.catagory == 'P2':
+        #     if len(args) != 2:
+        #         raise ValueError("Central charge of P2 requires two real number parameters")
+        #     if not all(isinstance(x, (float, int)) for x in args):
+        #         raise TypeError("P2 objects should have two real number parameters")
+        elif self.catagory == 'K3':
+            if len(args) != 3:
+                raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
+            if not all(isinstance(x, (float, int)) for x in args):
+                raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
+            if not isinstance(args[2], int):
+                raise TypeError("The degree of the K3 surface must be an integer")
+        else:
+            raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
+        
+        
+
+        try:
+            HN_factors = self.get_HN_factors(*args)
+
+            mass = 0
+            for (derived_cat_obj, _) in HN_factors:
+                mass += abs(derived_cat_obj.central_charge(*args))
+
+            return mass
+        except HarderNarasimhanError as e:
+            if logging and log_file:
+                with open(log_file, 'a') as log_file:
+                    msg_str = e.message + f"@ {e.stability_parameters}"
+                    log_file.write(msg_str)
+            elif logging:
+                msg_str = e.message + f"@ {e.stability_parameters}"
+                print(msg_str)
+            return -1
+        
+
+    @abstractmethod
+    def get_HN_factors(self, *args) -> List[Tuple['DerivedCategoryObject', float]]:
+        r"""!
+        
+
+        \param tuple args The parameters for the stability condition. The number of parameters depends on the catagory of the object
+                        For P1, this is a single complex number. For
+                        P2, this is two real numbers. For K3, this is two real numbers
+                        and an integer representing the degree of the K3 surface.
+
+        \return list A list of tuples where the first element is a DerivedCategoryObject and the second element is a float
+                    representing the phase of the object. The list is always returned in such a way that the largest phase
+                    HN factor is first and smallest is last.
+
+        \throws TypeError If the args are not of the correct type
+        \throws ValueError If the number of args is incorrect
+        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
+        """
+        
         pass
 
 
@@ -231,53 +306,6 @@ class DerivedCategoryObject(ABC):
         return hash(self.chernCharacter())
 
     
-
-    # def update_string_by_shift(self, my_str, n):
-    #     r"""!
-    #     Static helper function to update the possible string representations of the abstract
-    #     DerivedCategoryObject by a homological shift. For example, if an object is called A[3],
-    #     then a shift of 2 will yield A[5] (as a string). If the object is unshifted to start with,
-    #     then shifting the object should return A[n] (as a string). The only object that should not
-    #     be shifted is the zero object, which is represented by the string "0".
-
-    #     \param str my_str
-    #         The string representation of the derived category object
-    #     \param int n
-    #         The homological shift to apply to the derived category object
-
-    #     \return str
-    #         The string representation of the derived category object shifted by the homological shift
-
-    #     \throws TypeError
-    #         If my_str is not a string
-    #         If n is not an integer
-
-    #     """
-
-    #     if not isinstance(my_str, str):
-    #         raise TypeError("my_str must be a string.")
-    #     if not isinstance(n, int):
-    #         raise TypeError("n must be an integer.")
-
-    #     # If the object is zero, it should remain zero
-    #     if my_str == "0":
-    #         return "0"
-        
-    #     # This regex checks for a pattern at the end of the string that looks like "[number]"
-    #     pattern = r'\[(\d+)\]$'
-    #     match = re.search(pattern, my_str)
-        
-    #     if match:
-    #         # Extract the current number k, add n, and format the new number.
-    #         k = int(match.group(1))
-    #         new_k = k + n
-    #         # Replace the [k] at the end with [new_k]
-    #         updated_str = re.sub(pattern, f'[{new_k}]', my_str)
-    #         return updated_str
-    #     else:
-    #         # If there's no [number] at the end, append [n]
-    #         return my_str + f'[{n}]'
-            
 
 
     

@@ -1,11 +1,11 @@
 from src.DerivedCategory import DerivedCategoryObject
 from src.DerivedCategory.SphericalTwist import SphericalTwistComposition
-from src.DerivedCategory.CoherentSheaf import LineBundle
-from src.DerivedCategory.ChernCharacter import ChernCharacter
-from src.DerivedCategory.GradedCoproductObject import GradedCoproductObject
+from src.DerivedCategory.GradedCoproductObject import GradedCoproductObject, LineBundleCoproduct
+
+from typing import List
 
 
-class SphericalTwistSum(GradedCoproductObject):
+class SphericalTwistCoproduct(GradedCoproductObject):
     r"""!
     This class acts similar to the ChainComplex class for CoherentSheaf; specifically, when considering
     double (or any n>1) spherical twists, there are always triangles that the twist will fit into that are 
@@ -19,7 +19,7 @@ class SphericalTwistSum(GradedCoproductObject):
     """
 
 
-    def __init__(self, sph_twists_vector, dimension_vector, shift_vector, degree=1):
+    def __init__(self, sph_twists_vector : List[SphericalTwistComposition], shift_vector : List[int], dimension_vector : List[int] = None, degree_K3 : int = 1):
         r"""!
         Initialize an instance of SphericalTwistSum with the specified line bundles. This class is used
         to represent objects of the form
@@ -42,46 +42,11 @@ class SphericalTwistSum(GradedCoproductObject):
                        Default is 1.
         """
 
+
+        super().__init__(object_vector=sph_twists_vector, dimension_vector=dimension_vector, shift_vector=shift_vector, degree=degree_K3)
+
         if not all(isinstance(x, SphericalTwistComposition) for x in sph_twists_vector):
-            raise TypeError("line_bundle_pairs_vector must be a list of tuples")
-        if not all(len(x) == 2 for x in line_bundle_pairs_vector):
-            raise ValueError("line_bundle_pairs_vector must be a list of tuples with exactly two elements")
-        if not all(isinstance(x[0], LineBundle) and isinstance(x[1], LineBundle) for x in line_bundle_pairs_vector):
-            raise TypeError("line_bundle_pairs_vector must be a list of tuples where both objects are line bundles")
-        if not all(x[0].catagory == x[1].catagory for x in line_bundle_pairs_vector):
-            raise ValueError("Line bundles must be defined on the same variety; not all catagories currently match.")
-        
-        self.catagory = line_bundle_pairs_vector[0][0].catagory
-
-        if not all(x[0].catagory == self.catagory for x in line_bundle_pairs_vector):
-            raise ValueError("All line bundles pairs must be defined on the same catagory")
-
-        if not all(isinstance(x, int) for x in dimension_vector):
-            raise TypeError("dimension_vector must be a list of integers")
-        if not all( x >= 0 for x in dimension_vector):
-            raise ValueError("dimension_vector must be a list of non-negative integers")
-        if not all(isinstance(x, int) for x in shift_vector):
-            raise TypeError("shift_vector must be a list of integers")
-        
-        
-        if len(line_bundle_pairs_vector) != len(dimension_vector) or len(line_bundle_pairs_vector) != len(shift_vector):
-            raise ValueError("line_bundle_pairs_vector, dimension_vector, and shift_vector must have the same length")
-        
-        if len(line_bundle_pairs_vector) == 0:
-            raise ValueError("line_bundle_pairs_vector must have at least one element")
-        
-        self.line_bundle_pairs_vector = line_bundle_pairs_vector ## A list of tuples where each tuple is a pair of line bundles (lb1, lb2) that the spherical twist is defined around
-
-        self.dimension_vector = dimension_vector ## A list of non-negative integers representing the number of times each spherical twist is applied
-
-        self.shift_vector = shift_vector ## A list of integers representing the shift of each spherical twist
-
-        self.degree = degree ## An optional argument for the degree of the K3 surface, if applicable
-
-
-        self._remove_zeros_from_dimension_vector()
-        self._combine_repeats()
-
+            raise TypeError("All objects in the spherical twist sum must be instances of SphericalTwistComposition")
 
 
     # def __str__(self):
@@ -139,66 +104,6 @@ class SphericalTwistSum(GradedCoproductObject):
     
 
     
-    def shift(self, n):
-        r"""!
-        Cohomological shift of the complex by some fixed amount. This is one of the main methods one wishes
-        to override for the DerivedCategoryObject class, since the shift of a spherical twist sum is simply
-        the sum of the shifts of the individual spherical twists.
-
-        \param int n The amount to shift the complex by  
-
-        \return SphericalTwistSum The shifted spherical twist sum
-        """
-
-
-        new_shift_vector = [x + n for x in self.shift_vector]
-
-        return SphericalTwistSum(self.line_bundle_pairs_vector, self.dimension_vector, new_shift_vector, self.degree)
-    
-    def central_charge(self, *args):
-        r"""!
-        Method to compute the central charge of the spherical twist sum. Since all stability conditions are numerical
-        for our current implementations, it suffices to compute the central charge of the Chern character
-
-        \param args: The parameters for the stability condition. The number of parameters depends on the catagory of the object
-                        For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
-                        and an integer representing the degree of the K3 surface.
-
-        \return complex The central charge of the spherical twist sum as a complex number
-
-        \throws TypeError If the args are not of the correct type
-        \throws ValueError If the number of args is incorrect
-        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
-        """
-
-        if self.catagory == 'P1':
-            if len(args) != 1:
-                raise ValueError("Central charge of P1 requires single complex number parameter")
-            if not isinstance(args[0], complex):
-                raise TypeError("P1 objects should have a single complex parameter")
-        elif self.catagory == 'P2':
-            if len(args) != 2:
-                raise ValueError("Central charge of P2 requires two real number parameters")
-            if not all(isinstance(x, (float, int)) for x in args):
-                raise TypeError("P2 objects should have two real number parameters")
-        elif self.catagory == 'K3':
-
-            if len(args) != 3:
-                raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
-            if not all(isinstance(x, (float, int)) for x in args):
-                raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
-            if not isinstance(args[2], int):
-                raise TypeError("The degree of the K3 surface must be an integer")
-        else:
-            raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
-
-        central_charge = 0
-
-        for (lb1, lb2), n, s in zip(self.line_bundle_pairs_vector, self.dimension_vector, self.shift_vector):
-            sph_twist = SphericalTwist(lb1, lb2, self.degree)
-            central_charge += n * (-1)**s * sph_twist.central_charge(*args)
-        
-        return central_charge
     
     def get_lowest_shift_component(self):
         r"""!
@@ -210,12 +115,12 @@ class SphericalTwistSum(GradedCoproductObject):
 
         # Bundle each component into a tuple, then use max with custom key
         triple = min(
-            zip(self.line_bundle_pairs_vector, self.dimension_vector, self.shift_vector),
+            zip(self.object_vector, self.dimension_vector, self.shift_vector),
             key=lambda t: t[2]  # t = (lb_pair, dim, shift)
         )
 
         max_lb_pair, max_dimension, max_shift = triple
-        return SphericalTwistSum([max_lb_pair], [max_dimension], [max_shift], self.degree)
+        return SphericalTwistCoproduct([max_lb_pair], [max_dimension], [max_shift], self.degree)
 
             
     def get_highest_shift_component(self):
@@ -233,7 +138,7 @@ class SphericalTwistSum(GradedCoproductObject):
         )
 
         max_lb_pair, max_dimension, max_shift = triple
-        return SphericalTwistSum([max_lb_pair], [max_dimension], [max_shift], self.degree)
+        return SphericalTwistCoproduct([max_lb_pair], [max_dimension], [max_shift], self.degree)
 
     
     def is_semistable(self, *args):
@@ -327,12 +232,12 @@ class SphericalTwistSum(GradedCoproductObject):
 
         HN_factors = []
         for (lb1, lb2), n, s in zip(self.line_bundle_pairs_vector, self.dimension_vector, self.shift_vector):
-            sph_twist = SphericalTwist(lb1, lb2, self.degree)
+            sph_twist = SphericalTwistComposition(lb1, lb2, self.degree)
 
             individual_twist_HN_factors = sph_twist.get_HN_factors(*args)
             for (obj, phase) in individual_twist_HN_factors:
-                if isinstance(obj, CoherentSheafCoproduct):
-                    HN_factors.append((ChainComplex(sheaf_vector=obj.sheaf_vector,
+                if isinstance(obj, LineBundleCoproduct):
+                    HN_factors.append((LineBundleCoproduct(sheaf_vector=obj.sheaf_vector,
                                                     shift_vector=[shift + s for shift in obj.shift_vector],
                                                     dimension_vector=[dim * n for dim in obj.dimension_vector]),
                                                     phase + s))
@@ -345,45 +250,5 @@ class SphericalTwistSum(GradedCoproductObject):
                     
         # Return the list in such a way that the highest phase comes first and the lowest phase comes last
         return sorted(HN_factors, key=lambda x: x[1], reverse=True)
-
-            
-    def _remove_zeros_from_dimension_vector(self):
-        """!
-        Helper function which iterates through the dimension vector, and if a certain Coherent sheaf
-        is only included 0 times, we may effectively erase it.
-        """
-        for i in range(len(self.dimension_vector)):
-            if i < len(self.dimension_vector) and self.dimension_vector[i] == 0:
-                del self.line_bundle_pairs_vector[i]
-                del self.shift_vector[i]
-                del self.dimension_vector[i]
-
-    def _combine_repeats(self):
-        """!
-        Helper function to combine repeated sheaves in the complex. This is useful for simplifying
-        the complex, as we can combine repeated sheaves into a single sheaf with a larger dimension.
-        """
-
-        # Dictionary to hold combined dimensions for each (sheaf, shift) pair
-        combined = {}
-
-        # Iterate over the tuples
-        for (lb1,lb2), dim, shift in zip(self.line_bundle_pairs_vector, self.dimension_vector, self.shift_vector):
-            key = (lb1, lb2, shift)
-            if key in combined:
-                combined[key] += dim
-            else:
-                combined[key] = dim
-
-        # Unpack the combined dictionary back into the class variables
-        self.line_bundle_pairs_vector = []
-        self.dimension_vector = []
-        self.shift_vector = []
-
-        for (lb1, lb2, shift), dim in combined.items():
-            self.line_bundle_pairs_vector.append((lb1, lb2))
-            self.dimension_vector.append(dim)
-            self.shift_vector.append(shift)
-
 
     

@@ -1,5 +1,6 @@
-from sympy import expand, S, Basic, Symbol, factorial
+from sympy import expand, S, Symbol, factorial, Expr
 from collections import defaultdict
+from typing import List
 
 
 
@@ -9,8 +10,9 @@ class ChernCharacter():
     r"""!
        A class representing the Chern Character of an object in the derived category of some smooth projective variety. The Chern Character is a graded object in the cohomology ring of our variety —— ASSUMING THAT ALL CLASSES ARE ALGEBRAIC, we can represent the Chern Character as a polynomial in the basis of divisor classes. This is known to hold for cellular varieties (such as Grassmannians), toric varieties, and complete intersections. Ultimately, the representation of a Chern Character as a polynomial over some formal variables allows us flexibility in defining things such as intersection numbers, exponential characters, and so on.
     """
+        
 
-    def __init__(self, expr, dimension, basis=None):
+    def __init__(self, expr : Expr, dimension : int, basis : List[Symbol]=None):
         r"""!
         Initialize a Chern Character object from a SymPy expression representing a polynomial in the divisor classes of the variety. The list of viable divisor classes must be passed to the object as well so that we can check that the expression is valid.
 
@@ -44,7 +46,7 @@ class ChernCharacter():
             raise TypeError("Dimension object must be a number that can be cast to an integer.")
         if int(dimension) < 0:
             raise ValueError("Dimension must be a non-negative integer.")
-        if not isinstance(expr, Basic):
+        if not isinstance(expr, Expr):
             raise TypeError("Expression must be a SymPy expression.")
         if not expr.free_symbols.issubset(set(self.basis)) or not expr.is_polynomial(*self.basis):
             raise ValueError("Expression must be a polynomial in the basis of divisors.")
@@ -309,7 +311,7 @@ class ChernCharacter():
         if degree < 0 or degree > self.dimension:
             raise IndexError("Degree must be between 0 and the dimension of the variety.")
         
-        if not isinstance(new_expr, Basic):
+        if not isinstance(new_expr, Expr):
             raise TypeError("New expression must be a SymPy expression.")
 
         # Split current expression into other degrees
@@ -343,6 +345,20 @@ class ChernCharacter():
 
         self.expr = expand(new_full_expr)
 
+    
+    def __hash__(self) -> int:
+        r"""!
+        Hash function for the Chern Character object. This is useful for using the Chern Character object as a key in a dictionary or set.
+
+        \return int The hash of the Chern Character object
+        """
+
+        return hash((
+            tuple(self.expr.as_ordered_terms()),
+            tuple(self.basis),
+            self.dimension
+        ))
+
 
     @staticmethod
     def exp(linear_expr, dimension, basis=None):
@@ -368,7 +384,7 @@ class ChernCharacter():
         \throws ValueError If the linear expression is not a polynomial in the basis of divisors
         """
 
-        if not isinstance(linear_expr, Basic):
+        if not isinstance(linear_expr, Expr):
             raise TypeError("Linear expression must be a SymPy expression.")
         if basis is not None and not isinstance(basis, list):
             raise TypeError("Basis must be a list of SymPy symbols.")

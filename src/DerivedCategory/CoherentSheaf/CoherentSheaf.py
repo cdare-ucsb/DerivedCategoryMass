@@ -1,7 +1,7 @@
 from src.DerivedCategory.ChernCharacter import ChernCharacter
 from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
-import math
-import cmath
+from sympy import Expr, Symbol, PolynomialError
+from typing import List
 
 
 ###############################################################################
@@ -28,7 +28,7 @@ IMPLEMENTED_CATAGORIES = os.getenv("IMPLEMENTED_CATAGORIES").split(",") # ['P1',
 
 
 class CoherentSheaf(DerivedCategoryObject):
-    """!
+    r"""!
     Generic class for coherent sheaves on a projective variety. This class is
     intended to be subclassed by more specific classes like LineBundle, which
     represent line bundles on projective varieties. By itself, it does not
@@ -39,10 +39,21 @@ class CoherentSheaf(DerivedCategoryObject):
     The parent class to this is DerivedCategoryObject, which is a more general
     class that theoretically does not even require a ChernCharacter --- just
     a string label.
-    
     """
+
+    _instances = {}
+
+    def __new__(cls, chern_character : Expr, catagory : str, allowed_basis : List[Symbol] =None):
+
+        key = (tuple(chern_character), catagory, tuple(allowed_basis) if allowed_basis else None)
+        if key not in cls._instances:
+            instance = super().__new__(cls)
+            cls._instances[key] = instance
     
-    def __init__(self, chern_character, catagory):
+        return cls._instances[key]
+
+    
+    def __init__(self, chern_character : Expr, catagory : str, allowed_basis : List[Symbol] =None):
         r"""!
         Initializes an instance of CoherentSheaf with the specified Chern Character
         and catagory.
@@ -57,15 +68,12 @@ class CoherentSheaf(DerivedCategoryObject):
         \raises TypeError: If the Chern Character is not an instance of Chern
         """
 
+        if hasattr(self, '_initialized') and self._initialized:
+            return
+
         if catagory not in IMPLEMENTED_CATAGORIES:
             raise ValueError(f"Catagory {catagory} is not implemented.")
         
-        if catagory == 'P1' and len(chern_character) != 2:
-            raise ValueError("P1 objects should have a Chern Character of length 2")
-        if catagory == 'P2' and len(chern_character) != 3:
-            raise ValueError("P2 objects should have a Chern Character of length 3")
-        if catagory == 'K3' and len(chern_character) != 3:
-            raise ValueError("K3 objects should have a Chern Character of length 3")
         
         if not isinstance(chern_character, ChernCharacter):
             raise TypeError("Chern Character must be a ChernCharacter object")
@@ -74,6 +82,10 @@ class CoherentSheaf(DerivedCategoryObject):
         self.catagory = catagory ## The catagory of the coherent sheaf (e.g. 'P1', 'P2', 'K3')
 
         self.chern_character = chern_character ## The Chern Character of the coherent sheaf, passed as a ChernCharacter object.
+
+        self.allowed_basis = allowed_basis ## The allowed basis of divisors for the coherent sheaf
+
+        self._initialized = True ## Mark the instance as initialized
 
         
 
@@ -105,8 +117,8 @@ class CoherentSheaf(DerivedCategoryObject):
         \return ChainComplex A ChainComplex concentrated in a single degree, shifted by n units
         """
 
-        from DerivedCategory.GradedCoproductObject import CoherentSheafCoproduct # include in the method to avoid circular import
-        return CoherentSheafCoproduct( sheaf_vector=[self], shift_vector=[n], dimension_vector=[1])
+        from src.DerivedCategory.GradedCoproductObject import LineBundleCoproduct # include in the method to avoid circular import
+        return LineBundleCoproduct( sheaf_vector=[self], shift_vector=[n], dimension_vector=[1])
         
 
     def __str__(self):
@@ -123,6 +135,13 @@ class CoherentSheaf(DerivedCategoryObject):
         """
 
         return f'CoherentSheaf with Chern Character {self.chern_character}'
+    
+
+    def get_HN_factors(self, *args):
+        return super().get_HN_factors(*args)
+    
+    def is_semistable(self, *args):
+        return super().is_semistable(*args)
 
 
 
@@ -141,10 +160,11 @@ class LineBundle(CoherentSheaf):
     the second Chern Character is (c_1^2(E) - c_2(E))/2, the second Chern Character of a line bundle
     is simply c_1^2(E)/2; therefore, this class will conveniently only store the degree of the line
     bundle, which is the first Chern Character.
-
     """
 
-    def __init__(self, degree, catagory):
+
+
+    def __init__(self, divisor : Expr, catagory : str, allowed_basis : List[Symbol] = None):
         r"""!
         Initializes an instance of LineBundle with the specified degree and catagory. The Chern Character
         of the line bundle is automatically computed based on the degree and catagory.
@@ -155,23 +175,47 @@ class LineBundle(CoherentSheaf):
         \raises ValueError If the degree is not an integer
         \raises NotImplementedError If the catagory is not implemented
 
-        \var degree int The degree of the line bundle
+
         \var catagory str The catagory of the line bundle
         \var chern_character ChernCharacter The Chern Character of the line bundle
         """
         if catagory not in IMPLEMENTED_CATAGORIES:
             raise NotImplementedError(f"Catagory {catagory} is not implemented.")
-        if not isinstance(degree, int):
-            raise ValueError(f"degree must be an integer: currently passed {type(degree)}")
+        if not isinstance(divisor, Expr):
+            raise ValueError(f"Divisor must be a SymPy Expr: currently passed {type(divisor)}")
         
-        self.degree = degree
-        self.catagory = catagory
-        if self.catagory == 'K3' or self.catagory == 'P2':
-            # Since K3 surfaces and P2 have a second Chern Character, we need to store ch_2
-            self.chern_character = ChernCharacter([1, self.degree, float(self.degree**2)/2])
-        elif self.catagory == 'P1':
-            # For local P1 the Chern character is only the rank and degree
-            self.chern_character = ChernCharacter([1, self.degree])
+        if allowed_basis is None:
+            allowed_basis = list(divisor.free_symbols)
+    
+        else:
+            used_vars = divisor.free_symbols
+            allowed_vars = set(allowed_basis)
+            if not used_vars <= allowed_vars:
+                raise ValueError(f"divisor uses symbols {used_vars - allowed_vars} which are not in allowed basis {allowed_vars}")
+
+        # Check it's a linear polynomial (degree 1 or less)
+        try:
+            poly = divisor.as_poly(*allowed_basis)
+            if poly.total_degree() > 1:
+                raise ValueError("divisor must be linear in the basis elements")
+        except PolynomialError:
+            raise ValueError("divisor is not a valid polynomial in the basis")
+
+
+        dimension = 0
+
+        if catagory == 'P1':
+            dimension = 2
+        elif catagory == 'P2' or catagory == 'K3':
+            dimension = 3
+        else:
+            raise NotImplementedError(f"Catagory {catagory} is not implemented.")
+
+        super().__init__(ChernCharacter.exp(divisor, dimension=dimension), catagory, allowed_basis=allowed_basis)
+
+        self.divisor = divisor ## The divisor of the line bundle, which is a polynomial in the allowed basis
+
+        
         
 
 
@@ -204,7 +248,7 @@ class LineBundle(CoherentSheaf):
         \return str A string representation of the line bundle, with the format 'O(d)'
         """
 
-        return f'O({self.degree})'
+        return f'O({self.divisor})'
     
     def __eq__(self, other):
         r"""!
@@ -219,5 +263,6 @@ class LineBundle(CoherentSheaf):
             return False
         if other.catagory != self.catagory:
             return False
-        return self.degree == other.degree
+        return self.divisor == other.divisor
+    
     

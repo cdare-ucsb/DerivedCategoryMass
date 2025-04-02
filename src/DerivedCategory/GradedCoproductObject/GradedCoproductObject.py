@@ -1,4 +1,7 @@
 from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
+from src.DerivedCategory.GradedCoproductObject import LineBundleCoproduct, SphericalTwistCoproduct
+from src.DerivedCategory.CoherentSheaf import LineBundle
+from src.DerivedCategory.SphericalTwist import SphericalTwistComposition
 from typing import List
 
 from dotenv import load_dotenv
@@ -12,7 +15,34 @@ IMPLEMENTED_CATAGORIES = os.getenv("IMPLEMENTED_CATAGORIES").split(",") # ['P1',
 
 class GradedCoproductObject(DerivedCategoryObject):
 
-    def __init__(self, object_vector : List[DerivedCategoryObject], shift_vector : List[int], dimension_vector : List[int] = None):
+    _instances = {} ## Memoization: Dictionary to hold instances of GradedCoproductObject
+
+
+    def __new__(cls, object_vector : List[DerivedCategoryObject], shift_vector : List[int], dimension_vector : List[int] = None, degree_K3 : int = 1):
+
+        if dimension_vector is None:
+            dimension_vector = [1] * len(object_vector)
+
+        if cls is GradedCoproductObject and all(isinstance(obj, LineBundle) for obj in object_vector):
+            return LineBundleCoproduct(object_vector, shift_vector, dimension_vector, degree_K3)
+        elif cls is GradedCoproductObject and all(isinstance(obj, SphericalTwistComposition) for obj in object_vector):
+            return SphericalTwistCoproduct(object_vector, shift_vector, dimension_vector, degree_K3)
+        
+        key = (
+            tuple(object_vector),
+            tuple(shift_vector),
+            tuple(dimension_vector),
+            degree_K3,
+            cls
+        )
+
+        if key not in cls._instances:
+            instance = super().__new__(cls)
+            cls._instances[key] = instance
+
+        return cls._instances[key]
+
+    def __init__(self, object_vector : List[DerivedCategoryObject], shift_vector : List[int], dimension_vector : List[int] = None, degree_K3 : int = 1):
         r"""!
         Initialize an instance of GradedCoproductObject with the specified object_vector, shift vector,
         and potentially a dimension vector. If a dimension vector is provided, it must consist of non-negative;
@@ -40,6 +70,9 @@ class GradedCoproductObject(DerivedCategoryObject):
         ##### 
         # Check that object vector is valid and contains object of only a single catagory
         #####
+
+        if hasattr(self, '_initialized'):
+            return
 
         if not object_vector:
             raise ValueError("object_vector cannot be empty.")
@@ -76,6 +109,18 @@ class GradedCoproductObject(DerivedCategoryObject):
             # Dimension cannot be non-negative
             raise ValueError("All elements of dimension_vector must be non-negative integers.") 
         
+
+        #####
+        # Check that the degree is valid
+        #####
+
+        if not isinstance(degree_K3, int):
+            raise TypeError("degree_K3 must be an integer.")
+        if degree_K3 < 1:
+            raise ValueError("degree_K3 must be a positive integer.")
+        
+        self.degree_K3 = degree_K3 ## The degree of the K3 surface. This is used to compute the Chern character only in the case of K3 surfaces; by default, it is 1.
+        
         self.object_vector = object_vector ## List of coherent sheaves in the complex, so that the chain complex can operate similar to a DenseVector.
 
         self.dimension_vector = dimension_vector ## List of the number of direct sums of each object in the complex.
@@ -88,6 +133,8 @@ class GradedCoproductObject(DerivedCategoryObject):
         self._remove_zeros_from_dimension_vector()
         # Combine repeated sheaves in the complex
         self._combine_repeats()
+
+        self._initialized = True ## Flag to indicate that the object has been initialized
 
 
 

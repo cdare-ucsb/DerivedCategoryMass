@@ -16,7 +16,7 @@ class DistinguishedTriangle():
 
     """
 
-    def __init__(self, derived_object1, derived_object2, derived_object3):
+    def __init__(self, derived_object1 : DerivedCategoryObject, derived_object2 : DerivedCategoryObject, derived_object3 : DerivedCategoryObject):
         r"""!
         Initialize an instance of DistinguishedTriangle with the specified objects, and
         then update the Chern Characters of the objects if they are not already set.
@@ -85,6 +85,11 @@ class DistinguishedTriangle():
         """
 
         return DistinguishedTriangle(self.object2, self.object3, self.object1.shift(1))
+    
+
+    def __hash__(self):
+
+        return hash((self.object1, self.object2, self.object3))
 
    
 
