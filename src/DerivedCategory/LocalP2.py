@@ -1,6 +1,6 @@
-from .ChernCharacter import ChernCharacter
-from .SphericalTwist.SphericalTwist import SphericalTwist
-from .CoherentSheaf.CoherentSheaf import LineBundle
+from src.DerivedCategory.ChernCharacter import ChernCharacter
+from src.DerivedCategory.SphericalTwist  import SphericalTwistComposition
+from src.DerivedCategory.CoherentSheaf  import LineBundle
 
 import math
 import numpy as np
@@ -22,7 +22,7 @@ class LePotier():
     """
 
     def __init__(self, granularity=5, width=5):
-        """!
+        r"""!
         Constructor for the LePotier class. Initializes the curve with the given granularity
         and width.
 

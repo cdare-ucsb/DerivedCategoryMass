@@ -1,4 +1,4 @@
-from DerivedCategory.GradedCoproductObject import SphericalTwistCoproduct
+from src.DerivedCategory.GradedCoproductObject import GradedCoproductObject
 from src.DerivedCategory.CoherentSheaf.CoherentSheaf import LineBundle
 from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject, HarderNarasimhanError
 from src.DerivedCategory.DistinguishedTriangle import DistinguishedTriangle
@@ -273,7 +273,7 @@ class SphericalTwistComposition(DerivedCategoryObject):
         if not isinstance(n, int):
             raise TypeError("Shift must be an integer")
 
-        return SphericalTwistCoproduct(sph_twists_vector=[self], dimension_vector=[1], shift_vector=[n], degree=self.degree)
+        return GradedCoproductObject(sph_twists_vector=[self], dimension_vector=[1], shift_vector=[n], degree=self.degree)
     
 
     
@@ -620,32 +620,19 @@ def ApplySphericalTwist(target, line_bundle : LineBundle, degree_K3 : int = 1) -
     elif isinstance(target, LineBundle):
         return SphericalTwistComposition(line_bundle_vector=[target, line_bundle], degree_K3=degree_K3)
     
-    elif isinstance(target, LineBundleCoproduct):
+    elif isinstance(target, GradedCoproductObject):
         
         sph_twist_vector = []
 
-        for lb in target.object_vector:
-            sph_twist_vector.append( ApplySphericalTwist(target=lb, line_bundle=line_bundle, degree_K3=degree_K3) )
+        for graded_obj in target.object_vector:
+            sph_twist_vector.append( ApplySphericalTwist(target=graded_obj, line_bundle=line_bundle, degree_K3=degree_K3) )
             
 
-        return SphericalTwistCoproduct(sph_twists_vector=sph_twist_vector,
+        return GradedCoproductObject(sph_twists_vector=sph_twist_vector,
                                 dimension_vector=target.dimension_vector,
                                 shift_vector=target.shift_vector, 
                                 degree=degree_K3)
     
-    elif isinstance(target, SphericalTwistCoproduct):
-        new_sph_twist_vector = []
-
-        for prev_twist in target.object_vector:
-            new_sph_twist_vector.append( ApplySphericalTwist(target=prev_twist,
-                                                              line_bundle=line_bundle,
-                                                            degree_K3=degree_K3) )
-            
-
-        return SphericalTwistCoproduct(sph_twists_vector=new_sph_twist_vector,
-                                dimension_vector=target.dimension_vector,
-                                shift_vector=target.shift_vector, 
-                                degree=degree_K3)
     
     elif isinstance(target, DistinguishedTriangle):
         return DistinguishedTriangle(derived_object1=ApplySphericalTwist(target=target.object1, line_bundle=line_bundle, degree_K3=degree_K3),
@@ -653,7 +640,7 @@ def ApplySphericalTwist(target, line_bundle : LineBundle, degree_K3 : int = 1) -
                                     derived_object3=ApplySphericalTwist(target=target.object3, line_bundle=line_bundle, degree_K3=degree_K3))
     
     else:
-        raise NotImplementedError("ApplySphericalTwist is only implemented on SphericalTwistComposition, LineBundle, LineBundleCoproduct and SphericalTwistCoproduct objects")
+        raise NotImplementedError(f"ApplySphericalTwist not implemented for type {type(target)};\n\t\t\t(only implemented for DistinguishedTriangles, SphericalTwistComposition, LineBundle, and GradedCoproductObject where the underlying objects are SphericalTwistComposition or LineBundle)")
 
         
 

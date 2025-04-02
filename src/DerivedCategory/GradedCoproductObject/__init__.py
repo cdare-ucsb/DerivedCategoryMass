@@ -1,7 +1,6 @@
 # src/DerivedCategory/GradedCoproductObject/__init__.py
 
-from .LineBundleCoproduct import LineBundleCoproduct
-from .GradedCoproductObject import GradedCoproductObject
-from .SphericalTwistCoproduct import SphericalTwistCoproduct
+from .GradedCoproductObject import GradedCoproductObject, LineBundleCoproduct 
 
-__all__ = ['LineBundleCoproduct', 'GradedCoproductObject', 'SphericalTwistCoproduct']
+
+__all__ = ['LineBundleCoproduct', 'GradedCoproductObject' ]

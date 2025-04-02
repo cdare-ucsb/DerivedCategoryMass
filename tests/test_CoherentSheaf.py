@@ -2,34 +2,32 @@ import pytest
 import os
 import sys
 
+from sympy import symbols, expand
+
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.DerivedCategory.ChernCharacter import ChernCharacter
-from src.DerivedCategory.CoherentSheaf.CoherentSheaf import CotangentBundleP2, LineBundle
-from src.DerivedCategory.DerivedCategoryObject import ChainComplex
+from src.DerivedCategory.CoherentSheaf import LineBundle
 
 
-def test_is_cotangent_bundle_sum():
 
-    cot = CotangentBundleP2(0)
-    assert cot.isCotangentBundleSum() == True
-    assert cot.chernCharacter() == ChernCharacterP2(2, -3, 1.5)
+def test_CoherentSheaf_init():
+    # Test the initialization of the CoherentSheaf class
+    
+    H, C = symbols("H C")
 
+    lb1 = LineBundle(3*H, catagory='K3', allowed_basis=[H,C])
 
-    cot1 = CotangentBundleP2(1)
-    assert cot1.isCotangentBundleSum() == True
-    assert cot1.chernCharacter() == ChernCharacterP2(2, -1, -0.5)
+    assert lb1.divisor == 3*H
+    assert lb1.catagory == 'K3'
+    assert lb1.allowed_basis == [H, C]
 
-    # Show that the Euler sequence holds
-    O0 = LineBundle(0)
-    Oneg1 = LineBundle(-1)
-    assert cot.chernCharacter() + O0.chernCharacter() ==  3 * Oneg1.chernCharacter()
+    assert lb1.chern_character[2] == expand(9*H**2 / 2)
 
+    H2 = symbols("H2")
+    lb2 = LineBundle(3*H2, catagory='P1')
 
-    sum_of_cots = 3 * cot1.chernCharacter() 
-
-    # Make sure this correctly identifies sums of chern characters
-    assert sum_of_cots.isCotangentBundleSum()
-
-    incorrect_sum_of_cots = 3 * cot1.chernCharacter() + cot.chernCharacter()
-    assert not incorrect_sum_of_cots.isCotangentBundleSum()
+    assert lb2.divisor == 3*H2
+    assert lb2.catagory == 'P1'
+    assert lb2.allowed_basis == [H2]

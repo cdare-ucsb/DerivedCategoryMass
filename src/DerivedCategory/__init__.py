@@ -8,7 +8,7 @@ This package includes the following modules:
 from .ChernCharacter import ChernCharacter
 from .CoherentSheaf import CoherentSheaf, LineBundle
 from .DerivedCategoryObject import DerivedCategoryObject, HarderNarasimhanError
-from .GradedCoproductObject import GradedCoproductObject, LineBundleCoproduct, SphericalTwistCoproduct
+from .GradedCoproductObject import GradedCoproductObject, LineBundleCoproduct 
 from .SphericalTwist import SphericalTwistComposition, LongExactSequenceException
 from .DistinguishedTriangle import DistinguishedTriangle
 from .LocalP2 import LePotier, plot_multiple_neighbors_ex1, plot_successive_neighbors_ex1
@@ -25,7 +25,6 @@ __all__ = [
     'GradedCoproductObject',
     'LongExactSequenceException',
     'LineBundleCoproduct',
-    'SphericalTwistCoproduct',
     'SphericalTwistComposition',
     'DistinguishedTriangle',
     'LePotier',

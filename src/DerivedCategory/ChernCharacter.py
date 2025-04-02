@@ -393,7 +393,7 @@ class ChernCharacter():
         
         # If the basis is not provided, we will use the free symbols in the expression as the basis
         if not basis:
-            basis = list(expr.free_symbols)
+            basis = list(linear_expr.free_symbols)
 
 
         if not isinstance(dimension, (int, float)):
@@ -407,7 +407,7 @@ class ChernCharacter():
 
 
 
-        expr = S(0)
+        ret_expr = S(0)
         for k in range(0, dimension + 1):
             term = expand(linear_expr**k / factorial(k))
             # Truncate any term exceeding total degree = dimension
@@ -422,9 +422,9 @@ class ChernCharacter():
                     truncated_term += coeff * part
                 else:
                     raise ValueError(f"Input was not a linear expression; found term of degree {deg} in term: {mon}")
-            expr += truncated_term
+            ret_expr += truncated_term
 
-        return ChernCharacter(expr, dimension, basis=basis)
+        return ChernCharacter(ret_expr, dimension, basis=basis)
 
 
 

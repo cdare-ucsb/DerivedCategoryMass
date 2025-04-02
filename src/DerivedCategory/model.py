@@ -9,9 +9,9 @@ import itertools
 from tqdm import tqdm
 
 
-from .SphericalTwist.SphericalTwist import SphericalTwist, DoubleSphericalTwist
-from .CoherentSheaf.CoherentSheaf import LineBundle
-from .LocalP2 import LePotier
+from src.DerivedCategory.SphericalTwist import SphericalTwistComposition
+from src.DerivedCategory.CoherentSheaf import LineBundle
+from src.DerivedCategory.LocalP2 import LePotier
 
 
 from dotenv import load_dotenv

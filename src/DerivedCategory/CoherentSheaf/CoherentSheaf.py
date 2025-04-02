@@ -1,7 +1,7 @@
 from src.DerivedCategory.ChernCharacter import ChernCharacter
 from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
 from sympy import Expr, Symbol, PolynomialError
-from typing import List
+from typing import List, Tuple
 
 
 ###############################################################################
@@ -45,7 +45,7 @@ class CoherentSheaf(DerivedCategoryObject):
 
     def __new__(cls, chern_character : Expr, catagory : str, allowed_basis : List[Symbol] =None):
 
-        key = (tuple(chern_character), catagory, tuple(allowed_basis) if allowed_basis else None)
+        key = ( chern_character, catagory, tuple(allowed_basis) if allowed_basis else None)
         if key not in cls._instances:
             instance = super().__new__(cls)
             cls._instances[key] = instance
@@ -219,7 +219,7 @@ class LineBundle(CoherentSheaf):
         
 
 
-    def is_semistable(self, *_):
+    def is_semistable(self, *_) -> bool:
         r"""!
         A result of Macrì-Schmidt (Lectures on Bridgeland Stability, 2016) is that whenever a surface
         has Picard rank 1, line bundles are stable everywhere. This will specifically be used for the
@@ -235,8 +235,13 @@ class LineBundle(CoherentSheaf):
         \return bool True since line bundles are stable in our currently implemented examples.
         """
 
-        
         return True
+    
+    def get_HN_factors(self, *args) ->  List[Tuple['DerivedCategoryObject', float]]:
+
+        phase = self.phase(*args)
+
+        return [(self, phase)]
 
 
     def __str__(self):
