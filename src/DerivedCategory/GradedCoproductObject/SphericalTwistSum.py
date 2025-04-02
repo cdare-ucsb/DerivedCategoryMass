@@ -19,7 +19,7 @@ class SphericalTwistSum(GradedCoproductObject):
     """
 
 
-    def __init__(self, line_bundle_pairs_vector, dimension_vector, shift_vector, degree=1):
+    def __init__(self, sph_twists_vector, dimension_vector, shift_vector, degree=1):
         r"""!
         Initialize an instance of SphericalTwistSum with the specified line bundles. This class is used
         to represent objects of the form
@@ -40,15 +40,6 @@ class SphericalTwistSum(GradedCoproductObject):
         \param int degree An optional argument for the degree of the variety, which is relevant to the dimension of the
                        derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations.
                        Default is 1.
-
-        \throws TypeError If line_bundle_pairs_vector is not a list of tuples
-        \throws TypeError If dimension_vector is not a list of integers
-        \throws TypeError If shift_vector is not a list of integers
-        \throws ValueError If line_bundle_pairs_vector is not a list of tuples with exactly two elements
-        \throws ValueError If line_bundle_pairs_vector is not a list of tuples where both objects are line bundles
-        \throws ValueError If dimension_vector is not a list of non-negative integers
-        \throws ValueError If line_bundle_pairs_vector, dimension_vector, and shift_vector do not have the same length
-        \throws ValueError If line_bundle_pairs_vector is empty
         """
 
         if not all(isinstance(x, tuple) for x in line_bundle_pairs_vector):
@@ -217,17 +208,15 @@ class SphericalTwistSum(GradedCoproductObject):
         \return SphericalTwistSum The spherical twist sum with the lowest shift
         """
 
-        min_shift = float('inf')
-        min_lb_pair = None
-        min_dimension = None
+        # Bundle each component into a tuple, then use max with custom key
+        triple = min(
+            zip(self.line_bundle_pairs_vector, self.dimension_vector, self.shift_vector),
+            key=lambda t: t[2]  # t = (lb_pair, dim, shift)
+        )
 
-        for (lb1, lb2), n, s in zip(self.line_bundle_pairs_vector, self.dimension_vector, self.shift_vector):
-            if s < min_shift:
-                min_shift = s
-                min_lb_pair = (lb1, lb2)
-                min_dimension = n
-        
-        return SphericalTwistSum([min_lb_pair], [min_dimension], [min_shift], self.degree)
+        max_lb_pair, max_dimension, max_shift = triple
+        return SphericalTwistSum([max_lb_pair], [max_dimension], [max_shift], self.degree)
+
             
     def get_highest_shift_component(self):
         r"""!
@@ -237,17 +226,15 @@ class SphericalTwistSum(GradedCoproductObject):
         \return SphericalTwistSum The spherical twist sum with the highest shift
         """
         
-        max_shift = float('-inf')
-        max_lb_pair = None
-        max_dimension = None
+        # Bundle each component into a tuple, then use max with custom key
+        triple = max(
+            zip(self.line_bundle_pairs_vector, self.dimension_vector, self.shift_vector),
+            key=lambda t: t[2]  # t = (lb_pair, dim, shift)
+        )
 
-        for (lb1, lb2), n, s in zip(self.line_bundle_pairs_vector, self.dimension_vector, self.shift_vector):
-            if s > max_shift:
-                max_shift = s
-                max_lb_pair = (lb1, lb2)
-                max_dimension = n
-        
+        max_lb_pair, max_dimension, max_shift = triple
         return SphericalTwistSum([max_lb_pair], [max_dimension], [max_shift], self.degree)
+
     
     def is_semistable(self, *args):
         r"""!
@@ -344,7 +331,7 @@ class SphericalTwistSum(GradedCoproductObject):
 
             individual_twist_HN_factors = sph_twist.get_HN_factors(*args)
             for (obj, phase) in individual_twist_HN_factors:
-                if isinstance(obj, ChainComplex):
+                if isinstance(obj, CoherentSheafCoproduct):
                     HN_factors.append((ChainComplex(sheaf_vector=obj.sheaf_vector,
                                                     shift_vector=[shift + s for shift in obj.shift_vector],
                                                     dimension_vector=[dim * n for dim in obj.dimension_vector]),
