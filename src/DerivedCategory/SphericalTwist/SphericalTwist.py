@@ -1,8 +1,8 @@
 from src.DerivedCategory.CoherentSheaf.CoherentSheaf import LineBundle
 from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
 from src.DerivedCategory.DistinguishedTriangle import DistinguishedTriangle
-from src.DerivedCategory.GradedCoproductObject import CoherentSheafCoproduct
-from src.DerivedCategory.ChernCharacter import ChernCharacter
+from src.DerivedCategory.GradedCoproductObject import CoherentSheafCoproduct, SphericalTwistSum
+
 
 import math
 import cmath
@@ -71,15 +71,20 @@ class LongExactSequenceException(Exception):
         self.sequence_str = kwargs.get('sequence_str') ## The string representation of the sequence
 
 
-class SphericalTwist(DerivedCategoryObject):
+
+
+
+
+
+class SphericalTwistComposition(DerivedCategoryObject):
     r"""!
     A spherical twist is a non-standard autoequivalence of the derived category of coherent sheaves, in the 
     sense that it does not arise from any composition of (1) standard autoequivalences on the variety (2) 
     tensoring by line bundles and (3) (co)homological shifts. Such autoequivalences typically only arise in the
     case of Calabi-Yau categories and toric varieties (where (-2)-curves can exist in the Fano setting as well, 
-    e.g. P^2 blown up at 2 points), but often control the structure of the stability manifold. They are also 
+    e.g. P^2 blown up at 2 points), and often control the structure of the stability manifold. They are also 
     relevant to homological mirror symmetry since they are the derived equivalent of Dehn twists in the Fukaya
-    category in the symplectic setting. They are explicitly defined as the cone of the derived evaluation morphism
+    category (i.e. the symplectic setting). They are explicitly defined as the cone of the derived evaluation morphism
 
             Hom(A, B) ⊗ A ---->  B ----> Tw_A B
 
@@ -93,7 +98,7 @@ class SphericalTwist(DerivedCategoryObject):
     examples to help predict mass growth.
     """
     
-    def __init__(self, line_bundle_1, line_bundle_2, degree=1):
+    def __init__(self, line_bundle_vector : List[LineBundle], degree_K3 : int = 1):
         r"""!
         Initialize an instance of SphericalTwist with the specified line bundles. The spherical twist
         is defined as the cone of the evaluation morphism 
@@ -120,32 +125,74 @@ class SphericalTwist(DerivedCategoryObject):
         \throws ValueError If the line bundles are not defined on the same variety
         """
 
-        if not isinstance(line_bundle_1, LineBundle):
-            raise TypeError("line_bundle_1 must be an instance of LineBundle.")
-        if not isinstance(line_bundle_2, LineBundle):
-            raise TypeError("line_bundle_2 must be an instance of LineBundle.")
-        if line_bundle_1.catagory != line_bundle_2.catagory:
-            raise ValueError("Line bundles must be defined on the same variety")
+        if not line_bundle_vector:
+            raise ValueError("line_bundle_vector cannot be empty.")
+        elif len(line_bundle_vector) < 2:
+            raise ValueError("line_bundle_vector must contain at least two line bundles.")
 
-        self.line_bundle_1 = line_bundle_1 ## The first line bundle in the Hom space, i.e. O(a) in Hom(O(a), O(b))
+        self.catagory = line_bundle_vector[0].catagory ## The catagory of the object, i.e. P1, P2, or K3
+        if self.catagory not in IMPLEMENTED_CATAGORIES:
+            raise NotImplementedError(f"Catagory {self.catagory} is not implemented.")
+        
+        if not all(isinstance(obj, LineBundle) for obj in line_bundle_vector):
+            raise TypeError("All elements of line_bundle_vector must be instances of LineBundle.")
+        
+        if not all(obj.catagory == self.catagory for obj in line_bundle_vector):
+            raise TypeError("All elements of line_bundle_vector must be instances of LineBundle, from the same underlying category")
 
-        self.line_bundle_2 = line_bundle_2 ## The second line bundle in the Hom space, i.e. O(b) in Hom(O(a), O(b))
+        self.line_bundle_vector = line_bundle_vector ## The vector of line bundles in the Hom space
 
-        self.catagory = line_bundle_1.catagory ## The catagory of the object, i.e. P1, P2, or K3
-
-        self.degree = degree ## The degree of the K3 surface, if applicable
-
-        self.defining_triangle = self._sph_twist_LineBundles(line_bundle_1, line_bundle_2) ## The distinguished triangle representing the spherical twist
+        self.degree = degree_K3 ## The degree of the K3 surface, if applicable
 
 
     def __str__(self):
         r"""!
-        Returns a string representation of the spherical twist by printing the defining triangle
+        Returns a string representation of the spherical twist via its line bundle degrees
 
         \return str A string representation of the spherical twist
         """
+        ret_str = ""
 
-        return str(self.defining_triangle.object3)
+        for line_bundle in self.line_bundle_vector[:0:-1]:
+            ret_str += f"Tw_{line_bundle.degree} "
+        
+        ret_str += f"O({self.line_bundle_vector[0].degree})"
+        return ret_str
+    
+
+    def defining_triangle(self):
+
+        r"""!
+        Method to compute the defining triangle for the spherical twist. The defining triangle is given by
+
+         RHom(O(a_n), Tw_O(a_n-1)...Tw_O(a_1) O(a_0)) ⊗ O(a_n) ----> Tw_O(a_n-1)...Tw_O(a_1) O(a_0) ----> Tw_O(a_n) Tw_O(a_n-1)...Tw_O(a_1) O(a_0)
+
+        where O(a_0), ..., O(a_n) are the line bundles in the Hom space.
+
+        \return DistinguishedTriangle The distinguished triangle representing the spherical twist
+        """
+
+        RHom_dict_first_line_bundle = RHom(self.line_bundle_vector, degree_K3=self.degree)
+        # Convert the RHom_dict into a CoherentSheafCoproduct object
+        shift_vector = RHom_dict_first_line_bundle.keys()
+        dimension_vector = RHom_dict_first_line_bundle.values()
+        bundle_vector = [LineBundle(self.line_bundle_vector[0].degree, self.catagory) ] * len(shift_vector) 
+
+        first_triangle_object = CoherentSheafCoproduct(sheaf_vector=bundle_vector,
+                                        shift_vector=shift_vector,
+                                        dimension_vector=dimension_vector)
+        
+        second_triangle_object = None
+
+
+        if len(self.line_bundle_vector) == 2:
+            second_triangle_object = LineBundle(self.line_bundle_vector[1].degree, self.catagory)
+        else:
+            second_triangle_object = SphericalTwistComposition(line_bundle_vector=self.line_bundle_vector[1:], degree_K3=self.degree)
+
+        return DistinguishedTriangle(derived_object1=first_triangle_object,
+                                    derived_object2=second_triangle_object,
+                                    derived_object3=self)
     
 
     def defining_triangle_to_json(self):
@@ -211,11 +258,15 @@ class SphericalTwist(DerivedCategoryObject):
             shift_vector.append(-1*i)
             bundle_vector.append(LineBundle(line_bundle_1.degree, self.catagory))
 
-        object1 = ChainComplex(sheaf_vector=bundle_vector, shift_vector=shift_vector, dimension_vector=dimension_vector)
+        object1 = CoherentSheafCoproduct(sheaf_vector=bundle_vector,
+                                        shift_vector=shift_vector,
+                                        dimension_vector=dimension_vector)
         # While we technically can simply case object2 = line_bundle_2, we will use the ChainComplex constructor
         # since several successive methods call sheaf_vector[i] and shift_vector[i]. A significant overhaul would
         # be needed to change this.
-        object2 = ChainComplex(sheaf_vector=[LineBundle(line_bundle_2.degree, self.catagory)], shift_vector=[0], dimension_vector=[1])
+        object2 = CoherentSheafCoproduct(sheaf_vector=[LineBundle(line_bundle_2.degree, self.catagory)],
+                                        shift_vector=[0],
+                                        dimension_vector=[1])
         object3 = DerivedCategoryObject(string=f"Tw_{line_bundle_1.degree} O({line_bundle_2.degree})", catagory=self.catagory)
 
         return DistinguishedTriangle(object1, object2, object3)
@@ -228,9 +279,9 @@ class SphericalTwist(DerivedCategoryObject):
         \return ChernCharacter The Chern Character of the spherical twist
         """
 
-        return self.defining_triangle.object2.chernCharacter() - self.defining_triangle.object1.chernCharacter()
+        return self.defining_triangle().object2.chernCharacter() - self.defining_triangle().object1.chernCharacter()
     
-    def shift(self, n):
+    def shift(self, n : int):
         r"""!
         Method to shift the spherical twist by n units. As a spherical twist is initially only
         specified as a string until its defining triangle is computed, the shift method simply
@@ -244,73 +295,8 @@ class SphericalTwist(DerivedCategoryObject):
         if not isinstance(n, int):
             raise TypeError("Shift must be an integer")
 
-        return self.defining_triangle.object3.shift(n)
+        return SphericalTwistSum(sph_twists_vector=[self], dimension_vector=[1], shift_vector=[n], degree=self.degree)
     
-
-
-    
-    def central_charge(self, *args):
-        r"""!
-        Method to compute the central charge of the spherical twist. The central charge of the spherical
-        twist is the central charge of the third object in the distinguished triangle.
-
-        \param args The parameters for the stability condition. The number of parameters depends on the catagory of the object
-                        For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
-                        and an integer representing the degree of the K3 surface.
-
-        \return The central charge of the spherical twist as a complex number 
-
-        \throws TypeError If the args are not of the correct type
-        \throws ValueError If the number of args is incorrect
-        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
-        """
-
-        if self.catagory == 'P1':
-            if len(args) != 1:
-                raise ValueError("Central charge of P1 requires single complex number parameter")
-            if not isinstance(args[0], complex):
-                raise TypeError("P1 objects should have a single complex parameter")
-            
-            ch = self.chernCharacter()
-            
-            return -1*ch[1] + args[0]*ch[0]
-
-        elif self.catagory == 'P2':
-            if len(args) != 2:
-                raise ValueError("Central charge of P2 requires two real number parameters")
-            if not all(isinstance(x, (float, int)) for x in args):
-                raise TypeError("P2 objects should have two real number parameters")
-            
-            ch = self.chernCharacter()
-            
-            return complex(-1*ch[2] +
-                            args[1] * ch[0],
-                              ch[1] - args[0] * ch[0])
-            
-
-        elif self.catagory == 'K3':
-
-            if len(args) != 3:
-                raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
-            if not all(isinstance(x, (float, int)) for x in args):
-                raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
-            if not isinstance(args[2], int):
-                raise TypeError("The degree of the K3 surface must be an integer")
-
-            alpha = args[0]
-            beta = args[1]
-            d = args[2]
-
-            ch = self.chernCharacter()
-            
-            return complex(2*d*alpha * ch[1] - ch[2] - ch[0] + (beta**2 - alpha**2)*d*ch[0], 
-                           2*d*ch[1] - 2*d*alpha*beta*ch[0])
-        else:
-            raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
-
-        
-    
-
 
     
     def is_semistable(self, *args):
@@ -549,12 +535,20 @@ class SphericalTwist(DerivedCategoryObject):
                 # the HN factors of the twist
                 if largest_phase == phase0:
                     return [(modified_defining_triangle.object1, subobject.phase(*args)), 
-                            (ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[0]], shift_vector=[quotient_complex.shift_vector[0]], dimension_vector=[quotient_complex.dimension_vector[0]]), phase0),
-                            (ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[1]], shift_vector=[quotient_complex.shift_vector[1]], dimension_vector=[quotient_complex.dimension_vector[1]]), phase1)]
+                            (CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[0]],
+                                                    shift_vector=[quotient_complex.shift_vector[0]], 
+                                                    dimension_vector=[quotient_complex.dimension_vector[0]]), phase0),
+                            (CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[1]], 
+                                                    shift_vector=[quotient_complex.shift_vector[1]], 
+                                                    dimension_vector=[quotient_complex.dimension_vector[1]]), phase1)]
                 else:
                     return [(modified_defining_triangle.object1, subobject.phase(*args)), 
-                            (ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[1]], shift_vector=[quotient_complex.shift_vector[1]], dimension_vector=[quotient_complex.dimension_vector[1]]), phase1),
-                            (ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[0]], shift_vector=[quotient_complex.shift_vector[0]], dimension_vector=[quotient_complex.dimension_vector[0]]), phase0)]
+                            (CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[1]], 
+                                                    shift_vector=[quotient_complex.shift_vector[1]], 
+                                                    dimension_vector=[quotient_complex.dimension_vector[1]]), phase1),
+                            (CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[0]], 
+                                                    shift_vector=[quotient_complex.shift_vector[0]], 
+                                                    dimension_vector=[quotient_complex.dimension_vector[0]]), phase0)]
 
             # CASE 2: smallest phase(Quotient) < phi(subobj) < largest phase(quotient)
             #         this is the most difficult case to handle since we must in fact consider
@@ -568,10 +562,10 @@ class SphericalTwist(DerivedCategoryObject):
                     larger_idx = 1
                     
                 # isolate single element of larger shift in the quotient object
-                smaller_phase_complex = ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[smaller_idx]],
+                smaller_phase_complex = CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[smaller_idx]],
                                             shift_vector=[quotient_complex.shift_vector[smaller_idx]],
                                             dimension_vector=[quotient_complex.dimension_vector[smaller_idx]])
-                larger_phase_complex = ChainComplex(sheaf_vector=[quotient_complex.sheaf_vector[larger_idx]],
+                larger_phase_complex = CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[larger_idx]],
                                             shift_vector=[quotient_complex.shift_vector[larger_idx]],
                                             dimension_vector=[quotient_complex.dimension_vector[larger_idx]])
 

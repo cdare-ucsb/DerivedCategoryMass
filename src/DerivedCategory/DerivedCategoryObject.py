@@ -37,7 +37,7 @@ class DerivedCategoryObject(ABC):
     should encode is the catagory of the object and a string representation of the object. 
 
     """
-    def __init__(self, catagory, shift=0):
+    def __init__(self, catagory : str, shift : int = 0):
         r"""!
         Initialize an instance of the DerivedCategoryObject with the specified catagory, string representation,
         and Chern Character. The Chern Character is optional and can be set later. 
@@ -78,7 +78,7 @@ class DerivedCategoryObject(ABC):
     
 
     @abstractmethod
-    def shift(self, shift):
+    def shift(self, shift : int):
         r"""!
         Method to shift the derived category object by a given homological shift
 
@@ -89,7 +89,7 @@ class DerivedCategoryObject(ABC):
 
         pass
 
-    def central_charge(self, *args):
+    def central_charge(self, *args) -> complex:
         r"""!
         Compute the central charge of an object in the derived category of coherent sheaves. For all the current categories
         implemented, the only stability conditions considered are numerical stability conditions; in particular, they only
@@ -150,7 +150,7 @@ class DerivedCategoryObject(ABC):
             raise NotImplementedError("Central charge not implemented for this variety.")
     
 
-    def phase(self, *args):
+    def phase(self, *args) -> float:
         r"""!
         Computes the phase of the central charge of the coherent sheaf. The central charge
         is an element of the dual of the numerical Grothendieck group; in other words, a 
@@ -174,7 +174,7 @@ class DerivedCategoryObject(ABC):
     
         
     @abstractmethod
-    def is_semistable(self, *args):
+    def is_semistable(self, *args) -> bool:
         r"""!
         Method to determine if the derived category object is semistable with respect to a given stability condition. 
         This will simply act as a wrapper for the central charge method, which should be implemented in child classes.
@@ -196,7 +196,32 @@ class DerivedCategoryObject(ABC):
 
         pass
 
-    def __hash__(self):
+    @abstractmethod
+    def mass(self, *_) -> float :
+        r"""!
+        Method to compute the mass of the derived category object with respect to a given stability condition. 
+        This will simply act as a wrapper for the central charge method, which should be implemented in child classes.
+
+        \param tuple args 
+            The parameters of the stability condition. The number of parameters will depend on the catagory of the object.
+            For P1, this will be a single complex number. For P2, this will be two real numbers. For K3, this will be
+            two real numbers and one integer.
+
+        \return float The mass of the derived category object with respect to the stability condition
+
+        \throws ValueError
+            If the DerivedCategoryObject is not initialized
+            If the number of parameters is incorrect for the catagory
+        \throws TypeError
+            If the parameters are not of the correct type
+
+        """
+
+        pass
+
+
+
+    def __hash__(self) -> int:
         r"""!
         Hash function for the derived category object. This is used to create a unique identifier for the object
         in dictionaries and sets. The hash is computed based on the catagory and string representation of the object.

@@ -1,5 +1,5 @@
 from src.DerivedCategory import DerivedCategoryObject
-from src.DerivedCategory.SphericalTwist import SphericalTwist
+from src.DerivedCategory.SphericalTwist import SphericalTwistComposition
 from src.DerivedCategory.CoherentSheaf import LineBundle
 from src.DerivedCategory.ChernCharacter import ChernCharacter
 from src.DerivedCategory.GradedCoproductObject import GradedCoproductObject
@@ -42,7 +42,7 @@ class SphericalTwistSum(GradedCoproductObject):
                        Default is 1.
         """
 
-        if not all(isinstance(x, tuple) for x in line_bundle_pairs_vector):
+        if not all(isinstance(x, SphericalTwistComposition) for x in sph_twists_vector):
             raise TypeError("line_bundle_pairs_vector must be a list of tuples")
         if not all(len(x) == 2 for x in line_bundle_pairs_vector):
             raise ValueError("line_bundle_pairs_vector must be a list of tuples with exactly two elements")
