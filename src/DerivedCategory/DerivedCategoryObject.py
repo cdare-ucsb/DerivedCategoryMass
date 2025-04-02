@@ -3,6 +3,8 @@ from abc import ABC, abstractmethod
 
 from dotenv import load_dotenv
 import os
+import cmath
+import math
 
 # Load .env file
 load_dotenv()
@@ -86,88 +88,122 @@ class DerivedCategoryObject(ABC):
         """
 
         pass
-    
 
+    def central_charge(self, *args):
+        r"""!
+        Compute the central charge of an object in the derived category of coherent sheaves. For all the current categories
+        implemented, the only stability conditions considered are numerical stability conditions; in particular, they only
+        depend on the Chern character of the object. Since DerivedCategoryObjects are the highest level objects which 
+        have a chernCharacter method, this method will be implemented here (the implementation does not change for any of 
+        the children classes).
 
-    
-    # def central_charge(self, *args):
-    #     r"""!
-    #     Method to compute the central charge of the chain complex. The central charge of a chain complex
-    #     is the alternating sum of the central charges of the individual sheaves in the complex. Since the
-    #     central charge is additive, we may multiply the central charges by the dimension of the sheaf to
-    #     represent direct sums of sheaves.
+        \param tuple args The arguments required to compute the central charge. The number of arguments and the type
+                     of arguments will depend on the catagory of the sheaves in the complex. For P1, the central
+                     charge requires a single complex number. For P2, the central charge requires two floating-point
+                     numbers. For K3, the central charge requires two floating-point numbers and an integer.
 
-    #     \param tuple args The parameters of the stability condition. The number of parameters will depend on the catagory of the object. For P1, this will be a single complex number. For P2, this will be two real numbers. For K3, this will be two real numbers and one integer.
+        \return complex The central charge of the chain complex as a complex number
 
-    #     \return complex The central charge of the chain complex as a complex number
+        \throws ValueError If the number of arguments is incorrect
+        \throws TypeError If the type of the arguments is incorrect
+        \throws NotImplementedError If the catagory of the sheaves in the complex is not implemented
+        """
 
-    #     \throws ValueError
-    #         If the DerivedCategoryObject is not initialized
-    #         If the number of parameters is incorrect for the catagory
-    #     \throws TypeError
-    #         If the parameters are not of the correct type
-
-    #     """
-
-    #     if self.chern_character is None:
-    #         raise ValueError("DerivedCategoryObject not initialized, cannot compute central charge.")
         
-    #     if self.catagory == 'P1':
-    #         if len(args) != 1:
-    #             raise ValueError("Central charge of P1 requires single complex number parameter")
-    #         if not isinstance(args[0], complex):
-    #             raise TypeError("w must be a complex number.")
-            
-    #         chern_char = self.chern_character
-    #         return complex(-chern_char[1] + args[0]*chern_char[0])
-    #     elif self.catagory == 'P2':
-    #         if len(args) != 2:
-    #             raise ValueError("Central charge of P2 requires two real number parameters")
-    #         if not all(isinstance(x, (float, int)) for x in args):
-    #             raise TypeError("s and q must be floating-point decimals.")
-            
-    #         chern_char = self.chern_character
-    #         return complex(-chern_char[2] + args[1] * chern_char[0], chern_char[1] - args[0] * chern_char[0])
-    #     elif self.catagory == 'K3':
+        if self.catagory == 'P1':
+            if len(args) != 1:
+                raise ValueError("Central charge for P1 requires exactly one argument.")
+            if not isinstance(args[0], complex):
+                raise TypeError("Central charge for P1 requires a complex number as an argument.")
 
-    #         if len(args) != 3:
-    #             raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
-    #         if not all(isinstance(x, (float, int)) for x in args):
-    #             raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
-    #         if not isinstance(args[2], int):
-    #             raise TypeError("The degree of the K3 surface must be an integer")
+            ch = self.chernCharacter()
+            return complex(-1*ch[1] + args[0] * ch[0])
 
-    #         alpha = args[0]
-    #         beta = args[1]
-    #         d = args[2]
+
+        elif self.catagory == 'P2':
+            if len(args) != 2:
+                raise ValueError("Central charge for P2 requires exactly two arguments.")
+            if not all(isinstance(arg, (float,int)) for arg in args):
+                raise TypeError("Central charge for P2 requires two floating-point numbers as arguments.")
             
-    #         return complex(2*d*alpha * self.chern_character[1] - self.chern_character[2] - self.chern_character[0] + (beta**2 - alpha**2)*d*self.chern_character[0], 
-    #                        2*d*self.chern_character[1] - 2*d*alpha*beta*self.chern_character[0])
-    #     else:
-    #         raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
+            ch = self.chernCharacter()
+            return complex(-1*ch[2] + args[1] * ch[0],
+                            ch[1] - args[0] * ch[0])
         
+        elif self.catagory == 'K3':
+            if len(args) != 3:
+                raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
+            if not all(isinstance(x, (float, int)) for x in args):
+                raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
+            if not isinstance(args[2], int):
+                raise TypeError("The degree of the K3 surface must be an integer")
+
+            alpha = args[0]
+            beta = args[1]
+            d = args[2]
+            ch = self.chernCharacter()
+            
+            return complex(2*d*alpha * ch[1] - ch[2] - ch[0] + (beta**2 - alpha**2)*d*ch[0], 
+                           2*d*ch[1] - 2*d*alpha*beta*ch[0])
+
+        else:
+            raise NotImplementedError("Central charge not implemented for this variety.")
     
-    # def is_semistable(self, *args):
-    #     r"""!
-    #     Method to determine if the derived category object is semistable with respect to a given stability condition. 
-    #     This will simply act as a wrapper for the central charge method, which should be implemented in child classes.
 
-    #     \param tuple args 
-    #         The parameters of the stability condition. The number of parameters will depend on the catagory of the object.
-    #         For P1, this will be a single complex number. For P2, this will be two real numbers. For K3, this will be
-    #         two real numbers and one integer.
+    def phase(self, *args):
+        r"""!
+        Computes the phase of the central charge of the coherent sheaf. The central charge
+        is an element of the dual of the numerical Grothendieck group; in other words, a 
+        funtction
 
-    #     \return bool True if the object is semistable with respect to the stability condition, False otherwise
+        Z : K -> C
 
-    #     \throws ValueError
-    #         If the DerivedCategoryObject is not initialized
-    #         If the number of parameters is incorrect for the catagory
-    #     \throws TypeError
-    #         If the parameters are not of the correct type
+        where K is the numerical Grothendieck group, and C is the complex numbers. The phase
+        of the central charge is the argument of this complex number.
 
-    #     """
+        \param *args: float or int
+            The parameters of the central charge. The number of parameters should be equal
+            to the number of parameters required by the central charge for the given catagory.
+            For example, a P1 object requires a single complex number parameter, while a P2
+            object requires two real number parameters.
 
-    #     pass
+        \return float The phase of the central charge of the coherent sheaf, in units of pi
+        """
+
+        return cmath.phase(self.central_charge(*args)) / math.pi
+    
+        
+    @abstractmethod
+    def is_semistable(self, *args):
+        r"""!
+        Method to determine if the derived category object is semistable with respect to a given stability condition. 
+        This will simply act as a wrapper for the central charge method, which should be implemented in child classes.
+
+        \param tuple args 
+            The parameters of the stability condition. The number of parameters will depend on the catagory of the object.
+            For P1, this will be a single complex number. For P2, this will be two real numbers. For K3, this will be
+            two real numbers and one integer.
+
+        \return bool True if the object is semistable with respect to the stability condition, False otherwise
+
+        \throws ValueError
+            If the DerivedCategoryObject is not initialized
+            If the number of parameters is incorrect for the catagory
+        \throws TypeError
+            If the parameters are not of the correct type
+
+        """
+
+        pass
+
+    def __hash__(self):
+        r"""!
+        Hash function for the derived category object. This is used to create a unique identifier for the object
+        in dictionaries and sets. The hash is computed based on the catagory and string representation of the object.
+
+        \return int The hash of the derived category object
+        """
+        return hash(self.chernCharacter())
 
     
 

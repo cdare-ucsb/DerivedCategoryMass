@@ -135,10 +135,10 @@ class ChernCharacter():
                 if total_deg <= self.dimension:
                     truncated_expr += coeff * mon
 
-            return ChernCharacter(expand(truncated_expr), self.basis, self.dimension)
+            return ChernCharacter(expr=expand(truncated_expr), basis=self.basis, dimension=self.dimension)
         
         elif isinstance(other, (float,int)):
-            return ChernCharacter(expand(self.expr * S(other)), self.basis, self.dimension)
+            return ChernCharacter(expr=expand(self.expr * S(other)), basis=self.basis, dimension=self.dimension)
         else:
             raise TypeError("Can only multiply ChernCharacter by another ChernCharacter or a scalar.")
 

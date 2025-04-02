@@ -52,6 +52,12 @@ def test_ChernCharacter_exp():
     assert ch_exp[1] == linear_expression
     assert ch_exp[2] == expand((linear_expression)**2 / 2)
 
+    linear_expression_2 = expand((1 + 3j)*x)
+    ch_exp_2 = ChernCharacter.exp(linear_expression_2, basis=basis, dimension=2)
+    assert ch_exp_2[0] == 1
+    assert ch_exp_2[1] == linear_expression_2
+    assert ch_exp_2[2] == expand((-4.0 + 3.0j)*x**2)
+
 
     # Test with invalid inputs
     with pytest.raises(ValueError):

@@ -8,8 +8,7 @@ This package includes the following modules:
 from .ChernCharacter import ChernCharacter
 from .CoherentSheaf import CoherentSheaf, LineBundle
 from .DerivedCategoryObject import DerivedCategoryObject
-from .SphericalTwist.SphericalTwist import *
-from .GradedCoproductObject import ChainComplex
+from .GradedCoproductObject import GradedCoproductObject, CoherentSheafCoproduct
 from .SphericalTwist import SphericalTwist, DoubleSphericalTwist
 from .DistinguishedTriangle import DistinguishedTriangle
 from .LocalP2 import LePotier, plot_multiple_neighbors_ex1, plot_successive_neighbors_ex1
@@ -22,8 +21,9 @@ __all__ = [
     'CoherentSheaf',
     'LineBundle',
     'DerivedCategoryObject',
-    'ChainComplex',
+    'GradedCoproductObject',
     'DoubleSphericalTwist',
+    'CoherentSheafCoproduct',
     'SphericalTwist',
     'DistinguishedTriangle',
     'LePotier',

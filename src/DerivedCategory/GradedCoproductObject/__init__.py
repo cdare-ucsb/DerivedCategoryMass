@@ -1,5 +1,6 @@
 # src/DerivedCategory/GradedCoproductObject/__init__.py
 
-from .ChainComplex import ChainComplex
+from .CoherentSheafCoproduct import CoherentSheafCoproduct
+from .GradedCoproductObject import GradedCoproductObject
 
-__all__ = ['ChainComplex']
+__all__ = ['CoherentSheafCoproduct', 'GradedCoproductObject']
