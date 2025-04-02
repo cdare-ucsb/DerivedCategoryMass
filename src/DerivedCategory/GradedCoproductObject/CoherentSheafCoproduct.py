@@ -34,15 +34,7 @@ class CoherentSheafCoproduct(GradedCoproductObject):
             raise TypeError("All elements of sheaf_vector must be instances of CoherentSheaf.")
 
     
-    
 
-
-        
-
-    
-
-
-    
 
     def isShiftOfSheaf(self):
         r"""!
@@ -52,7 +44,6 @@ class CoherentSheafCoproduct(GradedCoproductObject):
         """
 
         return len(self.sheaf_vector) == 1
-
 
 
         

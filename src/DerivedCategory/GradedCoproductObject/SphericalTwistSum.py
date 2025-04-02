@@ -1,10 +1,11 @@
-from DerivedCategoryObject import DerivedCategoryObject
-from SphericalTwist import SphericalTwist
-from CoherentSheaf import LineBundle
-from ChernCharacter import ChernCharacter
-from DerivedCategory.GradedCoproductObject.CoherentSheafCoproduct import ChainComplex
+from src.DerivedCategory import DerivedCategoryObject
+from src.DerivedCategory.SphericalTwist import SphericalTwist
+from src.DerivedCategory.CoherentSheaf import LineBundle
+from src.DerivedCategory.ChernCharacter import ChernCharacter
+from src.DerivedCategory.GradedCoproductObject import GradedCoproductObject
 
-class SphericalTwistSum(DerivedCategoryObject):
+
+class SphericalTwistSum(GradedCoproductObject):
     r"""!
     This class acts similar to the ChainComplex class for CoherentSheaf; specifically, when considering
     double (or any n>1) spherical twists, there are always triangles that the twist will fit into that are 
@@ -92,89 +93,58 @@ class SphericalTwistSum(DerivedCategoryObject):
 
 
 
-    def __str__(self):
-        r"""!
-        Returns a string representation of the spherical twist by printing the defining triangle. 
-        The string representation is similar to that of the chain complex, where 2 lines are printed.
-        The first line contains the number of times the spherical twist is applied, and the second line
-        contains the actual twist. For example, the string representation of a spherical twist sum given
-        by the data [(O(1), O(1)), [3], [-2]] would be
+    # def __str__(self):
+    #     r"""!
+    #     Returns a string representation of the spherical twist by printing the defining triangle. 
+    #     The string representation is similar to that of the chain complex, where 2 lines are printed.
+    #     The first line contains the number of times the spherical twist is applied, and the second line
+    #     contains the actual twist. For example, the string representation of a spherical twist sum given
+    #     by the data [(O(1), O(1)), [3], [-2]] would be
 
-                ⊕3
-        Tw_1 O(1)[-2]
+    #             ⊕3
+    #     Tw_1 O(1)[-2]
 
-        \return str A string representation of the spherical twist sum
-        """
+    #     \return str A string representation of the spherical twist sum
+    #     """
 
-        # Initialize lists to hold each formatted component
-        first_line_components = []
-        second_line_components = []
+    #     # Initialize lists to hold each formatted component
+    #     first_line_components = []
+    #     second_line_components = []
         
-        # Iterate over the zipped input lists
-        for (lb1, lb2), n, s in zip(self.line_bundle_pairs_vector, self.dimension_vector, self.shift_vector):
-            # Format the second line component
-            second_line_component = ""
-            if s != 0:
-                second_line_component = f"Tw_{lb1.degree} O({lb2.degree})[{s}]"
-            else:
-                second_line_component = f"Tw_{lb1.degree} O({lb2.degree})"
+    #     # Iterate over the zipped input lists
+    #     for (lb1, lb2), n, s in zip(self.line_bundle_pairs_vector, self.dimension_vector, self.shift_vector):
+    #         # Format the second line component
+    #         second_line_component = ""
+    #         if s != 0:
+    #             second_line_component = f"Tw_{lb1.degree} O({lb2.degree})[{s}]"
+    #         else:
+    #             second_line_component = f"Tw_{lb1.degree} O({lb2.degree})"
 
-            second_line_components.append(second_line_component)
+    #         second_line_components.append(second_line_component)
             
-            # Calculate the position to place the '⊕n' above 'O'
-            o_position = second_line_component.index(')')
+    #         # Calculate the position to place the '⊕n' above 'O'
+    #         o_position = second_line_component.index(')')
 
-            # Create a string with spaces up to the 'O' position, then add '⊕n'
-            first_line_component = ""
-            if n != 1:
-                first_line_component = ' ' * o_position + f'⊕{n}'
-            else:
-                first_line_component = ' ' * o_position + '  '
-            first_line_components.append(first_line_component)
+    #         # Create a string with spaces up to the 'O' position, then add '⊕n'
+    #         first_line_component = ""
+    #         if n != 1:
+    #             first_line_component = ' ' * o_position + f'⊕{n}'
+    #         else:
+    #             first_line_component = ' ' * o_position + '  '
+    #         first_line_components.append(first_line_component)
             
         
-        # Join all components with ' ⊕ ' separator
-        first_line = ' '.join(first_line_components)
-        second_line = ' ⊕ '.join(second_line_components)
+    #     # Join all components with ' ⊕ ' separator
+    #     first_line = ' '.join(first_line_components)
+    #     second_line = ' ⊕ '.join(second_line_components)
         
-        # Combine the two lines with a newline character
-        if first_line.isspace():
-            return second_line
-        result = f"{first_line}\n{second_line}"
+    #     # Combine the two lines with a newline character
+    #     if first_line.isspace():
+    #         return second_line
+    #     result = f"{first_line}\n{second_line}"
         
-        return result
+    #     return result
     
-
-    def __len__(self):
-        r"""!
-        Returns the number of distinct spherical twists in the sum; we should generally expect that 
-        the spherical twists are distinct since the constructor should hypothetically combine like terms.
-
-        This method is primarily used in the DoubleSphericalTwist.get_HN_factors method to help determine
-        edge cases.
-
-        \return int The number of distinct spherical twists in the sum
-        """
-
-        return len(self.line_bundle_pairs_vector)
-    
-    def chernCharacter(self):
-        r"""!
-        Similar to the case of ChainComplex, since the Chern character is additive on exact sequences (i.e. factors
-        through the Grothendieck group), we may always find the Chern character of an object obtained by sums and twists
-        of known objects. In this case, we simply rely on the implementation of the above SphericalTwist class.
-
-        \return ChernCharacter The Chern Character of the spherical twist sum
-        """
-
-        chern_character = ChernCharacter([0, 0, 0])
-        
-        for (lb1, lb2), n, s in zip(self.line_bundle_pairs_vector, self.dimension_vector, self.shift_vector):
-            sph_twist_chern = SphericalTwist(lb1, lb2, self.degree).chernCharacter()
-
-            chern_character += int(n * (-1)**s) * sph_twist_chern
-        
-        return chern_character
     
 
     
