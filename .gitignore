@@ -18,3 +18,8 @@ src/__pycache__/
 src/.pytest_cache/
 src/*.pyc
 src/*.pyo
+app/__pycache__/
+app/.pytest_cache/
+app/*.pyc
+app/*.pyo
+data/

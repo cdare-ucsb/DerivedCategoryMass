@@ -31,8 +31,8 @@ def test_GeometryContext_init():
         (H2,H2) : 1
     }
 
-    divisor_data = DivisorData(basis=basis2, top_intersection_form=tensor_data_2)
-    geometry_context2 = GeometryContext(catagory='P2', divisor_data=divisor_data)
+    divisor_data2 = DivisorData(basis=basis2, top_intersection_form=tensor_data_2)
+    geometry_context2 = GeometryContext(catagory='P2', divisor_data=divisor_data2)
     assert geometry_context2.catagory == 'P2'
     assert geometry_context2.variety_dimension() == 2
 
@@ -47,13 +47,21 @@ def test_GeometryContext_init():
         (D, H3) : 2
     }
 
-    divisor_data = DivisorData(basis=basis3, top_intersection_form=tensor_data_3)
-    geometry_context3 = GeometryContext(catagory='K3', divisor_data=divisor_data)
+    divisor_data3 = DivisorData(basis=basis3, top_intersection_form=tensor_data_3)
+    geometry_context3 = GeometryContext(catagory='K3', divisor_data=divisor_data3)
     assert geometry_context3.catagory == 'K3'
     assert geometry_context3.variety_dimension() == 2
     assert geometry_context3.divisor_data.top_intersection_form[(H3, H3)] == 4
     assert geometry_context3.divisor_data.evaluate(3*H3**2) == 12
 
+
+    divisor_data4 = DivisorData(basis=basis3, top_intersection_form=tensor_data_3)
+    geometry_context4 = GeometryContext(catagory='K3', divisor_data=divisor_data4, polarization=H3 + 2*C + D)
+
+    assert geometry_context4.catagory == 'K3'
+    assert geometry_context4.variety_dimension() == 2
+    assert geometry_context4.divisor_data.top_intersection_form[(H3, H3)] == 4
+    assert geometry_context4.divisor_data.evaluate((geometry_context4.polarization)**2) == 7
 
     with pytest.raises(NotImplementedError):
         # Test with invalid catagory
@@ -61,6 +69,8 @@ def test_GeometryContext_init():
     with pytest.raises(TypeError):
         # Test with invalid divisor_data
         GeometryContext(catagory='P1', divisor_data="not_a_divisor_data")
-    with pytest.raises(ValueError):
+    with pytest.raises(TypeError):
         # Test with invalid divisor_data
         GeometryContext(catagory='P1', divisor_data=divisor_data, polarization="not_a_symbol")
+    with pytest.raises(ValueError):
+        GeometryContext(catagory='P1', divisor_data=divisor_data, polarization=H**2)

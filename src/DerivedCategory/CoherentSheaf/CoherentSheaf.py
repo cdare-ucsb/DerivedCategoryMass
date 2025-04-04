@@ -2,7 +2,6 @@ from src.DerivedCategory.ChernCharacter import ChernCharacter
 from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
 from src.DerivedCategory.GeometryContext import GeometryContext
 from sympy import Expr, PolynomialError
-from typing import List, Tuple
 
 
 ###############################################################################
@@ -113,8 +112,8 @@ class CoherentSheaf(DerivedCategoryObject):
         \return ChainComplex A ChainComplex concentrated in a single degree, shifted by n units
         """
 
-        from src.DerivedCategory.GradedCoproductObject import LineBundleCoproduct # include in the method to avoid circular import
-        return LineBundleCoproduct( sheaf_vector=[self], shift_vector=[n], dimension_vector=[1])
+        from src.DerivedCategory.GradedCoproductObject import GradedCoproductObject # include in the method to avoid circular import
+        return GradedCoproductObject( sheaf_vector=[self], shift_vector=[n], dimension_vector=[1])
         
 
     def __str__(self):
@@ -133,11 +132,6 @@ class CoherentSheaf(DerivedCategoryObject):
         return f'CoherentSheaf with Chern Character {self.chern_character}'
     
 
-    def get_HN_factors(self, *args):
-        return super().get_HN_factors(*args)
-    
-    def is_semistable(self, *args):
-        return super().is_semistable(*args)
 
 
 
@@ -225,32 +219,7 @@ class LineBundle(CoherentSheaf):
         self.divisor = divisor ## The divisor of the line bundle, which is a polynomial in the allowed basis
 
         
-        
-
-
-    def is_semistable(self, *_) -> bool:
-        r"""!
-        A result of Macrì-Schmidt (Lectures on Bridgeland Stability, 2016) is that whenever a surface
-        has Picard rank 1, line bundles are stable everywhere. This will specifically be used for the
-        case of Local P2 (in which case the pushforward i_* preserves this fact), and K3 surfaces. For
-        local P1, the line bundles are stable everywhere by definition of the tilt.
-
-        \param tuple args
-            The parameters of the stability condition. The number of parameters should be equal to the
-            number of parameters required by the central charge for the given catagory. For example, a P1
-            object requires a single complex number parameter, while a P2 object requires two real number
-            parameters. These are not in fact used, but included to match the format of other classes.
-
-        \return bool True since line bundles are stable in our currently implemented examples.
-        """
-
-        return True
     
-    def get_HN_factors(self, *args) ->  List[Tuple['DerivedCategoryObject', float]]:
-
-        phase = self.phase(*args)
-
-        return [(self, phase)]
 
 
     def __str__(self):
@@ -275,8 +244,17 @@ class LineBundle(CoherentSheaf):
         """
         if not isinstance(other, LineBundle):
             return False
-        if other.catagory != self.catagory:
+        if other.geometry_context != self.geometry_context:
             return False
         return self.divisor == other.divisor
+    
+    def __hash__(self):
+        r"""!
+        Hash function for line bundles. This is used to create a unique identifier for the line bundle
+        based on its degree and catagory.
+
+        \return int A hash value for the line bundle
+        """
+        return hash((self.divisor, self.geometry_context))
     
     

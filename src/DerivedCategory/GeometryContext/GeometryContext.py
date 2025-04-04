@@ -21,7 +21,7 @@ class GeometryContext():
         if not isinstance(divisor_data, DivisorData):
             raise TypeError("Intersection form must be an instance of DivisorData object.")
         
-        if polarization is not None and not isinstance(polarization, Symbol):
+        if polarization is not None and not isinstance(polarization, Expr):
             raise TypeError("Polarization must be a SymPy symbol.")
         if polarization is not None and not _is_linear_combination(polarization, divisor_data.basis):
             raise ValueError("Polarization must be a linear combination of elements in the divisor basis.")

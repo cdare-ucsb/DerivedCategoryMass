@@ -1,10 +1,6 @@
 from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
-from src.DerivedCategory.CoherentSheaf import LineBundle
-# from src.DerivedCategory.SphericalTwist import SphericalTwistComposition
 
-from typing import List, Tuple
-
-import math
+from typing import List
 
 from dotenv import load_dotenv
 import os
@@ -20,25 +16,16 @@ class GradedCoproductObject(DerivedCategoryObject):
     _instances = {} ## Memoization: Dictionary to hold instances of GradedCoproductObject
 
 
-    def __new__(cls, object_vector : List[DerivedCategoryObject], shift_vector : List[int], dimension_vector : List[int] = None, degree_K3 : int = 1):
-
-        if dimension_vector is None:
-            dimension_vector = [1] * len(object_vector)
-
-
-        if cls is GradedCoproductObject and all(isinstance(obj, LineBundle) for obj in object_vector):
-            return LineBundleCoproduct(object_vector, shift_vector, dimension_vector, degree_K3)
+    def __new__(cls, object_vector : List[DerivedCategoryObject], shift_vector : List[int] = None, dimension_vector : List[int] = None):
         
+        shift_key = tuple(shift_vector) if shift_vector is not None else None
+        dim_key = tuple(dimension_vector) if dimension_vector is not None else None
+            
 
-        # elif cls is GradedCoproductObject and all(isinstance(obj, SphericalTwistComposition) for obj in object_vector):
-        #     return SphericalTwistCoproduct(object_vector, shift_vector, dimension_vector, degree_K3)
-        
         key = (
             tuple(object_vector),
-            tuple(shift_vector),
-            tuple(dimension_vector),
-            degree_K3,
-            cls
+            shift_key,
+            dim_key
         )
 
         if key not in cls._instances:
@@ -46,8 +33,10 @@ class GradedCoproductObject(DerivedCategoryObject):
             cls._instances[key] = instance
 
         return cls._instances[key]
+    
 
-    def __init__(self, object_vector : List[DerivedCategoryObject], shift_vector : List[int], dimension_vector : List[int] = None, degree_K3 : int = 1):
+
+    def __init__(self, object_vector : List[DerivedCategoryObject], shift_vector : List[int] = None, dimension_vector : List[int] = None ):
         r"""!
         Initialize an instance of GradedCoproductObject with the specified object_vector, shift vector,
         and potentially a dimension vector. If a dimension vector is provided, it must consist of non-negative;
@@ -57,7 +46,6 @@ class GradedCoproductObject(DerivedCategoryObject):
         \param list object_vector A list of DerivedCategoryObjects 
         \param list shift_vector A list of homological shifts in the complex
         \param list dimension_vector A list of the number of direct sums of each object in the sum
-
 
         \throws ValueError If the object vector is empty
         \throws ValueError If the object vector and shift vector have different lengths
@@ -71,13 +59,13 @@ class GradedCoproductObject(DerivedCategoryObject):
         \throws ValueError If the object vector contains objects of different catagories
         """
 
+        if hasattr(self, '_initialized') and self._initialized:
+            return
+
 
         ##### 
         # Check that object vector is valid and contains object of only a single catagory
         #####
-
-        if hasattr(self, '_initialized'):
-            return
 
         if not object_vector:
             raise ValueError("object_vector cannot be empty.")
@@ -85,46 +73,45 @@ class GradedCoproductObject(DerivedCategoryObject):
         if not all(isinstance(obj, DerivedCategoryObject) for obj in object_vector) :
             raise TypeError("All elements of complex_vector must be instances of DerivedCategoryObject (of the same projective space).")
 
-        object_catagory = object_vector[0].catagory
-        if object_catagory not in IMPLEMENTED_CATAGORIES:
-            raise ValueError(f"Catagory {object_catagory} is not implemented.")
-
-        if not all(obj.catagory == object_catagory for obj in object_vector):
-            raise ValueError("All elements of object_vector must be sheaves over the same base space.")
+        first_geometry_context = object_vector[0].geometry_context
+        if not all(obj.geometry_context == first_geometry_context for obj in object_vector):
+            raise ValueError("All elements of object_vector must have the same geometry context.")
+        
+        self.geometry_context = first_geometry_context ## Geometry context of the sheaves in the complex, including the catagory and the intersection form
 
         #####
         # Check that shift vector is valid
         #####
-        if not all(isinstance(shift, int) for shift in shift_vector):
+
+        if shift_vector and not all(isinstance(shift, int) for shift in shift_vector):
             raise TypeError("All elements of shift_vector must be integers.")
 
-        if len(object_vector) != len(shift_vector):
+        if shift_vector and len(object_vector) != len(shift_vector):
             raise ValueError("object_vector and shift_vector must have the same length.") 
+        
+        if shift_vector is None:
+            shift_vector = [0] * len(object_vector)
+        
 
         #####
         # Check that dimension vector is valid
         #####
-        if dimension_vector is None:
-            dimension_vector = [1] * len(object_vector)
-        if not all(isinstance(dim, int) for dim in dimension_vector):
+
+        if dimension_vector and not all(isinstance(dim, int) for dim in dimension_vector):
             raise TypeError("All elements of dimension_vector must be integers.")
-        if len(object_vector) != len(dimension_vector):
+        if dimension_vector and len(object_vector) != len(dimension_vector):
             raise ValueError("object_vector and dimension_vector must have the same length.")
-        if not all(dim >= 0 for dim in dimension_vector):
+        if dimension_vector and not all(dim >= 0 for dim in dimension_vector):
             # Dimension cannot be non-negative
             raise ValueError("All elements of dimension_vector must be non-negative integers.") 
         
-
-        #####
-        # Check that the degree is valid
-        #####
-
-        if not isinstance(degree_K3, int):
-            raise TypeError("degree_K3 must be an integer.")
-        if degree_K3 < 1:
-            raise ValueError("degree_K3 must be a positive integer.")
+        if dimension_vector is None:
+            dimension_vector = [1] * len(object_vector)
         
-        self.degree_K3 = degree_K3 ## The degree of the K3 surface. This is used to compute the Chern character only in the case of K3 surfaces; by default, it is 1.
+
+        ########
+        # Set member variables
+        ########
         
         self.object_vector = object_vector ## List of coherent sheaves in the complex, so that the chain complex can operate similar to a DenseVector.
 
@@ -132,11 +119,9 @@ class GradedCoproductObject(DerivedCategoryObject):
 
         self.shift_vector = shift_vector ## List of homological shifts in the complex.
 
-        self.catagory = object_catagory ## The catagory of the sheaves in the complex.
-
         # If an element of the complex has dimension 0, we can get rid of it using helper method
         self._remove_zeros_from_dimension_vector()
-        # Combine repeated sheaves in the complex
+        # Combine repeated sheaves with same shift number in the complex, e.g. O^4[0] ⊕ O^4[0] = O^8[0]
         self._combine_repeats()
 
         self._initialized = True ## Flag to indicate that the object has been initialized
@@ -222,11 +207,14 @@ class GradedCoproductObject(DerivedCategoryObject):
 
         return GradedCoproductObject(self.object_vector, new_shift_vector, self.dimension_vector)
     
+
+    
     def _remove_zeros_from_dimension_vector(self):
         r"""!
         Helper function which iterates through the dimension vector, and if a certain object
         is only included 0 times, we may effectively erase it.
         """
+
         for i in range(len(self.dimension_vector)):
             if i < len(self.dimension_vector) and self.dimension_vector[i] == 0:
                 del self.object_vector[i]
@@ -267,219 +255,108 @@ class GradedCoproductObject(DerivedCategoryObject):
 
 
 
-class LineBundleCoproduct(GradedCoproductObject):
+# class LineBundleCoproduct(GradedCoproductObject):
     
 
-    def __init__(self, line_bundle_vector : List[LineBundle], shift_vector : List[int], dimension_vector : List[int] = None, degree_K3 : int = 1):
-        r"""!
-        Initialize an instance of LineBundleCoproduct with the specified sheaf vector, shift vector,
-        and potentially a dimension vector. If a dimension vector is not provided, it must 
-        consist of non-negative integer values
+#     def __init__(self, line_bundle_vector : List[LineBundle], shift_vector : List[int], dimension_vector : List[int] = None, degree_K3 : int = 1):
+#         r"""!
+#         Initialize an instance of LineBundleCoproduct with the specified sheaf vector, shift vector,
+#         and potentially a dimension vector. If a dimension vector is not provided, it must 
+#         consist of non-negative integer values
 
 
-        \param list line_bundle_vector A list of coherent sheaves in the complex
-        \param list shift_vector A list of homological shifts in the complex
-        \param list dimension_vector A list of the number of direct sums of each coherent sheaf in the complex
-        """
+#         \param list line_bundle_vector A list of coherent sheaves in the complex
+#         \param list shift_vector A list of homological shifts in the complex
+#         \param list dimension_vector A list of the number of direct sums of each coherent sheaf in the complex
+#         """
 
-        # The main functionality is implemented in the parent class
-        super().__init__(object_vector=line_bundle_vector, shift_vector=shift_vector, dimension_vector=dimension_vector, degree_K3=degree_K3)
+#         # The main functionality is implemented in the parent class
+#         super().__init__(object_vector=line_bundle_vector, shift_vector=shift_vector, dimension_vector=dimension_vector, degree_K3=degree_K3)
 
-        # Check that the sheaf vector is valid and contains sheaves of only a single catagory
-        if not all(isinstance(sheaf, LineBundle) for sheaf in line_bundle_vector):
-            raise TypeError("All elements of line_bundle_vector must be instances of LineBundle.")
+#         # Check that the sheaf vector is valid and contains sheaves of only a single catagory
+#         if not all(isinstance(sheaf, LineBundle) for sheaf in line_bundle_vector):
+#             raise TypeError("All elements of line_bundle_vector must be instances of LineBundle.")
 
     
 
 
-    def isShiftOfSheaf(self):
-        r"""!
-        Simple helper function which checks if the complex is a shift of a single sheaf
+#     def isShiftOfSheaf(self):
+#         r"""!
+#         Simple helper function which checks if the complex is a shift of a single sheaf
 
-        \return bool True if the complex is a shift of a single sheaf, False otherwise
-        """
+#         \return bool True if the complex is a shift of a single sheaf, False otherwise
+#         """
 
-        return len(self.object_vector) == 1
+#         return len(self.object_vector) == 1
 
 
         
     
-    def get_smallest_phase(self, *args):
-        r"""!
-        Method to compute the smallest phase of the chain complex. This behaves as a sort of "smallest
-        Harder-Narasimhan factor" for the complex, since Chain complexes will almost never be stable when
-        they have objects in distinct shifts. The phase of an individual element of a chain complex generally
-        requires that object to be stable, so that we typically use LineBundles for our current applications. 
-        By definition of a slicing, the shift of each object in the complex should add to the respective phases;
-        thus, this method computes the smallest sum of the phase of the sheaf and the shift of the sheaf in the
-        complex.
-
-        \param tuple args The arguments required to compute the phase. The number of arguments and the type of arguments will
-                     depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number.
-                     For P2, the phase requires two floating-point numbers. For K3, the phase requires two floating-point
-                     numbers and an integer.
-
-        \return float The smallest phase of the chain complex
-
-        \throws ValueError If the number of arguments is incorrect
-        \throws TypeError If the type of the arguments is incorrect
-        \throws NotImplementedError If the catagory of the sheaves in the complex is not implemented
-        """
-
-        if self.catagory == 'P1':
-            if len(args) != 1:
-                raise ValueError("Phase of P1 requires exactly one argument.")
-            if not isinstance(args[0], complex):
-                raise TypeError("Phase of P1 requires a complex number as an argument.")
-        elif self.catagory == 'P2':
-            if len(args) != 2:
-                raise ValueError("Phase of P2 requires exactly two arguments.")
-            if not all(isinstance(arg, (float,int)) for arg in args):
-                raise TypeError("Phase of P2 requires two floating-point numbers as arguments.")
-        elif self.catagory == 'K3':
-            if len(args) != 3:
-                raise ValueError("Phase of K3 requires exactly three arguments.")
-            if not all(isinstance(arg, (float,int)) for arg in args):
-                raise TypeError("Phase of K3 requires three floating-point numbers as arguments.")
-            if not isinstance(args[2], int):
-                raise TypeError("The degree of the K3 surface must be an integer.")
-        else:
-            raise NotImplementedError("Phase not implemented for this variety.")
-
-         # Zip the three lists together and sort by descending shift
-        min_shift = min(self.shift_vector)
-
-        bundles = list(zip(self.object_vector, self.dimension_vector, self.shift_vector))
-        bundles_min_shift = filter(lambda x: x[2] == min_shift or x[2] == min_shift + 1 , bundles)
-
-        min_phase = math.inf
-
-        for sheaf, dim, shift in bundles_min_shift:
-            if sheaf.phase(*args) + shift < min_phase:
-                min_phase = sheaf.phase(*args) + shift
-
-        return min_phase
-    
-    def get_largest_phase(self, *args):
-        r"""!
-        Method to compute the largest phase of the chain complex. This behaves as a sort of "largest
-        Harder-Narasimhan factor" for the complex, since Chain complexes will almost never be stable when
-        they have objects in distinct shifts. The phase of an individual element of a chain complex generally
-        requires that object to be stable, so that we typically use LineBundles for our current applications.
-        By definition of a slicing, the shift of each object in the complex should add to the respective phases;
-        thus, this method computes the largest sum of the phase of the sheaf and the shift of the sheaf in the
-        complex.
-
-        \param tuple args The arguments required to compute the phase. The number of arguments and the type of arguments will
-                     depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number.
-                     For P2, the phase requires two floating-point numbers. For K3, the phase requires two floating-point
-                     numbers and an integer.
-
-        \return float The largest phase of the chain complex
-
-        \throws ValueError If the number of arguments is incorrect
-        \throws TypeError If the type of the arguments is incorrect
-        \throws NotImplementedError If the catagory of the sheaves in the complex is not implemented
-        """
-
-        if self.catagory == 'P1':
-            if len(args) != 1:
-                raise ValueError("Phase of P1 requires exactly one argument.")
-            if not isinstance(args[0], complex):
-                raise TypeError("Phase of P1 requires a complex number as an argument.")
-        elif self.catagory == 'P2':
-            if len(args) != 2:
-                raise ValueError("Phase of P2 requires exactly two arguments.")
-            if not all(isinstance(arg, (float,int)) for arg in args):
-                raise TypeError("Phase of P2 requires two floating-point numbers as arguments.")
-        elif self.catagory == 'K3':
-            if len(args) != 3:
-                raise ValueError("Phase of K3 requires exactly three arguments.")
-            if not all(isinstance(arg, (float,int)) for arg in args):
-                raise TypeError("Phase of K3 requires three floating-point numbers as arguments.")
-            if not isinstance(args[2], int):
-                raise TypeError("The degree of the K3 surface must be an integer.")
-        else:
-            raise NotImplementedError("Only local P1, local P2, and K3 catagories are implemented.")
-
-        # Zip the three lists together and sort by descending shift
-        max_shift = max(self.shift_vector)
-
-        bundles = list(zip(self.object_vector, self.dimension_vector, self.shift_vector))
-        bundles_max_shift = filter(lambda x: x[2] == max_shift or x[2] == max_shift - 1, bundles)
-
-        max_phase = -math.inf
-
-        for sheaf, _, shift in bundles_max_shift:
-            if sheaf.phase(*args) + shift > max_phase:
-                max_phase = sheaf.phase(*args) + shift
-
-        return max_phase
     
 
 
 
-    def is_semistable(self, *args):
-        r"""!
-        Method to compute whether the chain complex is semistable. This almost never occurs, since if
-        the complex contains two or more stable objects of distinct phase, it will never be stable. For
-        example, suppose E2 is a stable subobject of maximum phase and E1 is another stable object with
-        strictly smaller phase. Then
+    # def is_semistable(self, *args):
+    #     r"""!
+    #     Method to compute whether the chain complex is semistable. This almost never occurs, since if
+    #     the complex contains two or more stable objects of distinct phase, it will never be stable. For
+    #     example, suppose E2 is a stable subobject of maximum phase and E1 is another stable object with
+    #     strictly smaller phase. Then
 
-                          E2 ----> Complex ------> Cone
+    #                       E2 ----> Complex ------> Cone
 
-        will destabilize the complex, and Cone will be nontrivial since it has a non-zero map to E1. 
-        The easiest way to check that the complex is concentrated in only a single phase is to compare
-        its largest and smallest phases from the previous methods.
+    #     will destabilize the complex, and Cone will be nontrivial since it has a non-zero map to E1. 
+    #     The easiest way to check that the complex is concentrated in only a single phase is to compare
+    #     its largest and smallest phases from the previous methods.
 
 
-        \param tuple args The arguments required to compute the phase. The number of arguments and the type of arguments will
-                     depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number.
-                     For P2, the phase requires two floating-point numbers. For K3, the phase requires two floating-point
-                     numbers and an integer.
+    #     \param tuple args The arguments required to compute the phase. The number of arguments and the type of arguments will
+    #                  depend on the catagory of the sheaves in the complex. For P1, the phase requires a single complex number.
+    #                  For P2, the phase requires two floating-point numbers. For K3, the phase requires two floating-point
+    #                  numbers and an integer.
 
-        \return bool True if the chain complex is semistable, False otherwise
+    #     \return bool True if the chain complex is semistable, False otherwise
 
-        \throws ValueError If the number of arguments is incorrect
-        \throws TypeError If the type of the arguments is incorrect
-        \throws NotImplementedError If the catagory of the sheaves in the complex is not implemented
-        """
+    #     \throws ValueError If the number of arguments is incorrect
+    #     \throws TypeError If the type of the arguments is incorrect
+    #     \throws NotImplementedError If the catagory of the sheaves in the complex is not implemented
+    #     """
 
     
-        if self.catagory == 'P1':
-            if len(args) != 1:
-                raise ValueError("Phase of P1 requires exactly one argument.")
-            if not isinstance(args[0], complex):
-                raise TypeError("Phase of P1 requires a complex number as an argument.")
-        elif self.catagory == 'P2':
-            if len(args) != 2:
-                raise ValueError("Phase of P2 requires exactly two arguments.")
-            if not all(isinstance(arg, (float,int)) for arg in args):
-                raise TypeError("Phase of P2 requires two floating-point numbers as arguments.")
-        elif self.catagory == 'K3':
-            if len(args) != 3:
-                raise ValueError("Phase of K3 requires exactly three arguments.")
-            if not all(isinstance(arg, (float,int)) for arg in args):
-                raise TypeError("Phase of K3 requires three floating-point numbers as arguments.")
-            if not isinstance(args[2], int):
-                raise TypeError("The degree of the K3 surface must be an integer.")
-        else:
-            raise NotImplementedError("Only local P1, local P2, and K3 catagories are implemented.")
+    #     if self.catagory == 'P1':
+    #         if len(args) != 1:
+    #             raise ValueError("Phase of P1 requires exactly one argument.")
+    #         if not isinstance(args[0], complex):
+    #             raise TypeError("Phase of P1 requires a complex number as an argument.")
+    #     elif self.catagory == 'P2':
+    #         if len(args) != 2:
+    #             raise ValueError("Phase of P2 requires exactly two arguments.")
+    #         if not all(isinstance(arg, (float,int)) for arg in args):
+    #             raise TypeError("Phase of P2 requires two floating-point numbers as arguments.")
+    #     elif self.catagory == 'K3':
+    #         if len(args) != 3:
+    #             raise ValueError("Phase of K3 requires exactly three arguments.")
+    #         if not all(isinstance(arg, (float,int)) for arg in args):
+    #             raise TypeError("Phase of K3 requires three floating-point numbers as arguments.")
+    #         if not isinstance(args[2], int):
+    #             raise TypeError("The degree of the K3 surface must be an integer.")
+    #     else:
+    #         raise NotImplementedError("Only local P1, local P2, and K3 catagories are implemented.")
 
-        return self.get_largest_phase(*args) == self.get_smallest_phase(*args)
+    #     return self.get_largest_phase(*args) == self.get_smallest_phase(*args)
     
 
-    def get_HN_factors(self, *args) ->  List[Tuple[DerivedCategoryObject, float]]:
+    # def get_HN_factors(self, *args) ->  List[Tuple[DerivedCategoryObject, float]]:
         
-        return_list = []
-        for sheaf, shift in zip(self.object_vector, self.shift_vector):
-            if not sheaf.is_stable(*args):
-                raise ValueError("Sheaf is not stable.")
+    #     return_list = []
+    #     for sheaf, shift in zip(self.object_vector, self.shift_vector):
+    #         if not sheaf.is_stable(*args):
+    #             raise ValueError("Sheaf is not stable.")
             
-            phase = sheaf.phase(*args) + shift
-            return_list.append((sheaf, phase))
-        return_list.sort(key=lambda x: x[1], reverse=True)
-        return return_list
+    #         phase = sheaf.phase(*args) + shift
+    #         return_list.append((sheaf, phase))
+    #     return_list.sort(key=lambda x: x[1], reverse=True)
+    #     return return_list
 
 
 # class SphericalTwistCoproduct(GradedCoproductObject):
