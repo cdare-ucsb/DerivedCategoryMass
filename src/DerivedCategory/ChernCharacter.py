@@ -8,7 +8,12 @@ from typing import List
 
 class ChernCharacter():
     r"""!
-       A class representing the Chern Character of an object in the derived category of some smooth projective variety. The Chern Character is a graded object in the cohomology ring of our variety —— ASSUMING THAT ALL CLASSES ARE ALGEBRAIC, we can represent the Chern Character as a polynomial in the basis of divisor classes. This is known to hold for cellular varieties (such as Grassmannians), toric varieties, and complete intersections. Ultimately, the representation of a Chern Character as a polynomial over some formal variables allows us flexibility in defining things such as intersection numbers, exponential characters, and so on.
+    A class representing the Chern Character of an object in the derived category of some smooth projective variety.
+    The Chern Character is a graded object in the cohomology ring of our variety —— ASSUMING THAT ALL CLASSES ARE ALGEBRAIC,
+    we can represent the Chern Character as a polynomial in the basis of divisor classes. This is known to hold for cellular
+    varieties (such as Grassmannians), toric varieties, and complete intersections. Ultimately, the representation of a Chern
+    Character as a polynomial over some formal variables allows us flexibility in defining things such as intersection numbers,
+    exponential characters, and so on.
     """
         
 

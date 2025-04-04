@@ -1,11 +1,13 @@
-from sympy import Symbol, Basic, expand, S, prod
+from sympy import Symbol, Basic, expand, S, prod, Expr
 from itertools import permutations, product
 from collections import defaultdict
 from collections.abc import Mapping
 
+from typing import List
 
 
-class IntersectionForm:
+
+class DivisorData:
     r"""!
     A class which represents the matrix for an intersection form on the cohomology ring. Specifically, this class only
     tracks the values obtained when intersecting the top-dimensional number of divisors. For example, if this class is meant
@@ -20,7 +22,7 @@ class IntersectionForm:
     dictionary.
     """
 
-    def __init__(self, basis, dimension, tensor_data):
+    def __init__(self, basis : List[Symbol], top_intersection_form : Mapping):
         r"""!
         Initialize the intersection form with a specified basis consisting of SymPy symbols for divisor classes, the dimension of the ambient variety, and a dictionary / Mapping of intersection numbers. As the intersection form is symmetric, the user only needs to provide the intersection numbers for one permutation of the generators. The intersection form is then symmetrized by summing over all permutations of the generators.
 
@@ -36,30 +38,35 @@ class IntersectionForm:
             raise TypeError("Basis must be a list")
         if not all(isinstance(b, Symbol) for b in basis):
             raise TypeError("All basis elements must be SymPy symbols")
-        if not isinstance(dimension, int):
-            raise TypeError("Dimension must be an integer")
-        if dimension < 0:
-            raise ValueError("Dimension must be non-negative")
-        if not isinstance(tensor_data, Mapping):
-            raise TypeError("Tensor data must be a dictionary")
-        if not all(isinstance(k, tuple) for k in tensor_data.keys()):
-            raise TypeError("Tensor keys must be tuples")
-        if not all(len(k) == dimension for k in tensor_data.keys()):
-            raise ValueError("Tensor keys must have the same length as the dimension")
-        if not all(isinstance(v, (int, float, S)) for v in tensor_data.values()):
-            raise TypeError("Tensor values must be numeric")
-
         
+
+        # Verify the tensor_data
+
+        if not isinstance(top_intersection_form, Mapping):
+            raise TypeError("Tensor data must be a dictionary")
+        if not all(isinstance(k, tuple) for k in top_intersection_form.keys()):
+            raise TypeError("Tensor keys must be tuples of SymPy symbols")
+        if not all( all(isinstance(entry, Symbol) for entry in k) for k in top_intersection_form.keys()):
+            raise TypeError("Tensor keys must be tuples of SymPy symbols")
+        
+        # Grab the number of entries in the first key
+        temp_len = len(next(iter(top_intersection_form)))
+
+        if not all(len(k) == temp_len for k in top_intersection_form.keys()):
+            raise ValueError("Tensor keys must have the same length")
+        if not all(isinstance(v, (int, float, S)) for v in top_intersection_form.values()):
+            raise TypeError("Tensor values must be numeric")
+        
+        self.variety_dimension = temp_len ## The dimension of the ambient variety
+
         self.basis = basis ## The list of valid SymPy symbols that the intersection form is defined for
 
-        self.dimension = dimension ## The dimension of the ambient variety
-
-        self.tensor = defaultdict(lambda: S(0)) ## The dictionary or mapping object used to store the intersection numbers. The default value is 0, which is the identity element for addition.
+        self.top_intersection_form = defaultdict(lambda: S(0)) ## The dictionary or mapping object used to store the intersection numbers. The default value is 0, which is the identity element for addition.
 
         # Symmetrize input
-        for key, val in tensor_data.items():
+        for key, val in top_intersection_form.items():
             for perm in set(permutations(key)):
-                self.tensor[perm] += S(val) 
+                self.top_intersection_form[perm] += S(val) 
 
 
     def _expand_expr(self, expr):
@@ -110,7 +117,7 @@ class IntersectionForm:
     
 
 
-    def evaluate(self, *exprs):
+    def evaluate(self, *exprs) -> Expr:
         r"""!
         Function which computes the intersection number of a given SymPy expression using the stored intersection form / dictionary provided at initialization. The function takes a variable number of SymPy expressions as input, and computes the intersection number obtained by intersecting the monomials in the expressions. The function returns the intersection number as a SymPy expression.
 
@@ -122,7 +129,6 @@ class IntersectionForm:
         """
 
 
-
         expr_terms = [self._expand_expr(e) for e in exprs]
         total = S(0)
 
@@ -132,13 +138,17 @@ class IntersectionForm:
             mon_lists = [m for _, m in combo]
             flat_mons = [m for sublist in mon_lists for m in sublist]
 
-            if len(flat_mons) != self.dimension:
-                raise ValueError(f"The degree of some product of terms in the input is {len(flat_mons)}, but the intersection form is only defined for degree {self.dimension}.")
+            if len(flat_mons) != self.variety_dimension:
+                raise ValueError(f"The degree of some product of terms in the input is {len(flat_mons)}, but the intersection form is only defined for degree {self.variety_dimension}.")
 
             # If the tuple of monomials is not in the dictionary, return 0
-            val = self.tensor.get(tuple(flat_mons), 0)
+            val = self.top_intersection_form.get(tuple(flat_mons), 0)
             total += S(val) * prod(coeffs)
 
         return total
     
 
+    def __eq__(self, other):
+        if not isinstance(other, DivisorData):
+            return False
+        return self.basis == other.basis and self.top_intersection_form == other.top_intersection_form

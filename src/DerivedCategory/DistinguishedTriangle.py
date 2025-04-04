@@ -33,9 +33,9 @@ class DistinguishedTriangle():
         if not all(isinstance(obj, DerivedCategoryObject) for obj in [derived_object1, derived_object2, derived_object3]):
             raise TypeError("All objects in the distinguished triangle must be instances of DerivedCategoryObject")
 
-        first_catagory = derived_object1.catagory
-        if not all( obj.catagory == first_catagory for obj in [derived_object2, derived_object3]):
-            raise TypeError("All objects in the distinguished triangle must be instances of DerivedCategoryObject, from the same underlying category")
+        self.geometric_context = derived_object1.geometry_context
+        if not all( obj.geometry_context != self.geometric_context for obj in [derived_object2, derived_object3]):
+            raise TypeError("All objects in the distinguished triangle must be instances of DerivedCategoryObject, from the same underlying geometric_context")
 
         self.object1 = derived_object1 ## The first object in the distinguished triangle
 
@@ -43,7 +43,6 @@ class DistinguishedTriangle():
         
         self.object3 = derived_object3 ## The third object in the distinguished triangle
 
-        self.catagory = first_catagory ## The underlying category of the distinguished triangle
 
 
     def __str__(self):

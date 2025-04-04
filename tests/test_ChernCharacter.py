@@ -138,3 +138,25 @@ def test_ChernCharacter_iter():
 
 
     assert sum(1 for _ in ChernCharacter.exp(x + y, basis=[x,y], dimension=6)) == 7
+
+
+def test_ChernCharacter_indexing():
+
+    # Test with valid inputs
+    x, y = symbols("x y")
+    expr = 1 + 2*x + 3*y + 4*x**2 + 5*y**2 + 6*x*y
+    ch = ChernCharacter(expr, dimension=2)
+
+    # Test indexing
+    assert ch[0] == 1
+    assert ch[1] == 2*x + 3*y
+    assert ch[2] == 4*x**2 + 5*y**2 + 6*x*y
+
+
+    with pytest.raises(IndexError):
+        # Test out of range indexing
+        ch[3]
+
+    with pytest.raises(ValueError):
+        ch[2] = ch[2] + ch[0]
+

@@ -3,6 +3,7 @@ from src.DerivedCategory.CoherentSheaf.CoherentSheaf import LineBundle
 from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject, HarderNarasimhanError
 from src.DerivedCategory.DistinguishedTriangle import DistinguishedTriangle
 from src.DerivedCategory.GradedCoproductObject import LineBundleCoproduct
+from src.DerivedCategory.GeometryContext import GeometryContext
 
 
 import math
@@ -94,9 +95,9 @@ class SphericalTwistComposition(DerivedCategoryObject):
     _canonical_triangle_cache = {} ## Cache of the canonical triangle for the spherical twist
 
 
-    def __new__(cls, line_bundle_vector : List[LineBundle], degree_K3 : int = 1):
+    def __new__(cls, line_bundle_vector : List[LineBundle], geometry_context : GeometryContext):
 
-        key = (line_bundle_vector, line_bundle_vector[0].catagory, degree_K3)
+        key = (line_bundle_vector, geometry_context)
         if key not in cls._instances:
             instance = super().__new__(cls)
             cls._instances[key] = instance
@@ -104,7 +105,7 @@ class SphericalTwistComposition(DerivedCategoryObject):
         return cls._instances[key]
 
     
-    def __init__(self, line_bundle_vector : List[LineBundle], degree_K3 : int = 1):
+    def __init__(self, line_bundle_vector : List[LineBundle], geometry_context : GeometryContext):
         r"""!
         Initialize an instance of SphericalTwist with the specified line bundles. The spherical twist
         is defined as the cone of the evaluation morphism 
@@ -118,17 +119,6 @@ class SphericalTwistComposition(DerivedCategoryObject):
         Several helper methods are used to compute the dimensions of the Hom spaces between the pushforwards
         of the line bundles, and then to construct the distinguished triangle.
 
-        \param LineBundle line_bundle_1 The first line bundle in the Hom space
-
-        \param LineBundle line_bundle_2: The second line bundle in the Hom space
-
-        \param int degree An optional argument for the degree of the variety, which is relevant to the dimension of the
-                       derived RHom space for K3 surfaces of picard rank 1. This does not affect the P1 or P2 implementations.
-                       Default is 1.
-
-        \throws TypeError If line_bundle_1 is not an instance of LineBundle
-        \throws TypeError If line_bundle_2 is not an instance of LineBundle
-        \throws ValueError If the line bundles are not defined on the same variety
         """
 
         if hasattr(self, '_initialized'):
@@ -143,17 +133,14 @@ class SphericalTwistComposition(DerivedCategoryObject):
         elif len(line_bundle_vector) < 2:
             raise ValueError("line_bundle_vector must contain at least two line bundles.")
         
-
-        self.catagory = line_bundle_vector[0].catagory ## The catagory of the line bundles
-
-        if  self.catagory not in IMPLEMENTED_CATAGORIES:
-            raise NotImplementedError(f"Catagory { line_bundle_vector[0].catagory} is not implemented.")
+        if not isinstance(geometry_context, GeometryContext):
+            raise TypeError("geometry_context must be an instance of GeometryContext.")
         
         if not all(isinstance(obj, LineBundle) for obj in line_bundle_vector):
             raise TypeError("All elements of line_bundle_vector must be instances of LineBundle.")
         
-        if not all(obj.catagory ==  self.catagory for obj in line_bundle_vector):
-            raise TypeError("All elements of line_bundle_vector must be instances of LineBundle, from the same underlying category")
+        if not all(lb.catagory() ==  geometry_context.catagory for lb in line_bundle_vector):
+            raise TypeError("All elements of line_bundle_vector must arise from the same underlying category")
 
         #######
         # Set remaining member variables
@@ -163,8 +150,7 @@ class SphericalTwistComposition(DerivedCategoryObject):
 
         self.line_bundle_vector = line_bundle_vector ## The vector of line bundles in the Hom space
 
-        self.degree = degree_K3 ## The degree of the K3 surface, if applicable
-
+        self.geometry_context = geometry_context ## The geometric context of the spherical twist
 
 
     def __str__(self):
@@ -176,13 +162,13 @@ class SphericalTwistComposition(DerivedCategoryObject):
         ret_str = ""
 
         for line_bundle in self.line_bundle_vector[:0:-1]:
-            ret_str += f"Tw_{line_bundle.degree} "
+            ret_str += f"Tw_{line_bundle} "
         
-        ret_str += f"O({self.line_bundle_vector[0].degree})"
+        ret_str += str(self.line_bundle_vector[0])
         return ret_str
     
     @cached_property
-    def defining_triangle(self):
+    def defining_triangle(self) -> DistinguishedTriangle:
 
         r"""!
         Method to compute the defining triangle for the spherical twist. The defining triangle is given by
@@ -194,11 +180,12 @@ class SphericalTwistComposition(DerivedCategoryObject):
         \return DistinguishedTriangle The distinguished triangle representing the spherical twist
         """
 
-        RHom_dict_first_line_bundle = RHom(self.line_bundle_vector, degree_K3=self.degree)
+        RHom_dict_first_line_bundle = RHom(self.line_bundle_vector, geometric_context=self.geometry_context)
         # Convert the RHom_dict into a CoherentSheafCoproduct object
-        shift_vector = RHom_dict_first_line_bundle.keys()
-        dimension_vector = RHom_dict_first_line_bundle.values()
-        bundle_vector = [LineBundle(self.line_bundle_vector[0].degree, self.catagory) ] * len(shift_vector) 
+        shift_vector, dimension_vector = zip(*RHom_dict_first_line_bundle.items())
+        shift_vector = list(shift_vector)
+        dimension_vector = list(dimension_vector)
+        bundle_vector = [LineBundle(self.line_bundle_vector[0].divisor, self.geometry_context) ] * len(shift_vector) 
 
         first_triangle_object = LineBundleCoproduct(sheaf_vector=bundle_vector,
                                         shift_vector=shift_vector,
@@ -208,42 +195,42 @@ class SphericalTwistComposition(DerivedCategoryObject):
 
 
         if len(self.line_bundle_vector) == 2:
-            second_triangle_object = LineBundle(self.line_bundle_vector[1].degree, self.catagory)
+            second_triangle_object = LineBundle(self.line_bundle_vector[1].divisor, self.geometry_context)
         else:
-            second_triangle_object = SphericalTwistComposition(line_bundle_vector=self.line_bundle_vector[1:], degree_K3=self.degree)
+            second_triangle_object = SphericalTwistComposition(line_bundle_vector=self.line_bundle_vector[1:], geometry_context=self.geometry_context)
 
         return DistinguishedTriangle(derived_object1=first_triangle_object,
                                     derived_object2=second_triangle_object,
                                     derived_object3=self)
     
 
-    def defining_triangle_to_json(self):
-        r"""!
-        Method to convert the spherical twist to a JSON string. This is used to pass the chain complex
-        data of the spherical twist in the browser. Since a spherical twist is defined by its defining
-        triangle, 
+    # def defining_triangle_to_json(self):
+    #     r"""!
+    #     Method to convert the spherical twist to a JSON string. This is used to pass the chain complex
+    #     data of the spherical twist in the browser. Since a spherical twist is defined by its defining
+    #     triangle, 
         
-                RHom(O(a), O(b)) ⊗ O(a) ----> O(b) ----> Tw_O(a) O(b)
+    #             RHom(O(a), O(b)) ⊗ O(a) ----> O(b) ----> Tw_O(a) O(b)
 
-        and Tw_O(a) O(b) is merely a symbol, the only data we really need to pass is what the first RHom
-        object looks like (dimension, shifts, etc) and the degrees [a,b].
+    #     and Tw_O(a) O(b) is merely a symbol, the only data we really need to pass is what the first RHom
+    #     object looks like (dimension, shifts, etc) and the degrees [a,b].
 
-        \return str A JSON string representation of the chain complex. The first object contains the information
-                    of the first RHom object, and the degrees of the line bundles are stored in the degrees key.
-        """
+    #     \return str A JSON string representation of the chain complex. The first object contains the information
+    #                 of the first RHom object, and the degrees of the line bundles are stored in the degrees key.
+    #     """
 
-        object1 = {
-            "shift_vector" : self.defining_triangle.object1.shift_vector,
-            "dimension_vector" : self.defining_triangle.object1.dimension_vector
-        }
+    #     object1 = {
+    #         "shift_vector" : self.defining_triangle.object1.shift_vector,
+    #         "dimension_vector" : self.defining_triangle.object1.dimension_vector
+    #     }
 
-        chain_complex_data = {
-            "object1" : object1,
-            "degrees" : [self.line_bundle_1.degree,
-                        self.line_bundle_2.degree]
-        }
+    #     chain_complex_data = {
+    #         "object1" : object1,
+    #         "degrees" : [self.line_bundle_1.degree,
+    #                     self.line_bundle_2.degree]
+    #     }
 
-        return json.dumps(chain_complex_data)
+    #     return json.dumps(chain_complex_data)
     
 
     
@@ -257,7 +244,9 @@ class SphericalTwistComposition(DerivedCategoryObject):
         \return ChernCharacter The Chern Character of the spherical twist
         """
 
-        return self.defining_triangle().object2.chernCharacter() - self.defining_triangle().object1.chernCharacter()
+        defining_triangle = self.defining_triangle()
+
+        return defining_triangle.object2.chernCharacter() - defining_triangle.object1.chernCharacter()
     
     def shift(self, n : int):
         r"""!
@@ -277,300 +266,7 @@ class SphericalTwistComposition(DerivedCategoryObject):
     
 
     
-    def is_semistable(self, *args):
-        r"""!
-        Method to check if the spherical twist is stable. The spherical twist is stable if the Harder-Narasimhan
-        filtration is trivial, i.e. just the object itself.
 
-        \param args The parameters for the stability condition. The number of parameters depends on the catagory of the object
-                        For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
-                        and an integer representing the degree of the K3 surface.
-
-        \return True if the spherical twist is stable, False otherwise
-
-        \throws TypeError If the args are not of the correct type
-        \throws ValueError If the number of args is incorrect
-        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
-        """
-
-        if self.catagory == 'P1':
-            if len(args) != 1:
-                raise ValueError("Central charge of P1 requires single complex number parameter")
-            if not isinstance(args[0], complex):
-                raise TypeError("P1 objects should have a single complex parameter")
-        elif self.catagory == 'P2':
-            if len(args) != 2:
-                raise ValueError("Central charge of P2 requires two real number parameters. Currently {} parameters given: {}".format(len(args), args))
-            if not all(isinstance(x, (float, int)) for x in args):
-                raise TypeError("P2 objects should have two real number parameters")
-        elif self.catagory == 'K3':
-
-            if len(args) != 3:
-                raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
-            if not all(isinstance(x, (float, int)) for x in args):
-                raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
-            if not isinstance(args[2], int):
-                raise TypeError("The degree of the K3 surface must be an integer")
-        else:
-            raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
-
-        try:
-            return len(self.get_HN_factors(*args)) == 1
-        except HarderNarasimhanError as e:
-            print(f"Could not determine if {self} is semistable at {e.stability_parameters}: {e.message}")
-            return False
-    
-
-
-
-    
-    def mass(self, *args):
-        r"""!
-        Computes the mass of an object in the derived catagory. The mass of a stable object is simply the modulus
-        of its central charge. For a non-stable object, the mass is the sum of the masses of the Harder-Narasimhan
-        factors of the object. The notion of the mass of an object is derived from string theory, where BPS states
-        are characterized as objects which satisfy the BPS bound M = |Z|. For non-BPS states, one simply has 
-        |Z| < M. The mass of a Bridgeland stability condition is given by the sum of its semistable factors, which 
-        corresponds to the decomposition of an object in the derived category into Harder-Narasimhan factors.
-        As a consequence, this method heavily relies on the get_HN_factors method to compute the Harder-Narasimhan
-        factors of the object.
-
-        \param args The parameters for the stability condition. The number of parameters depends on the catagory of the object
-                        For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
-                        and an integer representing the degree of the K3 surface.
-
-        \return The mass of the object, as a non-negative real number 
-
-        \throws TypeError If the args are not of the correct type
-        \throws ValueError If the number of args is incorrect
-        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
-        """
-
-
-        if self.catagory == 'P1':
-            if len(args) != 1:
-                raise ValueError("Central charge of P1 requires single complex number parameter")
-            if not isinstance(args[0], complex):
-                raise TypeError("P1 objects should have a single complex parameter")
-        elif self.catagory == 'P2':
-            if len(args) != 2:
-                raise ValueError("Central charge of P2 requires two real number parameters")
-            if not all(isinstance(x, (float, int)) for x in args):
-                raise TypeError("P2 objects should have two real number parameters")
-        elif self.catagory == 'K3':
-
-            if len(args) != 3:
-                raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
-            if not all(isinstance(x, (float, int)) for x in args):
-                raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
-            if not isinstance(args[2], int):
-                raise TypeError("The degree of the K3 surface must be an integer")
-        else:
-            raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
-        
-
-        try :
-            HN_filtration = self.get_HN_factors(*args)
-
-            mass = 0
-            for (derived_cat_obj, _) in HN_filtration:
-                mass += abs(derived_cat_obj.central_charge(*args))
-
-            return mass
-        except HarderNarasimhanError as e:
-            print(f"Could not determine mass of {self} at {e.stability_parameters}: {e.message}")
-            return -1
-        
-    
-
-        
-       
-
-
-
-                
-    def get_HN_factors(self, *args):
-        r"""!
-        This method is the main workhorse of the SphericalTwist class. It computes the Harder-Narasimhan factors
-        of the spherical twist object. It is generally assumed that for a single spherical twist, the only way
-        that an object can destabilize is when an element of the last term of the defining triangle
-
-                             O(a) -----> Tw_O(a) O(b) -------->  O(b)[n] ⊕ O(b)[n+1]
-
-        has larger phase than O(a). In this case, the Harder-Narasimhan factors of the spherical twist depend on 
-        which object it is that has larger phase. For example, if the minimum shift has larger phase, then we assume
-        that the object must be strictly stable - THIS IS A CONJECTURE. If the maximum shift has smaller phase, then
-        the triangle above leads to a Harder-Narasimhan filtration, so that the individual line bundle sums are precisely
-        the HN factors; this is a result of Bapat-Deopurkar-Licata (2020).
-         
-        The most difficult case is when the smaller phase O(b)[n] is smaller than O(a) is smaller than O(b)[n+1]. In this 
-        case, some homological algebra is required to show that the cone of the composed map 
-
-                              Tw_O(a) O(b) -------> O(b)[n+1]
-
-        fits into a distinguished triangle O(a) ----> Cone ----> O(b)[n]. 
-
-        Instead of returning the objects alone, the method returns a list of tuples, where the first element is the semistable
-        factor and the second element is the phase of the object. This is done to make computing largest and smallest semistable
-        factors easier in the DoubleSphericalTwist class.
-
-        The list is always returned in reverse order of the phase, so that the smallest phase HN factor is last and the largest
-        is first.
-
-
-
-        * It should be noted that several assumptions in this have not been verified outside of the quiver
-        case
-
-
-        \param args The parameters for the stability condition. The number of parameters depends on the catagory of the object
-                        For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
-                        and an integer representing the degree of the K3 surface.
-
-        \return A list of tuples where the first element is a DerivedCategoryObject and the second element is a float
-                    representing the phase of the object. The list is always returned in such a way that the largest phase
-                    HN factor is first and smallest is last.
-
-        \throws TypeError If the args are not of the correct type
-        \throws ValueError If the number of args is incorrect
-        \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
-        \throws HarderNarasimhanError If the spherical twist is stable but the phase cannot be found
-
-        """
-
-        if self.catagory == 'P1':
-            if len(args) != 1:
-                raise ValueError("Central charge of P1 requires single complex number parameter")
-            if not isinstance(args[0], complex):
-                raise TypeError("P1 objects should have a single complex parameter")
-        elif self.catagory == 'P2':
-            if len(args) != 2:
-                raise ValueError("Central charge of P2 requires two real number parameters")
-            if not all(isinstance(x, (float, int)) for x in args):
-                raise TypeError("P2 objects should have two real number parameters")
-        elif self.catagory == 'K3':
-            if len(args) != 3:
-                raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
-            if not all(isinstance(x, (float, int)) for x in args):
-                raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
-            if not isinstance(args[2], int):
-                raise TypeError("The degree of the K3 surface must be an integer")
-        else:
-            raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
-        
-        
-        modified_defining_triangle = self.defining_triangle.rotateLeft()
-        subobject = modified_defining_triangle.object1.sheaf_vector[0]
-
-        quotient_complex = modified_defining_triangle.object3
-
-        if subobject.phase(*args) <= quotient_complex.get_smallest_phase(*args):
-            # The object is (ASSUMED TO BE --- CONJECTURE) stable
-            potential_phase = cmath.phase(self.central_charge(*args)) / math.pi
-
-            # Attempt to find the phase of the object; ideally this value of n should be unique
-
-            # TODO: This is a temporary fix to the problem of finding the phase of the spherical twist object
-            #       when the object is stable. We really shouldnt be considering odd dimensional shifts, but
-            #       we run into an error when the phase of the twist is larger than both the subobject an quotient;
-            #       this is a temporary fix to this occurse when the subobject and quotient differ by phase > 1 so 
-            #       that they no longer lie in the same heart. In particular, this causes a discontinuity for the
-            #       algebraic regions of the stability manifold.
-            for n in range(-3,3):
-                if subobject.phase(*args) <= potential_phase + n and potential_phase + n <= quotient_complex.get_largest_phase(*args):
-                    return [(self, potential_phase + n)]
-            
-            
-            raise HarderNarasimhanError(message=f"{self} should theoretically be stable, but could not find phase",
-                                        stability_parameters=args)
-
-            
-
-
-        elif len(quotient_complex.dimension_vector) == 1:
-            # The quotient object has only one term / is concentrated in a single degree and
-            # its phase is smaller than the subobject.
-
-            # The defining triangle O(a) -> Tw -> O(b)[shift] should in fact be the 
-            # Harder-Narasimhan filtration in this case
-            
-            return [(modified_defining_triangle.object1, subobject.phase(*args)),
-                     (quotient_complex, quotient_complex.get_smallest_phase(*args))]
-            
-        else:
-            # Twist is unstable and the hom space is concentrated in more than one degree
-            if len(quotient_complex.dimension_vector) != 2:
-                raise ValueError("The Hom object is not concentrated in 1 or 2 degrees")
-            
-            phase0 = quotient_complex.sheaf_vector[0].phase(*args) + quotient_complex.shift_vector[0]
-            phase1 = quotient_complex.sheaf_vector[1].phase(*args) + quotient_complex.shift_vector[1]
-
-            largest_phase = max(phase0, phase1)
-
-            # CASE 1: phi(subobj) > largest phase(quotient)
-            if subobject.phase(*args) > largest_phase:
-                # By BDL20, the HN factors of the subobject and quotient concatenate to make 
-                # the HN factors of the twist
-                if largest_phase == phase0:
-                    return [(modified_defining_triangle.object1, subobject.phase(*args)), 
-                            (CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[0]],
-                                                    shift_vector=[quotient_complex.shift_vector[0]], 
-                                                    dimension_vector=[quotient_complex.dimension_vector[0]]), phase0),
-                            (CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[1]], 
-                                                    shift_vector=[quotient_complex.shift_vector[1]], 
-                                                    dimension_vector=[quotient_complex.dimension_vector[1]]), phase1)]
-                else:
-                    return [(modified_defining_triangle.object1, subobject.phase(*args)), 
-                            (CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[1]], 
-                                                    shift_vector=[quotient_complex.shift_vector[1]], 
-                                                    dimension_vector=[quotient_complex.dimension_vector[1]]), phase1),
-                            (CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[0]], 
-                                                    shift_vector=[quotient_complex.shift_vector[0]], 
-                                                    dimension_vector=[quotient_complex.dimension_vector[0]]), phase0)]
-
-            # CASE 2: smallest phase(Quotient) < phi(subobj) < largest phase(quotient)
-            #         this is the most difficult case to handle since we must in fact consider
-            #         the cone of the composed map Tw_O(a) O(b) ----> O(b)[shift]
-            else:
-                if largest_phase == phase0:
-                    smaller_idx = 1
-                    larger_idx = 0
-                else:
-                    smaller_idx = 0
-                    larger_idx = 1
-                    
-                # isolate single element of larger shift in the quotient object
-                smaller_phase_complex = CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[smaller_idx]],
-                                            shift_vector=[quotient_complex.shift_vector[smaller_idx]],
-                                            dimension_vector=[quotient_complex.dimension_vector[smaller_idx]])
-                larger_phase_complex = CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[larger_idx]],
-                                            shift_vector=[quotient_complex.shift_vector[larger_idx]],
-                                            dimension_vector=[quotient_complex.dimension_vector[larger_idx]])
-
-                phase_subobject = subobject.phase(*args)
-                phase_larger_complex = quotient_complex.sheaf_vector[larger_idx].phase(*args) + quotient_complex.shift_vector[larger_idx]
-
-                central_charge_cone = larger_phase_complex.central_charge(*args) + subobject.central_charge(*args)
-                cone_object = DerivedCategoryObject(string="Cone", catagory=self.catagory, chern_character=None)
-                cone_triangle = DistinguishedTriangle(modified_defining_triangle.object1, cone_object, larger_phase_complex)
-                
-                # Need to compute phase of cone to make a StableObject
-                phase_cone = cmath.phase(central_charge_cone) / math.pi
-                # TODO: This is a temporary fix to the problem of finding the phase of the spherical twist object
-                #       when the object is stable. We really shouldnt be considering odd dimensional shifts, but
-                #       we run into an error when the phase of the twist is larger than both the subobject an quotient;
-                #       this is a temporary fix to this occurse when the subobject and quotient differ by phase > 1 so 
-                #       that they no longer lie in the same heart. In particular, this causes a discontinuity for the
-                #       algebraic regions of the stability manifold.
-                for n in range(-3,3):
-                    if phase_subobject <= phase_cone + n and phase_cone + n <= phase_larger_complex:
-                        return [(cone_triangle.object2, phase_cone + n),
-                                (smaller_phase_complex, smaller_phase_complex.get_smallest_phase(*args))]
-                    
-
-
-                raise HarderNarasimhanError(message=f"Could not find phase of cone {cone_object} in \n{cone_triangle}",
-                                            stability_parameters=args)
                 
                 
                 
@@ -593,7 +289,7 @@ class SphericalTwistComposition(DerivedCategoryObject):
 
 
 
-def ApplySphericalTwist(target, line_bundle : LineBundle, degree_K3 : int = 1) -> DerivedCategoryObject:
+def ApplySphericalTwist(target, line_bundle : LineBundle, geometry_context : GeometryContext) -> DerivedCategoryObject:
     r"""!
     Helper function to apply a spherical twist to an object in the derived category. 
 
@@ -615,17 +311,17 @@ def ApplySphericalTwist(target, line_bundle : LineBundle, degree_K3 : int = 1) -
         new_list = target.line_bundle_vector.copy()
         new_list.append(line_bundle)
 
-        return SphericalTwistComposition(line_bundle_vector=new_list, degree_K3=degree_K3)
+        return SphericalTwistComposition(line_bundle_vector=new_list, geometry_context=geometry_context)
     
     elif isinstance(target, LineBundle):
-        return SphericalTwistComposition(line_bundle_vector=[target, line_bundle], degree_K3=degree_K3)
+        return SphericalTwistComposition(line_bundle_vector=[target, line_bundle], geometry_context=geometry_context)
     
     elif isinstance(target, GradedCoproductObject):
         
         sph_twist_vector = []
 
         for graded_obj in target.object_vector:
-            sph_twist_vector.append( ApplySphericalTwist(target=graded_obj, line_bundle=line_bundle, degree_K3=degree_K3) )
+            sph_twist_vector.append( ApplySphericalTwist(target=graded_obj, line_bundle=line_bundle, geometry_context=geometry_context) )
             
 
         return GradedCoproductObject(sph_twists_vector=sph_twist_vector,
@@ -647,7 +343,7 @@ def ApplySphericalTwist(target, line_bundle : LineBundle, degree_K3 : int = 1) -
 
 
 
-def RHom(line_bundles : List[LineBundle], degree_K3 : int = 1) -> Dict[int,int]:
+def RHom(line_bundles : List[LineBundle], geometry_context : GeometryContext) -> Dict[int,int]:
     r"""!
     Primary function for computing the RHom space between a line bundle and a composition of spherical twists, as a 
     graded C-vector space. The function primarily relies on the helper method _computer_rhom_helper to recursively
@@ -659,8 +355,8 @@ def RHom(line_bundles : List[LineBundle], degree_K3 : int = 1) -> Dict[int,int]:
     makes it impossible to compute the RHom for a higher number of twists using basic diagram chasing.
 
     \param list line_bundles A list of LineBundles, which are assumed to be defined on the same variety
-    \param int degree_K3 The degree of the K3 surface, if applicable. This is only used for the K3 case, and is defaulted to 1.
 
+    
     \return dict A dictionary representing the dimensions of the RHom space, where the keys are the cohomological degrees and the values are the dimensions of the corresponding vector space
 
     \throws TypeError If line_bundles is not a list of LineBundles
@@ -680,15 +376,14 @@ def RHom(line_bundles : List[LineBundle], degree_K3 : int = 1) -> Dict[int,int]:
     if len(line_bundles) < 2:
         raise ValueError("It does not make sense to compute RHom with less than 1 object; the sequence must have at least 2 elements")
     
-    catagory = line_bundles[0].catagory
 
-    if not all(x.catagory == catagory for x in line_bundles):
-        raise ValueError("Line bundles must be defined on the same variety")
+    if not isinstance(geometry_context, GeometryContext):
+        raise TypeError("geometry_context must be an instance of GeometryContext")
+
+    if not all(lb.catagory() == geometry_context.catagory for lb in line_bundles):
+        raise ValueError("Line bundles must be defined on the same underlying catagory")
     
-    if not isinstance(degree_K3, int):
-        raise TypeError("degree_K3 must be a positive integer")
-    if degree_K3 < 1:
-        raise ValueError("degree_K3 must be a positive integer")
+
     
 
     ## Convert the list of line bundles to a list of integers for our helper method
@@ -837,7 +532,7 @@ def _dimHom_LineBundlesK3(line_bundle_1 : int, line_bundle_2 : int, degree_K3 : 
 
 
 
-def _compute_rhom_helper(seq: List[int], catagory : str, deg: int = 1) -> Dict[int, int]:
+def _compute_rhom_helper(seq: List[int], geometry_context : GeometryContext) -> Dict[int, int]:
     r"""!
     Recursive helper method which implements the general homological-algebraic logic for 
     computing the right-derived Hom space of a line bundle with a successive number of twists.
@@ -851,8 +546,8 @@ def _compute_rhom_helper(seq: List[int], catagory : str, deg: int = 1) -> Dict[i
     not included in the actual spherical twist, but in fact determines the line bundle that we are mapping from.
 
     \param list seq The sequence of line bundles to compute the RHom space for
-    \param str catagory The catagory of the line bundles; must be one of P1, P2, or K3
-    \param int deg The degree of the K3 surface; default is 1
+
+    
 
     \return dict A dictionary representing the dimensions of the RHom space, where the keys are the cohomological degrees and the values are the dimensions of the corresponding vector space
 
@@ -874,12 +569,24 @@ def _compute_rhom_helper(seq: List[int], catagory : str, deg: int = 1) -> Dict[i
     ## bundles. In the notation of this function, we have O(a) = O(seq[1]) and O(b) = O(seq[0])
 
     if len(seq) == 2:
-        if catagory == 'P1':
+        if geometry_context.catagory == 'P1':
             return _dimHom_LineBundlesP1(seq[1], seq[0])
-        elif catagory == 'P2':
+        elif geometry_context.catagory == 'P2':
             return _dimHom_LineBundlesP2(seq[1], seq[0])
-        elif catagory == 'K3':
-            return _dimHom_LineBundlesK3(seq[1], seq[0], deg)
+        elif geometry_context.catagory == 'K3':
+
+            degree_K3 = 1
+
+            if geometry_context.polarization is None:
+                raise ValueError("K3 surfaces require a polarization to compute the RHom space")
+            try:
+                H = geometry_context.polarization
+                degree_K3 = geometry_context.divisor_data.evaluate(H**2)
+            except:
+                raise ValueError("Could not evaluate the polarization ** 2 on the K3 surface")
+
+
+            return _dimHom_LineBundlesK3(seq[1], seq[0], degree_K3=degree_K3)
         else:
             raise NotImplementedError("Only P1, P2 and K3 catagories are implemented")
         
@@ -933,23 +640,12 @@ def _compute_rhom_helper(seq: List[int], catagory : str, deg: int = 1) -> Dict[i
 
 
         # Process first_term_dict depending on case_dict since RHom( - , - ) splits across direct sums and commutes with shifts
-        if case_dict.keys() == {0}:
-            ## RHom(O(a_n), O(a_{n-1})) is concentrated in degree 0; thus the previous RHom vector space gets scaled by the
-            ## current number of copies of Hom(O(a_n), O(a_{n-1}))
-            first_term_dict = _multiply_dict(first_term_dict, case_dict[0])
-            
-        elif case_dict.keys() == {-2}:
-            ## RHom(O(a_n), O(a_{n-1})) is concentrated in degree 0; thus the previous RHom graded vector space gets scaled by the
-            ## current number of copies of Hom(O(a_n), O(a_{n-1})), and then all graded vector spaces are shifted by -2
-            first_term_dict = _shift_dict(_multiply_dict(first_term_dict, case_dict[-2]), -2)
+        direct_sum_dict = {}
+        for shift_deg, dimension in case_dict.items():
+            temp_dict = _shift_dict(_multiply_dict(first_term_dict, dimension), shift_deg)
+            direct_sum_dict = _add_dicts(direct_sum_dict, temp_dict)
 
-        elif case_dict.keys() == {0, -2}:
-            ## This only happens when a_n = a_{n-1}; in this case, we have a direct sum of two copies of the previous
-            ## RHom graded vector space, and then we shift one copy by -2 and combine them.
-            shifted = _shift_dict(first_term_dict, -2)
-            first_term_dict = _add_dicts(first_term_dict, shifted)
-        else:
-            raise ValueError(f"Unexpected structure in case_dict: {case_dict}. Expected keys to be either 0, -2, or both.")
+        first_term_dict = direct_sum_dict
 
 
 

@@ -1,6 +1,7 @@
 from src.DerivedCategory.ChernCharacter import ChernCharacter
 from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
-from sympy import Expr, Symbol, PolynomialError
+from src.DerivedCategory.GeometryContext import GeometryContext
+from sympy import Expr, PolynomialError
 from typing import List, Tuple
 
 
@@ -43,9 +44,9 @@ class CoherentSheaf(DerivedCategoryObject):
 
     _instances = {}
 
-    def __new__(cls, chern_character : Expr, catagory : str, allowed_basis : List[Symbol] =None):
+    def __new__(cls, chern_character : ChernCharacter, geometry_context : GeometryContext):
 
-        key = ( chern_character, catagory, tuple(allowed_basis) if allowed_basis else None)
+        key = ( chern_character, geometry_context )
         if key not in cls._instances:
             instance = super().__new__(cls)
             cls._instances[key] = instance
@@ -53,37 +54,32 @@ class CoherentSheaf(DerivedCategoryObject):
         return cls._instances[key]
 
     
-    def __init__(self, chern_character : Expr, catagory : str, allowed_basis : List[Symbol] =None):
+    def __init__(self, chern_character : ChernCharacter, geometry_context : GeometryContext):
         r"""!
         Initializes an instance of CoherentSheaf with the specified Chern Character
         and catagory.
 
         \param chern_character: ChernCharacter
             The Chern Character of the coherent sheaf
-        \param catagory: str
-            The catagory of the coherent sheaf. Currently implemented catagories
-            are 'P1', 'P2', and 'K3'
+        \param 
 
-        \raises ValueError: If the catagory is not implemented, or if the Chern Character is not of the correct length
-        \raises TypeError: If the Chern Character is not an instance of Chern
+        \raises NotImplementedError: If the catagory is not implemented
+        \raises TypeError: If the Chern Character is not an instance of ChernCharacter
         """
 
         if hasattr(self, '_initialized') and self._initialized:
             return
-
-        if catagory not in IMPLEMENTED_CATAGORIES:
-            raise ValueError(f"Catagory {catagory} is not implemented.")
         
         
         if not isinstance(chern_character, ChernCharacter):
             raise TypeError("Chern Character must be a ChernCharacter object")
+        
+        
 
 
-        self.catagory = catagory ## The catagory of the coherent sheaf (e.g. 'P1', 'P2', 'K3')
+        self.geometry_context = geometry_context ## The GeometryContext of the coherent sheaf, which contains the divisor data and top intersection form
 
         self.chern_character = chern_character ## The Chern Character of the coherent sheaf, passed as a ChernCharacter object.
-
-        self.allowed_basis = allowed_basis ## The allowed basis of divisors for the coherent sheaf
 
         self._initialized = True ## Mark the instance as initialized
 
@@ -103,7 +99,7 @@ class CoherentSheaf(DerivedCategoryObject):
         return self.chern_character
 
         
-    def shift(self, n):
+    def shift(self, n : int):
         r"""!
         Override of the DerivedChatagoryObject shift method. This method shifts the coherents sheaf,
         considered as a complex concentrated in degree 0, by n units. The implementation of this 
@@ -148,7 +144,7 @@ class CoherentSheaf(DerivedCategoryObject):
 
 
 class LineBundle(CoherentSheaf):
-    """!
+    r"""!
     Main class for line bundles on a projective variety. Line bundles are specifically locally free
     sheaves (i.e. vector bundles) of rank 1. In the cases of Local P1 and Local P2, the line bundles
     will serve as the building blocks of the derived category, since every coherent sheaf admits a 
@@ -163,55 +159,68 @@ class LineBundle(CoherentSheaf):
     """
 
 
-
-    def __init__(self, divisor : Expr, catagory : str, allowed_basis : List[Symbol] = None):
+    def __new__(cls, divisor : Expr, geometry_context : GeometryContext):
         r"""!
-        Initializes an instance of LineBundle with the specified degree and catagory. The Chern Character
-        of the line bundle is automatically computed based on the degree and catagory.
+        This method is used to implement the singleton pattern for line bundles. It ensures that
+        only one instance of a line bundle with a given degree and catagory is created.
 
-        \param int degree The degree of the line bundle
-        \param str catagory The catagory of the line bundle. Currently implemented catagories are 'P1', 'P2', and 'K3'
+        \param divisor: Expr
+            The divisor of the line bundle, which is a polynomial in the allowed basis
+        \param catagory: str
+            The catagory of the line bundle. Currently implemented catagories are 'P1', 'P2', and 'K3'
+
+        \return LineBundle A new instance of LineBundle
+        """
+
+
+        ch = ChernCharacter.exp(divisor,
+                            dimension=geometry_context.divisor_data.variety_dimension,
+                            basis=geometry_context.divisor_data.basis)
+
+        return super().__new__(cls, ch, geometry_context=geometry_context)
+
+
+
+    def __init__(self, divisor : Expr, geometry_context : GeometryContext):
+        r"""!
+        Initializes an instance of LineBundle with 
+
 
         \raises ValueError If the degree is not an integer
         \raises NotImplementedError If the catagory is not implemented
+        \raises ValueError If the divisor is not a SymPy Expr
+        \raises PolynomialError If the divisor is not a valid polynomial in the allowed basis
 
 
         \var catagory str The catagory of the line bundle
         \var chern_character ChernCharacter The Chern Character of the line bundle
         """
-        if catagory not in IMPLEMENTED_CATAGORIES:
-            raise NotImplementedError(f"Catagory {catagory} is not implemented.")
+
         if not isinstance(divisor, Expr):
-            raise ValueError(f"Divisor must be a SymPy Expr: currently passed {type(divisor)}")
-        
-        if allowed_basis is None:
-            allowed_basis = list(divisor.free_symbols)
+            raise TypeError(f"Divisor must be a SymPy Expr: currently passed {type(divisor)}")
+        if not isinstance(geometry_context, GeometryContext):
+            raise TypeError("Geometry context must be a GeometryContext object")
     
-        else:
-            used_vars = divisor.free_symbols
-            allowed_vars = set(allowed_basis)
-            if not used_vars <= allowed_vars:
-                raise ValueError(f"divisor uses symbols {used_vars - allowed_vars} which are not in allowed basis {allowed_vars}")
+        
+        used_vars = divisor.free_symbols
+        allowed_vars = set(geometry_context.divisor_data.basis)
+        if not used_vars <= allowed_vars:
+            raise ValueError(f"divisor uses symbols {used_vars - allowed_vars} which are not in allowed basis {allowed_vars}")
 
         # Check it's a linear polynomial (degree 1 or less)
         try:
-            poly = divisor.as_poly(*allowed_basis)
+            poly = divisor.as_poly(*geometry_context.divisor_data.basis)
             if poly.total_degree() > 1:
                 raise ValueError("divisor must be linear in the basis elements")
         except PolynomialError:
-            raise ValueError("divisor is not a valid polynomial in the basis")
+            raise ValueError(f"Divisor {divisor} is not a valid polynomial in the basis {geometry_context.divisor_data.basis}")
 
 
-        dimension = 0
+        ch = ChernCharacter.exp(divisor,
+                            dimension=geometry_context.divisor_data.variety_dimension,
+                            basis=geometry_context.divisor_data.basis)
 
-        if catagory == 'P1':
-            dimension = 2
-        elif catagory == 'P2' or catagory == 'K3':
-            dimension = 3
-        else:
-            raise NotImplementedError(f"Catagory {catagory} is not implemented.")
-
-        super().__init__(ChernCharacter.exp(divisor, dimension=dimension), catagory, allowed_basis=allowed_basis)
+        super().__init__(ch, geometry_context=geometry_context)
 
         self.divisor = divisor ## The divisor of the line bundle, which is a polynomial in the allowed basis
 

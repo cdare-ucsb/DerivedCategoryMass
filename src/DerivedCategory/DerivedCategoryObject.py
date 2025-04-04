@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 
+from src.DerivedCategory.GeometryContext import GeometryContext
+
 
 from dotenv import load_dotenv
 import os
@@ -53,23 +55,26 @@ class DerivedCategoryObject(ABC):
     should encode is the catagory of the object and a string representation of the object. 
 
     """
-    def __init__(self, catagory : str, shift : int = 0):
+    def __init__(self, geometry_context : GeometryContext , shift : int = 0):
         r"""!
         Initialize an instance of the DerivedCategoryObject with the specified catagory, string representation,
         and Chern Character. The Chern Character is optional and can be set later. 
 
-        \param str catagory The catagory of the derived category object. This should be one of the implemented catagories ['P1', 'P2', 'K3'].
 
-        \throws NotImplementedError If the catagory is not implemented
+        
+
         \throws TypeError If the Chern Character is not an instance of Chern
 
         """
         
-        if catagory not in IMPLEMENTED_CATAGORIES:    
-            raise NotImplementedError(f"Catagory {catagory} is not implemented.")
+        if not isinstance(geometry_context, GeometryContext):
+            raise TypeError("Geometry context must be an instance of GeometryContext")
         
-        self.catagory = catagory ## The catagory of the derived category object. This should be one of the implemented catagories ['P1', 'P2', 'K3'].
+        if not isinstance(shift, int):
+            raise TypeError("shift must be an integer")
         
+
+        self.geometry_context = geometry_context ## The geometry context of the derived category object. This is an instance of the GeometryContext class, which contains information about the variety and its intersection form.  
         self.shift = shift ## The homological shift of the derived category object. This is an integer that represents the shift of the object in the derived category. The default value is 0, which means that the object is not shifted.
         
 
@@ -104,6 +109,9 @@ class DerivedCategoryObject(ABC):
         """
 
         pass
+
+    def catagory(self) -> str:
+        return self.geometry_context.catagory
 
     def central_charge(self, *args) -> complex:
         r"""!
