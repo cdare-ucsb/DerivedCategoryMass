@@ -1,4 +1,4 @@
-from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
+from DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
 
 
 

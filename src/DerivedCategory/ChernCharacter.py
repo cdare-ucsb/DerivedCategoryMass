@@ -84,7 +84,7 @@ class ChernCharacter():
         if not self.dimension == other.dimension:
             raise ValueError("Chern Characters must have the same dimension to add them together.")
         
-        return ChernCharacter(expand(self.expr + other.expr), self.basis, self.dimension)
+        return ChernCharacter(expand(self.expr + other.expr), dimension=self.dimension, basis=self.basis)
     
     def __sub__(self, other):
         r"""!

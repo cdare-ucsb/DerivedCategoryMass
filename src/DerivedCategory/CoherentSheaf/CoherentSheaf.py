@@ -1,5 +1,5 @@
 from src.DerivedCategory.ChernCharacter import ChernCharacter
-from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
+from DerivedCategory.DerivedCategoryObject.DerivedCategoryObject import DerivedCategoryObject
 from src.DerivedCategory.GeometryContext import GeometryContext
 from sympy import Expr, PolynomialError
 
@@ -112,7 +112,7 @@ class CoherentSheaf(DerivedCategoryObject):
         \return ChainComplex A ChainComplex concentrated in a single degree, shifted by n units
         """
 
-        from src.DerivedCategory.GradedCoproductObject import GradedCoproductObject # include in the method to avoid circular import
+        from DerivedCategory.DerivedCategoryObject import GradedCoproductObject # include in the method to avoid circular import
         return GradedCoproductObject( sheaf_vector=[self], shift_vector=[n], dimension_vector=[1])
         
 

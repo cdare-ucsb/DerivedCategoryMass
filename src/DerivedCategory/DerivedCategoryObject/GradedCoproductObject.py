@@ -189,7 +189,7 @@ class GradedCoproductObject(DerivedCategoryObject):
 
         for i in range(1, len(cherns)):
             # odd shifts get a negative sign, even shifts get a positive sign
-            chern_piece += (-1)**(self.shift_vector[i]) * self.dimension_vector[i] * cherns[i]
+            chern_to_return += (-1)**(self.shift_vector[i]) * self.dimension_vector[i] * cherns[i]
 
         return chern_to_return
     

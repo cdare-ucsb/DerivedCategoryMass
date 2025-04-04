@@ -1,8 +1,6 @@
-from src.DerivedCategory.GradedCoproductObject import GradedCoproductObject
-from src.DerivedCategory.CoherentSheaf.CoherentSheaf import LineBundle
-from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
+from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject, GradedCoproductObject
+from src.DerivedCategory.CoherentSheaf import LineBundle
 from src.DerivedCategory.DistinguishedTriangle import DistinguishedTriangle
-from src.DerivedCategory.GradedCoproductObject import GradedCoproductObject
 from src.DerivedCategory.GeometryContext import GeometryContext
 
 
