@@ -163,24 +163,33 @@ class SphericalTwistComposition(DerivedCategoryObject):
         \return DistinguishedTriangle The distinguished triangle representing the spherical twist
         """
 
-        RHom_dict_first_line_bundle = RHom(self.line_bundle_vector, geometric_context=self.geometry_context)
-        # Convert the RHom_dict into a CoherentSheafCoproduct object
-        shift_vector, dimension_vector = zip(*RHom_dict_first_line_bundle.items())
-        shift_vector = list(shift_vector)
-        dimension_vector = list(dimension_vector)
-        bundle_vector = [LineBundle(self.line_bundle_vector[-1].divisor, self.geometry_context) ] * len(shift_vector) 
+        last_line_bundle = LineBundle(self.line_bundle_vector[-1].divisor, self.geometry_context)
 
-        first_triangle_object = GradedCoproductObject(sheaf_vector=bundle_vector,
-                                        shift_vector=shift_vector,
-                                        dimension_vector=dimension_vector)
-        
         second_triangle_object = None
-
-
         if len(self.line_bundle_vector) == 2:
             second_triangle_object = LineBundle(self.line_bundle_vector[0].divisor, self.geometry_context)
         else:
             second_triangle_object = SphericalTwistComposition(line_bundle_vector=self.line_bundle_vector[:-1], geometry_context=self.geometry_context)
+
+
+        ## Delay import to avoid circular import issues
+        from src.DerivedCategory.RHom import RHom
+
+        ## Use RHom package to create dictionary of shifts -> dimensions
+        RHom_dict_first_line_bundle = RHom(last_line_bundle, second_triangle_object)
+
+
+        # First extract the keys (shifts) and values (dimensions) from the previous output
+        shift_vector, dimension_vector = zip(*RHom_dict_first_line_bundle.items())
+        shift_vector = list(shift_vector)
+        dimension_vector = list(dimension_vector)
+
+
+        ## Convert the dictionary data into a GradedCoproductObject
+        first_triangle_object = GradedCoproductObject(sheaf_vector=[last_line_bundle] * len(shift_vector) ,
+                                        shift_vector=shift_vector,
+                                        dimension_vector=dimension_vector)
+        
 
         return DistinguishedTriangle(derived_object1=first_triangle_object,
                                     derived_object2=second_triangle_object,

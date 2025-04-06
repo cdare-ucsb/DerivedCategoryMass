@@ -9,7 +9,8 @@ from .ChernCharacter import ChernCharacter
 from .CoherentSheaf import CoherentSheaf, LineBundle
 from .DerivedCategoryObject import GradedCoproductObject, DerivedCategoryObject, ZeroObject
 from .GeometryContext import DivisorData, GeometryContext
-from .SphericalTwist import SphericalTwistComposition, LongExactSequenceException
+from .RHom import RHom, LongExactSequenceException
+from .SphericalTwist import SphericalTwistComposition
 from .DistinguishedTriangle import DistinguishedTriangle
 from .LocalP2 import LePotier, plot_multiple_neighbors_ex1, plot_successive_neighbors_ex1
 from .StabilityCondition import MassPlot
@@ -26,6 +27,7 @@ __all__ = [
     'HarderNarasimhanError',
     'GradedCoproductObject',
     'ZeroObject',
+    'RHom',
     'LongExactSequenceException',
     'SphericalTwistComposition',
     'DistinguishedTriangle',

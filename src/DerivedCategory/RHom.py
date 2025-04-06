@@ -1,9 +1,8 @@
 from src.DerivedCategory.SphericalTwist import SphericalTwistComposition
 from src.DerivedCategory.CoherentSheaf import LineBundle, CoherentSheaf
-from src.DerivedCategory.DistinguishedTriangle import DistinguishedTriangle
 from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject, GradedCoproductObject, ZeroObject
 
-from typing import List, Dict
+from typing import Dict
 import math
 
 
@@ -57,12 +56,31 @@ def RHom(object1 : DerivedCategoryObject, object2 : DerivedCategoryObject) -> Di
     
     elif isinstance(object1, LineBundle) and isinstance(object2, SphericalTwistComposition):
         return _compute_rhom_line_bundle_to_sph_helper(object1, object2)
-    elif isinstance(object1, LineBundle) and isinstance(object2, GradedCoproductObject):
-        return _compute_rhom_line_bundle_to_graded_coproduct_helper(object1, object2)
-    elif isinstance(object1, GradedCoproductObject) and isinstance(object2, LineBundle):
-        return _compute_rhom_graded_coproduct_to_line_bundle_helper(object1, object2)
-    elif isinstance(object1, GradedCoproductObject) and isinstance(object2, GradedCoproductObject):
-        return _compute_rhom_graded_coproduct_to_graded_coproduct_helper(object1, object2)
+    elif isinstance(object1, SphericalTwistComposition) and isinstance(object2, LineBundle):
+        return _compute_rhom_sph_to_line_bundle_helper(object1, object2)
+    elif isinstance(object1, GradedCoproductObject):
+        
+        if isinstance(object2, LineBundle) or isinstance(object2, SphericalTwistComposition):
+            return _compute_rhom_graded_coproduct_to_derived_ob_helper(object1, object2)
+        elif isinstance(object2, GradedCoproductObject):
+            return _compute_rhom_graded_coproduct_to_graded_coproduct_helper(object1, object2)
+        elif isinstance(object2, ZeroObject):
+            return {0 : 0}
+        else:
+            raise NotImplementedError(f"Cannot compute RHom between {type(object1)} and {type(object2)}")
+    elif isinstance(object2, GradedCoproductObject):
+        if isinstance(object1, LineBundle) or isinstance(object1, SphericalTwistComposition):
+            return _compute_rhom_derived_ob_to_graded_coproduct_helper(object1, object2)
+        elif isinstance(object1, ZeroObject):
+            return {0 : 0}
+        else:
+            raise NotImplementedError(f"Cannot compute RHom between {type(object1)} and {type(object2)}")
+    elif isinstance(object1, ZeroObject) or isinstance(object2, ZeroObject):
+        ## If one of the objects is a zero object, then the RHom space is just the zero object
+        return {0 : 0}
+
+    else:
+        raise NotImplementedError(f"Cannot compute RHom between {type(object1)} and {type(object2)}")
     
 
 
@@ -183,17 +201,22 @@ def _compute_rhom_graded_coproduct_to_graded_coproduct_helper(gc1 : GradedCoprod
 
         hom_dict = {}
 
-        if isinstance(obj1, LineBundle):
-            hom_dict = _compute_rhom_line_bundle_to_graded_coproduct_helper(obj1, gc2)
+        if isinstance(obj1, LineBundle) or isinstance(obj1, SphericalTwistComposition):
+            hom_dict = _compute_rhom_derived_ob_to_graded_coproduct_helper(obj1, gc2)
         else:
             raise NotImplementedError(f"RHom is not yet implemented for {type(obj1)} --> {type(gc2)}")
+        
+        temp_dict = _shift_dict(_multiply_dict(hom_dict, dim1), -1*shift1)
+        direct_sum_dict = _add_dicts(direct_sum_dict, temp_dict)
+
+    return direct_sum_dict
 
 
 
 
 
 
-def _compute_rhom_graded_coproduct_to_line_bundle_helper(gc : GradedCoproductObject, lb : LineBundle) -> Dict[int, int]:
+def _compute_rhom_graded_coproduct_to_derived_ob_helper(gc : GradedCoproductObject, d_ob : DerivedCategoryObject) -> Dict[int, int]:
 
     r"""!
     Recursive helper method which implements the general homological-algebraic logic for 
@@ -214,7 +237,7 @@ def _compute_rhom_graded_coproduct_to_line_bundle_helper(gc : GradedCoproductObj
     direct_sum_dict = {}
     for obj, shift, dim in zip(gc.object_vector, gc.shift_vector, gc.dimension_vector):
 
-        hom_dict = RHom(obj, lb)
+        hom_dict = RHom(obj, d_ob)
 
         temp_dict = _shift_dict(_multiply_dict(hom_dict, dim), -1*shift)
         direct_sum_dict = _add_dicts(direct_sum_dict, temp_dict)
@@ -228,13 +251,13 @@ def _compute_rhom_graded_coproduct_to_line_bundle_helper(gc : GradedCoproductObj
 
 
 
-def _compute_rhom_line_bundle_to_graded_coproduct_helper(lb : LineBundle, gc : GradedCoproductObject) -> Dict[int, int]:
+def _compute_rhom_derived_ob_to_graded_coproduct_helper(d_ob : DerivedCategoryObject, gc : GradedCoproductObject) -> Dict[int, int]:
 
 
     direct_sum_dict = {}
     for obj, shift, dim in zip(gc.object_vector, gc.shift_vector, gc.dimension_vector):
 
-        hom_dict = RHom(lb, obj)
+        hom_dict = RHom(d_ob, obj)
 
         temp_dict = _shift_dict(_multiply_dict(hom_dict, dim), shift)
         direct_sum_dict = _add_dicts(direct_sum_dict, temp_dict)
@@ -297,79 +320,85 @@ def _compute_rhom_line_bundle_to_sph_helper(lb : LineBundle, sph : SphericalTwis
         ## Algorithmically, this is simply handled by saving the index we wish to overwrite to and 
         ## the value stored, and then checking to make sure that index is not already in the dictionary.
 
-        a = first_term_dict.get(k)
-        b = middle_term_dict.get(k)
 
-        if a is not None and b is None:
-            ##
-            ##         ----> B[k+1] ------> (sum of surrounding terms)
-            ##    A[k] ---->   0    ------>
-            ##
+        long_ex_str = f"""
+                [{k+1}] \t:\t {first_term_dict.get(k+1,0)} ---> {middle_term_dict[k+1]} ---> {return_dict.get(k+1,0)}
+                [{k}] \t:\t {first_term_dict.get(k,0)}   ---> {middle_term_dict[k]} ---> ?
+                [{k-1}] \t:\t {first_term_dict.get(k-1, 0)} ---> {middle_term_dict[k-1]} ---> ?
+                """
 
 
-            if first_term_dict.get(k+1, 0) != 0 and middle_term_dict.get(k+1, 0) != 0:
-                ## A[k+1] ---> B[k+1] ---> C[k+1] ---> A[k] cannot be resolved
-                long_ex_str = f"\n\t[{k+1}]\t:\t {first_term_dict[k+1]} ---> {middle_term_dict[k+1]} ---> ?\n\t[{k}]\t:\t {first_term_dict[k]} ---> 0"
-                raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
-            
-            target_k = k + 1 
-            value = a + middle_term_dict.get(k + 1, 0)
-
-        elif a is None and b is not None:
-            ##
-            ##     0    ----> B[k] ------> (sum of surrounding terms)
-            ##  A[k-1]  ----> 
+        if middle_term_dict.get(k, 0) != 0:
+            ##                                      ((prev set))
+            ##           A[k+1]  ----> B[k+1] ------> C[k+1]
+            ##           A[k]    ----> B[k]   ------> (sum of surrounding terms)
+            ##           A[k-1]  ----> B[k-1] ------>    ?                   
             ##
 
-            if first_term_dict.get(k-1, 0) != 0 and middle_term_dict.get(k-1, 0) != 0:
-                ## B[k] ---> C[k] ---> A[k-1] ---> B[k-1] cannot be resolved
-                long_ex_str = f"\n\t[{k}]\t:\t 0 ---> {middle_term_dict[k]} ---> ?\n\t[{k-1}]\t:\t {first_term_dict[k-1]} ---> {middle_term_dict[k-1]}"
-                raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
+            if first_term_dict.get(k, 0) != 0:
 
-            target_k = k
-            value = b + first_term_dict.get(k - 1, 0)
-        elif a is not None and b is not None:
-            ## Theoretically it is allowed for 
-            ##     -----> 0 ------> C[k+1] ----->
-            ## A[k]-----> B[k] -----> 0
-            ##
-            ## But we must be careful to check which 
-            if return_dict.get(k + 1, 0) != 0 and middle_term_dict.get(k+1, 0) != 0:
-                long_ex_str = f"\n\t[{k+1}]\t:\t        ---->{middle_term_dict [k + 1]} ---> {return_dict[k + 1]}\n\t[{k}]\t:\t {first_term_dict[k]} ---> {middle_term_dict[k]} ---> ?"
-                raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
-            elif return_dict.get(k+1, 0) != 0 and a != b + return_dict[k+1]:
-                long_ex_str = f"\n\t[{k+1}]\t:\t                      ---> {return_dict[k + 1]}\n\t[{k}]\t:\t {first_term_dict[k]} ---> {middle_term_dict[k]} ---> ?"
-                raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
-            elif return_dict.get(k+1, 0) != 0:
-                return_dict[k] = 0
-                continue
-            elif return_dict.get(k+1, 0) == 0 and first_term_dict.get(k-1, 0) != 0:
-                long_ex_str = f"\n\t[{k+1}]\t:\t                      ---> 0\n\t[{k}]\t:\t {first_term_dict[k]} ---> {middle_term_dict[k]} ---> ?\n\t[{k-1}]\t:\t {first_term_dict[k-1]} ---> "
-                raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
+                ## There are exactly two kinds of long-exact sequences we can resolve; otherwise raise 
+                ## an exception.
+
+                if return_dict.get(k+1, 0) == 0 and middle_term_dict.get(k-1, 0) == 0:
+                    ##                                      ((prev set))
+                    ##           A[k+1]  ----> B[k+1] ------> 0
+                    ##           A[k]    ----> B[k]   ------> (sum of surrounding terms)
+                    ##           A[k-1]  ----> 0 ------>    ?                   
+                    ##
+                    ##  This four-term exact sequence can be resolved since three of the dimensions are known
+
+                    return_dict[k] = middle_term_dict.get(k, 0) - first_term_dict.get(k, 0) + first_term_dict.get(k-1, 0)
+                    continue
+
+                elif middle_term_dict.get(k+1, 0) == 0 and first_term_dict.get(k-1, 0) == 0:
+
+                    ##                                      ((prev set))
+                    ##           A[k+1]  ----> 0 ------> C[k+1]
+                    ##           A[k]    ----> B[k]   ------> (sum of surrounding terms)
+                    ##           0       ----> B[k-1] ------>    ?                   
+                    ##
+                    ##  This four-term exact sequence can be resolved since three of the dimensions are known
+
+                    return_dict[k] = return_dict.get(k+1, 0) + middle_term_dict.get(k, 0) - first_term_dict.get(k, 0)
+                    continue
+                else:
+                    raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
             else:
-                if b < a:
-                    raise LongExactSequenceException("Encountered sequence 0 -> A[k] -> B[k] -> C[k] -> 0  with dim B < dim A")
 
-                target_k = k
-                value = b - a
-                
-            
+                ##                                      ((prev set))
+                ##           A[k+1]  ----> B[k+1] ------> C[k+1]
+                ##           0       ----> B[k]   ------> (sum of surrounding terms)
+                ##           A[k-1]  ----> B[k-1] ------>    ?                   
+                ##
+
+                if middle_term_dict.get(k-1, 0) == 0:
+                    ## we simply have a short-exact sequence
+                    return_dict[k] = middle_term_dict.get(k, 0) + first_term_dict.get(k-1, 0)
+                    continue
+
+                elif first_term_dict.get(k-1, 0) == 0:
+                    return_dict[k] = middle_term_dict.get(k, 0) 
+                    continue
+
+                else: 
+                    ## A[k-1] and B[k-1] are both non-zero, so we cannot resolve the sequence
+                    raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
         else:
-            ## Both entries on this line are none; while the result may still be non-zero for this degree, it will be resolved
-            ## on another line
-            target_k = k
 
-            if first_term_dict.get(k-1, 0) >= middle_term_dict.get(k-1, 0):
-                value = first_term_dict.get(k-1, 0) - middle_term_dict.get(k-1, 0)
+            ##                                      ((prev set))
+            ##           A[k+1]  ----> B[k+1] ------> C[k+1]
+            ##           A[k]    ----> 0   ------> (sum of surrounding terms)
+            ##           A[k-1]  ----> B[k-1] ------>    ?                   
+            ##
+
+            if middle_term_dict.get(k-1, 0) == 0:
+                return_dict[k] = first_term_dict.get(k-1, 0)
+                continue
             else:
-                # next map should be an injection
-                value = 0
-
-        if target_k in return_dict:
-            long_ex_str = f"\n\t[{target_k-1}]\t:\t {first_term_dict.get(target_k-1,0)} ---> {middle_term_dict.get(target_k-1,0)} ---> {return_dict.get(target_k-1,0)}\n\t[{target_k}]\t:\t {first_term_dict.get(target_k,0)} ---> {middle_term_dict.get(target_k,0)} ---> {return_dict.get(target_k,0)}\n\t[{target_k+1}]\t:\t {first_term_dict.get(target_k+1,0)} ---> {middle_term_dict.get(target_k+1,0)} ---> {return_dict.get(target_k+1,0)}"
-            raise LongExactSequenceException(f"Overwriting return_dict[{target_k}] --- a long exact sequence was not caught", sequence_str=long_ex_str)
-        ## We are guaranteed that this is the first time we are writing to this index
-        return_dict[target_k] = value
+                raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
+                    
+            
 
     return return_dict
 
@@ -377,7 +406,7 @@ def _compute_rhom_line_bundle_to_sph_helper(lb : LineBundle, sph : SphericalTwis
 
 
 
-def _compute_rhom_sph_to_lb_helper(sph : SphericalTwistComposition, lb : LineBundle) -> Dict[int, int]:
+def _compute_rhom_sph_to_line_bundle_helper(sph : SphericalTwistComposition, lb : LineBundle) -> Dict[int, int]:
     r"""!
     Recursive helper method which implements the general homological-algebraic logic for 
     computing the right-derived Hom space of a
@@ -422,65 +451,57 @@ def _compute_rhom_sph_to_lb_helper(sph : SphericalTwistComposition, lb : LineBun
         ## Algorithmically, this is simply handled by saving the index we wish to overwrite to and 
         ## the value stored, and then checking to make sure that index is not already in the dictionary.
 
-        b = middle_term_dict.get(k)
-        c = third_term_dict.get(k)
+        long_ex_str = f"""
+                [{k+1}] \t:\t {return_dict.get(k+1,0)} ---> {middle_term_dict[k+1]} ---> {third_term_dict.get(k+1,0)}
+                [{k}] \t:\t ? ---> {middle_term_dict[k]} ---> {third_term_dict.get(k,0)}
+                [{k-1}] \t:\t ? ---> {middle_term_dict[k-1]} ---> {third_term_dict.get(k-1,0)}
+                """
 
-        if b is not None and c is None:
+        if middle_term_dict.get(k, 0) != 0:
+
+            ##        ((prev set))
+            ##           A[k+1]            ----> B[k+1] ------> C[k+1]
+            ##  (sum of surrounding terms) ----> B[k]   ------> C[k]
+            ##             ?               ----> B[k-1] ------> C[k-1]
             ##
-            ##                                 ----> B[k+1] ------> C[k+1]
-            ##    (sum of surrounding terms) ---->   B[k]    ------> 0
-            ##
 
-
-            if middle_term_dict.get(k+1, 0) != 0 and third_term_dict.get(k+1, 0) != 0:
-                ## A[k+1] ---> B[k+1] ---> C[k+1] ---> A[k] cannot be resolved
-                long_ex_str = f"\n\t[{k+1}]\t:\t ? ---> {middle_term_dict[k+1]} ---> {third_term_dict.get(k+1,0)}\n\t[{k}]\t:\t ? ---> {middle_term_dict[k]} ---> 0"
+            if third_term_dict.get(k, 0) != 0:
+                ## ? ---> B[k+1] ---> C[k+1] ---> ? cannot be resolved
                 raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
-            
-            target_k = k
-            value = b + third_term_dict.get(k + 1, 0)
-
-        elif b is None and c is not None:
-            ##
-            ##                             ---->   0    ------> C[k]
-            ##  (sum of surrounding terms) ----> B[k-1] ------> C[k-1]
-            ##
-
-            if third_term_dict.get(k-1, 0) != 0 and middle_term_dict.get(k-1, 0) != 0:
-                ## B[k] ---> C[k] ---> A[k-1] ---> B[k-1] cannot be resolved
-                long_ex_str = f"\n\t[{k}]\t:\t     ---> 0 ---> {c}\n\t[{k-1}]\t:\t? ---> {middle_term_dict[k-1]} ---> {third_term_dict[k-1]}"   
-                raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
-
-            target_k = k-1
-            value = c + middle_term_dict.get(k - 1, 0)
-        elif c is not None and b is not None:
-            ## Both terms on this line are non-zero; we must be careful to check which dimension is larger so
-            ## that we are obeying the dimensionality constraints of exactness
-            if return_dict.get(k + 1, 0) != 0:
-                    long_ex_str = f"\n\t[{k+1}]\t:\t              ---> {return_dict[k + 1]}\n\t[{k}]\t:\t {first_term_dict[k]} ---> {middle_term_dict[k]} ---> ?"
-                    raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
-            
-            if b >= a:
-                if first_term_dict.get(k-1, 0) != 0:
-                    long_ex_str = f"\n\t[{k}]\t:\t {first_term_dict[k]} ---> {middle_term_dict[k]} ---> ?\n\t[{k-1}]\t:\t {first_term_dict[k-1]} ---> "
-                    raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
-                target_k = k
-                value = b - a
             else:
-                ## this is an edge case when we are computing spherical twists with consecutive degrees, e.g. Tw_1 Tw_2 O(3)
-                ## or Tw_3 Tw_2 O(1). It generally does not occur
-                target_k = k - 1
-                value = a - b
-        else:
-            ## Both entries on this line are none; while the result may still be non-zero for this degree, it will be resolved
-            ## on another line
-            continue
+                ##
+                ##                 ?                ----> B[k+1] ------> C[k+1]
+                ##    (sum of surrounding terms) ---->   B[k]    ------> 0
+                ##
+                if return_dict.get(k+1, 0) != 0:
+                    raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
+                else:
+                    ##
+                    ##                 0                ----> B[k+1] ------> C[k+1]
+                    ##    (sum of surrounding terms) ---->   B[k]    ------> 0
+                    ##
+                    ##    Can be resolved since exactness implies dim B[k+1] - dim B[k] = dim C[k+1] - dim A[k]
 
-        if target_k in return_dict:
-            long_ex_str = f"\n\t[{target_k-1}]\t:\t {first_term_dict.get(target_k-1,0)} ---> {middle_term_dict.get(target_k-1,0)} ---> {return_dict.get(target_k-1,0)}\n\t[{target_k}]\t:\t {first_term_dict.get(target_k,0)} ---> {middle_term_dict.get(target_k,0)} ---> {return_dict.get(target_k,0)}\n\t[{target_k+1}]\t:\t {first_term_dict.get(target_k+1,0)} ---> {middle_term_dict.get(target_k+1,0)} ---> {return_dict.get(target_k+1,0)}"
-            raise LongExactSequenceException(f"Overwriting return_dict[{target_k}] --- a long exact sequence was not caught", sequence_str=long_ex_str)
-        ## We are guaranteed that this is the first time we are writing to this index
-        return_dict[target_k] = value
+                    return_dict[k] = third_term_dict.get(k+1, 0) - middle_term_dict.get(k+1, 0) + middle_term_dict.get(k, 0)
+                    continue
+
+        else:
+            ##        ((prev set))
+            ##           A[k+1]            ----> B[k+1] ------> C[k+1]
+            ##  (sum of surrounding terms) ----> 0   ------> C[k]
+            ##             ?               ----> B[k-1] ------> C[k-1]
+            ##
+            ##   From the previous case, we know that one of B[k+1] and C[k+1] must be 0. If C[k+1] is 0, then
+            ##   A[k] is surrounded by 0s and is thus 0. If B[k+1] is 0, then A[k] = C[k+1]. In either case,
+            ##   we have A[k] = C[k+1] and thus the long-exact sequence is resolved.
+
+            return_dict[k] = third_term_dict.get(k+1, 0) 
+
+
+
+            
+
+
 
     return return_dict
 
