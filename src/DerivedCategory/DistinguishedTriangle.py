@@ -1,10 +1,10 @@
-from DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
+from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
 
 
 
 
 class DistinguishedTriangle():
-    """!
+    r"""!
     A distinguished triangle is a sequence of three objects in the derived category of coherent sheaves
     (in our case) with morphisms of complexes between them such that the third complex is always 
     quasi-isomorphic to the mapping cone of the morphism between the first two complexes. In the derived
@@ -89,6 +89,64 @@ class DistinguishedTriangle():
     def __hash__(self):
 
         return hash((self.object1, self.object2, self.object3))
+    
+
+    def __getitem__(self, index):
+        r"""!
+        Get the object at the specified index in the distinguished triangle. The index is 0-based
+        and can be 0, 1, or 2.
+
+        \param int index: The index of the object to get
+
+        \return DerivedCategoryObject The object at the specified index
+        """
+
+        if index == 0:
+            return self.object1
+        elif index == 1:
+            return self.object2
+        elif index == 2:
+            return self.object3
+        else:
+            raise IndexError("Index must be 0, 1, or 2")
+        
+    def __setitem__(self, index, value):
+        r"""!
+        Set the object at the specified index in the distinguished triangle. The index is 0-based
+        and can be 0, 1, or 2.
+
+        \param int index: The index of the object to set
+        \param DerivedCategoryObject value: The object to set at the specified index
+
+        \throws TypeError: If the value is not an instance of DerivedCategoryObject
+        \throws IndexError: If the index is not 0, 1, or 2
+        """
+
+        if not isinstance(value, DerivedCategoryObject):
+            raise TypeError("Value must be an instance of DerivedCategoryObject")
+        
+        if index == 0:
+            self.object1 = value
+        elif index == 1:
+            self.object2 = value
+        elif index == 2:
+            self.object3 = value
+        else:
+            raise IndexError("Index must be 0, 1, or 2")
+        
+    def __eq__(self, other):
+        r"""!
+        Check if two distinguished triangles are equal. Two distinguished triangles are equal if
+        the objects in the triangles are equal (in any order).
+
+        \param DistinguishedTriangle other: The other distinguished triangle to compare to
+
+        \return bool True if the two distinguished triangles are equal, False otherwise
+        """
+
+        if not isinstance(other, DistinguishedTriangle):
+            return False
+        return self.object1 == other.object1 and self.object2 == other.object2 and self.object3 == other.object3
 
    
 

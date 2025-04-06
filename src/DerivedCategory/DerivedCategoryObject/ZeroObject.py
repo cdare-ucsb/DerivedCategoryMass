@@ -27,7 +27,7 @@ class ZeroObject(DerivedCategoryObject):
         return "0"
     
 
-    def shift(self, shift: int):
+    def shift(self, _: int):
 
         return self
     
@@ -43,5 +43,4 @@ class ZeroObject(DerivedCategoryObject):
         return ChernCharacter(0,
                             dimension=self.geometry_context.divisor_data.variety_dimension,
                             basis=self.geometry_context.divisor_data.basis)
-    
     

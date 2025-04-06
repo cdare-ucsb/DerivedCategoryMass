@@ -152,3 +152,56 @@ class DivisorData:
         if not isinstance(other, DivisorData):
             return False
         return self.basis == other.basis and self.top_intersection_form == other.top_intersection_form
+    
+
+    def is_linear_combination_of_basis(self, expr: Expr) -> bool:
+        """
+        Checks if expr is a linear combination of the basis.
+        That is, expr = sum_i (a_i * b_i), where b_i in basis_symbols and a_i ∈ ℚ or ℝ.
+        No constants, no nonlinear terms, and no unknown symbols allowed.
+        """
+        expr = expr.expand()
+        basis_set = set(self.basis)
+
+        terms = expr.as_ordered_terms()
+
+        for term in terms:
+            if term.is_Atom:
+                # A bare symbol or number is not allowed unless it's in basis
+                if term in basis_set:
+                    continue
+                return False
+
+            coeff, rest = term.as_coeff_Mul()
+
+            if rest.is_Atom:
+                # Must be a single basis symbol
+                if rest not in basis_set:
+                    return False
+            else:
+                # If rest is a product or something more complex: invalid
+                # E.g. H*C, H**2, etc.
+                symbols_in_term = rest.free_symbols
+                if not symbols_in_term <= basis_set:
+                    return False
+                return False
+
+        return True
+    
+
+    def is_effective(self, divisor: Expr) -> bool:
+        """
+        Check whether a given divisor is effective in this basis.
+        That is, all coefficients of the basis divisors are non-negative,
+        and the divisor is a linear combination of the basis elements only.
+
+        Raises:
+            ValueError: if divisor contains terms outside the basis
+        """
+
+        # Check that all symbols in the divisor are part of the basis
+        if not self.is_linear_combination_of_basis(divisor):
+            raise ValueError(f"Divisor {divisor} is not a linear combination of the basis elements.")
+
+        # Check that all coefficients of basis elements are ≥ 0
+        return all(divisor.coeff(b) >= 0 for b in self.basis)

@@ -1,4 +1,4 @@
-from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
+from src.DerivedCategory.DerivedCategoryObject.DerivedCategoryObject import DerivedCategoryObject
 
 from typing import List
 

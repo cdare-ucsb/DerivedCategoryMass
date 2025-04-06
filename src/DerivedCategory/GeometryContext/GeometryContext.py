@@ -7,7 +7,7 @@ import os
 
 # Load .env file
 load_dotenv()
-IMPLEMENTED_CATAGORIES = os.getenv("IMPLEMENTED_CATAGORIES").split(",") # ['P1', 'P2', 'K3']
+IMPLEMENTED_CATAGORIES = os.getenv("IMPLEMENTED_CATAGORIES").split(",") # ['P1', 'P2', 'LocalP1', 'LocalP2', 'K3']
 __CURRENT_DOUBLE_TWIST_IMPLEMENTED__ = os.getenv("CURRENT_DOUBLE_TWIST_IMPLEMENTED").split(",") # ['K3']
 
 
@@ -23,14 +23,14 @@ class GeometryContext():
         
         if polarization is not None and not isinstance(polarization, Expr):
             raise TypeError("Polarization must be a SymPy symbol.")
-        if polarization is not None and not _is_linear_combination(polarization, divisor_data.basis):
+        if polarization is not None and not divisor_data.is_linear_combination_of_basis(polarization):
             raise ValueError("Polarization must be a linear combination of elements in the divisor basis.")
         
         self.polarization = polarization
     
 
         ## Verify that divisor_data is valid
-        if catagory == "P1":
+        if catagory == "P1" or catagory == "LocalP1":
             # Verify that intersection_form data is valid
             if divisor_data.variety_dimension != 1:
                 raise ValueError("P1 variety must have dimension 1.")
@@ -40,8 +40,12 @@ class GeometryContext():
                 raise ValueError("P1 variety's top intersection form must assign the single divisor to 1.")
             if polarization is not None and polarization != divisor_data.basis[0]:
                 raise ValueError("P1 variety's polarization must be the single ample generator.")
-            
-        elif catagory == "P2":
+            elif polarization is None:
+                polarization = divisor_data.basis[0]
+
+
+
+        elif catagory == "P2" or catagory == "LocalP2":
             
             if divisor_data.variety_dimension != 2:
                 raise ValueError("P2 variety must have dimension 2.")
@@ -51,6 +55,8 @@ class GeometryContext():
                 raise ValueError("P2 variety's top intersection form must assign the squared ample generator to 1.")
             if polarization is not None and polarization != divisor_data.basis[0]:
                 raise ValueError("P2 variety's polarization must be the single ample generator.")
+            elif polarization is None:
+                polarization = divisor_data.basis[0]
             
         elif catagory == 'K3':
             if divisor_data.variety_dimension != 2:
@@ -77,36 +83,3 @@ class GeometryContext():
 
 
 
-def _is_linear_combination(expr: Expr, basis_symbols: list[Symbol]) -> bool:
-    """
-    Checks if expr is a linear combination of basis_symbols.
-    That is, expr = sum_i (a_i * b_i), where b_i in basis_symbols and a_i ∈ ℚ or ℝ.
-    No constants, no nonlinear terms, and no unknown symbols allowed.
-    """
-    expr = expr.expand()
-    basis_set = set(basis_symbols)
-
-    terms = expr.as_ordered_terms()
-
-    for term in terms:
-        if term.is_Atom:
-            # A bare symbol or number is not allowed unless it's in basis
-            if term in basis_set:
-                continue
-            return False
-
-        coeff, rest = term.as_coeff_Mul()
-
-        if rest.is_Atom:
-            # Must be a single basis symbol
-            if rest not in basis_set:
-                return False
-        else:
-            # If rest is a product or something more complex: invalid
-            # E.g. H*C, H**2, etc.
-            symbols_in_term = rest.free_symbols
-            if not symbols_in_term <= basis_set:
-                return False
-            return False
-
-    return True

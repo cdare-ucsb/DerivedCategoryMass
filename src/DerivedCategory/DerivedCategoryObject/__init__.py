@@ -5,4 +5,4 @@ from .DerivedCategoryObject import DerivedCategoryObject
 from .ZeroObject import ZeroObject
 
 
-__all__ = ['GradedCoproductObject', 'DerivedCategoryObject']
+__all__ = ['GradedCoproductObject', 'DerivedCategoryObject', 'ZeroObject']

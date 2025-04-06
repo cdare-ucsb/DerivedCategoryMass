@@ -1,7 +1,7 @@
 from src.DerivedCategory.ChernCharacter import ChernCharacter
-from DerivedCategory.DerivedCategoryObject.DerivedCategoryObject import DerivedCategoryObject
+from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
 from src.DerivedCategory.GeometryContext import GeometryContext
-from sympy import Expr, PolynomialError
+from sympy import Expr, PolynomialError, Symbol, Mul, Add
 
 
 ###############################################################################
@@ -184,10 +184,6 @@ class LineBundle(CoherentSheaf):
         \raises NotImplementedError If the catagory is not implemented
         \raises ValueError If the divisor is not a SymPy Expr
         \raises PolynomialError If the divisor is not a valid polynomial in the allowed basis
-
-
-        \var catagory str The catagory of the line bundle
-        \var chern_character ChernCharacter The Chern Character of the line bundle
         """
 
         if not isinstance(divisor, Expr):
@@ -202,12 +198,8 @@ class LineBundle(CoherentSheaf):
             raise ValueError(f"divisor uses symbols {used_vars - allowed_vars} which are not in allowed basis {allowed_vars}")
 
         # Check it's a linear polynomial (degree 1 or less)
-        try:
-            poly = divisor.as_poly(*geometry_context.divisor_data.basis)
-            if poly.total_degree() > 1:
-                raise ValueError("divisor must be linear in the basis elements")
-        except PolynomialError:
-            raise ValueError(f"Divisor {divisor} is not a valid polynomial in the basis {geometry_context.divisor_data.basis}")
+        if not geometry_context.divisor_data.is_linear_combination_of_basis(divisor):
+            raise PolynomialError(f"Divisor {divisor} is not a linear combination of the allowed basis {geometry_context.divisor_data.basis}")
 
 
         ch = ChernCharacter.exp(divisor,
@@ -257,4 +249,12 @@ class LineBundle(CoherentSheaf):
         """
         return hash((self.divisor, self.geometry_context))
     
-    
+
+    def getCoefficient(self, symbol : Symbol) -> float:
+        if symbol not in self.geometry_context.divisor_data.basis:
+            raise ValueError(f"{symbol} is not in the divisor basis of this LineBundle's geometry context.")
+
+        return float(self.divisor.coeff(symbol))  # Returns 0 if symbol is not present
+
+
+
