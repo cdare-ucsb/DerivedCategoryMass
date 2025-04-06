@@ -3,10 +3,8 @@ from src.DerivedCategory.CoherentSheaf import LineBundle
 from src.DerivedCategory.DistinguishedTriangle import DistinguishedTriangle
 
 
-import math
-import cmath
 import json
-from typing import List, Dict, Union
+from typing import List, Union
 from functools import cached_property
 
 
@@ -82,11 +80,12 @@ class SphericalTwistComposition(DerivedCategoryObject):
 
     def __new__(cls, line_bundle_vector : List[LineBundle]):
 
-        if line_bundle_vector not in cls._instances:
+        key = tuple(line_bundle_vector)
+        if key not in cls._instances:
             instance = super().__new__(cls)
-            cls._instances[line_bundle_vector] = instance
+            cls._instances[key] = instance
 
-        return cls._instances[line_bundle_vector]
+        return cls._instances[key]
 
     
     def __init__(self, line_bundle_vector : List[LineBundle]):
@@ -129,11 +128,12 @@ class SphericalTwistComposition(DerivedCategoryObject):
         # Set remaining member variables
         #######
         
-        self._initialized = True ## Flag to indicate that the object has been initialized
-
         self.line_bundle_vector = line_bundle_vector ## The vector of line bundles in the Hom space
 
         self.geometry_context = first_geometry_context ## The geometric context of the spherical twist
+
+        self._initialized = True ## Flag to indicate that the object has been initialized
+
 
 
     def __str__(self):
@@ -169,7 +169,7 @@ class SphericalTwistComposition(DerivedCategoryObject):
         if len(self.line_bundle_vector) == 2:
             second_triangle_object = LineBundle(self.line_bundle_vector[0].divisor, self.geometry_context)
         else:
-            second_triangle_object = SphericalTwistComposition(line_bundle_vector=self.line_bundle_vector[:-1], geometry_context=self.geometry_context)
+            second_triangle_object = SphericalTwistComposition(line_bundle_vector=self.line_bundle_vector[:-1])
 
 
         ## Delay import to avoid circular import issues
@@ -186,7 +186,7 @@ class SphericalTwistComposition(DerivedCategoryObject):
 
 
         ## Convert the dictionary data into a GradedCoproductObject
-        first_triangle_object = GradedCoproductObject(sheaf_vector=[last_line_bundle] * len(shift_vector) ,
+        first_triangle_object = GradedCoproductObject(object_vector=[last_line_bundle] * len(shift_vector) ,
                                         shift_vector=shift_vector,
                                         dimension_vector=dimension_vector)
         
@@ -225,9 +225,11 @@ class SphericalTwistComposition(DerivedCategoryObject):
     #     return json.dumps(chain_complex_data)
     
 
-    
+    def canonical_triangles(self) -> List[DistinguishedTriangle]:
 
-    @cached_property
+        return _get_canonical_triangles_helper(self.line_bundle_vector)
+    
+    
     def chernCharacter(self):
         r"""!
         Method to compute the Chern Character of the spherical twist. The Chern Character of the
@@ -236,7 +238,7 @@ class SphericalTwistComposition(DerivedCategoryObject):
         \return ChernCharacter The Chern Character of the spherical twist
         """
 
-        defining_triangle = self.defining_triangle()
+        defining_triangle = self.defining_triangle
 
         return defining_triangle.object2.chernCharacter() - defining_triangle.object1.chernCharacter()
     
@@ -292,7 +294,7 @@ def ApplySphericalTwist(
     if not isinstance(line_bundle, LineBundle):
         raise TypeError("twist must be an instance of LineBundle")
     
-    if target.geometric_context != line_bundle.geometry_context:
+    if target.geometry_context != line_bundle.geometry_context:
         raise ValueError("target and line_bundle must be defined on the same variety / GeometricContext.")
 
 
@@ -334,25 +336,25 @@ def ApplySphericalTwist(
 
 
 
-def _get_canonical_triangles_helper(line_bundles : List[LineBundle], degree_K3 : int = 1) -> List[DistinguishedTriangle]:
+def _get_canonical_triangles_helper(line_bundles : List[LineBundle]) -> List[DistinguishedTriangle]:
 
     if len(line_bundles) < 2:
         raise ValueError("It does not make sense to compute canonical triangles with less than 1 object; the sequence must have at least 2 elements")
 
     elif len(line_bundles) == 2:
-        return [ SphericalTwistComposition(line_bundle_vector=line_bundles, degree_K3=degree_K3).defining_triangle() ]
+        return [ SphericalTwistComposition(line_bundle_vector=line_bundles).defining_triangle ]
     
     else:
 
-        key = (line_bundles, degree_K3, line_bundles[0].catagory)
+        key = tuple(line_bundles)
 
         if key not in SphericalTwistComposition._canonical_triangle_cache:
 
-            previous_step_list = _get_canonical_triangles_helper(line_bundles[:-1], degree_K3=degree_K3)
-            new_list = [SphericalTwistComposition(line_bundle_vector=line_bundles, degree_K3=degree_K3).defining_triangle()]
+            previous_step_list = _get_canonical_triangles_helper(line_bundles[:-1] )
+            new_list = [SphericalTwistComposition(line_bundle_vector=line_bundles).defining_triangle()]
 
             for triangle in previous_step_list:
-                new_list.append( ApplySphericalTwist(line_bundle_vector=line_bundles[:-1], degree_K3=degree_K3) )
+                new_list.append( ApplySphericalTwist(line_bundle=line_bundles[:-1], target=triangle) )
 
             SphericalTwistComposition._canonical_triangle_cache[key] = new_list
 

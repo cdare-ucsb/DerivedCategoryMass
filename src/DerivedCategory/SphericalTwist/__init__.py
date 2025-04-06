@@ -1,5 +1,5 @@
 # src/DerivedCategory/GradedCoproductObject/__init__.py
 
-from .SphericalTwist import SphericalTwistComposition, LongExactSequenceException
+from .SphericalTwist import SphericalTwistComposition
 
-__all__ = ['SphericalTwistComposition', 'LongExactSequenceException']
+__all__ = ['SphericalTwistComposition']

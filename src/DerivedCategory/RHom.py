@@ -307,7 +307,15 @@ def _compute_rhom_line_bundle_to_sph_helper(lb : LineBundle, sph : SphericalTwis
     # Combine first_term_dict and middle_term_dict into return_dict
     return_dict = {}
 
-    keys = sorted(set(first_term_dict) | set(middle_term_dict), reverse=True)
+    raw_keys = set(first_term_dict) | set(middle_term_dict)
+
+    if raw_keys:  # guard against empty dicts
+        extended_keys = raw_keys | {min(raw_keys) - 1, max(raw_keys) + 1}
+    else:
+        extended_keys = set()
+
+    keys = sorted(extended_keys, reverse=True)
+
     for k in keys:
         ## At each iteration, we must check that we are not overwriting a previous value
         ## in returned dictionary. Since there are only three terms in a triangle contributing
@@ -322,9 +330,9 @@ def _compute_rhom_line_bundle_to_sph_helper(lb : LineBundle, sph : SphericalTwis
 
 
         long_ex_str = f"""
-                [{k+1}] \t:\t {first_term_dict.get(k+1,0)} ---> {middle_term_dict[k+1]} ---> {return_dict.get(k+1,0)}
-                [{k}] \t:\t {first_term_dict.get(k,0)}   ---> {middle_term_dict[k]} ---> ?
-                [{k-1}] \t:\t {first_term_dict.get(k-1, 0)} ---> {middle_term_dict[k-1]} ---> ?
+                [{k+1}] \t:\t {first_term_dict.get(k+1,0)} ---> {middle_term_dict.get(k+1,0)} ---> {return_dict.get(k+1,0)}
+                [{k}] \t:\t {first_term_dict.get(k,0)}   ---> {middle_term_dict.get(k,0)} ---> ?
+                [{k-1}] \t:\t {first_term_dict.get(k-1, 0)} ---> {middle_term_dict.get(k-1,0)} ---> ?
                 """
 
 
@@ -438,7 +446,15 @@ def _compute_rhom_sph_to_line_bundle_helper(sph : SphericalTwistComposition, lb 
     # Combine first_term_dict and middle_term_dict into return_dict
     return_dict = {}
 
-    keys = sorted(set(third_term_dict) | set(middle_term_dict), reverse=True)
+    raw_keys = set(third_term_dict) | set(middle_term_dict)
+
+    if raw_keys:  # guard against empty dicts
+        extended_keys = raw_keys | {min(raw_keys) - 1, max(raw_keys) + 1}
+    else:
+        extended_keys = set()
+
+    keys = sorted(extended_keys, reverse=True)
+
     for k in keys:
         ## At each iteration, we must check that we are not overwriting a previous value
         ## in returned dictionary. Since there are only three terms in a triangle contributing
@@ -452,9 +468,9 @@ def _compute_rhom_sph_to_line_bundle_helper(sph : SphericalTwistComposition, lb 
         ## the value stored, and then checking to make sure that index is not already in the dictionary.
 
         long_ex_str = f"""
-                [{k+1}] \t:\t {return_dict.get(k+1,0)} ---> {middle_term_dict[k+1]} ---> {third_term_dict.get(k+1,0)}
-                [{k}] \t:\t ? ---> {middle_term_dict[k]} ---> {third_term_dict.get(k,0)}
-                [{k-1}] \t:\t ? ---> {middle_term_dict[k-1]} ---> {third_term_dict.get(k-1,0)}
+                [{k+1}] \t:\t {return_dict.get(k+1,0)} ---> {middle_term_dict.get(k+1,0)} ---> {third_term_dict.get(k+1,0)}
+                [{k}] \t:\t ? ---> {middle_term_dict.get(k,0)} ---> {third_term_dict.get(k,0)}
+                [{k-1}] \t:\t ? ---> {middle_term_dict.get(k-1,0)} ---> {third_term_dict.get(k-1,0)}
                 """
 
         if middle_term_dict.get(k, 0) != 0:
