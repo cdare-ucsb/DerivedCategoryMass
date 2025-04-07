@@ -1,7 +1,8 @@
 import sys
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QWidget, QLabel, QVBoxLayout,
-    QComboBox, QPushButton, QStackedWidget, QLineEdit, QMessageBox, QHBoxLayout, QGraphicsOpacityEffect
+    QComboBox, QPushButton, QStackedWidget, QLineEdit, QMessageBox, QHBoxLayout, QGraphicsOpacityEffect,
+    QGridLayout, QSpacerItem, QSizePolicy
 )
 from PyQt5.QtCore import Qt, QPropertyAnimation, QEasingCurve, QTimer
 from PyQt5.QtWebEngineWidgets import QWebEngineView
@@ -27,7 +28,7 @@ class HomePage(QWidget):
         outer_layout.setAlignment(Qt.AlignCenter)
 
         # ========= Title Label (Fades In First) =========
-        self.welcome_label = QLabel("<h1>Welcome to derived category mass</h1>")
+        self.welcome_label = QLabel("<h1>Welcome to DerivedCategoryMass</h1>")
         self.welcome_label.setAlignment(Qt.AlignCenter)
 
         title_opacity = QGraphicsOpacityEffect()
@@ -64,17 +65,17 @@ class HomePage(QWidget):
         k3_layout = QVBoxLayout()
         k3_layout.setAlignment(Qt.AlignCenter)
 
-        self.picard_input = QLineEdit()
-        self.picard_input.setPlaceholderText("Picard Rank (e.g. 1)")
-        self.picard_input.setMaximumWidth(input_width)
+        self.picard_basis_input = QLineEdit()
+        self.picard_basis_input.setPlaceholderText("Enter a basis for the Picard Group (e.g. H, C, D)")
+        self.picard_basis_input.setMaximumWidth(input_width)
 
         self.polarization_input = QLineEdit()
-        self.polarization_input.setPlaceholderText("Polarization (e.g. H)")
+        self.polarization_input.setPlaceholderText("What is the choice of polarization? (e.g. H)")
         self.polarization_input.setMaximumWidth(input_width)
 
         picard_row = QHBoxLayout()
         picard_row.setAlignment(Qt.AlignCenter)
-        picard_row.addWidget(self.picard_input)
+        picard_row.addWidget(self.picard_basis_input)
 
         polar_row = QHBoxLayout()
         polar_row.setAlignment(Qt.AlignCenter)
@@ -133,12 +134,10 @@ class HomePage(QWidget):
     def go_to_form(self):
         selected_context = self.dropdown.currentText()
 
-        # If K3 surface, validate fields
         if selected_context == "K3 Surface":
-            picard = self.picard_input.text().strip()
+            picard = self.picard_basis_input.text().strip()
             polarization = self.polarization_input.text().strip()
 
-            print(picard)
             print(polarization)
 
             if not picard or not polarization:
@@ -147,15 +146,37 @@ class HomePage(QWidget):
                     "Missing K3 Data",
                     "Please fill in both Picard rank and polarization before continuing."
                 )
-                return  # Do not proceed
+                return
 
-        # Everything is valid — move forward
-        self.parent.form_page.set_geometry_context(
-            selected_context,
-            picard_rank=self.picard_input.text(),
-            polarization=self.polarization_input.text()
-        )
-        self.parent.stack.setCurrentWidget(self.parent.form_page)
+            # Parse the polarization input as a list of basis divisors
+            # E.g., "H, C, D" -> ["H", "C", "D"]
+            basis = [s.strip() for s in picard.split(",") if s.strip()]
+            print(basis)
+
+
+            if len(basis) == 0:
+                QMessageBox.warning(
+                    self,
+                    "Invalid Basis",
+                    "Polarization input must contain at least one divisor label."
+                )
+                return
+
+            self.parent.intersection_form_page.set_basis(basis)
+            self.parent.form_page.set_geometry_context(
+                selected_context,
+                picard_rank=self.picard_basis_input.text(),
+                polarization=self.polarization_input.text()
+            )
+
+            self.parent.stack.setCurrentWidget(self.parent.intersection_form_page)
+        else:
+            self.parent.form_page.set_geometry_context(
+                selected_context,
+                picard_rank=self.picard_basis_input.text(),
+                polarization=self.polarization_input.text()
+            )
+            self.parent.stack.setCurrentWidget(self.parent.form_page)
 
 class FormPage(QWidget):
     def __init__(self, parent):
@@ -191,6 +212,10 @@ class FormPage(QWidget):
             info += f"<br><b>Polarization:</b> {polarization or '(unspecified)'}"
 
         self.info_label.setText(info)
+
+    def set_k3_intersection_data(self, intersection_dict):
+        self.intersection_form = intersection_dict  # store for later use
+
 
     def generate_plot(self):
         # Generate a dummy plot (replace with real derived category logic)
@@ -228,6 +253,110 @@ class FormPage(QWidget):
         self.parent.plot_page.update_html(full_html)
         self.parent.stack.setCurrentWidget(self.parent.plot_page)
 
+class IntersectionMatrixWidget(QWidget):
+    def __init__(self, basis, parent=None):
+        super().__init__(parent)
+        self.basis = basis
+        self.entries = {}  # Maps (i,j) -> QLineEdit
+
+        self._build_ui()
+
+    def _build_ui(self):
+        layout = QGridLayout()
+        layout.setSpacing(8)
+
+        n = len(self.basis)
+
+        # Add top header
+        for j, name in enumerate(self.basis):
+            header = QLabel(f"<b>{name}</b>")
+            header.setAlignment(Qt.AlignCenter)
+            layout.addWidget(header, 0, j + 1)
+
+        # Add side header and input fields
+        for i, row_label in enumerate(self.basis):
+            header = QLabel(f"<b>{row_label}</b>")
+            header.setAlignment(Qt.AlignCenter)
+            layout.addWidget(header, i + 1, 0)
+
+            for j, col_label in enumerate(self.basis):
+                # Create field only for upper triangle and diagonal
+                if j >= i:
+                    field = QLineEdit()
+                    field.setAlignment(Qt.AlignCenter)
+                    field.setFixedWidth(60)
+                    layout.addWidget(field, i + 1, j + 1)
+                    self.entries[(i, j)] = field
+
+                    # If not diagonal, mirror value to symmetric cell
+                    if j != i:
+                        mirror_field = QLineEdit()
+                        mirror_field.setReadOnly(True)
+                        mirror_field.setAlignment(Qt.AlignCenter)
+                        mirror_field.setFixedWidth(60)
+                        layout.addWidget(mirror_field, j + 1, i + 1)
+                        self.entries[(j, i)] = mirror_field
+
+                        # Connect to keep symmetry
+                        def make_sync_func(i1, j1):
+                            return lambda text: self.entries[(j1, i1)].setText(text)
+
+                        field.textChanged.connect(make_sync_func(i, j))
+
+        self.setLayout(layout)
+
+    def get_intersection_form(self):
+        """
+        Returns the intersection form as a dictionary mapping
+        (Div1, Div2) -> int, based on current inputs.
+        """
+        result = {}
+        n = len(self.basis)
+        for i in range(n):
+            for j in range(n):
+                field = self.entries.get((i, j))
+                if field:
+                    text = field.text().strip()
+                    try:
+                        val = int(text)
+                    except ValueError:
+                        val = 0  # Default or raise if you prefer
+                    result[(self.basis[i], self.basis[j])] = val
+        return result
+
+
+class IntersectionFormPage(QWidget):
+    def __init__(self, parent):
+        super().__init__()
+        self.parent = parent
+        self.layout = QVBoxLayout()
+        self.setLayout(self.layout)
+
+        self.info_label = QLabel("Please enter the intersection numbers for your divisor basis:")
+        self.layout.addWidget(self.info_label)
+
+        self.matrix_widget = None  # Will be created after basis is set
+
+        self.continue_button = QPushButton("Continue")
+        self.continue_button.clicked.connect(self.submit)
+        self.layout.addWidget(self.continue_button)
+
+    def set_basis(self, basis_list):
+        # Clear previous matrix widget if it exists
+        if self.matrix_widget:
+            self.layout.removeWidget(self.matrix_widget)
+            self.matrix_widget.setParent(None)
+
+        self.matrix_widget = IntersectionMatrixWidget(basis_list)
+        self.layout.insertWidget(1, self.matrix_widget)  # insert after label
+
+    def submit(self):
+        intersection_data = self.matrix_widget.get_intersection_form()
+        # Pass the data back to form_page
+        self.parent.form_page.set_k3_intersection_data(intersection_data)
+        self.parent.stack.setCurrentWidget(self.parent.form_page)
+
+
 
 class PlotPage(QWidget):
     def __init__(self, parent):
@@ -257,10 +386,16 @@ class MainWindow(QMainWindow):
         self.home_page = HomePage(self)
         self.form_page = FormPage(self)
         self.plot_page = PlotPage(self)
+        self.intersection_form_page = IntersectionFormPage(self)
+
 
         self.stack.addWidget(self.home_page)
         self.stack.addWidget(self.form_page)
         self.stack.addWidget(self.plot_page)
+        self.stack.addWidget(self.intersection_form_page)
+
+        
+
 
         self.setCentralWidget(self.stack)
         self.resize(1000, 700)
