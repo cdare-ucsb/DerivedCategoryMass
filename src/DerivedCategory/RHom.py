@@ -212,6 +212,55 @@ def _ext_line_bundles(line_bundle_1 : LineBundle, line_bundle_2 : LineBundle) ->
         else:
             raise ValueError(f"Divisor arising from {line_bundle_2} - {line_bundle_1} is neither effective nor anti-effective. Currrently there is no way to compute this for K3 surfaces.")
 
+    elif line_bundle_1.geometry_context.catagory == 'P1':
+        ##
+        ## The cohomology of line bundles in projective space is a standard algebraic geometry 
+        ## exercise involving counting the number of degree d polynomials in n + 1 variables (
+        ## where n is the dimension of P^n). In particular, it is easy to show that
+        ## the dimension of H^0 (P^n, O(d)) for d >= 0 is 
+        ##
+        ##                                  (  n + d )
+        ##            dim H^0 (P^n, O(d)) = (    n   )
+        ##
+        ##  i.e. n+d choose n. For the projective line, this is simply d+1 when d is non-negative.
+        ##  since the canonical bundle of P^n is O(-n-1), we may apply Serre duality to obtain
+        ##  the dimension of H^0(P^n, O(d)) for d <= -n - 1 as well --- in particular, this also 
+        ##  can be used to show that the cohomology of line bundles O(-1), ... O(-n) is 0.
+
+        lb1_coeff = line_bundle_1.getCoefficient(line_bundle_1.geometry_context.polarization)
+        lb2_coeff = line_bundle_2.getCoefficient(line_bundle_2.geometry_context.polarization)
+        degree_dif = line_bundle_2 - line_bundle_1
+
+        if degree_dif >= 0:
+            return {0 : degree_dif + 1}
+        elif degree_dif == -1:
+            return {0:0}
+        elif degree_dif <= -2:
+            return {-1 : -1*degree_dif - 2}
+        
+    elif line_bundle_1.geometry_context.catagory == 'P2':
+        ##
+        ## Same logic as previous case
+        ##
+
+        lb1_coeff = line_bundle_1.getCoefficient(line_bundle_1.geometry_context.polarization)
+        lb2_coeff = line_bundle_2.getCoefficient(line_bundle_2.geometry_context.polarization)
+        degree_dif = line_bundle_2 - line_bundle_1
+
+        if degree_dif >= 0:
+            return {0 : math.comb(degree_dif + 2, 2)}
+        elif degree_dif == -1 or degree_dif == -2:
+            return {0:0}
+        elif degree_dif <= -3:
+            return {-1 : math.comb(degree_dif - 1, 2)}
+    else:
+        ##
+        ## Not implemented
+        ##
+        raise NotImplementedError(f"Ext is not yet implemented for {line_bundle_1.geometry_context.catagory} surfaces")
+
+
+
 
 
 def _compute_rhom_graded_coproduct_to_graded_coproduct_helper(gc1 : GradedCoproductObject, gc2 : GradedCoproductObject) -> Dict[int, int]:
