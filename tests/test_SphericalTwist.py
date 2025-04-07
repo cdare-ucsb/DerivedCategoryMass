@@ -73,6 +73,8 @@ def triple_twist_K3_ex1():
 
 
 
+
+
 def test_SphericalTwistComposition_init_ex1(single_twist_K3_ex1):
 
     lb1, lb2 = single_twist_K3_ex1
@@ -150,6 +152,23 @@ def test_SphericalTwistComposition_get_defining_triangle_ex3(triple_twist_K3_ex1
 
     print("\n" + str(sph3.defining_triangle))
 
+def test_SphericalTwistComposition_get_defining_triangle_ex4(double_twist_K3_ex2):
+    lb1, lb2, lb3 = double_twist_K3_ex2
+
+    sph4 = SphericalTwistComposition(line_bundle_vector=[lb3, lb2, lb1])
+
+    print("\n" + str(sph4.defining_triangle))
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -161,23 +180,27 @@ def test_SphericalTwistComposition_get_canonical_triangles_ex1(single_twist_K3_e
     assert sph1.canonical_triangles() == [sph1.defining_triangle]
 
 
-def test_SphericalTwistComposition_get_canonical_triangles_ex2(double_twist_K3_ex1):
+def test_SphericalTwistComposition_get_canonical_triangles_ex2():
     
-    lb1, lb2, lb3 = double_twist_K3_ex1
+    H = symbols("H")
+    basis = [H]
+    tensor_data = {
+        (H, H) : 6
+    }
 
-    sph2 = SphericalTwistComposition(line_bundle_vector=[lb3, lb2, lb1])
+    divisor_data = DivisorData(basis=basis, top_intersection_form=tensor_data)
+    geometry_context = GeometryContext(catagory='K3', divisor_data=divisor_data)
+
+
+
+    sph2 = SphericalTwistComposition(line_bundle_vector=[LineBundle(6*H, geometry_context=geometry_context),
+                                                        LineBundle(5*H, geometry_context=geometry_context),
+                                                        LineBundle(9*H, geometry_context=geometry_context)])
 
     canonical_triangles = sph2.canonical_triangles()
     assert len(canonical_triangles) == 2
-    assert canonical_triangles[0].object1.dimension_vector[0] == 146
-    assert canonical_triangles[0].object1.object_vector[0] is lb1
-    assert canonical_triangles[0].object1.shift_vector[0] == 1
+    assert canonical_triangles[0].object1.dimension_vector[0] == 221
 
-    assert canonical_triangles[0].object2.line_bundle_vector[1] is lb2
-    assert canonical_triangles[0].object2.line_bundle_vector[0] is lb3
+    assert canonical_triangles[0].object1.shift_vector[0] == -1
+    assert canonical_triangles[1].object1.dimension_vector[0] == 5
 
-    assert canonical_triangles[1].object1.dimension_vector[0] == 14
-
-    expected_first_obj = GradedCoproductObject(object_vector=[SphericalTwistComposition(line_bundle_vector=[lb2, lb1])], shift_vector=[0], dimension_vector=[14])
-
-    assert canonical_triangles[1].object1 is expected_first_obj

@@ -10,7 +10,8 @@ import math
 
 class LongExactSequenceException(Exception):
     r"""!
-    Exception raised when the long exact sequence cannot be computed
+    Exception raised when the long exact sequence in homology cannot be resolved, usually due to 
+    contiguous non-zero terms leading to non-short exact sequences.
     """
 
     def __init__(self, *args, **kwargs):
@@ -113,7 +114,13 @@ def _ext_line_bundles(line_bundle_1 : LineBundle, line_bundle_2 : LineBundle) ->
     Helper method which implements the logic for computing the Ext space between two line bundles. The logic is based on Hirzebruch-Riemann-Roch, and 
     checks the different GeometryContexts possible for the line bundles. Since we utilize SymPy for the combinatorial logic, the method is not as 
     efficient as if purely numerical invariants were used.
+
+    \param LineBundle line_bundle_1 The first line bundle in the Ext space
+    \param LineBundle line_bundle_2 The second line bundle in the Ext space
+
+    \return dict A dictionary representing the dimensions of the Ext space, where the keys are the cohomological degrees and the values are the dimensions of the corresponding vector space
     
+    \throws ValueError The difference between divisors in the case of K3 surfaces does not result in either a nef or anti-nef divisor
     """
 
 
