@@ -25,26 +25,18 @@ class LongExactSequenceException(Exception):
 
 def RHom(object1 : DerivedCategoryObject, object2 : DerivedCategoryObject) -> Dict[int,int]:
     r"""!
-    Primary function for computing the RHom space between two derived category objects, as a graded C-vector space. The function primarily relies on the helper method _compute_rhom_helper to recursively
-    compute the RHom space between shorter, less complicated series of twists. At each step roughly
-    three recursive calls are made, only one of which is constant time since it defaults to the base case; thus, the
-    expected complexity of this function is O(2^n) where n is the number of line bundles in the list.
-    The function is designed to be called with a list of line bundles, which are assumed to be defined on the same
-    variety; however, for some of the local Calabi-Yau varieties, the obstruction of the RHom just between two line bundles
-    makes it impossible to compute the RHom for a higher number of twists using basic diagram chasing.
+    Primary function for computing the RHom space between two derived category objects, as a graded C-vector space. The actual behavior of this
+    wrapper method is handled by a series of helper methods, which implement the logic for computing the RHom space between
+    various subclasses of derived category objects. The most computationally expensive computation is finding the RHom space between
+    two SphericalTwistCompositions; any time a SphericalTwistComposition is done, the function makes roughly 2**N recursive subcalls where
+    N is the number of line bundles twisted around in a single parameter. 
 
     \param object1 A DerivedCategoryObject representing the first object in the RHom space
     \param object2 A DerivedCategoryObject representing the second object in the RHom space
 
-    
     \return dict A dictionary representing the dimensions of the RHom space, where the keys are the cohomological degrees and the values are the dimensions of the corresponding vector space
 
-    \throws TypeError If object1 or object2 is not a DerivedCategoryObject
-    \throws ValueError If object1 or object2 is not a LineBundle
-    \throws ValueError If there are not at least two line bundles in the list
-    \throws ValueError If the line bundles are not defined on the same variety
-    \throws TypeError If degree_K3 is not an integer
-    \throws ValueError If degree_K3 is not a positive integer
+    \throws NotImplementedError If the DerivedCategoryObject is not a LineBundle, SphericalTwistComposition, GradedCoproductObject, or ZeroObject
     """
 
 
@@ -88,6 +80,21 @@ def RHom(object1 : DerivedCategoryObject, object2 : DerivedCategoryObject) -> Di
 
 
 def Ext(object1 : CoherentSheaf, object2 : CoherentSheaf) -> Dict[int,int]:
+    r"""!
+    Primary function for computing the Ext space between two coherent sheaves. While the Ext space is technically the 
+    derived Hom space for objects which lie in the heart of the standard t-structure, it is easier to treat one as a 
+    special case of the other (especially since we consider CoherentSheaf and DerivedCategoryObject two different modules).
+
+    One important characteristic is that the dictionary returned should only be concentrated in degrees 0 to (-1 times) the dimension of the
+    underlying variety. \
+    
+    \param object1 A CoherentSheaf representing the first object in the Ext space
+    \param object2 A CoherentSheaf representing the second object in the Ext space
+
+    \return dict A dictionary representing the dimensions of the Ext space, where the keys are the cohomological degrees and the values are the dimensions of the corresponding vector space
+    \throws NotImplementedError If the CoherentSheaf is not a LineBundle. Currently, we only have the logic of Hirzebruch-Riemann-Roch to implement the Ext space
+    between two line bundles. We hope to implement the general case in the future.
+    """
 
     if isinstance(object1, LineBundle) and isinstance(object2, LineBundle):
         return _ext_line_bundles(object1, object2)
@@ -101,6 +108,13 @@ def Ext(object1 : CoherentSheaf, object2 : CoherentSheaf) -> Dict[int,int]:
 
 
 def _ext_line_bundles(line_bundle_1 : LineBundle, line_bundle_2 : LineBundle) -> Dict[int,int]:
+    r"""!
+
+    Helper method which implements the logic for computing the Ext space between two line bundles. The logic is based on Hirzebruch-Riemann-Roch, and 
+    checks the different GeometryContexts possible for the line bundles. Since we utilize SymPy for the combinatorial logic, the method is not as 
+    efficient as if purely numerical invariants were used.
+    
+    """
 
 
     if not isinstance(line_bundle_1, LineBundle) or not isinstance(line_bundle_2, LineBundle):
@@ -219,19 +233,16 @@ def _compute_rhom_graded_coproduct_to_graded_coproduct_helper(gc1 : GradedCoprod
 def _compute_rhom_graded_coproduct_to_derived_ob_helper(gc : GradedCoproductObject, d_ob : DerivedCategoryObject) -> Dict[int, int]:
 
     r"""!
-    Recursive helper method which implements the general homological-algebraic logic for 
-    computing the right-derived Hom space of a graded coproduct with a line bundle.
-    The base case is handled by the _dimHom_LineBundlesP1, _dimHom_LineBundlesP2, and
-    _dimHom_LineBundlesK3 methods, which simply utilize Hirzebruch-Riemann-Roch and some easy
-    diagram chasing.
+    Helper method which implements the general homological algebra for computing the right-derived Hom space of a trivial direct sum of 
+    DerivedCategoryObject objects with another DerivedCategoryObject. In paricular, this method simply encodes the fact that the derived Hom splits
+    with respect to direct sums and commutes with shifts — this we may extract the sum and shift data from the first parameter and pass it 
+    to some result obtained by applying RHom to the individual objects. 
 
-    \param GradedCoproductObject gc The graded coproduct object to compute the RHom space for
-    \param LineBundle lb The line bundle to compute the RHom space with
-
+    \param GradedCoproductObject gc The graded coproduct object which is the first argument of RHom(-, -)
+    \param DerivedCategoryObject d_ob The derived category object which is the second argument of RHom(-, -)
+    
     \return dict A dictionary representing the dimensions of the RHom space, where the keys are the cohomological degrees and the values are the dimensions of the corresponding vector space
-
     """
-
 
 
     direct_sum_dict = {}
@@ -252,6 +263,17 @@ def _compute_rhom_graded_coproduct_to_derived_ob_helper(gc : GradedCoproductObje
 
 
 def _compute_rhom_derived_ob_to_graded_coproduct_helper(d_ob : DerivedCategoryObject, gc : GradedCoproductObject) -> Dict[int, int]:
+    r"""!
+    Helper method which implements the general homological algebra for computing the right-derived Hom space of a general object with
+    a trivial direct sum of DerivedCategoryObject objects. In paricular, this method simply encodes the fact that the derived Hom splits
+    with respect to direct sums and commutes with shifts — this we may extract the sum and shift data from the second parameter and pass it 
+    to some result obtained by applying RHom to the individual objects. 
+
+    \param DerivedCategoryObject d_ob The derived category object which is the first argument of RHom(-, -)
+    \param GradedCoproductObject gc The graded coproduct object which is the second argument of RHom(-, -)
+
+    \return dict A dictionary representing the dimensions of the RHom space, where the keys are the cohomological degrees and the values are the dimensions of the corresponding vector space
+    """
 
 
     direct_sum_dict = {}
@@ -270,9 +292,19 @@ def _compute_rhom_derived_ob_to_graded_coproduct_helper(d_ob : DerivedCategoryOb
 
 def _compute_rhom_line_bundle_to_sph_helper(lb : LineBundle, sph : SphericalTwistComposition) -> Dict[int, int]:
     r"""!
-    Recursive helper method which implements the general homological-algebraic logic for 
-    computing the right-derived Hom space
+    Recursive helper method which implements the general homological-algebraic logic for computing the right-derived Hom space
+    of a line bundle with a spherical twist composition. The base case logic is handled by the general RHom wrapper. This method
+    primarily employs long-exact sequence logic to try to compute the dimensions of the RHom space when possible. Ultimately, the 
+    method is much less robust than one would hope for — even when short exact sequences exist in the long exact cohomology sequence,
+    they sometimes cause LongExactSequenceExceptions due to the fact that we mathematically cant assume 0 -> ? -> B -> C -> ? -> 0 
+    gives any information about the outside two terms.
 
+    \param LineBundle lb The first argument of RHom(-, -), which is assumed to be a LineBundle for this helper method
+    \param SphericalTwistComposition sph The second argument of RHom(-, -), which is assumed to be a SphericalTwistComposition for this helper method
+
+    \return dict A dictionary representing the dimensions of the RHom space, where the keys are the cohomological degrees and the values are the dimensions of the corresponding vector space
+    
+    \throws LongExactSequenceException If we encounter a sequence of non-zero terms in our Long exact sequence that do not yield a definitive answer for the dimension of our desired RHom space
     """
 
 
@@ -308,6 +340,10 @@ def _compute_rhom_line_bundle_to_sph_helper(lb : LineBundle, sph : SphericalTwis
     return_dict = {}
 
     raw_keys = set(first_term_dict) | set(middle_term_dict)
+
+    ######
+    # Extend the cohomological degrees we look over to be 1 less and 1 more than the keys from other terms
+    ######
 
     if raw_keys:  # guard against empty dicts
         extended_keys = raw_keys | {min(raw_keys) - 1, max(raw_keys) + 1}
@@ -374,6 +410,8 @@ def _compute_rhom_line_bundle_to_sph_helper(lb : LineBundle, sph : SphericalTwis
                     raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
             else:
 
+                ## first_term_dict[k] (i.e. A[k]) is zero
+
                 ##                                      ((prev set))
                 ##           A[k+1]  ----> B[k+1] ------> C[k+1]
                 ##           0       ----> B[k]   ------> (sum of surrounding terms)
@@ -394,21 +432,28 @@ def _compute_rhom_line_bundle_to_sph_helper(lb : LineBundle, sph : SphericalTwis
                     raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
         else:
 
+            ## middle_term_dict[k] (i.e. B[k]) is zero
+
             ##                                      ((prev set))
             ##           A[k+1]  ----> B[k+1] ------> C[k+1]
             ##           A[k]    ----> 0   ------> (sum of surrounding terms)
             ##           A[k-1]  ----> B[k-1] ------>    ?                   
             ##
 
-            if middle_term_dict.get(k-1, 0) == 0:
-                return_dict[k] = first_term_dict.get(k-1, 0)
+
+            #####
+            # TODO: This logic actually doesnt work for an exact sequence of >3 terms
+            #####
+            if first_term_dict.get(k-1, 0) >= middle_term_dict.get(k-1, 0):
+                return_dict[k] = first_term_dict.get(k-1, 0) - middle_term_dict.get(k-1, 0)
                 continue
             else:
-                raise LongExactSequenceException("Cannot resolve long-exact sequence", sequence_str=long_ex_str)
+                return_dict[k] = 0
                     
             
 
-    return return_dict
+    # Remove zero entries before returning
+    return {k: v for k, v in return_dict.items() if v != 0}
 
 
 
@@ -416,8 +461,19 @@ def _compute_rhom_line_bundle_to_sph_helper(lb : LineBundle, sph : SphericalTwis
 
 def _compute_rhom_sph_to_line_bundle_helper(sph : SphericalTwistComposition, lb : LineBundle) -> Dict[int, int]:
     r"""!
-    Recursive helper method which implements the general homological-algebraic logic for 
-    computing the right-derived Hom space of a
+    Recursive helper method which implements the general homological-algebraic logic for computing the right-derived Hom space
+    of a spherical twist composition with a line bundle. The base case logic is handled by the general RHom wrapper. This method
+    primarily employs long-exact sequence logic to try to compute the dimensions of the RHom space when possible. Ultimately, the 
+    method is much less robust than one would hope for — even when short exact sequences exist in the long exact cohomology sequence,
+    they sometimes cause LongExactSequenceExceptions due to the fact that we mathematically cant assume 0 -> ? -> B -> C -> ? -> 0 
+    gives any information about the outside two terms.
+
+    \param SphericalTwistComposition sph The first argument of RHom(-, -), which is assumed to be a SphericalTwistComposition for this helper method
+    \param LineBundle lb The second argument of RHom(-, -), which is assumed to be a LineBundle for this helper method
+
+    \return dict A dictionary representing the dimensions of the RHom space, where the keys are the cohomological degrees and the values are the dimensions of the corresponding vector space
+    
+    \throws LongExactSequenceException If we encounter a sequence of non-zero terms in our Long exact sequence that do not yield a definitive answer for the dimension of our desired RHom space
     """
 
 
@@ -514,12 +570,8 @@ def _compute_rhom_sph_to_line_bundle_helper(sph : SphericalTwistComposition, lb 
             return_dict[k] = third_term_dict.get(k+1, 0) 
 
 
-
-            
-
-
-
-    return return_dict
+    # Remove zero entries before returning
+    return {k: v for k, v in return_dict.items() if v != 0}
 
 
 def _shift_dict(d: Dict[int, int], shift: int) -> Dict[int, int]:

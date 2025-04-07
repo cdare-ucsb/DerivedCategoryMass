@@ -303,7 +303,7 @@ def ApplySphericalTwist(
         new_list = target.line_bundle_vector.copy()
         new_list.append(line_bundle)
 
-        return SphericalTwistComposition(line_bundle_vector=new_list, geometry_context=target.geometry_context)
+        return SphericalTwistComposition(line_bundle_vector=new_list)
     
     elif isinstance(target, LineBundle):
         return SphericalTwistComposition(line_bundle_vector=[target, line_bundle])
@@ -316,7 +316,7 @@ def ApplySphericalTwist(
             sph_twist_vector.append( ApplySphericalTwist(target=graded_obj, line_bundle=line_bundle) )
             
 
-        return GradedCoproductObject(sph_twists_vector=sph_twist_vector,
+        return GradedCoproductObject(object_vector=sph_twist_vector,
                                 dimension_vector=target.dimension_vector,
                                 shift_vector=target.shift_vector)
     
@@ -351,10 +351,10 @@ def _get_canonical_triangles_helper(line_bundles : List[LineBundle]) -> List[Dis
         if key not in SphericalTwistComposition._canonical_triangle_cache:
 
             previous_step_list = _get_canonical_triangles_helper(line_bundles[:-1] )
-            new_list = [SphericalTwistComposition(line_bundle_vector=line_bundles).defining_triangle()]
+            new_list = [SphericalTwistComposition(line_bundle_vector=line_bundles).defining_triangle]
 
             for triangle in previous_step_list:
-                new_list.append( ApplySphericalTwist(line_bundle=line_bundles[:-1], target=triangle) )
+                new_list.append( ApplySphericalTwist(line_bundle=line_bundles[-1], target=triangle) )
 
             SphericalTwistComposition._canonical_triangle_cache[key] = new_list
 

@@ -106,7 +106,7 @@ class ChernCharacter():
         if not self.dimension == other.dimension:
             raise ValueError("Chern Characters must have the same dimension to add them together.")
         
-        return ChernCharacter(expand(self.expr - other.expr), self.basis, self.dimension)
+        return ChernCharacter(expand(self.expr - other.expr), basis=self.basis, dimension=self.dimension)
     
     def __mul__(self, other):
         r"""!

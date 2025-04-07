@@ -215,11 +215,12 @@ class GradedCoproductObject(DerivedCategoryObject):
         is only included 0 times, we may effectively erase it.
         """
 
-        for i in range(len(self.dimension_vector)):
-            if i < len(self.dimension_vector) and self.dimension_vector[i] == 0:
-                del self.object_vector[i]
-                del self.shift_vector[i]
-                del self.dimension_vector[i]
+        filtered = [
+            (obj, shift, dim)
+            for obj, shift, dim in zip(self.object_vector, self.shift_vector, self.dimension_vector)
+            if dim != 0
+        ]
+        self.object_vector, self.shift_vector, self.dimension_vector = map(list, zip(*filtered)) if filtered else ([], [], [])
 
     def _combine_repeats(self):
         r"""!

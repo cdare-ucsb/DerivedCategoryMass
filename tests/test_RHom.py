@@ -89,13 +89,26 @@ def test_RHom_lb_to_sph_twist():
     lb2 = LineBundle(5*H, geometry_context=geometry_context)
     lb3 = LineBundle(3*H, geometry_context=geometry_context)
 
-    sph = SphericalTwistComposition(line_bundle_vector=[lb1, lb2])
+    sph = SphericalTwistComposition(line_bundle_vector=[lb1, lb2, lb3])
 
-    print("\n" + str(sph.defining_triangle))
+    assert sph.defining_triangle[0].dimension_vector[0] ==  RHom(lb3, lb2)[0] * 14 - RHom(lb3, lb1)[0]
 
-    print(f"\n\nRHom(O(3*H), O(5*H))^14 : {RHom(lb3, lb2)[0] * 14}")
-    print(f"RHom(O(3*H), O(7*H)) : {RHom(lb3, lb1)[0]}")
+def test_RHom_lb_to_double_sph_twist():
 
+    H = symbols("H")
+    basis = [H]
+    tensor_data = {
+        (H, H) : 6
+    }
 
-    rhom1 = RHom(lb3, sph)
-    print("\n" + str(rhom1))
+    divisor_data = DivisorData(basis=basis, top_intersection_form=tensor_data)
+    geometry_context = GeometryContext(catagory='K3', divisor_data=divisor_data)
+
+    lb1 = LineBundle(H, geometry_context=geometry_context)
+    lb2 = LineBundle(3*H, geometry_context=geometry_context)
+    lb3 = LineBundle(5*H, geometry_context=geometry_context)
+    lb4 = LineBundle(7*H, geometry_context=geometry_context)
+    
+
+    assert RHom(lb1, SphericalTwistComposition(line_bundle_vector=[lb4, lb3, lb2]))[2] == RHom(lb1, lb2)[0] * 146 - RHom(lb1, SphericalTwistComposition([lb4, lb3]) )[1]
+
