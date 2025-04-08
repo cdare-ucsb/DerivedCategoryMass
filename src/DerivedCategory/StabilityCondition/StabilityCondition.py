@@ -1,4 +1,7 @@
-
+from GeometryContext import GeometryContext
+from DerivedCategoryObject import DerivedCategoryObject
+from GeometryContext import GeometryContext, DivisorData
+from ChernCharacter import ChernCharacter
 
 from dotenv import load_dotenv
 import os
@@ -33,7 +36,69 @@ class HarderNarasimhanError(Exception):
 class StabilityCondition():
 
 
-    def __init__(self, *parameters):
+    def __init__(self, geometry_context : GeometryContext, *parameters):
+
+
+        if not isinstance(geometry_context, GeometryContext):
+            raise TypeError("Geometry context must be of type GeometryContext")
+        self.geometry_context = geometry_context
+
+        if len(parameters) == 0:
+            raise ValueError("No parameters given for stability condition")
+
+        match geometry_context.catagory:
+            case 'P1' | "LocalP1":
+                if len(parameters) != 1:
+                    raise ValueError("P1 stability condition requires a single complex number parameter")
+                if not isinstance(parameters[0], complex):
+                    raise TypeError("P1 stability condition requires a single complex number parameter")
+            case 'P2' | "LocalP2":
+                if len(parameters) != 2:
+                    raise ValueError("P2 stability condition requires two real number parameters")
+                if not all(isinstance(x, (float, int)) for x in parameters):
+                    raise TypeError("P2 stability condition requires two real number parameters")
+            case 'K3':
+                if len(parameters) != 2:
+                    raise ValueError("K3 stability condition requires three real number parameters: alpha, beta, and the degree")
+                if not all(isinstance(x, (float, int)) for x in parameters):
+                    raise TypeError("K3 stability condition requires three real number parameters: alpha, beta, and the degree")
+
+
+            case _:
+                raise NotImplementedError(f"Stability condition not implemented for {geometry_context.catagory}")
+            
+        self.parameters = parameters
+
+
+    def centralCharge(self, derived_obj : DerivedCategoryObject):
+        r"""!
+        
+        """
+        
+        if not isinstance(derived_obj, DerivedCategoryObject):
+            raise TypeError("Derived category object must be of type DerivedCategoryObject")
+
+        chern_character = derived_obj.chernCharacter()
+        polarization = self.geometry_context.polarization
+
+        if self.geometry_context.catagory == 'P1' or self.geometry_context.catagory == 'LocalP1':
+            ## TODO : Error checking?
+
+            return  self.geometry_context.divisor_data.evaluate(chern_character, -1 + self.parameters[0] * polarization)
+
+
+        elif self.geometry_context.catagory == 'P2' or self.geometry_context.catagory == 'LocalP2':
+            
+            ## TODO: figure out how to represent the central charge in the (s,q)-plane as a HRR evaluation
+            
+        elif self.geometry_context.catagory == 'K3':
+
+            return self.geometry_context.divisor_data.evaluate(chern_character,
+                                                            ChernCharacter.exp(  complex(self.parameters[0], self.parameters[1]) ) )
+        
+
+
+        #< a , b> * <ch0, ch1> = a ch1 + b ch0
         
 
 

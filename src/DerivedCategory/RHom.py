@@ -110,7 +110,6 @@ def Ext(object1 : CoherentSheaf, object2 : CoherentSheaf) -> Dict[int,int]:
 
 def _ext_line_bundles(line_bundle_1 : LineBundle, line_bundle_2 : LineBundle) -> Dict[int,int]:
     r"""!
-
     Helper method which implements the logic for computing the Ext space between two line bundles. The logic is based on Hirzebruch-Riemann-Roch, and 
     checks the different GeometryContexts possible for the line bundles. Since we utilize SymPy for the combinatorial logic, the method is not as 
     efficient as if purely numerical invariants were used.
@@ -264,7 +263,17 @@ def _ext_line_bundles(line_bundle_1 : LineBundle, line_bundle_2 : LineBundle) ->
 
 
 def _compute_rhom_graded_coproduct_to_graded_coproduct_helper(gc1 : GradedCoproductObject, gc2 : GradedCoproductObject) -> Dict[int, int]:
+    r"""!
+    Helper method which implements the general homological algebra for computing the right-derived Hom space of a trivial direct sum of
+    GradedCoproductObject objects with another GradedCoproductObject. In paricular, this method simply encodes the fact that the derived Hom splits
+    with respect to direct sums and commutes with shifts — this we may extract the sum and shift data from the first parameter and pass it
+    to some result obtained by applying RHom to the individual objects.
 
+    \param GradedCoproductObject gc1 The graded coproduct object which is the first argument of RHom(-, -)
+    \param GradedCoproductObject gc2 The graded coproduct object which is the second argument of RHom(-, -)
+
+    \return dict A dictionary representing the dimensions of the RHom space, where the keys are the cohomological degrees and the values are the dimensions of the corresponding vector space
+    """
 
     direct_sum_dict = {}
     for obj1, shift1, dim1 in zip(gc1.object_vector, gc1.shift_vector, gc1.dimension_vector):
