@@ -6,6 +6,9 @@ from typing import Dict
 import math
 
 
+# === Module-level cache dictionary ===
+_rhom_cache = {}
+
 
 
 class LongExactSequenceException(Exception):
@@ -40,40 +43,49 @@ def RHom(object1 : DerivedCategoryObject, object2 : DerivedCategoryObject) -> Di
     \throws NotImplementedError If the DerivedCategoryObject is not a LineBundle, SphericalTwistComposition, GradedCoproductObject, or ZeroObject
     """
 
+    key = (id(object1), id(object2))  # or use hashable key
+
+    if key in _rhom_cache:
+        return _rhom_cache[key]
+
+
 
     if isinstance(object1, LineBundle) and isinstance(object2, LineBundle):
         ## We are computing the RHom space between two line bundles; this
         ## should just be handled by the standard Ext group of the respective
         ## abelian category
-        return Ext(object1, object2)
+        _rhom_cache[key] =  Ext(object1, object2)
     
     elif isinstance(object1, LineBundle) and isinstance(object2, SphericalTwistComposition):
-        return _compute_rhom_line_bundle_to_sph_helper(object1, object2)
+        _rhom_cache[key] =  _compute_rhom_line_bundle_to_sph_helper(object1, object2)
     elif isinstance(object1, SphericalTwistComposition) and isinstance(object2, LineBundle):
-        return _compute_rhom_sph_to_line_bundle_helper(object1, object2)
+        _rhom_cache[key] =  _compute_rhom_sph_to_line_bundle_helper(object1, object2)
     elif isinstance(object1, GradedCoproductObject):
         
         if isinstance(object2, LineBundle) or isinstance(object2, SphericalTwistComposition):
-            return _compute_rhom_graded_coproduct_to_derived_ob_helper(object1, object2)
+            _rhom_cache[key] =  _compute_rhom_graded_coproduct_to_derived_ob_helper(object1, object2)
         elif isinstance(object2, GradedCoproductObject):
-            return _compute_rhom_graded_coproduct_to_graded_coproduct_helper(object1, object2)
+            _rhom_cache[key] =  _compute_rhom_graded_coproduct_to_graded_coproduct_helper(object1, object2)
         elif isinstance(object2, ZeroObject):
-            return {0 : 0}
+            _rhom_cache[key] = {0 : 0}
         else:
             raise NotImplementedError(f"Cannot compute RHom between {type(object1)} and {type(object2)}")
     elif isinstance(object2, GradedCoproductObject):
         if isinstance(object1, LineBundle) or isinstance(object1, SphericalTwistComposition):
-            return _compute_rhom_derived_ob_to_graded_coproduct_helper(object1, object2)
+            _rhom_cache[key] = _compute_rhom_derived_ob_to_graded_coproduct_helper(object1, object2)
         elif isinstance(object1, ZeroObject):
-            return {0 : 0}
+            _rhom_cache[key] = {0 : 0}
         else:
             raise NotImplementedError(f"Cannot compute RHom between {type(object1)} and {type(object2)}")
     elif isinstance(object1, ZeroObject) or isinstance(object2, ZeroObject):
         ## If one of the objects is a zero object, then the RHom space is just the zero object
-        return {0 : 0}
+        _rhom_cache[key] = {0 : 0}
 
     else:
         raise NotImplementedError(f"Cannot compute RHom between {type(object1)} and {type(object2)}")
+    
+
+    return _rhom_cache[key]
     
 
 

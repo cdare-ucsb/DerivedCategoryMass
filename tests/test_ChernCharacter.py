@@ -17,7 +17,7 @@ def test_ChernCharacter__init__():
 
     x, y, z = symbols("x y z")
     expr1 = 1 + 2*x + 3*y + 4*x**2 + 5*y**2 + 6*x*y
-    print(expr1.as_poly(x, y))
+
 
     ch1 = ChernCharacter(expr1, basis=[x,y], dimension=2)
 
@@ -101,6 +101,18 @@ def test_ChernCharacter_multiplication():
     assert mult_scalar[0] == 5
     assert mult_scalar[1] == 10*x + 15*y
     assert mult_scalar[2] == 0
+
+
+    H = symbols("H")
+    basis_2 = [H]
+    tensor_data_2 = {
+        (H, H): 2,
+    }
+
+    ch3 = ChernCharacter(1 + 3*H + 4.5*H**2, basis=basis_2, dimension=2)
+    ch4 = ChernCharacter(-1 + 1j*H+ (10 - 20*1j) * H**2, basis=basis_2, dimension=2)
+
+    assert (ch3*ch4)[2] == expand((10 - 20*1j) * H**2 + 3j*H**2 - 4.5*H**2)
 
 
     with pytest.raises(ValueError):

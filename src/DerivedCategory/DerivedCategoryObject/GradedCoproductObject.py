@@ -171,6 +171,13 @@ class GradedCoproductObject(DerivedCategoryObject):
         """
         return len(self.object_vector)
     
+
+    def __iter__(self):
+        """
+        Allows iteration over (object, shift, dimension) triples in the graded coproduct.
+        """
+        return iter(zip(self.object_vector, self.shift_vector, self.dimension_vector))
+    
     def chernCharacter(self):
         r"""!
         Helper function to compute the Chern Character of the chain complex. The Chern Character of

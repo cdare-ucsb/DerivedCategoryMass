@@ -1,7 +1,12 @@
 from GeometryContext import GeometryContext
-from DerivedCategoryObject import DerivedCategoryObject
-from GeometryContext import GeometryContext, DivisorData
+from DerivedCategoryObject import DerivedCategoryObject, GradedCoproductObject
+from GeometryContext import GeometryContext
 from ChernCharacter import ChernCharacter
+from CoherentSheaf import LineBundle
+from HarderNarasimhanFiltration import HarderNarasimhanError, HarderNarasimhanFiltration
+from SphericalTwist import SphericalTwistComposition
+
+from typing import Dict
 
 from dotenv import load_dotenv
 import os
@@ -13,21 +18,6 @@ import cmath
 load_dotenv()
 IMPLEMENTED_CATAGORIES = os.getenv("IMPLEMENTED_CATAGORIES").split(",") # ['P1', 'P2', 'K3']
 __CURRENT_DOUBLE_TWIST_IMPLEMENTED__ = os.getenv("CURRENT_DOUBLE_TWIST_IMPLEMENTED").split(",") # ['K3']
-
-
-
-
-class HarderNarasimhanError(Exception):
-    r"""!
-    Exception raised when the correct Harder-Narasimhan filtration cannot be found 
-    """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args)
-
-        self.message = kwargs.get('message') ## The error message
-
-        self.stability_parameters = kwargs.get('stability_parameters') ## The stability parameters used to compute the Harder-Narasimhan factors
-
 
 
 
@@ -70,7 +60,7 @@ class StabilityCondition():
         self.parameters = parameters
 
 
-    def centralCharge(self, derived_obj : DerivedCategoryObject):
+    def centralCharge(self, derived_obj : DerivedCategoryObject) -> complex:
         r"""!
         
         """
@@ -84,22 +74,99 @@ class StabilityCondition():
         if self.geometry_context.catagory == 'P1' or self.geometry_context.catagory == 'LocalP1':
             ## TODO : Error checking?
 
-            return  self.geometry_context.divisor_data.evaluate(chern_character, -1 + self.parameters[0] * polarization)
+            param_character = ChernCharacter(expr= -1 + self.parameters[0] * polarization, basis=[polarization], dimension=1)
+
+            return self.geometry_context.divisor_data.evaluate((chern_character*param_character)[1])
 
 
         elif self.geometry_context.catagory == 'P2' or self.geometry_context.catagory == 'LocalP2':
+
+            param_character = ChernCharacter(expr=-1 + 1j*polarization + (self.parameters[1] - self.parameters[1]*1j) * polarization**2, 
+                                             basis=[polarization], dimension=2)
+
+            return self.geometry_context.divisor_data.evaluate((chern_character * param_character)[2])
             
             ## TODO: figure out how to represent the central charge in the (s,q)-plane as a HRR evaluation
             
         elif self.geometry_context.catagory == 'K3':
 
-            return self.geometry_context.divisor_data.evaluate(chern_character,
-                                                            ChernCharacter.exp(  complex(self.parameters[0], self.parameters[1]) ) )
+            param_character = ChernCharacter.exp(  complex(self.parameters[0], self.parameters[1])*polarization )
+
+            return self.geometry_context.divisor_data.evaluate( (param_character*chern_character)[2] )
         
+        else :
+            raise NotImplementedError(f"Central charge not implemented for {self.geometry_context.catagory}")
 
 
         #< a , b> * <ch0, ch1> = a ch1 + b ch0
+
+    def phase(self, derived_obj : DerivedCategoryObject) -> float:
+        r"""!
+        Compute the phase of the derived object. The phase is computed as the argument of the central charge divided by pi.
+
+        \param derived_obj The derived object to compute the phase for
+
+        \return The phase of the derived object as a float
+
+        \throws TypeError If the derived object is not of type DerivedCategoryObject
+        """
+
+        if not isinstance(derived_obj, DerivedCategoryObject):
+            raise TypeError("Derived category object must be of type DerivedCategoryObject")
+
+        return cmath.phase(self.centralCharge(derived_obj)) / math.pi
+    
+    def is_semistable(self, derived_obj : DerivedCategoryObject) -> bool:
+        r"""!
+        Method to check if the spherical twist is stable. The spherical twist is stable if the Harder-Narasimhan
+        filtration is trivial, i.e. just the object itself.
+
+        \param derived_obj The derived object to check for stability
+
+        \return True if the spherical twist is stable, False otherwise
+
+        \throws TypeError If the derived object is not of type DerivedCategoryObject
+        """
+
+        if not isinstance(derived_obj, DerivedCategoryObject):
+            raise TypeError("Derived category object must be of type DerivedCategoryObject")
+
+        return len(self.get_HN_factors(derived_obj)) == 1
         
+
+    def get_HN_factors(self, derived_obj : DerivedCategoryObject) -> Dict[float, DerivedCategoryObject]:
+        r"""!
+        
+        """
+
+        if not isinstance(derived_obj, DerivedCategoryObject):
+            raise TypeError("Derived category object must be of type DerivedCategoryObject")
+        
+        if isinstance(derived_obj, LineBundle):
+            ## Usually these will be stable for dim < 3 as long as the Picard rank is 1
+
+            if derived_obj.geometry_context.divisor_data.variety_dimension <=2 and \
+                len(derived_obj.geometry_context.divisor_data.basis) == 1:
+                return HarderNarasimhanFiltration(stable_objects=[derived_obj],
+                                                  phase_vector=[self.phase(derived_obj=derived_obj)])
+            else:
+                raise HarderNarasimhanError("Currently we can only confirm line bundles are semistable for Picard rank 1")
+            
+        elif isinstance(derived_obj, GradedCoproductObject):
+
+            hn_filt = HarderNarasimhanFiltration([], [])
+            for obj, shift, dim in derived_obj:
+
+                obj_HN = self.get_HN_factors(obj)*dim
+                obj_HN = obj_HN.shift(shift)
+                hn_filt += obj_HN
+
+        elif isinstance(derived_obj, SphericalTwistComposition):
+
+            
+
+
+
 
 
     # def is_semistable(self, *args):

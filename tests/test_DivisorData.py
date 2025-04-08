@@ -2,7 +2,7 @@ import pytest
 import os
 import sys
 
-from sympy import symbols
+from sympy import symbols, expand
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -60,6 +60,24 @@ def test_DivisorData__evaluate():
     result = divisor_data.evaluate(expr1, expr2)
 
     assert result == 1 + 2*2 + 3*3 + 2 + 2*3 + 3*4  + 0 -2  + 0
+
+
+
+    H = symbols("H")
+    basis_2 = [H]
+    tensor_data_2 = {
+        (H, H): 2,
+    }
+
+    term1 = 1 + 3*H + 4.5*H**2
+    term2 = -1 + 1j*H+ (10 - 20*1j) * H**2
+
+    print(expand(term1*term2))
+
+    divisor_data_2 = DivisorData(basis=basis_2, top_intersection_form=tensor_data_2)
+    # result = divisor_data_2.evaluate(1 + 3*H + 4.5*H**2, -1 + 1j*H+ (10 - 20*1j) * H**2)
+    # print(result)
+
 
     # Test with invalid inputs
     with pytest.raises(TypeError):

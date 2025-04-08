@@ -75,9 +75,6 @@ class SphericalTwistComposition(DerivedCategoryObject):
 
     _instances = {} ## List of all instances of the SphericalTwist class
 
-    _canonical_triangle_cache = {} ## Cache of the canonical triangle for the spherical twist
-
-
     def __new__(cls, line_bundle_vector : List[LineBundle]):
 
         key = tuple(line_bundle_vector)
@@ -194,6 +191,13 @@ class SphericalTwistComposition(DerivedCategoryObject):
         return DistinguishedTriangle(derived_object1=first_triangle_object,
                                     derived_object2=second_triangle_object,
                                     derived_object3=self)
+    
+    @cached_property
+    def canonical_triangles(self) -> List[DistinguishedTriangle]:
+
+        return _get_canonical_triangles_helper(self.line_bundle_vector)
+
+
     
 
     # def defining_triangle_to_json(self):
