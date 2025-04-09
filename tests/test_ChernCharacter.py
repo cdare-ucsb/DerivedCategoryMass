@@ -165,10 +165,9 @@ def test_ChernCharacter_indexing():
     assert ch[2] == 4*x**2 + 5*y**2 + 6*x*y
 
 
-    with pytest.raises(IndexError):
-        # Test out of range indexing
-        ch[3]
+    assert ch[3] == 0
 
-    with pytest.raises(ValueError):
-        ch[2] = ch[2] + ch[0]
+    assert ch[y] == 3
+    assert ch[y**2] == 5
+
 

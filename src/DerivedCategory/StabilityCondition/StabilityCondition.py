@@ -46,10 +46,15 @@ class StabilityCondition():
                 if not all(isinstance(x, (float, int)) for x in parameters):
                     raise TypeError("P2 stability condition requires two real number parameters")
             case 'K3':
-                if len(parameters) != 2:
-                    raise ValueError("K3 stability condition requires three real number parameters: alpha, beta, and the degree")
+                basis = self.geometry_context.divisor_data.basis
+                expected_len = len(basis) + 1
+                if len(parameters) != expected_len:
+                    raise ValueError(f"K3 stability condition requires {expected_len} real parameters: one for each B-field component and one ω scalar")
                 if not all(isinstance(x, (float, int)) for x in parameters):
-                    raise TypeError("K3 stability condition requires three real number parameters: alpha, beta, and the degree")
+                    raise TypeError("K3 stability parameters must be real numbers")
+                
+                if not parameters[-1] > 0:
+                    raise ValueError("The last parameter (ω) must be positive")
 
 
             case _:
@@ -97,10 +102,21 @@ class StabilityCondition():
             ## normal evaluation of the chern character, we notice that we can change the middle term d1H to -d1H
             ## and then invert the whole expression. Thus,
             ##
-            ##             ∫ exp((B + iω )H) * ch(E) td(X) = -1 *( exp( -1 * (b+iω) * H ) (ch0(E), ch1(E), ch2(E)) + ch0(E)   )
+            ##             ∫ exp((B + iω )H) * ch(E) td(X) = -1 *( exp( -1 * (B + i ωH) ).(ch0(E), ch1(E), ch2(E)) + ch0(E) )
             ##                                             = <1, -bH - i ωH, -b^2/2 - iωbH - iω^2/2 + b^2/2> * v(E)
 
-            param_character = ChernCharacter.exp( linear_expr=-1*complex(self.parameters[0], self.parameters[1])*polarization,
+            from sympy import I
+
+            basis = self.geometry_context.divisor_data.basis
+            b_coeffs = self.parameters[:-1]
+            omega = self.parameters[-1]
+
+            B = sum(bi * Di for bi, Di in zip(b_coeffs, basis))  # B-field
+            W = omega * self.geometry_context.polarization       # ω H
+            twist = -1 * (B + I * W)
+
+
+            param_character = ChernCharacter.exp( linear_expr=twist, basis=basis,
                                                  dimension=2 )
 
             purely_chern_comp = self.geometry_context.divisor_data.evaluate( (param_character*chern_character)[2] )

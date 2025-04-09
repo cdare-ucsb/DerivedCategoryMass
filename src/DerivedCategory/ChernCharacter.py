@@ -1,4 +1,4 @@
-from sympy import expand, S, Symbol, factorial, Expr
+from sympy import expand, S, Symbol, factorial, Expr, Add, Mul
 from collections import defaultdict
 from typing import List
 
@@ -58,9 +58,31 @@ class ChernCharacter():
 
 
         self.expr = expand(expr) ## This is the SymPy expression for the Chern character as a polynomial in the formal variables corresponding to the basis of divisors.
-
         
         self.dimension = int(dimension) ## This is the dimension of the underlying variety that the Chern Character is defined over. The dimension is useful since it tells us the expected degree of the Chern polynomial, which allows us to truncate the product of Characters
+
+        self._monomial_coeffs = {} 
+
+        self._degree_components = {}
+
+
+        #####
+        # Set up lookup-dictionary for monomials -> coefficients
+        #####
+        for term in self.expr.as_ordered_terms():
+            coeff, mon = term.as_coeff_Mul()
+            
+            if mon == 1:
+                self._degree_components[0] = self._degree_components.get(0, 0) + coeff
+            else:
+                try:
+                    poly = mon.as_poly(*self.basis)
+                    deg = poly.total_degree()
+                    self._monomial_coeffs[mon] = coeff
+                    self._degree_components[deg] = self._degree_components.get(deg, 0) + coeff * mon
+                except Exception:
+                    continue
+
 
 
 
@@ -192,11 +214,11 @@ class ChernCharacter():
 
         return str(self.expr)
     
-    def __getitem__(self, degree):
+    def __getitem__(self, key):
         r"""!
         Allow for indexing of the Chern Character object, such as ChernCharacter[0] or ChernCharacter[1]. This will return a SymPy expression containing all the monomials of the specified degree in the Chern polynomial corresponding to the character.
 
-        \param int degree The degree of the monomials in the Chern Polynomial we wish to look at
+        \param 
 
         \return SymPy expression The SymPy expression fo the monomials corresponding to the specified degree in the Chern polynomial
 
@@ -204,25 +226,15 @@ class ChernCharacter():
         \throws IndexError If key is not in the range of the Chern Character object
         """
 
-        if not isinstance(degree, int):
-            raise TypeError("Chern Character objects can only be indexed by integers.")
+        if key in self._monomial_coeffs:
+            return self._monomial_coeffs[key]
         
-        if degree < 0 or degree > self.dimension:
-            raise IndexError("Chern Character objects can only be indexed by integers between 0 and the dimension of the object.")
-                
-        degree_expr = 0
-        for term in self.expr.as_ordered_terms():
-            coeff, mon = term.as_coeff_Mul()
-            try:
-                poly = mon.as_poly(*self.basis)
-                total_deg = poly.total_degree()
-            except Exception:
-                total_deg = 0  # mon = 1 or constant
-
-            if total_deg == degree:
-                degree_expr += coeff * mon
-
-        return degree_expr
+        elif isinstance(key, int):
+            return self._degree_components.get(key, 0)
+        
+        else:
+            return 0
+        
 
     
     def __iter__(self):
@@ -232,23 +244,7 @@ class ChernCharacter():
         \return iter An iterator over the Chern Character object
         """
 
-        # Group terms by degree
-        degree_dict = defaultdict(lambda: 0)
-
-        for term in self.expr.as_ordered_terms():
-            coeff, mon = term.as_coeff_Mul()
-            try:
-                poly = mon.as_poly(*self.basis)
-                deg = poly.total_degree()
-            except Exception:
-                deg = 0  # constants
-
-            degree_dict[deg] += coeff * mon
-
-        # Yield terms in increasing degree order
-        for deg in range(self.dimension + 1):
-            yield expand(degree_dict[deg])
-        
+        return (deg for deg in sorted(self._degree_components.keys()))
     
     def __reversed__(self):
         r"""!
@@ -256,22 +252,7 @@ class ChernCharacter():
 
         \return reversed The reversed Chern Character object
         """
-        # Group terms by degree
-        degree_dict = defaultdict(lambda: 0)
-
-        for term in self.expr.as_ordered_terms():
-            coeff, mon = term.as_coeff_Mul()
-            try:
-                poly = mon.as_poly(*self.basis)
-                deg = poly.total_degree()
-            except Exception:
-                deg = 0  # constants
-
-            degree_dict[deg] += coeff * mon
-
-        # Yield terms in increasing degree order
-        for deg in reversed(range(self.dimension + 1)):
-            yield expand(degree_dict[deg])
+        return (deg for deg in sorted(self._degree_components.keys(), reverse=True))
     
 
     def __len__(self):
@@ -284,71 +265,98 @@ class ChernCharacter():
         return self.dimension + 1
     
     
-    def __contains__(self, item):
+    def __contains__(self, expr):
         r"""!
         Check if an item is in the Chern Character object. This is simply a pass-through to the numpy array.
 
-        \param item float The item to check if it is in the Chern Character object
+        \param 
 
-        \return bool True if the item is in the Chern Character object, False otherwise
+        \return bool True if the expr is in the Chern Character object, False otherwise
         """
 
- 
-        return item in self.graded_element
-    
-    
-    
-    def __setitem__(self, degree, new_expr):
-        r"""!
-        Allow for setting or replacing the terms of some fixed degree in the Chern polynomial. This is useful for when we want to overwrite the Chern polynomial with a new expression. This is done by first splitting the current expression into the other degrees, and then adding in the new degree-k expression. This is done in a way that ensures that the new expression is valid and does not contain any terms of the wrong degree.
+        if not isinstance(expr, Expr):
+            raise TypeError("Only SymPy expressions can be used with 'in'.")
 
-        \param int degree The degree of the monomials in the Chern polynomial we wish to overwrite
+        expr = expand(expr)
 
-        \param SymPy expression new_expr The new expression to overwrite the old expression with. This is a SymPy expression that should be a polynomial in the formal variables corresponding to the basis of divisors.
+        for term in expr.as_ordered_terms():
+            coeff, mon = term.as_coeff_Mul()
+            if mon == 1:
+                if self._degree_components.get(0, 0) != coeff:
+                    return False
+            else:
+                if mon not in self._monomial_coeffs:
+                    return False
+                if self._monomial_coeffs[mon] != coeff:
+                    return False
 
-        \throws TypeError If degree is not an integer
-        \throws IndexError If degree is not in the range of the Chern Character object
-        \throws TypeError If new_expr is not a SymPy expression
-        """
-        if not isinstance(degree, int):
-            raise TypeError("Degree index must be an integer.")
-
-        if degree < 0 or degree > self.dimension:
-            raise IndexError("Degree must be between 0 and the dimension of the variety.")
+        return True
         
-        if not isinstance(new_expr, Expr):
-            raise TypeError("New expression must be a SymPy expression.")
+    
+    
+    def __setitem__(self, key, value):
+        """
+        Sets either:
+        - the coefficient of a specific monomial (e.g., x, x*y), or
+        - the entire symbolic expression of a given degree (e.g., 0, 1, 2).
+        """
+        from sympy import expand
 
-        # Split current expression into other degrees
-        new_full_expr = 0
-        for term in self.expr.as_ordered_terms():
-            coeff, mon = term.as_coeff_Mul()
+        # Case 1: monomial key (e.g., x or x*y)
+        if isinstance(key, Expr):
+            old_coeff = self._monomial_coeffs.get(key, 0)
+            self.expr -= old_coeff * key
+            self.expr += value * key
+            self._monomial_coeffs[key] = value
+
+            # Update the corresponding degree component
             try:
-                poly = mon.as_poly(*self.basis)
-                deg = poly.total_degree()
+                deg = key.as_poly(*self.basis).total_degree()
+                # Recompute degree component afresh
+                self._degree_components[deg] = sum(
+                    c * m for m, c in self._monomial_coeffs.items()
+                    if m.as_poly(*self.basis).total_degree() == deg
+                )
             except Exception:
-                deg = 0  # constants
+                pass
 
-            if deg != degree:
-                new_full_expr += coeff * mon
+        # Case 2: scalar (degree 0) component
+        elif isinstance(key, int) and key == 0:
+            # Remove the old degree-0 scalar from expr
+            old_scalar = self._degree_components.get(0, 0)
+            self.expr -= old_scalar
+            self.expr += value
+            self._degree_components[0] = value
 
-        # Validate new_expr
-        new_expr = expand(new_expr)
-        for term in new_expr.as_ordered_terms():
-            coeff, mon = term.as_coeff_Mul()
-            try:
-                poly = mon.as_poly(*self.basis)
-                deg = poly.total_degree()
-            except Exception:
-                deg = 0
+        # Case 3: full replacement of a degree component (e.g., ch[2] = 5*x**2 + y**2)
+        elif isinstance(key, int):
+            # Remove all existing terms of that degree
+            to_remove = []
+            for mon, coeff in self._monomial_coeffs.items():
+                try:
+                    if mon.as_poly(*self.basis).total_degree() == key:
+                        self.expr -= coeff * mon
+                        to_remove.append(mon)
+                except Exception:
+                    continue
+            for mon in to_remove:
+                del self._monomial_coeffs[mon]
 
-            if deg != degree:
-                raise ValueError(f"All terms in new_expr must have total degree {degree}, but found degree {deg} in term: {coeff * mon}")
+            old_deg_expr = self._degree_components.get(key, 0)
+            self.expr -= old_deg_expr
+            self.expr += value
+            self._degree_components[key] = value
 
-        # Add in the new degree-k expression
-        new_full_expr += new_expr
+            # Parse new expression into monomial → coeff
+            for term in expand(value).as_ordered_terms():
+                coeff, mon = term.as_coeff_Mul()
+                if mon != 1:
+                    self._monomial_coeffs[mon] = coeff
 
-        self.expr = expand(new_full_expr)
+        else:
+            raise KeyError(f"Unsupported key type for __setitem__: {key}")
+
+
 
     
     def __hash__(self) -> int:
