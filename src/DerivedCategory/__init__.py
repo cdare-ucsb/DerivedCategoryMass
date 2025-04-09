@@ -7,7 +7,7 @@ This package includes the following modules:
 
 from .ChernCharacter import ChernCharacter
 from .CoherentSheaf import CoherentSheaf, LineBundle
-from .DerivedCategoryObject import GradedCoproductObject, DerivedCategoryObject, ZeroObject
+from .DerivedCategoryObject import GradedCoproductObject, DerivedCategoryObject, ZeroObject, NumericalObject
 from .GeometryContext import DivisorData, GeometryContext
 from .RHom import RHom, LongExactSequenceException
 from .SphericalTwist import SphericalTwistComposition
@@ -27,6 +27,7 @@ __all__ = [
     'HarderNarasimhanError',
     'GradedCoproductObject',
     'ZeroObject',
+    'NumericalObject',
     'RHom',
     'LongExactSequenceException',
     'SphericalTwistComposition',

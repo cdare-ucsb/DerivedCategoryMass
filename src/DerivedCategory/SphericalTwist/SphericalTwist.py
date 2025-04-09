@@ -229,9 +229,10 @@ class SphericalTwistComposition(DerivedCategoryObject):
     #     return json.dumps(chain_complex_data)
     
 
-    def canonical_triangles(self) -> List[DistinguishedTriangle]:
+    def __len__(self) -> int:
 
-        return _get_canonical_triangles_helper(self.line_bundle_vector)
+        return len(self.line_bundle_vector) - 1
+
     
     
     def chernCharacter(self):

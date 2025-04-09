@@ -61,6 +61,10 @@ class GeometryContext():
         elif catagory == 'K3':
             if divisor_data.variety_dimension != 2:
                 raise ValueError("K3 variety must have dimension 2.")
+            if len(divisor_data.basis) == 1 and polarization is None:
+                raise ValueError("K3 variety must have a polarization.")
+            else:
+                self.polarization = divisor_data.basis[0]
             
         else:
             # TODO: Maybe adjust this to allow for custom classes

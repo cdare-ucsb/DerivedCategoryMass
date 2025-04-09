@@ -1,6 +1,8 @@
 from src.DerivedCategory.DerivedCategoryObject.DerivedCategoryObject import DerivedCategoryObject
 
 from typing import List
+from functools import reduce
+from operator import add
 
 from dotenv import load_dotenv
 import os
@@ -187,18 +189,17 @@ class GradedCoproductObject(DerivedCategoryObject):
 
         \return ChernCharacter The Chern Character of the chain complex
         """
-        cherns = [object.chernCharacter() for object in self.object_vector]
 
-        # We store the first Chern Character instead of making a "Zero" Chern Character and iterating
-        # normally since there is currently no functionality to make a "Zero" chern character (the 
-        # dimension attribute makes it difficult to do so).
-        chern_to_return = (-1)**(self.shift_vector[0]) * self.dimension_vector[0] * cherns[0]
+        ## use the alternating sum formula: Σ (-1)^shift * mult * ch(obj)
+        terms = [
+            (-1)**shift * mult * obj.chernCharacter()
+            for obj, shift, mult in zip(self.object_vector, self.shift_vector, self.dimension_vector)
+        ]
+        if not terms:
+            raise ValueError("Cannot compute Chern character of an empty complex.")
 
-        for i in range(1, len(cherns)):
-            # odd shifts get a negative sign, even shifts get a positive sign
-            chern_to_return += (-1)**(self.shift_vector[i]) * self.dimension_vector[i] * cherns[i]
+        return reduce(add, terms)
 
-        return chern_to_return
     
     
     def shift(self, shift : int):

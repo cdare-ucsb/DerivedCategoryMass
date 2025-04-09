@@ -62,6 +62,7 @@ class DerivedCategoryObject(ABC):
         
 
         self.geometry_context = geometry_context ## The geometry context of the derived category object. This is an instance of the GeometryContext class, which contains information about the variety and its intersection form.  
+        
         self.shift = shift ## The homological shift of the derived category object. This is an integer that represents the shift of the object in the derived category. The default value is 0, which means that the object is not shifted.
         
     @abstractmethod

@@ -1,4 +1,4 @@
-from sympy import Symbol, Basic, expand, S, prod, Expr
+from sympy import Symbol, Basic, expand, S, prod, Expr, Mul, Pow, sympify, I
 from itertools import permutations, product
 from collections import defaultdict
 from collections.abc import Mapping
@@ -82,10 +82,9 @@ class DivisorData:
         \return list A list of tuples, where each tuple contains the coefficient and a list of the basis elements in the monomial. For example, if the input expression is 2*H**3 + 3*D**2*H, then the output will be [(2, [H, H, H]), (3, [D, D, H])].
         """
 
-        if not isinstance(expr, (int, float, Symbol, Basic)):
+        if not isinstance(expr, Basic):
             raise TypeError("Expression must be a SymPy expression")
 
-        # Verify that the expression is a linear combination of the basis elements
         used_symbols = expr.free_symbols
         invalid = used_symbols - set(self.basis)
         if invalid:
@@ -94,25 +93,32 @@ class DivisorData:
 
         expr = expand(expr)
         terms = []
-        # Split the expression into its terms (separated by + or -)
+
         for term in expr.as_ordered_terms():
-            # Further split into coefficient and monomial, e.g. 3*H**2*D -> (3, H**2*D)
-            coeff, monomial = term.as_coeff_Mul()
+            if isinstance(term, Mul):
+                factors = list(term.args)
+            else:
+                factors = [term]
 
-            # Break monomial into base ** exp factors
-            factors = []
-            for factor in monomial.as_ordered_factors():
-                if factor.is_Pow:
-                    base, exp = factor.args
-                    if not exp.is_Integer or exp < 0:
-                        raise ValueError(f"Unsupported power: {factor}")
-                    # represent H**3 as H*H*H and D**2 as D*D
-                    factors.extend([base] * int(exp))
+            coeff = S(1)
+            mono_syms = []
+
+            for f in factors:
+                if isinstance(f, Pow):
+                    base, exp = f.args
+                    if base in self.basis:
+                        if not exp.is_Integer or exp < 0:
+                            raise ValueError(f"Unsupported power: {f}")
+                        mono_syms.extend([base] * int(exp))
+                    else:
+                        coeff *= f
+                elif isinstance(f, Symbol) and f in self.basis:
+                    mono_syms.append(f)
                 else:
-                    # Separates out individual factors --- e.g. H*D into H and D
-                    factors.append(factor)
+                    coeff *= f  # Anything not in basis (like I, 5, etc.) → treat as scalar
 
-            terms.append((coeff, factors))
+            terms.append((coeff, mono_syms))
+
         return terms
     
 
@@ -143,7 +149,7 @@ class DivisorData:
 
             # If the tuple of monomials is not in the dictionary, return 0
             val = self.top_intersection_form.get(tuple(flat_mons), 0)
-            total += S(val) * prod(coeffs)
+            total += sympify(val * prod(coeffs))
 
         return total
     

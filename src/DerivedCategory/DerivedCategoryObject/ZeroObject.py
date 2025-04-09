@@ -35,10 +35,10 @@ class ZeroObject(DerivedCategoryObject):
     
     def chernCharacter(self):
         r"""!
-        Method to return the Chern Character of the zero object. Since the zero object is not a real object, 
-        it does not have a Chern character. Therefore, this method returns None.
+        Method to return the Chern Character of the zero object. 
         
-        \return None
+        \return ChernCharacter The Chern Character of the zero object
+        \note The Chern character of the zero object is always zero, regardless of the geometry context.
         """
         return ChernCharacter(0,
                             dimension=self.geometry_context.divisor_data.variety_dimension,

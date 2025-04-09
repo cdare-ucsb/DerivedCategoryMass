@@ -1,12 +1,9 @@
-from GeometryContext import GeometryContext
-from DerivedCategoryObject import DerivedCategoryObject, GradedCoproductObject
-from GeometryContext import GeometryContext
-from ChernCharacter import ChernCharacter
-from CoherentSheaf import LineBundle
-from HarderNarasimhanFiltration import HarderNarasimhanError, HarderNarasimhanFiltration
-from SphericalTwist import SphericalTwistComposition
-
-from typing import Dict
+from src.DerivedCategory.GeometryContext import GeometryContext
+from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject, GradedCoproductObject, NumericalObject
+from src.DerivedCategory.ChernCharacter import ChernCharacter
+from src.DerivedCategory.CoherentSheaf import LineBundle
+from .HarderNarasimhanFiltration import HarderNarasimhanError, HarderNarasimhanFiltration
+from src.DerivedCategory.SphericalTwist import SphericalTwistComposition
 
 from dotenv import load_dotenv
 import os
@@ -25,9 +22,10 @@ __CURRENT_DOUBLE_TWIST_IMPLEMENTED__ = os.getenv("CURRENT_DOUBLE_TWIST_IMPLEMENT
 
 class StabilityCondition():
 
+    _hn_filt_cache = {}
+
 
     def __init__(self, geometry_context : GeometryContext, *parameters):
-
 
         if not isinstance(geometry_context, GeometryContext):
             raise TypeError("Geometry context must be of type GeometryContext")
@@ -72,7 +70,6 @@ class StabilityCondition():
         polarization = self.geometry_context.polarization
 
         if self.geometry_context.catagory == 'P1' or self.geometry_context.catagory == 'LocalP1':
-            ## TODO : Error checking?
 
             param_character = ChernCharacter(expr= -1 + self.parameters[0] * polarization, basis=[polarization], dimension=1)
 
@@ -81,18 +78,36 @@ class StabilityCondition():
 
         elif self.geometry_context.catagory == 'P2' or self.geometry_context.catagory == 'LocalP2':
 
+            ## We can represent the (s,q)-parameterization of Chunyi Li by (-ch2 + q ch0) +i (ch1 - s ch0)
+            ## This is equivalent to simply evaluating the Chern character with the term
+            ##            
+            ##                    ∫ (-1 + iH + (q - is) H^2) * ch(E)
+            ##
+            ## Which is given below.
             param_character = ChernCharacter(expr=-1 + 1j*polarization + (self.parameters[1] - self.parameters[1]*1j) * polarization**2, 
                                              basis=[polarization], dimension=2)
 
             return self.geometry_context.divisor_data.evaluate((chern_character * param_character)[2])
             
-            ## TODO: figure out how to represent the central charge in the (s,q)-plane as a HRR evaluation
             
         elif self.geometry_context.catagory == 'K3':
 
-            param_character = ChernCharacter.exp(  complex(self.parameters[0], self.parameters[1])*polarization )
+            ## The Mukai vector is simply <ch0, ch1, ch2 + ch0>. In addition, the mukai pairing is given by
+            ## <r1, d1H, s1> * <r2, d2H, s2> = d1*d2 **H**2 - s1r2 - s2r1 . In order to represent this as a 
+            ## normal evaluation of the chern character, we notice that we can change the middle term d1H to -d1H
+            ## and then invert the whole expression. Thus,
+            ##
+            ##             ∫ exp((B + iω )H) * ch(E) td(X) = -1 *( exp( -1 * (b+iω) * H ) (ch0(E), ch1(E), ch2(E)) + ch0(E)   )
+            ##                                             = <1, -bH - i ωH, -b^2/2 - iωbH - iω^2/2 + b^2/2> * v(E)
 
-            return self.geometry_context.divisor_data.evaluate( (param_character*chern_character)[2] )
+            param_character = ChernCharacter.exp( linear_expr=-1*complex(self.parameters[0], self.parameters[1])*polarization,
+                                                 dimension=2 )
+
+            purely_chern_comp = self.geometry_context.divisor_data.evaluate( (param_character*chern_character)[2] )
+
+            return -1*(purely_chern_comp + chern_character[0])
+
+            
         
         else :
             raise NotImplementedError(f"Central charge not implemented for {self.geometry_context.catagory}")
@@ -113,6 +128,10 @@ class StabilityCondition():
 
         if not isinstance(derived_obj, DerivedCategoryObject):
             raise TypeError("Derived category object must be of type DerivedCategoryObject")
+        
+        #############
+        # TODO: Double check that this works as intended for graded coproducts
+        #############
 
         return cmath.phase(self.centralCharge(derived_obj)) / math.pi
     
@@ -134,7 +153,7 @@ class StabilityCondition():
         return len(self.get_HN_factors(derived_obj)) == 1
         
 
-    def get_HN_factors(self, derived_obj : DerivedCategoryObject) -> Dict[float, DerivedCategoryObject]:
+    def get_HN_factors(self, derived_obj : DerivedCategoryObject) -> HarderNarasimhanFiltration:
         r"""!
         
         """
@@ -142,12 +161,17 @@ class StabilityCondition():
         if not isinstance(derived_obj, DerivedCategoryObject):
             raise TypeError("Derived category object must be of type DerivedCategoryObject")
         
+        if derived_obj in self._hn_filt_cache:
+            return self._hn_filt_cache[derived_obj]
+
+        ## Otherwise, the object is not in the cache, so we need to compute it
+        
         if isinstance(derived_obj, LineBundle):
             ## Usually these will be stable for dim < 3 as long as the Picard rank is 1
 
             if derived_obj.geometry_context.divisor_data.variety_dimension <=2 and \
                 len(derived_obj.geometry_context.divisor_data.basis) == 1:
-                return HarderNarasimhanFiltration(stable_objects=[derived_obj],
+                self._hn_filt_cache[derived_obj] = HarderNarasimhanFiltration(stable_objects=[derived_obj],
                                                   phase_vector=[self.phase(derived_obj=derived_obj)])
             else:
                 raise HarderNarasimhanError("Currently we can only confirm line bundles are semistable for Picard rank 1")
@@ -158,478 +182,81 @@ class StabilityCondition():
             for obj, shift, dim in derived_obj:
 
                 obj_HN = self.get_HN_factors(obj)*dim
-                obj_HN = obj_HN.shift(shift)
+                obj_HN = obj_HN.shift(shift) ## Shift should also affect the phases of the objects as well
                 hn_filt += obj_HN
+            
+            self._hn_filt_cache[derived_obj] = hn_filt
 
         elif isinstance(derived_obj, SphericalTwistComposition):
 
-            
+            stable = True
+            for triangle in derived_obj.canonical_triangles:
 
+                triangle = triangle.rotateLeft()
+                subobject = triangle.object1
+                quotient = triangle.object3
 
+                if max(self.get_HN_factors(subobject)).phase < min(self.get_HN_factors(quotient)).phase:
+                    continue
+                elif min(self.get_HN_factors(subobject)).phase > max(self.get_HN_factors(quotient)).phase:
+                    stable = False
+                    self._hn_filt_cache[derived_obj] = self.get_HN_factors(subobject) + self.get_HN_factors(quotient)
+                    break
+                else:
 
+                    if len(self.get_HN_factors(subobject)) > 1:
+                        raise HarderNarasimhanError(f"The subobject {subobject} is not semistable, and the Harder-Narasimhan filtrations of {subobject} and {quotient} intertwine.")
 
+                    ## At this point, we can assume that subobject is stable.
+                    phi = self.phase(subobject)
 
-    # def is_semistable(self, *args):
-    #     r"""!
-    #     Method to check if the spherical twist is stable. The spherical twist is stable if the Harder-Narasimhan
-    #     filtration is trivial, i.e. just the object itself.
+                    upper_HN, lower_HN = self.get_HN_factors(quotient).splitAtPhase(phi)
 
-    #     \param args The parameters for the stability condition. The number of parameters depends on the catagory of the object
-    #                     For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
-    #                     and an integer representing the degree of the K3 surface.
+                    new_quotient = upper_HN.toGradedCoproductObject()
 
-    #     \return True if the spherical twist is stable, False otherwise
+                    ######################
+                    # TODO: We are explicitly assuming that new_factor is semistable since 
+                    #       this one particular triangle that it fits into does not destabilize it.
+                    #       In reality, this is probably not the case outside of basic quivery 
+                    #       catagories with only finitely many simple objects.
+                    ######################
 
-    #     \throws TypeError If the args are not of the correct type
-    #     \throws ValueError If the number of args is incorrect
-    #     \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
-    #     """
-
-    #     if self.catagory == 'P1':
-    #         if len(args) != 1:
-    #             raise ValueError("Central charge of P1 requires single complex number parameter")
-    #         if not isinstance(args[0], complex):
-    #             raise TypeError("P1 objects should have a single complex parameter")
-    #     elif self.catagory == 'P2':
-    #         if len(args) != 2:
-    #             raise ValueError("Central charge of P2 requires two real number parameters. Currently {} parameters given: {}".format(len(args), args))
-    #         if not all(isinstance(x, (float, int)) for x in args):
-    #             raise TypeError("P2 objects should have two real number parameters")
-    #     elif self.catagory == 'K3':
-
-    #         if len(args) != 3:
-    #             raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
-    #         if not all(isinstance(x, (float, int)) for x in args):
-    #             raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
-    #         if not isinstance(args[2], int):
-    #             raise TypeError("The degree of the K3 surface must be an integer")
-    #     else:
-    #         raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
-
-    #     try:
-    #         return len(self.get_HN_factors(*args)) == 1
-    #     except HarderNarasimhanError as e:
-    #         print(f"Could not determine if {self} is semistable at {e.stability_parameters}: {e.message}")
-    #         return False
-    
-
-
-
-    
-    # def mass(self, *args):
-    #     r"""!
-    #     Computes the mass of an object in the derived catagory. The mass of a stable object is simply the modulus
-    #     of its central charge. For a non-stable object, the mass is the sum of the masses of the Harder-Narasimhan
-    #     factors of the object. The notion of the mass of an object is derived from string theory, where BPS states
-    #     are characterized as objects which satisfy the BPS bound M = |Z|. For non-BPS states, one simply has 
-    #     |Z| < M. The mass of a Bridgeland stability condition is given by the sum of its semistable factors, which 
-    #     corresponds to the decomposition of an object in the derived category into Harder-Narasimhan factors.
-    #     As a consequence, this method heavily relies on the get_HN_factors method to compute the Harder-Narasimhan
-    #     factors of the object.
-
-    #     \param args The parameters for the stability condition. The number of parameters depends on the catagory of the object
-    #                     For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
-    #                     and an integer representing the degree of the K3 surface.
-
-    #     \return The mass of the object, as a non-negative real number 
-
-    #     \throws TypeError If the args are not of the correct type
-    #     \throws ValueError If the number of args is incorrect
-    #     \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
-    #     """
-
-
-    #     if self.catagory == 'P1':
-    #         if len(args) != 1:
-    #             raise ValueError("Central charge of P1 requires single complex number parameter")
-    #         if not isinstance(args[0], complex):
-    #             raise TypeError("P1 objects should have a single complex parameter")
-    #     elif self.catagory == 'P2':
-    #         if len(args) != 2:
-    #             raise ValueError("Central charge of P2 requires two real number parameters")
-    #         if not all(isinstance(x, (float, int)) for x in args):
-    #             raise TypeError("P2 objects should have two real number parameters")
-    #     elif self.catagory == 'K3':
-
-    #         if len(args) != 3:
-    #             raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
-    #         if not all(isinstance(x, (float, int)) for x in args):
-    #             raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
-    #         if not isinstance(args[2], int):
-    #             raise TypeError("The degree of the K3 surface must be an integer")
-    #     else:
-    #         raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
-        
-
-    #     try :
-    #         HN_filtration = self.get_HN_factors(*args)
-
-    #         mass = 0
-    #         for (derived_cat_obj, _) in HN_filtration:
-    #             mass += abs(derived_cat_obj.central_charge(*args))
-
-    #         return mass
-    #     except HarderNarasimhanError as e:
-    #         print(f"Could not determine mass of {self} at {e.stability_parameters}: {e.message}")
-    #         return -1
-        
-    
-
-        
-       
-
-
-
-                
-    # def get_HN_factors(self, *args):
-    #     r"""!
-    #     This method is the main workhorse of the SphericalTwist class. It computes the Harder-Narasimhan factors
-    #     of the spherical twist object. It is generally assumed that for a single spherical twist, the only way
-    #     that an object can destabilize is when an element of the last term of the defining triangle
-
-    #                          O(a) -----> Tw_O(a) O(b) -------->  O(b)[n] ⊕ O(b)[n+1]
-
-    #     has larger phase than O(a). In this case, the Harder-Narasimhan factors of the spherical twist depend on 
-    #     which object it is that has larger phase. For example, if the minimum shift has larger phase, then we assume
-    #     that the object must be strictly stable - THIS IS A CONJECTURE. If the maximum shift has smaller phase, then
-    #     the triangle above leads to a Harder-Narasimhan filtration, so that the individual line bundle sums are precisely
-    #     the HN factors; this is a result of Bapat-Deopurkar-Licata (2020).
-         
-    #     The most difficult case is when the smaller phase O(b)[n] is smaller than O(a) is smaller than O(b)[n+1]. In this 
-    #     case, some homological algebra is required to show that the cone of the composed map 
-
-    #                           Tw_O(a) O(b) -------> O(b)[n+1]
-
-    #     fits into a distinguished triangle O(a) ----> Cone ----> O(b)[n]. 
-
-    #     Instead of returning the objects alone, the method returns a list of tuples, where the first element is the semistable
-    #     factor and the second element is the phase of the object. This is done to make computing largest and smallest semistable
-    #     factors easier in the DoubleSphericalTwist class.
-
-    #     The list is always returned in reverse order of the phase, so that the smallest phase HN factor is last and the largest
-    #     is first.
-
-
-
-    #     * It should be noted that several assumptions in this have not been verified outside of the quiver
-    #     case
-
-
-    #     \param args The parameters for the stability condition. The number of parameters depends on the catagory of the object
-    #                     For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
-    #                     and an integer representing the degree of the K3 surface.
-
-    #     \return A list of tuples where the first element is a DerivedCategoryObject and the second element is a float
-    #                 representing the phase of the object. The list is always returned in such a way that the largest phase
-    #                 HN factor is first and smallest is last.
-
-    #     \throws TypeError If the args are not of the correct type
-    #     \throws ValueError If the number of args is incorrect
-    #     \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
-    #     \throws HarderNarasimhanError If the spherical twist is stable but the phase cannot be found
-
-    #     """
-
-    #     if self.catagory == 'P1':
-    #         if len(args) != 1:
-    #             raise ValueError("Central charge of P1 requires single complex number parameter")
-    #         if not isinstance(args[0], complex):
-    #             raise TypeError("P1 objects should have a single complex parameter")
-    #     elif self.catagory == 'P2':
-    #         if len(args) != 2:
-    #             raise ValueError("Central charge of P2 requires two real number parameters")
-    #         if not all(isinstance(x, (float, int)) for x in args):
-    #             raise TypeError("P2 objects should have two real number parameters")
-    #     elif self.catagory == 'K3':
-    #         if len(args) != 3:
-    #             raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
-    #         if not all(isinstance(x, (float, int)) for x in args):
-    #             raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
-    #         if not isinstance(args[2], int):
-    #             raise TypeError("The degree of the K3 surface must be an integer")
-    #     else:
-    #         raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
-        
-        
-    #     modified_defining_triangle = self.defining_triangle.rotateLeft()
-    #     subobject = modified_defining_triangle.object1.sheaf_vector[0]
-
-    #     quotient_complex = modified_defining_triangle.object3
-
-    #     if subobject.phase(*args) <= quotient_complex.get_smallest_phase(*args):
-    #         # The object is (ASSUMED TO BE --- CONJECTURE) stable
-    #         potential_phase = cmath.phase(self.central_charge(*args)) / math.pi
-
-    #         # Attempt to find the phase of the object; ideally this value of n should be unique
-
-    #         # TODO: This is a temporary fix to the problem of finding the phase of the spherical twist object
-    #         #       when the object is stable. We really shouldnt be considering odd dimensional shifts, but
-    #         #       we run into an error when the phase of the twist is larger than both the subobject an quotient;
-    #         #       this is a temporary fix to this occurse when the subobject and quotient differ by phase > 1 so 
-    #         #       that they no longer lie in the same heart. In particular, this causes a discontinuity for the
-    #         #       algebraic regions of the stability manifold.
-    #         for n in range(-3,3):
-    #             if subobject.phase(*args) <= potential_phase + n and potential_phase + n <= quotient_complex.get_largest_phase(*args):
-    #                 return [(self, potential_phase + n)]
-            
-            
-    #         raise HarderNarasimhanError(message=f"{self} should theoretically be stable, but could not find phase",
-    #                                     stability_parameters=args)
-
-            
-
-
-    #     elif len(quotient_complex.dimension_vector) == 1:
-    #         # The quotient object has only one term / is concentrated in a single degree and
-    #         # its phase is smaller than the subobject.
-
-    #         # The defining triangle O(a) -> Tw -> O(b)[shift] should in fact be the 
-    #         # Harder-Narasimhan filtration in this case
-            
-    #         return [(modified_defining_triangle.object1, subobject.phase(*args)),
-    #                  (quotient_complex, quotient_complex.get_smallest_phase(*args))]
-            
-    #     else:
-    #         # Twist is unstable and the hom space is concentrated in more than one degree
-    #         if len(quotient_complex.dimension_vector) != 2:
-    #             raise ValueError("The Hom object is not concentrated in 1 or 2 degrees")
-            
-    #         phase0 = quotient_complex.sheaf_vector[0].phase(*args) + quotient_complex.shift_vector[0]
-    #         phase1 = quotient_complex.sheaf_vector[1].phase(*args) + quotient_complex.shift_vector[1]
-
-    #         largest_phase = max(phase0, phase1)
-
-    #         # CASE 1: phi(subobj) > largest phase(quotient)
-    #         if subobject.phase(*args) > largest_phase:
-    #             # By BDL20, the HN factors of the subobject and quotient concatenate to make 
-    #             # the HN factors of the twist
-    #             if largest_phase == phase0:
-    #                 return [(modified_defining_triangle.object1, subobject.phase(*args)), 
-    #                         (CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[0]],
-    #                                                 shift_vector=[quotient_complex.shift_vector[0]], 
-    #                                                 dimension_vector=[quotient_complex.dimension_vector[0]]), phase0),
-    #                         (CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[1]], 
-    #                                                 shift_vector=[quotient_complex.shift_vector[1]], 
-    #                                                 dimension_vector=[quotient_complex.dimension_vector[1]]), phase1)]
-    #             else:
-    #                 return [(modified_defining_triangle.object1, subobject.phase(*args)), 
-    #                         (CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[1]], 
-    #                                                 shift_vector=[quotient_complex.shift_vector[1]], 
-    #                                                 dimension_vector=[quotient_complex.dimension_vector[1]]), phase1),
-    #                         (CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[0]], 
-    #                                                 shift_vector=[quotient_complex.shift_vector[0]], 
-    #                                                 dimension_vector=[quotient_complex.dimension_vector[0]]), phase0)]
-
-    #         # CASE 2: smallest phase(Quotient) < phi(subobj) < largest phase(quotient)
-    #         #         this is the most difficult case to handle since we must in fact consider
-    #         #         the cone of the composed map Tw_O(a) O(b) ----> O(b)[shift]
-    #         else:
-    #             if largest_phase == phase0:
-    #                 smaller_idx = 1
-    #                 larger_idx = 0
-    #             else:
-    #                 smaller_idx = 0
-    #                 larger_idx = 1
+                    new_factor = NumericalObject(chern_char= (subobject.chernCharacter() + new_quotient.chernCharacter()),
+                                                 geometry_context=derived_obj.geometry_context )
                     
-    #             # isolate single element of larger shift in the quotient object
-    #             smaller_phase_complex = CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[smaller_idx]],
-    #                                         shift_vector=[quotient_complex.shift_vector[smaller_idx]],
-    #                                         dimension_vector=[quotient_complex.dimension_vector[smaller_idx]])
-    #             larger_phase_complex = CoherentSheafCoproduct(sheaf_vector=[quotient_complex.sheaf_vector[larger_idx]],
-    #                                         shift_vector=[quotient_complex.shift_vector[larger_idx]],
-    #                                         dimension_vector=[quotient_complex.dimension_vector[larger_idx]])
+                    new_factor_phase = self.phase(new_factor)
+                    shift = 0
+                    while new_factor_phase + shift < phi:
+                        ###############
+                        # TODO: This may need to be improved
+                        ###############
+                        shift += 1
 
-    #             phase_subobject = subobject.phase(*args)
-    #             phase_larger_complex = quotient_complex.sheaf_vector[larger_idx].phase(*args) + quotient_complex.shift_vector[larger_idx]
+                    self._hn_filt_cache[derived_obj] = lower_HN + HarderNarasimhanFiltration(stable_objects=[new_factor],
+                                                  phase_vector=[new_factor_phase + shift])
 
-    #             central_charge_cone = larger_phase_complex.central_charge(*args) + subobject.central_charge(*args)
-    #             cone_object = DerivedCategoryObject(string="Cone", catagory=self.catagory, chern_character=None)
-    #             cone_triangle = DistinguishedTriangle(modified_defining_triangle.object1, cone_object, larger_phase_complex)
-                
-    #             # Need to compute phase of cone to make a StableObject
-    #             phase_cone = cmath.phase(central_charge_cone) / math.pi
-    #             # TODO: This is a temporary fix to the problem of finding the phase of the spherical twist object
-    #             #       when the object is stable. We really shouldnt be considering odd dimensional shifts, but
-    #             #       we run into an error when the phase of the twist is larger than both the subobject an quotient;
-    #             #       this is a temporary fix to this occurse when the subobject and quotient differ by phase > 1 so 
-    #             #       that they no longer lie in the same heart. In particular, this causes a discontinuity for the
-    #             #       algebraic regions of the stability manifold.
-    #             for n in range(-3,3):
-    #                 if phase_subobject <= phase_cone + n and phase_cone + n <= phase_larger_complex:
-    #                     return [(cone_triangle.object2, phase_cone + n),
-    #                             (smaller_phase_complex, smaller_phase_complex.get_smallest_phase(*args))]
+            if stable:
+                # The spherical twist is stable, so we can just return the HN factors of the object
+                self._hn_filt_cache[derived_obj] = HarderNarasimhanFiltration(stable_objects=[derived_obj],
+                                                  phase_vector=[self.phase(derived_obj=derived_obj)])
                     
-
-
-    #             raise HarderNarasimhanError(message=f"Could not find phase of cone {cone_object} in \n{cone_triangle}",
-    #                                         stability_parameters=args)
-
-
-
-    #     def central_charge(self, *args) -> complex:
-    #     r"""!
-    #     Compute the central charge of an object in the derived category of coherent sheaves. For all the current categories
-    #     implemented, the only stability conditions considered are numerical stability conditions; in particular, they only
-    #     depend on the Chern character of the object. Since DerivedCategoryObjects are the highest level objects which 
-    #     have a chernCharacter method, this method will be implemented here (the implementation does not change for any of 
-    #     the children classes).
-
-    #     \param tuple args The arguments required to compute the central charge. The number of arguments and the type
-    #                  of arguments will depend on the catagory of the sheaves in the complex. For P1, the central
-    #                  charge requires a single complex number. For P2, the central charge requires two floating-point
-    #                  numbers. For K3, the central charge requires two floating-point numbers and an integer.
-
-    #     \return complex The central charge of the chain complex as a complex number
-
-    #     \throws ValueError If the number of arguments is incorrect
-    #     \throws TypeError If the type of the arguments is incorrect
-    #     \throws NotImplementedError If the catagory of the sheaves in the complex is not implemented
-    #     """
-
-        
-    #     if self.catagory == 'P1':
-    #         if len(args) != 1:
-    #             raise ValueError("Central charge for P1 requires exactly one argument.")
-    #         if not isinstance(args[0], complex):
-    #             raise TypeError("Central charge for P1 requires a complex number as an argument.")
-
-    #         ch = self.chernCharacter()
-    #         return complex(-1*ch[1] + args[0] * ch[0])
-
-
-    #     elif self.catagory == 'P2':
-    #         if len(args) != 2:
-    #             raise ValueError("Central charge for P2 requires exactly two arguments.")
-    #         if not all(isinstance(arg, (float,int)) for arg in args):
-    #             raise TypeError("Central charge for P2 requires two floating-point numbers as arguments.")
             
-    #         ch = self.chernCharacter()
-    #         return complex(-1*ch[2] + args[1] * ch[0],
-    #                         ch[1] - args[0] * ch[0])
+        else:
+            raise NotImplementedError(f"Harder-Narasimhan factors not implemented for {type(derived_obj)}")
         
-    #     elif self.catagory == 'K3':
-    #         if len(args) != 3:
-    #             raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
-    #         if not all(isinstance(x, (float, int)) for x in args):
-    #             raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
-    #         if not isinstance(args[2], int):
-    #             raise TypeError("The degree of the K3 surface must be an integer")
+        return self._hn_filt_cache[derived_obj]
 
-    #         alpha = args[0]
-    #         beta = args[1]
-    #         d = args[2]
-    #         ch = self.chernCharacter()
+
+
             
-    #         return complex(2*d*alpha * ch[1] - ch[2] - ch[0] + (beta**2 - alpha**2)*d*ch[0], 
-    #                        2*d*ch[1] - 2*d*alpha*beta*ch[0])
+    def mass(self, derived_obj : DerivedCategoryObject) -> float:
 
-    #     else:
-    #         raise NotImplementedError("Central charge not implemented for this variety.")
-    
+        if not isinstance(derived_obj, DerivedCategoryObject):
+            raise TypeError("Expected a DerivedCategoryObject.")
 
-    # def phase(self, *args) -> float:
-    #     r"""!
-    #     Computes the phase of the central charge of the coherent sheaf. The central charge
-    #     is an element of the dual of the numerical Grothendieck group; in other words, a 
-    #     funtction
+        return sum(
+            abs(self.centralCharge(factor.obj)) * factor.multiplicity
+            for factor in self.get_HN_factors(derived_obj)
+        )
 
-    #     Z : K -> C
 
-    #     where K is the numerical Grothendieck group, and C is the complex numbers. The phase
-    #     of the central charge is the argument of this complex number.
-
-    #     \param *args: float or int
-    #         The parameters of the central charge. The number of parameters should be equal
-    #         to the number of parameters required by the central charge for the given catagory.
-    #         For example, a P1 object requires a single complex number parameter, while a P2
-    #         object requires two real number parameters.
-
-    #     \return float The phase of the central charge of the coherent sheaf, in units of pi
-    #     """
-
-    #     return cmath.phase(self.central_charge(*args)) / math.pi
-    
-        
-    # @abstractmethod
-    # def is_semistable(self, *args) -> bool:
-    #     r"""!
-    #     Method to determine if the derived category object is semistable with respect to a given stability condition. 
-    #     This will simply act as a wrapper for the central charge method, which should be implemented in child classes.
-
-    #     \param tuple args 
-    #         The parameters of the stability condition. The number of parameters will depend on the catagory of the object.
-    #         For P1, this will be a single complex number. For P2, this will be two real numbers. For K3, this will be
-    #         two real numbers and one integer.
-
-    #     \return bool True if the object is semistable with respect to the stability condition, False otherwise
-
-    #     \throws ValueError
-    #         If the DerivedCategoryObject is not initialized
-    #         If the number of parameters is incorrect for the catagory
-    #     \throws TypeError
-    #         If the parameters are not of the correct type
-
-    #     """
-
-    #     pass
-
-    # def mass(self, *args, logging : bool =False, log_file : bool =None) -> float:
-    #     r"""!
-    #     The mass of the double spherical twist is the sum of the masses of the Harder-Narasimhan factors; the 
-    #     Harder-Narasimhan factors are assumed to come from either the defining triangle or secondary canonical triangle.
-    #     The mass of the double spherical twist is computed by first computing the Harder-Narasimhan factors of the
-    #     defining triangle, and then the secondary canonical triangle.
-
-    #     \param tuple args The parameters for the stability condition. The number of parameters depends on the catagory of the object
-    #                     For P1, this is a single complex number. For P2, this is two real numbers. For K3, this is two real numbers
-    #                     and an integer representing the degree of the K3 surface.
-    #     \param bool logging A boolean flag to indicate whether to log the Harder-Narasimhan factors that caused the object to be unstable
-    #     \param str log_file The file to log the Harder-Narasimhan factors that caused the object to be unstable
-
-    #     \return float The mass of the double spherical twist
-
-    #     \throws TypeError If the args are not of the correct type
-    #     \throws ValueError If the number of args is incorrect
-    #     \throws NotImplementedError If the catagory of the object is not P1, P2, or K3
-    #     """
-
-    #     if self.catagory == 'P1':
-    #         if len(args) != 1:
-    #             raise ValueError("Central charge of P1 requires single complex number parameter")
-    #         if not isinstance(args[0], complex):
-    #             raise TypeError("P1 objects should have a single complex parameter")
-    #     # elif self.catagory == 'P2':
-    #     #     if len(args) != 2:
-    #     #         raise ValueError("Central charge of P2 requires two real number parameters")
-    #     #     if not all(isinstance(x, (float, int)) for x in args):
-    #     #         raise TypeError("P2 objects should have two real number parameters")
-    #     elif self.catagory == 'K3':
-    #         if len(args) != 3:
-    #             raise ValueError("Central charge of K3 requires three real number parameters: alpha, beta, and the degree")
-    #         if not all(isinstance(x, (float, int)) for x in args):
-    #             raise TypeError("K3 central charges should have three real number parameters: alpha, beta, and the degree")
-    #         if not isinstance(args[2], int):
-    #             raise TypeError("The degree of the K3 surface must be an integer")
-    #     else:
-    #         raise NotImplementedError("Only P1, P2, and K3 catagories are implemented")
-        
-        
-
-    #     try:
-    #         HN_factors = self.get_HN_factors(*args)
-
-    #         mass = 0
-    #         for (derived_cat_obj, _) in HN_factors:
-    #             mass += abs(derived_cat_obj.central_charge(*args))
-
-    #         return mass
-    #     except HarderNarasimhanError as e:
-    #         if logging and log_file:
-    #             with open(log_file, 'a') as log_file:
-    #                 msg_str = e.message + f"@ {e.stability_parameters}"
-    #                 log_file.write(msg_str)
-    #         elif logging:
-    #             msg_str = e.message + f"@ {e.stability_parameters}"
-    #             print(msg_str)
-    #         return -1
-        
