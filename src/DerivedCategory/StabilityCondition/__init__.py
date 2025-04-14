@@ -3,11 +3,13 @@
 from .MassPlot import MassPlot
 from .HarderNarasimhanFiltration import HarderNarasimhanFiltration, HarderNarasimhanError, HNFactor
 from .StabilityCondition import StabilityCondition
+from .SlopeStability import SlopeStability
 
 __all__ = [
     "MassPlot",
     "HarderNarasimhanFiltration",
     "HarderNarasimhanError",
     "HNFactor",
-    "StabilityCondition"
+    "StabilityCondition",
+    "SlopeStability"
 ]

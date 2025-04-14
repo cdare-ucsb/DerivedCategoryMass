@@ -152,8 +152,30 @@ class ChernCharacter():
             new_expr = expand(self.expr * other.expr)
 
             truncated_expr = 0
+            basis_set = set(self.basis)
+
             for term in new_expr.as_ordered_terms():
-                coeff, mon = term.as_coeff_Mul()
+                # Break term into multiplicative factors
+                factors = Mul.make_args(term)
+
+                coeff = 1
+                mon_parts = []
+
+                
+                for f in factors:
+                    ## Filter out the basis elements and their products,
+                    ## treat everything else as constants. This prevents things 
+                    ## like I (imaginary unit) as accidentally contributing to the 
+                    ## degree of the polynomial
+                    if f in basis_set or any(b in f.free_symbols for b in basis_set):
+                        mon_parts.append(f)
+                    else:
+                        coeff *= f  # everything else goes into the coefficient
+
+                mon = Mul(*mon_parts)
+
+                # print(f"Coeff: {coeff}")
+                # print(f"Mon: {mon}")
                 try:
                     poly = mon.as_poly(*self.basis)
                     total_deg = poly.total_degree()

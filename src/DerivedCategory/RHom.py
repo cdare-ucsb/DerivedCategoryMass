@@ -209,19 +209,56 @@ def _ext_line_bundles(line_bundle_1 : LineBundle, line_bundle_2 : LineBundle) ->
 
         D1 = line_bundle_1.divisor
         D2 = line_bundle_2.divisor
+
+        if D1 == D2:
+            return {0: 1, -2: 1}
+
         D = D2 - D1
         
         D_squared = line_bundle_2.geometry_context.divisor_data.evaluate(D, D)
-        chi = int(2 + D_squared / 2)
+        chi = 2 + 0.5*float(D_squared.evalf())
 
-        if D == 0:
-            return {0: 1 , -2: 1}
-        elif line_bundle_2.geometry_context.divisor_data.is_effective(D):
-            return {0 : chi}
-        elif line_bundle_2.geometry_context.divisor_data.is_effective(-D):
-            return {-2 : chi}
+        D_dot_H = line_bundle_2.geometry_context.divisor_data.evaluate(D, line_bundle_2.geometry_context.polarization)
+
+
+        if D_dot_H > 0 and chi > 0:
+            return {0: chi}
+        elif D_dot_H < 0 and chi > 0:
+            return {-2: chi}
+        elif chi <= 0:
+            raise ValueError(f"RHom({line_bundle_1}, {line_bundle_2}) is also concentrated in degree 1; we cannot numerically determine the exact values of the dimensions without an explicit embedding of the K3 surface.")
+        elif D_dot_H == 0:
+            ## NOTE: This is where we must be careful, as the divisor D may be a fibration, may be a (-2)-curve, etc.
+
+            if D_squared < 0:
+                raise ValueError(f"{D} corresponds to a reducible, nodal, or rational boundary class. In this case RHom({line_bundle_1}, {line_bundle_2}) is also concentrated in degree 1; we cannot numerically determine the exact values of the dimensions without an explicit embedding of the K3 surface.")
+            elif D_squared > 0:
+
+                effective_basis = line_bundle_1.geometry_context.divisor_data.basis
+                is_nef = all(line_bundle_1.geometry_context.divisor_data.evaluate(D, C) >= 0 for C in effective_basis)
+
+                if is_nef:
+                    return {0: chi}
+                else:
+                    raise ValueError(f"Divisor {D} is big but not nef; cannot realistically apply Kodaira vanishing to determine the RHom space without further geometric information.")
+
+            else:
+                ## First make sure D is not numerically trivial
+                numerically_trivial = all(line_bundle_1.geometry_context.divisor_data.evaluate(D, basis_elem) == 0 for basis_elem in line_bundle_1.geometry_context.divisor_data.basis)
+                if numerically_trivial:
+                    return {0 : 1, -2 : 1}
+
+                ## D is an isotropic class
+                ## Apply Nikulin–Shioda Criterion
+                ##
+                # TODO: Make bounding box and search for divisor F such that D.F = 1
+
+                raise NotImplementedError(f"Divisor {D} is isotropic; we cannot numerically determine the exact values of the dimensions without an explicit embedding of the K3 surface.")
+
+        
+
         else:
-            raise ValueError(f"Divisor arising from {line_bundle_2} - {line_bundle_1} is neither effective nor anti-effective. Currrently there is no way to compute this for K3 surfaces.")
+            raise NotImplementedError(f"Encountered an unexpected test case regarding the divisor class {D}.")
 
     elif line_bundle_1.geometry_context.catagory == 'P1':
         ##

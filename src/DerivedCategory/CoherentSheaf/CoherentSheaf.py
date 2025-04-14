@@ -2,6 +2,7 @@ from src.DerivedCategory.ChernCharacter import ChernCharacter
 from src.DerivedCategory.DerivedCategoryObject import DerivedCategoryObject
 from src.DerivedCategory.GeometryContext import GeometryContext
 from sympy import Expr, PolynomialError, Symbol, Mul, Add
+from functools import cached_property
 
 
 ###############################################################################
@@ -114,6 +115,28 @@ class CoherentSheaf(DerivedCategoryObject):
 
         from DerivedCategory.DerivedCategoryObject import GradedCoproductObject # include in the method to avoid circular import
         return GradedCoproductObject( sheaf_vector=[self], shift_vector=[n], dimension_vector=[1])
+    
+    @cached_property
+    def slope(self) -> float:
+
+        n = self.geometry_context.divisor_data.variety_dimension
+        H = self.geometry_context.polarization
+
+        D = self.chern_character[1] # The first Chern character = first chern class
+
+        numerator = self.geometry_context.divisor_data.evaluate(D * (H**(n-1)) ) 
+        denominator = 1 * self.geometry_context.divisor_data.evaluate(H**n)
+
+        return float(numerator.evalf()) / float(denominator.evalf())
+    
+    @property
+    def rank(self) -> float:
+        return float(self.chern_character[0].evalf())
+    
+    @property
+    def c1(self) -> Expr:
+        return self.chern_character[1]
+
         
 
     def __str__(self):
@@ -240,6 +263,40 @@ class LineBundle(CoherentSheaf):
             return False
         return self.divisor == other.divisor
     
+    def __lt__(self, other):
+
+        if not isinstance(other, LineBundle):
+            return False
+        if other.geometry_context != self.geometry_context:
+            return False
+        
+        basis = self.geometry_context.divisor_data.basis
+        return all(
+            self.divisor.coeff(symbol) < other.divisor.coeff(symbol)
+            for symbol in basis
+        )
+    def __gt__(self, other):
+        if not isinstance(other, LineBundle):
+            return False
+        if other.geometry_context != self.geometry_context:
+            return False
+        
+        basis = self.geometry_context.divisor_data.basis
+        return all(
+            self.divisor.coeff(symbol) > other.divisor.coeff(symbol)
+            for symbol in basis
+        )
+    
+
+    def __leq__(self, other):
+
+        if not isinstance(other, LineBundle):
+            return False
+        if other.geometry_context != self.geometry_context:
+            return False
+        
+        return self.divisor == other.divisor or self < other
+    
     def __hash__(self):
         r"""!
         Hash function for line bundles. This is used to create a unique identifier for the line bundle
@@ -255,6 +312,20 @@ class LineBundle(CoherentSheaf):
             raise ValueError(f"{symbol} is not in the divisor basis of this LineBundle's geometry context.")
 
         return float(self.divisor.coeff(symbol))  # Returns 0 if symbol is not present
+    
 
+    def riemannRoch(self) -> float:
+
+        d_sq = self.geometry_context.divisor_data.evaluate(self.divisor**2)
+        return 2 + 0.5*float(d_sq)
+    
+    def is_effective(self) -> bool:
+
+        H_D = float(self.geometry_context.divisor_data.evaluate(self.divisor * self.geometry_context.polarization))
+    
+        RR = self.riemannRoch()
+
+        return H_D > 0 and RR > 0
+    
 
 

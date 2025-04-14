@@ -124,7 +124,7 @@ class HarderNarasimhanFiltration():
         )
 
     def shift(self, n: int) -> 'HarderNarasimhanFiltration':
-        """
+        r"""!
         Returns a new Harder-Narasimhan filtration with all phases shifted by an integer amount.
 
         \param n: The integer amount to shift the phases by
